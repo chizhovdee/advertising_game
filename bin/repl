@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+// Кастомная консоль с предустановленными модулями для отладки приложения
+
+var repl = require('repl');
+var console = repl.start("simulator::console> ");
+
+console.context.http = require('http');
+console.context.util = require('util');
+console.context.util = require('os');

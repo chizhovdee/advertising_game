@@ -1,0 +1,15 @@
+{
+  "name": "simulator",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "env TZ='UTC' DEBUG=rpg_game:* supervisor -p 2000 -w ./build -i ./build/client ./bin/www"
+  },
+  "browser": {},
+  "browserify-shim": {},
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  }
+}

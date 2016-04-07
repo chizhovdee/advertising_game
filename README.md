@@ -25,3 +25,12 @@
 - в формате json ключи имеют snake-нотацию, т.е. 'some_key': 'some value'
 - свойства, методы, функции и переменные имеют camel-нотацию, т.е. someVar = 'some value', someMethod(),
   за исключением свойств, которые пришли из json из любого источника (базы данных, опции в методах и т.д.) 
+  
+## Сторонние библиотеки и модули
+### Сервер
+- [Миграции](http://umigrate.readthedocs.org/projects/db-migrate/en/latest/)
+- [Redis for Node](https://github.com/luin/ioredis)
+- [Postgres for Node](https://github.com/vitaly-t/pg-promise)
+- [Lodash](https://lodash.com/)
+### Клиент
+- [SpineJs](http://spinejs.com/)

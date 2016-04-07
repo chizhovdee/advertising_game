@@ -11,9 +11,9 @@ create TABLE players (
   reputation integer not null,
   fuel integer not null,
 
-  session_key varchar(255) not null,
-  session_secret_key varchar(255) not null,
-  installed boolean not null,
+  session_key varchar(255),
+  session_secret_key varchar(255),
+  installed boolean not null default false,
 
   last_visited_at timestamp not null,
 

@@ -44,6 +44,7 @@ app.use(middleware.assignment(db: db, redis: redis))
 app.use(middleware.requestParamsLog)
 app.use(middleware.utils)
 app.use(middleware.eventResponse)
+app.use(middleware.currentPlayer)
 
 require('./routes').setup(app)
 

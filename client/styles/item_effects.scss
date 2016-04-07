@@ -1,0 +1,50 @@
+.effects {
+  .effect {
+    .value {
+      position: relative;
+      height: 20px;
+      padding-left: 23px;
+      margin-top: 5px;
+      line-height: 20px;
+    }
+
+    .value .icon {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: 0;
+
+      @include images-sprite-dimensions(icons/energy);
+    }
+
+    &.energy {
+      .value .icon {
+        @include images-sprite-background(icons/energy);
+      }
+    }
+
+    &.health {
+      .value .icon {
+        @include images-sprite-background(icons/health);
+      }
+    }
+
+    &.attack {
+      .value .icon {
+        @include images-sprite-background(icons/attack);
+      }
+    }
+
+    &.defense {
+      .value .icon {
+        @include images-sprite-background(icons/defence); // FIXME defence on defense
+      }
+    }
+
+    &.damage {
+      .value .icon {
+        @include images-sprite-background(icons/monsters);
+      }
+    }
+  }
+}

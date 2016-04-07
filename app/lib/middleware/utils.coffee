@@ -2,13 +2,13 @@ _ = require('lodash')
 Result = require('../result')
 
 # находит объект класса Result и возвращает его
-parseResult = (result)->
-  if _.isArray(result)
-    for r in result
-      if r instanceof Result
-        return r
-  else
-    result if result instanceof Result
+#parseResult = (result)->
+#  if _.isArray(result)
+#    for r in result
+#      if r instanceof Result
+#        return r
+#  else
+#    result if result instanceof Result
 
 # просто сохраняем ссылку на результа исполнения
 addResult = (result)->
@@ -32,7 +32,7 @@ updateResources = (transaction, resources...)->
       )
 
 module.exports = (req, res, next)->
-  res.parseResult = parseResult
+  #res.parseResult = parseResult
 
   res.addResult = addResult
 

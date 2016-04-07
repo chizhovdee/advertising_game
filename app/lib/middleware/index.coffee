@@ -4,3 +4,4 @@ module.exports =
   requestParamsLog: require('./request_params_log')
   offlineUser: require('./offline_user')
   utils: require('./utils')
+  currentPlayer: require('./current_player')

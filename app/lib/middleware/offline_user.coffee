@@ -11,7 +11,7 @@ module.exports = (req, res, next)->
   encryptor = new Encryptor("secret_key_offline_user")
 
   signed_params = (
-    if req.query.OFFLINE == 'true' && req.query.user
+    if process.env.OFFLINE == 'true' && req.query.social_id
       req.query
     else if req.get('signed-params') || req.cookies['signed_params']
       encryptor.decrypt(req.get('signed-params') || req.cookies['signed_params'])
@@ -21,7 +21,7 @@ module.exports = (req, res, next)->
 
   if signed_params
     user = new User()
-    user.uid = _.toInteger(signed_params.user)
+    user.uid = _.toInteger(signed_params.social_id)
 
     req.currentOfflineUser = user
 

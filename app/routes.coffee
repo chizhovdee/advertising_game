@@ -1,15 +1,18 @@
 express = require('express')
-#middleware = require('./lib/middleware')
-#controllers = require('./controllers')
+middleware = require('./lib/middleware')
+controllers = require('./controllers')
 
 exports.setup = (app)->
-# home
-#  app.get("/", controllers.home.index)
+  # home index
+  app.get("/", controllers.home.index)
+
 #
-#  # api routes
-#  do (apiRoutes = express.Router())->
-#    app.use("/api/:version", apiRoutes)
-#
+  # api routes
+  do (apiRoutes = express.Router())->
+    app.use("/api/:version", apiRoutes)
+
+    apiRoutes.get("/game_data.json", controllers.home.gameData)
+
 #    # characters
 #    apiRoutes.get("/characters/game_data.json", controllers.characters.gameData)
 #    apiRoutes.get("/characters/status.json", controllers.characters.status)

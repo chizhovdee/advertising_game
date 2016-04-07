@@ -1,0 +1,83 @@
+%pagination {
+  position: relative;
+
+  .page {
+    position: relative;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 667px;
+  }
+
+  .paginate {
+    position: absolute;
+    top: 0;
+    width: 23px;
+    height: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(202, 153, 67, 0.2);
+    }
+
+    &.left, &.right {
+      &:after {
+        content: '';
+        width: 23px;
+        height: 100%;
+        display: inline-block;
+      }
+    }
+
+    &.left {
+      left: 0;
+
+      &:after {
+        background: {
+          image: image-url("arrows.png"); // custom image
+          repeat: no-repeat;
+          position: left center;
+        }
+      }
+    }
+
+    &.right {
+      right: 0;
+
+      &:after {
+        background: {
+          image: image-url("arrows.png"); // custom image
+          repeat: no-repeat;
+          position: right center;
+        }
+      }
+    }
+
+    &.disabled {
+      opacity: 0.25;
+      cursor: default;
+
+      &:hover { background: none;}
+    }
+  }
+
+  .switches {
+    text-align: center;
+    padding: 0 45px;
+
+    .switch {
+      display: inline-block;
+      cursor: pointer;
+      margin: 0 1px;
+      @include images-sprite(ui/round);
+
+      &.checked {
+        @include images-sprite-background(ui/round_checked);
+      }
+    }
+  }
+}
+
+@mixin pagination {
+  @extend %pagination;
+}
+

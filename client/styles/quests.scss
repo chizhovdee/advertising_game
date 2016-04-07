@@ -1,0 +1,114 @@
+#quests {
+  position: relative;
+
+  .quest_groups {
+    @extend %tabs;
+  }
+
+  .quest_list {
+    margin-top: 45px;
+    @include pagination;
+
+    .locked {
+      &::before {
+        content: '';
+        display: inline-block;
+        vertical-align: bottom;
+        margin-right: 5px;
+        @include images-sprite('icons/lock');
+      }
+    }
+
+    .group_reward {
+      position: absolute;
+      top: -33px;
+      right: 30px;
+
+      .done {
+        color: $game_color_green;
+
+        &:before {
+          content: '';
+          display: inline-block;
+          @include images-sprite('icons/accept');
+        }
+      }
+    }
+
+    .quest {
+      position: relative;
+      height: 120px;
+      border: 1px solid #ca9943;
+      margin-bottom: 10px;
+      background: rgba(202, 153, 67, 0.1);
+      @include border-radius(10px);
+
+      .picture, .info, .requirements, .rewards, .progress {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .picture {
+        @include images-sprite('quest_placeholder');
+        @include border-radius(10px);
+      }
+
+      .info {
+        margin: 5px 0 0 5px;
+        width: 150px;
+
+        .name {
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        .description {
+          margin-top: 5px;
+        }
+      }
+
+      .requirements {
+        margin: 5px 0 0 5px;
+        width: 120px;
+      }
+
+      .rewards {
+        margin: 5px 0 0 5px;
+        width: 120px;
+      }
+
+      .progress_info {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+        .level {
+          margin-bottom: 10px;
+          text-align: right;
+        }
+
+        .progress {
+          @include progress-bar(100, 10);
+        }
+
+        .completed {
+          color: $game_color_green;
+
+          &:before {
+            content: '';
+            display: inline-block;
+            @include images-sprite('icons/accept');
+            vertical-align: bottom;
+          }
+        }
+      }
+
+      button.perform {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+  }
+}
+

@@ -11,6 +11,8 @@
     
     npm install
     
+Создайте файл .env
+    
 Создайте базу данных в Postgresql и запустите миграции    
 
     db-migrate up --config config/database.json -e development

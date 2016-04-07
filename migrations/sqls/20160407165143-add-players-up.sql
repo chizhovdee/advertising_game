@@ -11,6 +11,12 @@ create TABLE players (
   reputation integer not null,
   fuel integer not null,
 
+  session_key varchar(255) not null,
+  session_secret_key varchar(255) not null,
+  installed boolean not null,
+
+  last_visited_at timestamp not null,
+
   created_at timestamp not null,
   updated_at timestamp not null
 );

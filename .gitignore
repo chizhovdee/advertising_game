@@ -28,3 +28,5 @@ doc/
 /build
 
 /config/database.json
+
+.env

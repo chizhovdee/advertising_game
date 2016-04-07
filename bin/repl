@@ -1,10 +1,51 @@
 #!/usr/bin/env node
 
+//use strict
+
 // Кастомная консоль с предустановленными модулями для отладки приложения
 
-var repl = require('repl');
-var console = repl.start("simulator::console> ");
+require('coffee-script/register');
+require('dotenv').config();
 
-console.context.http = require('http');
-console.context.util = require('util');
-console.context.util = require('os');
+var repl = require('repl');
+var con = repl.start("simulator::console> ");
+
+con.context.http = require('http');
+con.context.util = require('util');
+con.context.util = require('os');
+
+var lodash = require('lodash');
+con.context.lodash = lodash;
+
+// загрузка и инициализации дополнительного функциоанала
+var boot = require('../app/boot');
+
+boot.registerLodashMixins();
+//boot.loadGameData();
+
+con.context.db = boot.setupPostgresqlConnection(process.env.ENVIRONMENT);
+con.context.redis = boot.setupRedisConnection(process.env.ENVIRONMENT);
+
+con.context.dbQuery = function(query, method){
+    var _query;
+
+    if(lodash.isObject(query)){
+        _query = query;
+    } else {
+        if(!method){method = 'query';}
+
+        _query = con.context.db[method](query);
+    }
+
+    _query.then(function(data){
+            con.context.dbResult = data;
+            console.log("Postgres result", data);
+        })
+        .catch(function(error){console.error(error)});
+
+    _query = null;
+
+    return;
+};
+
+con.context.models = require('../app/models');

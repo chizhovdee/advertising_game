@@ -11,7 +11,7 @@ class Base
   count: 0
   tags: null
 
-  @publicForClient: true
+  @publicForClient: false
 
   @configure: (options = {})->
     @records = []
@@ -19,7 +19,7 @@ class Base
     @keysStore = {}
     @count = 0
 
-    @publicForClient = if options.publicForClient? then options.publicForClient else true
+    @publicForClient = if options.publicForClient? then options.publicForClient else false
 
     @beforeDefineCallbacks = []
     @afterDefineCallbacks = []

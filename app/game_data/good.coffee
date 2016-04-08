@@ -27,6 +27,6 @@ class Good extends Base
 
   validationForDefine: ->
     return new Error('undefined typeKey') unless @typeKey?
-    
+
 
 module.exports = Good

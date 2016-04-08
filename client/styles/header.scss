@@ -1,149 +1,31 @@
-$menu: quests, monsters, shop, inventory, profile, rating, alliance;
-
-%header_progress_bar {
-  top: 7px;
-  width: 150px;
-  height: 13px;
-  border: 1px solid #fff;
-  @include border-radius(10px);
-  @include box-shadow(2px 2px 5px 0px rgba(255, 255, 255, 0.5));
-
-  &:after {
-    content: "";
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: -4px;
-    left: -10px;
-  }
-
-  .value {
-    position: absolute;
-    top: 0px;
-    left: 10px;
-    width: 140px;
-    height: 12px;
-    text-align: left;
-    font-size: 12px;
-    line-height: 14px;
-    text-shadow: 1px 1px 2px #000;
-  }
-
-  .progress_bar {
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 148px;
-    height: 11px;
-
-    .percentage {
-      height: 11px;
-      @include border-radius(10px);
-    }
-  }
-
-  .timer {
-    position: absolute;
-    top: 3px;
-    right: 3px;
-    font-size: 10px;
-  }
-  
-  .add {
-    position: absolute;
-    right: -23px;
-    top: -3px;
-    cursor: pointer;
-
-    @include images-sprite(ui/add);
-  }
-}
-
 .header {
   position: absolute;
   top: 0px;
   left: 0px;
   width: 748px;
   height: 105px;
-  border-bottom: 2px solid #ece7d3;
 
-  .experience, .basic_money, .vip_money, .health, .energy, .level {
+  .experience, .basic_money, .vip_money, .level, .reputation, .fuel {
     position: absolute;
   }
 
   .experience {
-    @extend %header_progress_bar;
-
-    left: 8px;
-    border: 1px solid #7eff00;
-    @include box-shadow(0px 0px 4px 1px rgba(126, 255, 0, 0.5));
-
-    &:after {
-      @include images-sprite-background(icons/experience);
-    }
-
-    .value {
-      cursor: pointer;
-    }
+    @include progress-bar(50, 8);
 
     .progress_bar {
+      @include border-radius(0px);
+      border: 1px solid #ffd57b;
+
       .percentage {
-        @include linear-gradient(to top, #304405, #a0cd21);
+        @include border-radius(0px);
       }
     }
-    
-    .upgrade {
-      position: absolute;
-      right: -23px;
-      top: -3px;
-      cursor: pointer;
 
-      @include images-sprite(ui/upgrade);
-
-      &.disabled {
-        opacity: 0.3;
-      }
-    }
+    top: 44px;
+    left: 80px;
+    cursor: pointer;
   }
 
-
-  .health {
-    @extend %header_progress_bar;
-
-    left: 196px;
-    border: 1px solid #ff0000;
-    @include box-shadow(0px 0px 4px 1px rgba(255, 0, 0, 0.5));
-
-    &:after {
-      top: -2px;
-      left: -8px;
-      @include images-sprite(icons/health_red);
-    }
-
-    .progress_bar {
-      .percentage {
-        @include linear-gradient(to top, #530000, #f95a5a);
-      }
-    }
-  }
-
-  .energy {
-    @extend %header_progress_bar;
-
-    left: 383px;
-    border: 1px solid #ffff00;
-    @include box-shadow(1px 1px 4px 0px rgba(255, 255, 0, 0.5));
-
-    &:after {
-      @include images-sprite-background(icons/energy_yellow);
-    }
-
-    .progress_bar {
-      .percentage {
-        @include linear-gradient(to top, #b87a00, #f9ff57);
-      }
-    }
-  }
 
   .level {
     top: 35px;
@@ -152,6 +34,7 @@ $menu: quests, monsters, shop, inventory, profile, rating, alliance;
     height: 25px;
     border: 1px solid #ffd57b;
     @include border-radius(15px);
+    background-color: #150f0f;
     
     &:after {
       position: absolute;
@@ -172,7 +55,7 @@ $menu: quests, monsters, shop, inventory, profile, rating, alliance;
 
   .vip_money {
     top: 38px;
-    left: 300px;
+    left: 340px;
     width: 80px;
     height: 20px;
     border: 1px solid #ffd57b;
@@ -205,7 +88,7 @@ $menu: quests, monsters, shop, inventory, profile, rating, alliance;
 
   .basic_money {
     top: 38px;
-    left: 130px;
+    left: 175px;
     width: 120px;
     height: 20px;
     border: 1px solid #ffd57b;
@@ -227,6 +110,64 @@ $menu: quests, monsters, shop, inventory, profile, rating, alliance;
       line-height: 20px;
     }
   }
+
+  .reputation {
+    top: 38px;
+    left: 480px;
+    width: 100px;
+    height: 20px;
+    border: 1px solid #ffd57b;
+    @include border-radius(15px);
+
+    &:after {
+      position: absolute;
+      top: 0px;
+      left: -25px;
+      content: "";
+
+      @include images-sprite(icons/properties)
+    }
+
+    .value {
+      font-weight: bold;
+      display: block;
+      text-align: center;
+      line-height: 20px;
+    }
+  }
+
+  .fuel {
+    top: 38px;
+    left: 625px;
+    width: 100px;
+    height: 20px;
+    border: 1px solid #ffd57b;
+    @include border-radius(15px);
+
+    &:after {
+      position: absolute;
+      top: 0px;
+      left: -25px;
+      content: "";
+
+      @include images-sprite(icons/attack)
+    }
+
+    .value {
+      font-weight: bold;
+      display: block;
+      text-align: center;
+      line-height: 20px;
+    }
+
+    .add {
+      position: absolute;
+      top: -3px;
+      right: -15px;
+      @include images-sprite(ui/add);
+      cursor: pointer;
+    }
+  }
 }
 
 #main_menu {
@@ -235,6 +176,10 @@ $menu: quests, monsters, shop, inventory, profile, rating, alliance;
   left: 0px;
   width: 748px;
   text-align: center;
+  border: {
+    bottom: 1px solid #ece7d3;
+    top: 1px solid #ece7d3;
+  }
 
   .menu {
     position: relative;
@@ -253,14 +198,6 @@ $menu: quests, monsters, shop, inventory, profile, rating, alliance;
       position: absolute;
       top: 2px;
       left: -15px;
-    }
-
-    @each $menu_item in $menu {
-      &.#{$menu_item} {
-        &:before {
-          @include images-sprite-background(icons/#{$menu_item});
-        }
-      }
     }
 
   }

@@ -1,76 +1,54 @@
 <div class="experience">
-    <%=@safe @.progressBar(@character.level_progress_percentage) %>
-
-    <span class="value"><%= @character.experience %></span>
-
-    <span class="upgrade <%= 'disabled' if @character.points <= 0 %>"></span>
-</div>
-
-<div class="health">
-    <%=@safe @.progressBar(@character.hpPercentage()) %>
-
-    <div class="value">
-        <%=@safe @formatNumber(@character.restorable_hp) %> / <%=@safe @formatNumber(@character.health_points) %>
-    </div>
-
-    <div class="timer"></div>
-
-    <span class="add"></span>
-</div>
-
-<div class="energy">
-    <%=@safe @.progressBar(@character.epPercentage()) %>
-
-    <div class="value">
-        <%=@safe @formatNumber(@character.restorable_ep) %> / <%=@safe @formatNumber(@character.energy_points) %>
-    </div>
-
-    <div class="timer"></div>
-
-    <span class="add"></span>
+    <%=@safe @.progressBar(@player.level_progress_percentage) %>
 </div>
 
 <div class="level">
-    <span class="value"><%= @character.level %></span>
+    <span class="value"><%= @player.level %></span>
 </div>
 
 <div class="basic_money">
-    <span class="value"><%= @character.basic_money %></span>
+    <span class="value"><%= @player.basic_money %></span>
 </div>
 
 <div class="vip_money">
-    <span class="value"><%= @character.vip_money %></span>
+    <span class="value"><%= @player.vip_money %></span>
+
+    <span class="add"></span>
+</div>
+
+<div class="reputation">
+    <span class="value"><%= @player.reputation %></span>
+</div>
+
+<div class="fuel">
+    <span class="value"><%= @player.fuel %></span>
 
     <span class="add"></span>
 </div>
 
 <div id="main_menu">
-    <div class="menu quests">
-        <span class="text"><%= I18n.t("main_menu.quests") %></span>
+    <div class="menu my_company">
+        <span class="text"><%= I18n.t("main_menu.my_company") %></span>
     </div>
 
-    <div class="menu monsters">
-        <span class="text"><%= I18n.t("main_menu.monsters") %></span>
+    <div class="menu trucking">
+        <span class="text"><%= I18n.t("main_menu.trucking") %></span>
     </div>
 
-    <div class="menu shop">
-        <span class="text"><%= I18n.t("main_menu.shop") %></span>
+    <div class="menu transport">
+        <span class="text"><%= I18n.t("main_menu.transport") %></span>
     </div>
 
-    <div class="menu inventory">
-        <span class="text"><%= I18n.t("main_menu.inventory") %></span>
+    <div class="menu properties">
+        <span class="text"><%= I18n.t("main_menu.properties") %></span>
     </div>
 
-    <div class="menu profile">
-        <span class="text"><%= I18n.t("main_menu.profile") %></span>
+    <div class="menu staff">
+        <span class="text"><%= I18n.t("main_menu.staff") %></span>
     </div>
 
     <div class="menu rating">
         <span class="text"><%= I18n.t("main_menu.rating") %></span>
-    </div>
-
-    <div class="menu alliance">
-        <span class="text"><%= I18n.t("main_menu.alliance") %></span>
     </div>
 </div>
 

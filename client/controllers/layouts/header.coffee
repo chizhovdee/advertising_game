@@ -28,9 +28,9 @@ class HeaderLayout extends Layout
     @player.bind("update", @.onPlayerUpdate)
 
 
-    @el.on("click", ".menu.shop", -> pages.ShopPage.show())
+    #@el.on("click", ".menu.shop", -> pages.ShopPage.show())
 
-    @el.on('click', '.experience .value', @.onExprerienceClick)
+    @el.on('click', '.experience', @.onExprerienceClick)
 
 
   onPlayerUpdate: (player)=>
@@ -50,10 +50,10 @@ class HeaderLayout extends Layout
     @levelEl.find('.value').text(@player.level) if changes.level
 
   onExprerienceClick: =>
-    @character.experience_to_next_level
+    @player.experience_to_next_level
 
     @.displayPopup(@experienceEl,
-      @.renderTemplate('experience_to_next_level', character: @character),
+      @.renderTemplate('experience_to_next_level', character: @player),
       position: 'bottom left'
       showDuration: 200
       autoHideDelay: _(3).seconds()

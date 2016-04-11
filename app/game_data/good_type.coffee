@@ -6,6 +6,8 @@ class GoodType extends Base
   @configure()
 
   constructor: ->
+    super
+
     Object.defineProperties(@,
       _goods: {
         value: []

@@ -31,7 +31,7 @@ module.exports =
     redis
 
   loadGameData: ->
-    require('require-dir')('./db/game_data', recurse: true )
+    require('require-dir')('./db', recurse: true )
 
   registerLodashMixins: ->
     require("./lib/lodash_mixin").register()

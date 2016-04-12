@@ -4,7 +4,7 @@ Base = require("./base")
 class EmployeeType extends Base
   salary: null # зарплата за одну единицу работы
 
-  @configure()
+  @configure(publicForClient: true)
 
   constructor: ->
     super
@@ -13,5 +13,12 @@ class EmployeeType extends Base
 
   validationForDefine: ->
     return new Error('undefined salary') unless @salary?
+
+  toJSON: ->
+    _.assign(
+      salary: @salary
+      ,
+      super
+    )
     
 module.exports = EmployeeType

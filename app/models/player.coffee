@@ -1,5 +1,6 @@
 _ = require("lodash")
 Base = require('./base')
+states = require('./states')
 
 class Player extends Base
   @include require('./modules/player_experience')
@@ -27,6 +28,8 @@ class Player extends Base
   constructor: ->
     super
 
+    @.defineStates()
+
   insert: ->
     @last_visited_at = new Date()
 
@@ -37,6 +40,16 @@ class Player extends Base
       @level += 1
       @improvement_points += 15 # TODO balance
       @education_points += 5
+
+  defineStates: ->
+    for field in @dbFields
+      switch field
+        when 'staff'
+          Object.defineProperty(@, 'staffState'
+            writable: false
+            enumerate: true
+            value: new states.StaffState(@)
+          )
 
   toJSON: ->
     id: @id

@@ -44,7 +44,7 @@ class Base
     _.assignIn(@, otherAttributes)
 
   defineDBAttribute: (field, value)->
-# определяем приватный невидимый аттрибут
+    # определяем приватный невидимый аттрибут
     Object.defineProperty(@, "_#{ field }", writable: true, value: value)
 
     # публичный видимый аттрибут использующий невидимый, определенный выше

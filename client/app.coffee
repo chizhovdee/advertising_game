@@ -9,6 +9,7 @@ signatureKeeper = require('./lib/signature_keeper')
 HeaderLayout = require("./controllers/layouts").HeaderLayout
 HomePage = require('./controllers/pages').HomePage
 modals = require('./controllers/modals')
+ctx = require('./context')
 
 # сначала грузиться манифест с помощью прелоадера
 # затем загружается персонаж
@@ -33,7 +34,7 @@ class App
     # события транспорта
     request.one("game_data_loaded", @.onGameDataLoaded)
     #request.bind("character_status_loaded", (response)=> @.onCharacterStatusLoaded(response))
-    request.bind('character_updated', @.onCharacterUpdated)
+    #request.bind('character_updated', @.onCharacterUpdated)
     request.bind('not_authenticated', @.onCharacterNotAuthorized)
     request.bind('server_error', @.onServerError)
     request.bind('not_reached_level', @.onNotReachedLevel)
@@ -54,7 +55,8 @@ class App
 
   onGameDataLoaded: (response)->
     console.log response
-    Player.create(response.player)
+
+    ctx.set("player", Player.create(response.player))
 
     HeaderLayout.show(el: $("#application .header"))
 

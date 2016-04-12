@@ -25,8 +25,12 @@ class StaffPage extends Page
   bindEventListeners: ->
     super
 
+    @el.on('click', '.hire_staff', @.onHireStaffClick)
+
   unbindEventListeners: ->
     super
+
+    @el.off('click', '.hire_staff', @.onHireStaffClick)
 
   onDataLoaded: (response)=>
     console.log response
@@ -34,5 +38,8 @@ class StaffPage extends Page
     @loading = false
 
     @.render()
+
+  onHireStaffClick: =>
+    modals.HireStaffModal.show(@)
 
 module.exports = StaffPage

@@ -2,4 +2,10 @@ ru:
   staff:
     index:
       title: "Персонал"
-      new_staff: "Нанять персонал"
+      hire_staff: "Нанять персонал"
+
+    hire:
+      title: "Найм персонала"
+      hire: "Нанять"
+      price:
+        label: "Срок договора:"

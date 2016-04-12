@@ -12,7 +12,7 @@ gulp.task('assets-timestamps', (cb)->
     for file in files
       baseDirName = file.split('/')[2]
 
-      timeStamp = fs.statSync(file).mtime.valueOf() / 1000
+      timeStamp = Math.floor(fs.statSync(file).mtime.valueOf() / 1000)
 
       if !assetsTimestamps[baseDirName]? || assetsTimestamps[baseDirName] < timeStamp
         assetsTimestamps[baseDirName] = timeStamp

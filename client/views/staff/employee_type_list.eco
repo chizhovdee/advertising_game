@@ -11,10 +11,37 @@
         <div class="price">
           <div class="label"><%= I18n.t('staff.hire.price.label') %></div>
 
-          <div class="pack">1 грузоперевозка за 100</div>
-          <div class="pack">10 грузоперевозок за 800</div>
-          <div class="pack">100 грузоперевозок за 6000</div>
-          <div class="pack">500 грузоперевозок за 5</div>
+          <div class="pack">
+            <span class="control"></span>
+            <%=@safe I18n.t('staff.hire.price.pack', count: '<span class="count">1</span>') %>
+
+            <%=@safe @.renderTemplate('requirements', requirements: {basic_money: [1, @player.basic_money >= 1]}) %>
+          </div>
+
+          <div class="pack">
+            <span class="control"></span>
+
+            <%=@safe I18n.t('staff.hire.price.pack', count: '<span class="count">10</span>') %>
+
+            <%=@safe @.renderTemplate('requirements', requirements: {basic_money: [800, @player.basic_money >= 800]}) %>
+          </div>
+
+          <div class="pack">
+            <span class="control"></span>
+
+            <%=@safe I18n.t('staff.hire.price.pack', count: '<span class="count">100</span>') %>
+
+            <%=@safe @.renderTemplate('requirements', requirements: {basic_money: [6000, @player.basic_money >= 6000]}) %>
+          </div>
+
+          <div class="pack">
+            <span class="control"></span>
+
+            <%=@safe I18n.t('staff.hire.price.pack', count: '<span class="count">500</span>') %>
+
+            <%=@safe @.renderTemplate('requirements', requirements: {vip_money: [5, @player.vip_money >= 5]}) %>
+          </div>
+
         </div>
       </div>
 

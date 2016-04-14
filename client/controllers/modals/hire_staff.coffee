@@ -32,6 +32,8 @@ class HireStaffModal extends Modal
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
 
+    #@el.on('click', '.price .pack')
+
   unbindEventListeners: ->
     super
 

@@ -46,23 +46,37 @@
           margin-top: 5px;
 
           .label {
-            margin-bottom: 5px;
+            margin: 10px 0px;
+            color: #FFC96B
           }
 
           .pack {
-            margin-bottom: 3px;
+            display: inline-block;
+            vertical-align: top;
+            width: 150px;
+            margin-bottom: 10px;
 
-            &:before {
-              content: '';
+            .requirement {
               display: inline-block;
-              vertical-align: middle;
-              margin-right: 4px;
+              vertical-align: top;
+              margin: 0 0 0 5px;
+              line-height: 18px;
+            }
+
+            .count {
+              color: $game_color_yellow;
+            }
+
+            .control {
+              display: inline-block;
+              vertical-align: top;
+              margin-right: 1px;
               @include images-sprite(ui/round);
               cursor: pointer;
             }
 
             &.checked {
-              &:before {
+              .control {
                 @include images-sprite-background(ui/round_checked);
               }
             }

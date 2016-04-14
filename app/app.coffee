@@ -41,10 +41,10 @@ app.use(express.static(publicDir))
 #app.use(Ok.middleware)
 app.use(middleware.offlineUser)
 app.use(middleware.assignment(db: db, redis: redis))
+app.use(middleware.currentPlayer)
 app.use(middleware.requestParamsLog)
 app.use(middleware.utils)
 app.use(middleware.eventResponse)
-app.use(middleware.currentPlayer)
 
 require('./routes').setup(app)
 

@@ -1,0 +1,94 @@
+.modal.hire_staff {
+  .list {
+    @include pagination;
+
+    margin-top: 20px;
+
+    .page {
+      width: 520px;
+    }
+
+    .employee_type {
+      position: relative;
+      height: 120px;
+      width: 518px;
+      border: 1px solid #ca9943;
+      margin-bottom: 10px;
+      background: rgba(202, 153, 67, 0.1);
+      @include border-radius(10px);
+
+      .picture, .info {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .picture {
+        width: 120px;
+        height: 120px;
+
+        img {
+          width: 120px;
+          height: 120px;
+          @include border-radius(10px);
+        }
+      }
+
+      .info {
+        margin: 5px 0 0 5px;
+        width: 380px;
+
+        .name {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .price {
+          margin-top: 5px;
+
+          .label {
+            margin: 10px 0px;
+            color: #FFC96B
+          }
+
+          .package {
+            display: inline-block;
+            vertical-align: top;
+            width: 150px;
+            margin-bottom: 10px;
+
+            .requirement {
+              display: inline-block;
+              vertical-align: top;
+              margin: 0 0 0 5px;
+              line-height: 18px;
+            }
+
+            .count {
+              color: $game_color_yellow;
+            }
+
+            .control {
+              display: inline-block;
+              vertical-align: top;
+              margin-right: 1px;
+              @include images-sprite(ui/round);
+              cursor: pointer;
+            }
+
+            &.checked {
+              .control {
+                @include images-sprite-background(ui/round_checked);
+              }
+            }
+          }
+        }
+      }
+
+      button.hire {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+  }
+}

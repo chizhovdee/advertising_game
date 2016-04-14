@@ -1,0 +1,5 @@
+<h2><%= I18n.t('staff.hire.title') %></h2>
+
+<div class="list">
+    <%=@safe @.renderTemplate('staff/employee_type_list') %>
+</div>

@@ -4,12 +4,12 @@ create TABLE players (
 
   level integer not null,
   experience integer not null,
-  improvement_points integer not null,
-  education_points integer not null,
   basic_money integer not null,
   vip_money integer not null,
   reputation integer not null,
   fuel integer not null,
+
+  staff jsonb,
 
   session_key varchar(255),
   session_secret_key varchar(255),

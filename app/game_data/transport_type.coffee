@@ -5,6 +5,8 @@ class TransportType extends Base
   @configure()
 
   constructor: ->
+    super
+
     Object.defineProperties(@,
       _transports: {
         value: []

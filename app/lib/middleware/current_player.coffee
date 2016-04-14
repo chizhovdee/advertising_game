@@ -28,6 +28,14 @@ findOrCreateCurrentPlayer = ->
       self.currentPlayer = new Player(data)
   )
 
+setCurrentPlayer = (data)->
+  @currentPlayer = new Player(data)
+
+currentPlayerForUpdate = (db)->
+  Player.fetchForUpdate(db, social_id: @currentSocialUser.uid)
+
+currentPlayerForRead = (db)->
+  Player.fetchForRead(db, social_id: @currentSocialUser.uid)
 
 module.exports = (req, res, next)->
 # TODO определение платформы здесь
@@ -37,6 +45,11 @@ module.exports = (req, res, next)->
   req.currentPlayer = null
 
   req.findOrCreateCurrentPlayer = findOrCreateCurrentPlayer
+
+  req.setCurrentPlayer = setCurrentPlayer
+
+  req.currentPlayerForUpdate = currentPlayerForUpdate
+  req.currentPlayerForRead = currentPlayerForRead
 
   if req.currentSocialUser?.isAuthenticated()
     next()

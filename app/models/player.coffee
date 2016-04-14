@@ -1,5 +1,6 @@
 _ = require("lodash")
 Base = require('./base')
+states = require('./states')
 
 class Player extends Base
   @include require('./modules/player_experience')
@@ -17,17 +18,20 @@ class Player extends Base
     basic_money: 50
     vip_money: 1
     experience: 0
-    improvement_points:  0
-    education_points: 0
     reputation: 0
     fuel: 0
   }
+
+  # define in defineStates()
+  staffState: null
 
   @default: ->
     new @(DEFAULT_DB_ATTRIBUTES)
 
   constructor: ->
     super
+
+    @.defineStates()
 
   insert: ->
     @last_visited_at = new Date()
@@ -40,14 +44,22 @@ class Player extends Base
       @improvement_points += 15 # TODO balance
       @education_points += 5
 
+  defineStates: ->
+    for field in @dbFields
+      switch field
+        when 'staff'
+          Object.defineProperty(@, 'staffState'
+            writable: false
+            enumerate: true
+            value: new states.StaffState(@)
+          )
+
   toJSON: ->
     id: @id
     level: @level
     experience: @experience
     basic_money: @basic_money
     vip_money: @vip_money
-    improvement_points: @improvement_points
-    education_points: @education_points
     reputation: @reputation
     fuel: @fuel
     experience_to_next_level: @.experienceToNextLevel()

@@ -13,8 +13,6 @@ class HeaderLayout extends Layout
     '.level': 'levelEl'
 
   show: ->
-    @player = Player.first() # !!! должен быть ининциализован первым
-
     super
 
     @.render()
@@ -27,11 +25,9 @@ class HeaderLayout extends Layout
 
     @player.bind("update", @.onPlayerUpdate)
 
-
-    #@el.on("click", ".menu.shop", -> pages.ShopPage.show())
+    @el.on("click", ".menu.staff", -> pages.StaffPage.show())
 
     @el.on('click', '.experience', @.onExprerienceClick)
-
 
   onPlayerUpdate: (player)=>
     # обновляем каждый фрагмент отдельно если нужно

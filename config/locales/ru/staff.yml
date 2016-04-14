@@ -1,0 +1,12 @@
+ru:
+  staff:
+    index:
+      title: "Персонал"
+      hire_staff: "Нанять персонал"
+
+    hire:
+      title: "Найм персонала"
+      hire: "Нанять"
+      price:
+        label: "Количество грузоперевозок:"
+        pack: "%{count} за"

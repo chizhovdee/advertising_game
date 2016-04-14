@@ -8,11 +8,9 @@ module.exports =
 
   gameData: (req, res)->
     req.findOrCreateCurrentPlayer()
-    .then((data)->
-      player = new Player(data)
-
+    .then(->
       res.sendEvent("game_data_loaded", (data)->
-        data.player = player.toJSON()
+        data.player = req.currentPlayer.toJSON()
       )
     )
     .catch(

@@ -1,6 +1,9 @@
 utils = require("../utils")
+ctx = require('../context')
 
 class BaseController extends Spine.Controller
+  player: null
+
   @include utils.render
   @include utils.time
   @include utils.design
@@ -10,6 +13,11 @@ class BaseController extends Spine.Controller
   @show: ->
 
   @hide: ->
+
+  constructor: ->
+    super
+
+    @player = ctx.get('player')
 
   show: ->
     @.unbindEventListeners()

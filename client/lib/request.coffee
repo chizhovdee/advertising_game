@@ -59,3 +59,6 @@ module.exports =
 
   buy_item: (data)->
     @.post('buy_item.json', data)
+
+  hire_staff: (data)->
+    @.post('staff/hire.json', data)

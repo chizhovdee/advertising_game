@@ -48,11 +48,23 @@ sendEventError = (error, type = '')->
 
   null
 
-addEventProgress = (character)->
-  @addEvent('character_updated',
-    character: character.toJSON()
-    new_level: 'level' in character.changed
+addEventProgress = ->
+  return new Error('undefined current player for event progress') unless @currentPlayer?
+
+  @addEvent('player_updated',
+    player: @currentPlayer.toJSON()
+    new_level: 'level' in @currentPlayer.changed
   )
+
+sendEventsWithProgress = ->
+  @.addEventProgress()
+
+  @.sendEvents()
+
+addEventWithResult = (type, result)->
+  @.addResult(result)
+
+  @.addEvent(type)
 
 module.exports = (req, res, next)->
   res.eventResponse ?= new EventResponse()
@@ -66,5 +78,9 @@ module.exports = (req, res, next)->
   res.sendEventError = sendEventError
 
   res.addEventProgress = addEventProgress
+
+  res.sendEventsWithProgress = sendEventsWithProgress
+
+  res.addEventWithResult = addEventWithResult
 
   next()

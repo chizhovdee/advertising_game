@@ -1,11 +1,17 @@
+_ = require('lodash')
+executor = require('../executors').staff
+
 module.exports =
   hire: (req, res)->
     req.db.tx((t)->
       req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
 
-#      result = executor.performQuest(_.toInteger(req.body.quest_id), character)
+      result = executor.hire(
+        req.currentPlayer
+        req.body.employee_type
+        _.toInteger(req.body.package)
+      )
 
-      result = {isError: -> false}
       res.addEventWithResult('staff_hired', result)
 
       res.updateResources(t)

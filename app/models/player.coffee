@@ -22,6 +22,9 @@ class Player extends Base
     fuel: 0
   }
 
+  # define in defineStates()
+  staffState: null
+
   @default: ->
     new @(DEFAULT_DB_ATTRIBUTES)
 

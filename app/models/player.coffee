@@ -41,8 +41,6 @@ class Player extends Base
   checkProgress: ->
     if @.levelByCurrentExperience() > @level
       @level += 1
-      @improvement_points += 15 # TODO balance
-      @education_points += 5
 
   defineStates: ->
     for field in @dbFields
@@ -52,6 +50,12 @@ class Player extends Base
             writable: false
             enumerate: true
             value: new states.StaffState(@)
+          )
+        when 'trucking'
+          Object.defineProperty(@, 'truckingState'
+            writable: false
+            enumerate: true
+            value: new states.TruckingState(@)
           )
 
   toJSON: ->

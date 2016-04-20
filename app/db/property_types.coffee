@@ -1,10 +1,11 @@
 PropertyType = require('../game_data').PropertyType
 
-PropertyType.define('storehouse', (obj)->
+PropertyType.define('warehouse', (obj)->
   obj.price = 1000
   obj.baseCargoCount = 10
   obj.buildLevel = 1
   obj.improvementPerPlayerLevels = 5
+  obj.employeeTypeKey = 'warehouse_manager'
 )
 
 PropertyType.define('garage', (obj)->
@@ -14,15 +15,17 @@ PropertyType.define('garage', (obj)->
   obj.baseTransportsCount = 5
   obj.buildLevel = 1
   obj.improvementPerPlayerLevels = 5
+  obj.employeeTypeKey = 'garage_manager'
 )
 
-PropertyType.define('port', (obj)->
+PropertyType.define('sea_port', (obj)->
   obj.transportTypeKey = 'sea'
 
   obj.price = 10000
   obj.baseTransportsCount = 2
   obj.buildLevel = 50
   obj.improvementPerPlayerLevels = 5
+  obj.employeeTypeKey = 'sea_port_manager'
 )
 
 PropertyType.define('hangar', (obj)->
@@ -32,14 +35,16 @@ PropertyType.define('hangar', (obj)->
   obj.baseTransportsCount = 2
   obj.buildLevel = 50
   obj.improvementPerPlayerLevels = 5
+  obj.employeeTypeKey = 'hangar_manager'
 )
 
-PropertyType.define('railway_station', (obj)->
+PropertyType.define('train_depot', (obj)->
   obj.transportTypeKey = 'railway'
 
   obj.price = 10000
   obj.baseTransportsCount = 2
   obj.buildLevel = 50
   obj.improvementPerPlayerLevels = 5
+  obj.employeeTypeKey = 'train_depot_manager'
 )
 

@@ -1,0 +1,1 @@
+<h1><%= I18n.t('properties.index.title') %></h1>

@@ -2,10 +2,11 @@ _ = require("lodash")
 Base = require("./base")
 
 class PropertyType extends Base
-  @configure()
+  @configure(publicForClient: true)
 
   price: null # цена за строительство и улучшение
   transportTypeKey: null
+  employeeTypeKey: null
   baseTransportsCount: null # базовая вместительность траспорта
   baseCargoCount: null # базовое кол-во грузоперевозок для склада
   buildLevel: null # уровень на котором будет разрешено построить здание
@@ -20,6 +21,7 @@ class PropertyType extends Base
     @baseCargoCount = null
     @buildLevel = null
     @improvementPerPlayerLevels = null
+    @employeeTypeKey = null
 
   #validationForDefine: ->
 

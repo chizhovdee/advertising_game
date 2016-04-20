@@ -37,6 +37,15 @@ currentPlayerForUpdate = (db)->
 currentPlayerForRead = (db)->
   Player.fetchForRead(db, social_id: @currentSocialUser.uid)
 
+findCurrentPlayer = ->
+  self = @
+
+  Player.fetchForRead(self.db, social_id: self.currentSocialUser.uid)
+  .then((data)->
+    self.currentPlayer = new Player(data)
+  )
+
+
 module.exports = (req, res, next)->
 # TODO определение платформы здесь
 
@@ -45,6 +54,7 @@ module.exports = (req, res, next)->
   req.currentPlayer = null
 
   req.findOrCreateCurrentPlayer = findOrCreateCurrentPlayer
+  req.findCurrentPlayer = findCurrentPlayer
 
   req.setCurrentPlayer = setCurrentPlayer
 

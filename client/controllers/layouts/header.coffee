@@ -26,6 +26,7 @@ class HeaderLayout extends Layout
     @player.bind("update", @.onPlayerUpdate)
 
     @el.on("click", ".menu.staff", -> pages.StaffPage.show())
+    @el.on("click", ".menu.properties", -> pages.PropertiesPage.show())
 
     @el.on('click', '.experience', @.onExprerienceClick)
 

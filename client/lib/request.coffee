@@ -62,3 +62,6 @@ module.exports =
 
   hire_staff: (data)->
     @.post('staff/hire.json', data)
+
+  load_properties: ->
+    @.get('properties')

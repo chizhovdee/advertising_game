@@ -4,3 +4,4 @@ module.exports =
   TransportType: require('./transport_type')
   Transport: require('./transport')
   EmployeeType: require('./employee_type')
+  PropertyType: require('./property_type')

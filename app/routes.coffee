@@ -16,6 +16,9 @@ exports.setup = (app)->
     # staff
     apiRoutes.post('/staff/hire.json', controllers.staff.hire)
 
+    # properties
+    apiRoutes.get('/properties', controllers.properties.index)
+
 #    # characters
 #    apiRoutes.get("/characters/game_data.json", controllers.characters.gameData)
 #    apiRoutes.get("/characters/status.json", controllers.characters.status)

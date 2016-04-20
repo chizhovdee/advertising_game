@@ -17,7 +17,7 @@
       top: -2px;
       left: 0;
 
-      @include images-sprite-dimensions(icons/energy);
+      @include images-sprite-dimensions(icons/basic_money);
     }
 
     .plus {
@@ -26,18 +26,6 @@
 
     .minus {
       color: $game_color_red;
-    }
-
-    &.energy {
-      .value .icon {
-        @include images-sprite-background(icons/energy);
-      }
-    }
-
-    &.health {
-      .value .icon {
-        @include images-sprite-background(icons/health);
-      }
     }
 
     &.basic_money {

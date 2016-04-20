@@ -125,7 +125,7 @@
       left: -25px;
       content: "";
 
-      @include images-sprite(icons/properties)
+      @include images-sprite(icons/reputation)
     }
 
     .value {
@@ -150,7 +150,7 @@
       left: -25px;
       content: "";
 
-      @include images-sprite(icons/attack)
+      @include images-sprite(icons/fuel)
     }
 
     .value {

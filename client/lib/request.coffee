@@ -62,12 +62,16 @@ module.exports =
 
   # staff
   hire_staff: (data)->
-    @.post('staff/hire.json', data)
+    @.post('/staff/hire.json', data)
 
   # properties
   load_properties: ->
-    @.get('properties')
+    @.get('/properties')
 
   # trucking
   load_trucking: ->
     @.get('/trucking')
+
+  # routes
+  load_routes: ->
+    @.get('/routes')

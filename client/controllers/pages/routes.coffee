@@ -3,10 +3,8 @@ Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
 
-RoutesPage = require('./routes')
-
-class TruckingPage extends Page
-  className: "trucking page"
+class RoutesPage extends Page
+  className: "routes page"
 
   PER_PAGE = 3
 
@@ -17,27 +15,23 @@ class TruckingPage extends Page
 
     @.render()
 
-    request.send('load_trucking')
+    request.send('load_routes')
 
   render: ->
     if @loading
       @.renderPreloader()
     else
-      @html(@.renderTemplate("trucking/index"))
+      @html(@.renderTemplate("routes/index"))
 
   bindEventListeners: ->
     super
 
-    request.bind('trucking_loaded', @.onDataLoaded)
-
-    @el.on('click', '.head_controls button.routes', @.onRoutesButtonClick)
+    request.bind('routes_loaded', @.onDataLoaded)
 
   unbindEventListeners: ->
     super
 
-    request.unbind('trucking_loaded', @.onDataLoaded)
-
-    @el.off('click', '.head_controls button.routes', @.onRoutesButtonClick)
+    request.unbind('routes_loaded', @.onDataLoaded)
 
   onDataLoaded: (response)=>
     console.log response
@@ -52,7 +46,5 @@ class TruckingPage extends Page
 
     @.render()
 
-  onRoutesButtonClick: ->
-    RoutesPage.show()
 
-module.exports = TruckingPage
+module.exports = RoutesPage

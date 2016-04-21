@@ -22,6 +22,9 @@ exports.setup = (app)->
     # trucking
     apiRoutes.get('/trucking', controllers.trucking.index)
 
+    # routes
+    apiRoutes.get('/routes', controllers.routes.index)
+
 #    # characters
 #    apiRoutes.get("/characters/game_data.json", controllers.characters.gameData)
 #    apiRoutes.get("/characters/status.json", controllers.characters.status)

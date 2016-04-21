@@ -3,3 +3,4 @@ module.exports =
   staff: require('./staff')
   properties: require('./properties')
   trucking: require('./trucking')
+  routes: require('./routes')

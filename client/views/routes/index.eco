@@ -1,0 +1,3 @@
+<h1><%= I18n.t('routes.index.title') %></h1>
+
+<button class="generate"><%= I18n.t("routes.index.buttons.generate") %></button>

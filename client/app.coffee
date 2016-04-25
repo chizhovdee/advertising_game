@@ -7,7 +7,7 @@ Player = require("./models").Player
 preloader = require("./lib/preloader")
 signatureKeeper = require('./lib/signature_keeper')
 layouts = require("./controllers/layouts")
-HomePage = require('./controllers/pages').HomePage
+TruckingPage = require('./controllers/pages').TruckingPage
 modals = require('./controllers/modals')
 ctx = require('./context')
 
@@ -61,22 +61,22 @@ class App
     layouts.HeaderLayout.show(el: $("#application .header"))
     layouts.SidebarLayout.show(el: $("#sidebar"))
 
-    HomePage.show()
+    TruckingPage.show()
 
 #  onCharacterStatusLoaded: (response)->
 #    @character ?= Character.first()
 #
 #    @character.updateAttributes(response.character)
 
-  onCharacterUpdated: (response)=>
-    console.log 'onCharacterUpdated'
-    console.log response
-
-    @character ?= Character.first()
-
-    @character.updateAttributes(response.character)
-
-    modals.NewLevelModal.show(@character) if response.new_level
+#  onCharacterUpdated: (response)=>
+#    console.log 'onCharacterUpdated'
+#    console.log response
+#
+#    @character ?= Character.first()
+#
+#    @character.updateAttributes(response.character)
+#
+#    modals.NewLevelModal.show(@character) if response.new_level
 
   setTranslations: ->
     I18n.defaultLocale = window.lng

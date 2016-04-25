@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-right: 2px solid #ffd57b;
+  border-right: 1px solid #ffd57b;
   height: 640px;
   width: 200px;
 
@@ -82,6 +82,30 @@
       right: -15px;
       @include images-sprite(ui/add);
       cursor: pointer;
+    }
+  }
+
+  .main_menu {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    width: 200px;
+
+    .menu {
+      border-top: 1px solid #ffd57b;
+      text-align: center;
+      line-height: 35px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #35545f;
+      }
+
+      &:last-child {
+        border-bottom: 1px solid #ffd57b;
+      }
     }
   }
 }

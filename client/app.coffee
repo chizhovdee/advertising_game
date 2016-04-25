@@ -6,7 +6,7 @@ request = require("./lib/request")
 Player = require("./models").Player
 preloader = require("./lib/preloader")
 signatureKeeper = require('./lib/signature_keeper')
-HeaderLayout = require("./controllers/layouts").HeaderLayout
+layouts = require("./controllers/layouts")
 HomePage = require('./controllers/pages').HomePage
 modals = require('./controllers/modals')
 ctx = require('./context')
@@ -58,7 +58,8 @@ class App
 
     ctx.set("player", Player.create(response.player))
 
-    HeaderLayout.show(el: $("#application .header"))
+    layouts.HeaderLayout.show(el: $("#application .header"))
+    layouts.SidebarLayout.show(el: $("#sidebar"))
 
     HomePage.show()
 

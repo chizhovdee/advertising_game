@@ -5,3 +5,6 @@ module.exports =
   Transport: require('./transport')
   EmployeeType: require('./employee_type')
   PropertyType: require('./property_type')
+  RouteType: require('./route_type')
+  Route: require('./route')
+

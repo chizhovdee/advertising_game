@@ -43,9 +43,9 @@ class Transport extends Base
     @type.addTransport(@)
 
   validationForDefine: ->
-    return new Error('undefined typeKey') unless @typeKey?
-    return new Error('undefined consumption') unless @consumption?
-    return new Error('undefined reliability') unless @reliability?
-    return new Error('empty goodTypeKeys or goodKeys') if @goodKeys.length == 0 && @goodTypeKeys.length == 0
+    throw new Error('undefined typeKey') unless @typeKey?
+    throw new Error('undefined consumption') unless @consumption?
+    throw new Error('undefined reliability') unless @reliability?
+    throw new Error('empty goodTypeKeys or goodKeys') if @goodKeys.length == 0 && @goodTypeKeys.length == 0
 
 module.exports = Transport

@@ -4,15 +4,21 @@ RouteType = require('./route_type')
 
 class Route extends Base
   typeKey: null
+  goodKey: null
+  goodTypeKey: null
+  distance: null
 
-  @configure()
+  @configure(publicForClient: true)
 
   @afterDefine 'setType'
 
   constructor: ->
     super
 
-    @food = false
+    @typeKey = null
+    @goodKey = null
+    @goodTypeKey = null
+    @distance = null
 
   setType: ->
     Object.defineProperty(@, 'type'
@@ -24,7 +30,20 @@ class Route extends Base
     @type.addRoute(@)
 
   validationForDefine: ->
-    return new Error('undefined typeKey') unless @typeKey?
+    throw new Error('undefined typeKey') unless @typeKey?
+    throw new Error('undefined goodKey or goodTypeKey') if !@goodKey? && !@goodTypeKey?
+    throw new Error('undefined distance') unless @distance?
 
+  toJSON: ->
+    _.assign(
+      reward: @reward
+      requirement: @requirement
+      typeKey: @typeKey
+      goodKey: @goodKey
+      goodTypeKey: @goodTypeKey
+      distance: @distance
+      ,
+      super
+    )
 
 module.exports = Route

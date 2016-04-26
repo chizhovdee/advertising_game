@@ -2,10 +2,14 @@ _ = require("lodash")
 Base = require("./base")
 
 class RouteType extends Base
-  @configure()
+  level: null
+
+  @configure(publicForClient: true)
 
   constructor: ->
     super
+
+    @level = null
 
     Object.defineProperties(@,
       _routes: {
@@ -22,6 +26,13 @@ class RouteType extends Base
     _.addUniq(@_routes, route)
 
   validationForDefine: ->
-  # empty
+    throw new Error("undefined level") unless @level?
+
+  toJSON: ->
+    _.assign(
+      level: @level
+      ,
+      super
+    )
 
 module.exports = RouteType

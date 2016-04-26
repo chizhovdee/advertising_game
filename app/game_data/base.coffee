@@ -88,7 +88,7 @@ class Base
         @records[@keysStore[keyOrId]]
     )
 
-    console.warn("Warning: Game data object not found by id or key - #{ keyOrId }") unless record?
+    console.warn("Warning: Game data #{ @name } not found by id or key - #{ keyOrId }") unless record?
 
     record
 
@@ -125,8 +125,8 @@ class Base
 
   toJSON: ->
     {
-    id: @id
-    key: @key
+      id: @id
+      key: @key
     }
 
 

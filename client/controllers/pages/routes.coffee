@@ -2,6 +2,8 @@ Page = require("../page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
+RouteType = require('../../game_data').RouteType
+Route = require('../../game_data').Route
 
 class RoutesPage extends Page
   className: "routes page"
@@ -28,23 +30,32 @@ class RoutesPage extends Page
 
     request.bind('routes_loaded', @.onDataLoaded)
 
+    @el.on('click', '.type', @.onTypeClick)
+
   unbindEventListeners: ->
     super
 
     request.unbind('routes_loaded', @.onDataLoaded)
+
+    @el.off('click', '.type', @.onTypeClick)
 
   onDataLoaded: (response)=>
     console.log response
 
     @loading = false
 
-    @list = []
-    @listPagination = new Pagination(PER_PAGE)
-    @paginatedList = @listPagination.paginate(@list, initialize: true)
+    @types = RouteType.all()
 
-    @listPagination.setSwitches(@list)
+#    @list = []
+#    @listPagination = new Pagination(PER_PAGE)
+#    @paginatedList = @listPagination.paginate(@list, initialize: true)
+#
+#    @listPagination.setSwitches(@list)
 
     @.render()
+
+  onTypeClick: (e)=>
+    console.log $(e.currentTarget).data('type-key')
 
 
 module.exports = RoutesPage

@@ -1,1 +1,7 @@
 <h1><%= I18n.t('routes.index.title') %></h1>
+
+<div class="types">
+  <% for type in @types: %>
+    <div class="type <%= type.key %>" data-type-key="<%= type.key %>"></div>
+  <% end %>
+</div>

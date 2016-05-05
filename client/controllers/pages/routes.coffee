@@ -31,6 +31,7 @@ class RoutesPage extends Page
     request.bind('routes_loaded', @.onDataLoaded)
 
     @el.on('click', '.type', @.onTypeClick)
+    @el.on('click', 'button.start', @.onStartClick)
 
   unbindEventListeners: ->
     super
@@ -38,6 +39,7 @@ class RoutesPage extends Page
     request.unbind('routes_loaded', @.onDataLoaded)
 
     @el.off('click', '.type', @.onTypeClick)
+    @el.off('click', 'button.start', @.onStartClick)
 
   onDataLoaded: (response)=>
     console.log response
@@ -46,16 +48,23 @@ class RoutesPage extends Page
 
     @types = RouteType.all()
 
-#    @list = []
-#    @listPagination = new Pagination(PER_PAGE)
-#    @paginatedList = @listPagination.paginate(@list, initialize: true)
-#
-#    @listPagination.setSwitches(@list)
-
     @.render()
 
   onTypeClick: (e)=>
-    console.log $(e.currentTarget).data('type-key')
+    @currentTypeKey = $(e.currentTarget).data('type-key')
+
+    @routes = Route.findAllByAttribute('typeKey', @currentTypeKey)
+
+    @list = []
+    @listPagination = new Pagination(PER_PAGE)
+    @paginatedList = @listPagination.paginate(@routes, initialize: true)
+
+    @listPagination.setSwitches(@routes)
+
+    @.render()
+
+  onStartClick: (e)->
+    modals.StartRouteModal.show($(e.currentTarget).data('route-key'))
 
 
 module.exports = RoutesPage

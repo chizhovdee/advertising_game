@@ -35,6 +35,7 @@ class Base
     @changed = []
     @changes = {}
     @dbFields = []
+    @isChanged = false
 
     for field, value of dbAttributes
       @dbFields.push(field)

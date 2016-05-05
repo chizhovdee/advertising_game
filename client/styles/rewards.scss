@@ -46,6 +46,12 @@
       }
     }
 
+    &.reputation {
+      .value .icon {
+        @include images-sprite-background(icons/reputation);
+      }
+    }
+
     &.reward_item {
       margin-top: 5px;
       .reward_picture, .reward_value {

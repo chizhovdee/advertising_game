@@ -1,0 +1,15 @@
+<h2><%= I18n.t('routes.start.title') %></h2>
+
+<div class="text"><%= I18n.t('routes.start.text') %></div>
+
+<div class="transports">
+  <% for transport in @transports: %>
+    <div class="transport">
+      <div class="picture"><%=@safe @.transportPicture(transport) %></div>
+
+      <div class="name"><%= transport.name() %></div>
+
+      <button class="select" data-transport-id="<%= transport.id %>"><%= I18n.t("routes.start.select") %></button>
+    </div>
+  <% end %>
+</div>

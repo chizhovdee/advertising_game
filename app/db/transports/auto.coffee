@@ -8,6 +8,7 @@ Transport.define('small_truck_1', (obj)->
   obj.consumption = 15
   obj.reliability = 84
   obj.carrying = 500
+  obj.travelSpeed = 60
 
   obj.goodTypeKeys = ['industrial']
 
@@ -20,6 +21,7 @@ Transport.define('small_truck_2', (obj)->
   obj.consumption = 15
   obj.reliability = 84
   obj.carrying = 500
+  obj.travelSpeed = 60
 
   obj.goodTypeKeys = ['clothes']
 
@@ -32,20 +34,22 @@ Transport.define('small_truck_3', (obj)->
   obj.consumption = 15
   obj.reliability = 84
   obj.carrying = 500
+  obj.travelSpeed = 60
 
   obj.goodTypeKeys = ['food']
 
   obj.isPrimary = true
 )
 
-Transport.define('small_truck_4', (obj)->
-  obj.typeKey = 'auto'
-
-  obj.consumption = 15
-  obj.reliability = 84
-  obj.carrying = 500
-
-  obj.goodTypeKeys = ['different']
-
-  obj.isPrimary = true
-)
+#Transport.define('small_truck_4', (obj)->
+#  obj.typeKey = 'auto'
+#
+#  obj.consumption = 15
+#  obj.reliability = 84
+#  obj.carrying = 500
+#  obj.travelSpeed = 60
+#
+#  obj.goodTypeKeys = ['different']
+#
+#  obj.isPrimary = true
+#)

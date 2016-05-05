@@ -48,13 +48,13 @@ class Player extends Base
         when 'staff'
           Object.defineProperty(@, 'staffState'
             writable: false
-            enumerate: true
+            enumerable: true
             value: new states.StaffState(@)
           )
         when 'trucking'
           Object.defineProperty(@, 'truckingState'
             writable: false
-            enumerate: true
+            enumerable: true
             value: new states.TruckingState(@)
           )
 

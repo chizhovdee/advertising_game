@@ -1,0 +1,32 @@
+.start_route.modal {
+  .transports {
+    .transport {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+
+      .picture, .name {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .picture {
+        img {
+          width: 50px;
+          height: 50px;
+        }
+      }
+
+      .name {
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      button.select {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+  }
+}

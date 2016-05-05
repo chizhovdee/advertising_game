@@ -26,4 +26,50 @@
       }
     }
   }
+
+  .list {
+    margin-top: 20px;
+    @include pagination;
+
+    .route {
+      position: relative;
+      padding: 10px;
+      border: 1px solid #ca9943;
+      background: rgba(202, 153, 67, 0.1);
+
+      .info {
+        .name {
+          font-size: 15px;
+          font-weight: bold;
+        }
+
+        .distance {
+          margin-top: 5px;
+        }
+      }
+
+      .rewards {
+        margin-top: 10px;
+
+        h3, .reward {
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+
+      button.start {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .started {
+        color: $game_color_red;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+    }
+  }
 }

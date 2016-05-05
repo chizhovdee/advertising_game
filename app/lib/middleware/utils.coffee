@@ -20,9 +20,6 @@ addResult = (result)->
 updateResources = (transaction, resources...)->
   throw new Error('you need to add the result of the execution') unless @executorResult?
 
-  if @currentPlayer?.isChanged && @currentPlayer not in resources
-    resources.push(@currentPlayer)
-
   unless @executorResult.isError()
     if resources.length == 1
       if resources[0].update? then resources[0].update(transaction) else resources[0]

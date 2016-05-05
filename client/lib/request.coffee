@@ -75,3 +75,6 @@ module.exports =
   # routes
   load_routes: ->
     @.get('/routes')
+
+  create_trucking: (data)->
+    @.post('/trucking/create', data)

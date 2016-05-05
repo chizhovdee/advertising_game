@@ -1,0 +1,18 @@
+<div class="route">
+  <div class="info">
+    <div class="name"><%= I18n.t("routes.route.good", name: @route.goodName()) %></div>
+
+    <div class="distance"><%= I18n.t("routes.route.distance", value: @route.distance) %></div>
+  </div>
+
+  <%= @.renderRewards @route.reward.collect, (content)-> %>
+    <h3><%= I18n.t("common.rewards") %></h3>
+
+    <%= content %>
+  <% end %>
+
+  <div class="started"><%= I18n.t("routes.route.started") %></div>
+
+  <button class="start" data-route-key="<%= @route.key %>"><%= I18n.t("routes.route.start") %></button>
+
+</div>

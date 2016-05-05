@@ -7,4 +7,13 @@ class Route extends Base
   name: ->
     I18n.t("game_data.routes.#{ @key }")
 
+  goodName: ->
+    if @goodKey?
+      I18n.t("game_data.goods.#{ @goodKey }")
+    else if @goodTypeKey?
+      I18n.t("game_data.good_types.#{ @goodTypeKey }")
+    else
+      "?"
+
+
 module.exports = Route

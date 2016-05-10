@@ -1,0 +1,9 @@
+<div class="trucking_item">
+  <div class="picture <%= @trucking.route.typeKey %>"></div>
+
+  <div class="info">
+    <div class="name"><%= I18n.t("routes.route.good", name: @trucking.route.goodName()) %></div>
+
+    <div class="distance"><%= I18n.t("routes.route.distance", value: @trucking.route.distance) %></div>
+  </div>
+</div>

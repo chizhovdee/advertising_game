@@ -6,7 +6,7 @@ module.exports =
     req.findCurrentPlayer()
     .then(->
       res.sendEvent("trucking_loaded", (data)->
-        data.truckings = req.currentPlayer.truckingState.all()
+        data.trucking = req.currentPlayer.truckingState.allForClient()
       )
     )
     .catch(

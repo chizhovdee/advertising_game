@@ -2,8 +2,10 @@ Page = require("../page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
-
 RoutesPage = require('./routes')
+
+Route = require('../../game_data').Route
+Transport = require('../../game_data').Transport
 
 class TruckingPage extends Page
   className: "trucking page"
@@ -44,7 +46,15 @@ class TruckingPage extends Page
 
     @loading = false
 
-    @list = []
+    console.log @list = _.sortBy((
+      for id, data of response.trucking
+        _.assignIn({
+          id: id
+          route: Route.find(data.routeId)
+          transport: Transport.find(data.transportId)
+        }, data)
+    ), (trucking)-> trucking.leftTime)
+
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
 

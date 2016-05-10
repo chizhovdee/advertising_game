@@ -24,6 +24,7 @@ class Player extends Base
 
   # define in defineStates()
   staffState: null
+  truckingState: null
 
   @default: ->
     new @(DEFAULT_DB_ATTRIBUTES)

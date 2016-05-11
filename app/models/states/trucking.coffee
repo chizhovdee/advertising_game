@@ -11,11 +11,19 @@ class TruckingState extends BaseState
 
     @state
 
+  findTtrucking: (id)->
+    @state[id]
+
+  deleteTrucking: (id)->
+    delete @state[id]
+
+    @.update()
+
   createTrucking: (routeId, transportId)->
     @state[_.random(10000000)] = {
       routeId: routeId
       transportId: transportId
-      completeAt: Date.now() + _(10).minutes()
+      completeAt: Date.now() + _(5).minutes()
     }
 
     @.update()

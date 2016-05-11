@@ -6,6 +6,7 @@ RoutesPage = require('./routes')
 
 Route = require('../../game_data').Route
 Transport = require('../../game_data').Transport
+VisualTimer = require('../../lib').VisualTimer
 
 class TruckingPage extends Page
   className: "trucking page"
@@ -31,15 +32,19 @@ class TruckingPage extends Page
     super
 
     request.bind('trucking_loaded', @.onDataLoaded)
+    request.bind('trucking_collected', @.onTruckingCollected)
 
     @el.on('click', '.head_controls button.routes', @.onRoutesButtonClick)
+    @el.on('click', '.list button.collect:not(.disabled)', @.onCollectButtonClick)
 
   unbindEventListeners: ->
     super
 
     request.unbind('trucking_loaded', @.onDataLoaded)
+    request.unbind('trucking_collected', @.onTruckingCollected)
 
     @el.off('click', '.head_controls button.routes', @.onRoutesButtonClick)
+    @el.off('click', '.list button.collect:not(.disabled)', @.onCollectButtonClick)
 
   onDataLoaded: (response)=>
     console.log response
@@ -62,7 +67,23 @@ class TruckingPage extends Page
 
     @.render()
 
+    for trucking in @paginatedList
+      continue if trucking.leftTime <= 0
+
+      timer = new VisualTimer(@el.find("#trucking_#{ trucking.id } .timer .value"))
+      timer.start(trucking.leftTime)
+
   onRoutesButtonClick: ->
     RoutesPage.show()
+
+  onCollectButtonClick: (e)->
+    button = $(e.currentTarget)
+    button.addClass('disabled')
+
+    request.send('collect_trucking', trucking_id: button.data('trucking-id'))
+
+  onTruckingCollected: (response)->
+    console.log response
+
 
 module.exports = TruckingPage

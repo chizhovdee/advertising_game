@@ -72,6 +72,9 @@ module.exports =
   load_trucking: ->
     @.get('/trucking')
 
+  collect_trucking: (data)->
+    @.put('/trucking/collect', data)
+
   # routes
   load_routes: ->
     @.get('/routes')

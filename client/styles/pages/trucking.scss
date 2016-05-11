@@ -1,0 +1,50 @@
+.page.trucking {
+  .list {
+    margin-top: 20px;
+    @include pagination;
+
+    .trucking_item {
+      position: relative;
+      padding: 10px;
+      border: 1px solid #ca9943;
+      background: rgba(202, 153, 67, 0.1);
+
+      .picture, .info {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .picture {
+        @include images-sprite-dimensions(icons/truck);
+
+        &.auto {
+          @include images-sprite-background(icons/truck);
+        }
+
+        &.railway {
+          @include images-sprite-background(icons/train);
+        }
+
+        &.air {
+          @include images-sprite-background(icons/plane);
+        }
+
+        &.sea {
+          @include images-sprite-background(icons/ship);
+        }
+      }
+
+      .info {
+        .good, .distance, .timer {
+          margin-bottom: 10px;
+        }
+      }
+
+      .collect {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+  }
+}

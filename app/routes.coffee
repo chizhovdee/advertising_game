@@ -22,6 +22,7 @@ exports.setup = (app)->
     # trucking
     apiRoutes.get('/trucking', controllers.trucking.index)
     apiRoutes.post('/trucking/create', controllers.trucking.create)
+    apiRoutes.put('/trucking/collect', controllers.trucking.collect)
 
     # routes
     apiRoutes.get('/routes', controllers.routes.index)

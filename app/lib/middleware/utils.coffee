@@ -1,5 +1,6 @@
 _ = require('lodash')
 Result = require('../result')
+Player = require('../../models').Player
 
 # находит объект класса Result и возвращает его
 #parseResult = (result)->
@@ -19,6 +20,9 @@ addResult = (result)->
 # сохранение ресурсов в базы данных: postgresql, redis
 updateResources = (transaction, resources...)->
   throw new Error('you need to add the result of the execution') unless @executorResult?
+
+  for resource in resources
+    resource.checkProgress() if typeof resource == Player
 
   unless @executorResult.isError()
     if resources.length == 1

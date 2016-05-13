@@ -40,6 +40,7 @@ class Player extends Base
     super
 
   checkProgress: ->
+    console.log 'checkProgress'
     if @.levelByCurrentExperience() > @level
       @level += 1
 

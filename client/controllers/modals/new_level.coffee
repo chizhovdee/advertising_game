@@ -4,12 +4,12 @@ Player = require('../../models').Player
 class NewLevelModal extends Modal
   className: 'new_level modal'
 
-  show: (@character)->
+  show: ->
     super
 
-    changes = @character.changes()
+    changes = @player.changes()
 
-    @newPoints = changes.points[1] - changes.points[0]
+    #@newPoints = changes.points[1] - changes.points[0]
 
     @.render()
 

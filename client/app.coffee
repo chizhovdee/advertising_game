@@ -33,8 +33,7 @@ class App
 
     # события транспорта
     request.one("game_data_loaded", @.onGameDataLoaded)
-    #request.bind("character_status_loaded", (response)=> @.onCharacterStatusLoaded(response))
-    #request.bind('character_updated', @.onCharacterUpdated)
+    request.bind('player_updated', @.onPlayerUpdated)
     request.bind('not_authenticated', @.onCharacterNotAuthorized)
     request.bind('server_error', @.onServerError)
     request.bind('not_reached_level', @.onNotReachedLevel)
@@ -53,30 +52,25 @@ class App
 
     request.send("loadGameData")
 
-  onGameDataLoaded: (response)->
+  onGameDataLoaded: (response)=>
     console.log response
 
-    ctx.set("player", Player.create(response.player))
+    @player = Player.create(response.player)
+
+    ctx.set("player", @player)
 
     layouts.HeaderLayout.show(el: $("#application .header"))
     layouts.SidebarLayout.show(el: $("#sidebar"))
 
     TruckingPage.show()
 
-#  onCharacterStatusLoaded: (response)->
-#    @character ?= Character.first()
-#
-#    @character.updateAttributes(response.character)
+  onPlayerUpdated: (response)=>
+    console.log 'onPlayerUpdated'
+    console.log response
 
-#  onCharacterUpdated: (response)=>
-#    console.log 'onCharacterUpdated'
-#    console.log response
-#
-#    @character ?= Character.first()
-#
-#    @character.updateAttributes(response.character)
-#
-#    modals.NewLevelModal.show(@character) if response.new_level
+    @player.updateAttributes(response.player)
+
+    modals.NewLevelModal.show() if response.new_level
 
   setTranslations: ->
     I18n.defaultLocale = window.lng

@@ -23,7 +23,7 @@ class TruckingState extends BaseState
     @state[_.random(10000000)] = {
       routeId: routeId
       transportId: transportId
-      completeAt: Date.now() + _(5).minutes()
+      completeAt: Date.now() + _(0.2).minutes()
     }
 
     @.update()

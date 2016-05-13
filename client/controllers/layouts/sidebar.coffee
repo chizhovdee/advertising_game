@@ -25,24 +25,22 @@ class SidebarLayout extends Layout
 #    @el.on("click", ".menu.staff", -> pages.StaffPage.show())
     @el.on("click", ".menu.routes", -> pages.RoutesPage.show())
     @el.on("click", ".menu.trucking", -> pages.TruckingPage.show())
-#
+
     @el.on('click', '.experience', @.onExprerienceClick)
 
   onPlayerUpdate: (player)=>
-# обновляем каждый фрагмент отдельно если нужно
+    # обновляем каждый фрагмент отдельно если нужно
 
-#    console.log 'Player changes', changes = player.changes()
-#
-#    @basicMoneyEl.find('.value').text(@player.basic_money) if changes.basic_money
-#
-#    @vipMoneyEl.find('.value').text(@player.vip_money) if changes.vip_money
-#
-#    @experienceEl.find('.value').text(@player.experience) if changes.experience
-#
-#    if changes.level_progress_percentage
-#      @experienceEl.find(".percentage").css(width: "#{ @player.level_progress_percentage }%")
-#
-#    @levelEl.find('.value').text(@player.level) if changes.level
+    console.log 'Player changes', changes = player.changes()
+
+    @vipMoneyEl.find('.value').text(@player.vip_money) if changes.vip_money
+
+    @experienceEl.find('.value').text(@player.experience) if changes.experience
+
+    if changes.level_progress_percentage
+      @experienceEl.find(".percentage").css(width: "#{ @player.level_progress_percentage }%")
+
+    @levelEl.find('.value').text(@player.level) if changes.level
 
   onExprerienceClick: =>
     @player.experience_to_next_level

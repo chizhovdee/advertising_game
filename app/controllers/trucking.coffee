@@ -28,7 +28,7 @@ module.exports =
       res.updateResources(t, req.currentPlayer)
     )
     .then(->
-      res.sendEventsWithProgress()
+      res.sendEventsWithProgress(req.currentPlayer)
     )
     .catch((error)->
       res.sendEventError(error)
@@ -48,7 +48,7 @@ module.exports =
       res.updateResources(t, req.currentPlayer)
     )
     .then(->
-      res.sendEventsWithProgress()
+      res.sendEventsWithProgress(req.currentPlayer)
     )
     .catch((error)->
       res.sendEventError(error)

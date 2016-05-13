@@ -21,8 +21,9 @@ addResult = (result)->
 updateResources = (transaction, resources...)->
   throw new Error('you need to add the result of the execution') unless @executorResult?
 
+
   for resource in resources
-    resource.checkProgress() if typeof resource == Player
+    resource.checkProgress() if resource instanceof Player
 
   unless @executorResult.isError()
     if resources.length == 1

@@ -6,12 +6,16 @@
 
     <div class="distance"><%= I18n.t("routes.route.distance", value: @trucking.route.distance) %></div>
 
+    <div class="transport"><%=@safe @.transportPicture(@trucking.transport) %></div>
+
     <% if @trucking.leftTime > 0: %>
       <div class="timer">
         <%= I18n.t("trucking.index.timer") %>
         <span class="value"></span>
       </div>
     <% end %>
+
+
   </div>
 
   <% if @trucking.leftTime < 0: %>

@@ -6,6 +6,7 @@ modals = require('../modals')
 class HeaderLayout extends Layout
   elements:
     '.basic_money': 'basicMoneyEl'
+    '.reputation': 'reputationEl'
 
   show: ->
     super
@@ -23,18 +24,11 @@ class HeaderLayout extends Layout
   onPlayerUpdate: (player)=>
     # обновляем каждый фрагмент отдельно если нужно
 
-#    console.log 'Player changes', changes = player.changes()
-#
-#    @basicMoneyEl.find('.value').text(@player.basic_money) if changes.basic_money
-#
-#    @vipMoneyEl.find('.value').text(@player.vip_money) if changes.vip_money
-#
-#    @experienceEl.find('.value').text(@player.experience) if changes.experience
-#
-#    if changes.level_progress_percentage
-#      @experienceEl.find(".percentage").css(width: "#{ @player.level_progress_percentage }%")
-#
-#    @levelEl.find('.value').text(@player.level) if changes.level
+    console.log 'Player changes', changes = player.changes()
+
+    @basicMoneyEl.find('.value').text(@player.basic_money) if changes.basic_money
+    @reputationEl.find('.value').text(@player.reputation) if changes.reputation
+
 
 
 

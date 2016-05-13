@@ -1,9 +1,8 @@
 .start_route.modal {
   .transports {
     .transport {
-      display: inline-block;
-      vertical-align: top;
       position: relative;
+      margin-bottom: 5px;
 
       .picture, .name {
         display: inline-block;

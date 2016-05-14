@@ -6,6 +6,7 @@ Route.define('auto_1', (obj)->
   obj.typeKey = 'auto'
   obj.goodKey = 'cement'
   obj.distance = 50
+  obj.weight = 0.1
 
   obj.addRequirement 'start', (r)->
     r.reputation 0
@@ -20,6 +21,7 @@ Route.define('auto_2', (obj)->
   obj.typeKey = 'auto'
   obj.goodKey = 'sand'
   obj.distance = 50
+  obj.weight = 0.1
 
   obj.addRequirement 'start', (r)->
     r.reputation 1
@@ -34,6 +36,7 @@ Route.define('auto_3', (obj)->
   obj.typeKey = 'auto'
   obj.goodKey = 'rubble'
   obj.distance = 50
+  obj.weight = 0.1
 
   obj.addRequirement 'start', (r)->
     r.reputation 5

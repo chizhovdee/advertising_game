@@ -27,6 +27,9 @@ exports.setup = (app)->
     # routes
     apiRoutes.get('/routes', controllers.routes.index)
 
+    # transport
+    apiRoutes.get('/transport', controllers.transport.index)
+
 #    # characters
 #    apiRoutes.get("/characters/game_data.json", controllers.characters.gameData)
 #    apiRoutes.get("/characters/status.json", controllers.characters.status)

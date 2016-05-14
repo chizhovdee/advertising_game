@@ -1,0 +1,7 @@
+<div class="transport_item">
+  <div class="picture"><%=@safe @.transportPicture(@transport) %></div>
+
+  <div class="info">
+    <div class="name"><%= @transport.name() %></div>
+  </div>
+</div>

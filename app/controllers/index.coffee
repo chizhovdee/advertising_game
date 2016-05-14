@@ -4,3 +4,4 @@ module.exports =
   properties: require('./properties')
   trucking: require('./trucking')
   routes: require('./routes')
+  transport: require('./transport')

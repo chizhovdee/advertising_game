@@ -7,3 +7,4 @@ module.exports =
   PropertiesPage: require('./properties')
   TruckingPage: require('./trucking')
   RoutesPage: require('./routes')
+  TransportPage: require('./transport')

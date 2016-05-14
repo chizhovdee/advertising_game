@@ -25,6 +25,7 @@ class SidebarLayout extends Layout
 #    @el.on("click", ".menu.staff", -> pages.StaffPage.show())
     @el.on("click", ".menu.routes", -> pages.RoutesPage.show())
     @el.on("click", ".menu.trucking", -> pages.TruckingPage.show())
+    @el.on("click", ".menu.transport", -> pages.TransportPage.show())
 
     @el.on('click', '.experience', @.onExprerienceClick)
 

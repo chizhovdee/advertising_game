@@ -5,6 +5,7 @@ ru:
     route:
       good: "Груз: %{name}"
       distance: "Дистанция: %{value} км"
+      weight: "Масса: %{value} тонн"
       start: "Запустить"
       started: "Запущено"
     start:

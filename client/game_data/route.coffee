@@ -2,7 +2,7 @@ Base = require("./base")
 
 class Route extends Base
   @configure 'Route', 'key', 'typeKey', 'goodKey', 'goodTypeKey',
-    'requirement', 'reward', 'distance'
+    'requirement', 'reward', 'distance', 'weight'
 
   name: ->
     I18n.t("game_data.routes.#{ @key }")

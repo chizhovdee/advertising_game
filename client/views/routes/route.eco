@@ -3,6 +3,8 @@
     <div class="name"><%= I18n.t("routes.route.good", name: @route.goodName()) %></div>
 
     <div class="distance"><%= I18n.t("routes.route.distance", value: @route.distance) %></div>
+
+    <div class="weight"><%= I18n.t("routes.route.weight", value: @route.weight) %></div>
   </div>
 
   <%= @.renderRewards @route.reward.collect, (content)-> %>

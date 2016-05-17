@@ -11,7 +11,7 @@ module.exports =
     unless format in ['large', 'medium', 'icon']
       throw new Error('format for item picture url not correct')
 
-    assets.assetsPath("images/transports/#{ format }/#{ transport.key }.jpg")
+    assets.assetsPath("images/transport/#{ format }/#{ transport.key }.jpg")
 
   transportPicture: (transport, format = 'large')->
     unless transport instanceof Transport

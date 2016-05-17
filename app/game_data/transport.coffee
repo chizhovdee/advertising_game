@@ -7,7 +7,7 @@ class Transport extends Base
 
   consumption: null # расход топлива на 100 км
   reliability: null # надежность - процент на 10 000 км
-  carrying: null # грузоподъемность кг
+  carrying: null # грузоподъемность тонны
   travelSpeed: null # скорость перемещения
 
   # тип груза / груз

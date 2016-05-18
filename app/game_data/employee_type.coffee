@@ -12,7 +12,7 @@ class EmployeeType extends Base
     @salary = null
 
   validationForDefine: ->
-    return new Error('undefined salary') unless @salary?
+    throw new Error('undefined salary') unless @salary?
 
   toJSON: ->
     _.assign(

@@ -1,0 +1,54 @@
+.page.transport {
+  .types {
+    margin-top: 20px;
+
+    .type {
+      display: inline-block;
+      cursor: pointer;
+      margin: 25px 55px;
+
+      @include images-sprite-dimensions(icons/truck);
+
+      &.auto {
+        @include images-sprite-background(icons/truck);
+      }
+
+      &.railway {
+        @include images-sprite-background(icons/train);
+      }
+
+      &.air {
+        @include images-sprite-background(icons/plane);
+      }
+
+      &.sea {
+        @include images-sprite-background(icons/ship);
+      }
+    }
+  }
+
+  .list {
+    margin-top: 20px;
+    @include pagination;
+
+    .transport_item {
+      position: relative;
+      padding: 10px;
+      border: 1px solid #ca9943;
+      background: rgba(202, 153, 67, 0.1);
+
+      .picture, .info {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .info {
+        .name {
+          font-size: 15px;
+          font-weight: bold;
+        }
+      }
+
+    }
+  }
+}

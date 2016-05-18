@@ -1,0 +1,5 @@
+ru:
+  game_data:
+    good_types:
+      everyday: "Бытовые товары"
+      industrial: "Производственные товары"

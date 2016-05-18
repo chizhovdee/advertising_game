@@ -1,94 +1,15 @@
 .header {
   position: absolute;
   top: 0px;
-  left: 0px;
-  width: 748px;
-  height: 105px;
+  left: 200px;
 
-  .experience, .basic_money, .vip_money, .level, .reputation, .fuel {
+  .basic_money, .reputation, {
     position: absolute;
   }
 
-  .experience {
-    @include progress-bar(50, 8);
-
-    .progress_bar {
-      @include border-radius(0px);
-      border: 1px solid #ffd57b;
-
-      .percentage {
-        @include border-radius(0px);
-      }
-    }
-
-    top: 44px;
-    left: 80px;
-    cursor: pointer;
-  }
-
-
-  .level {
-    top: 35px;
-    left: 30px;
-    width: 50px;
-    height: 25px;
-    border: 1px solid #ffd57b;
-    @include border-radius(15px);
-    background-color: #150f0f;
-    
-    &:after {
-      position: absolute;
-      top: 0px;
-      left: -25px;
-      content: "";
-      @include images-sprite(icons/level);
-    }
-
-    .value {
-      font-size: 18px;
-      font-weight: bold;
-      display: block;
-      text-align: center;
-      line-height: 25px;
-    }
-  }
-
-  .vip_money {
-    top: 38px;
-    left: 340px;
-    width: 80px;
-    height: 20px;
-    border: 1px solid #ffd57b;
-    @include border-radius(15px);
-
-    &:after {
-      position: absolute;
-      top: 0px;
-      left: -25px;
-      content: "";
-      @include images-sprite(icons/vip_money);
-    }
-
-    .value {
-      font-weight: bold;
-      display: block;
-      text-align: center;
-      line-height: 20px;
-    }
-
-    .add {
-      position: absolute;
-      top: -3px;
-      right: -15px;
-      @include images-sprite(ui/add);
-      cursor: pointer;
-    }
-  }
-
-
   .basic_money {
-    top: 38px;
-    left: 175px;
+    top: 10px;
+    left: 40px;
     width: 120px;
     height: 20px;
     border: 1px solid #ffd57b;
@@ -112,8 +33,8 @@
   }
 
   .reputation {
-    top: 38px;
-    left: 480px;
+    top: 10px;
+    left: 320px;
     width: 100px;
     height: 20px;
     border: 1px solid #ffd57b;
@@ -125,7 +46,7 @@
       left: -25px;
       content: "";
 
-      @include images-sprite(icons/properties)
+      @include images-sprite(icons/reputation)
     }
 
     .value {
@@ -135,79 +56,5 @@
       line-height: 20px;
     }
   }
-
-  .fuel {
-    top: 38px;
-    left: 625px;
-    width: 100px;
-    height: 20px;
-    border: 1px solid #ffd57b;
-    @include border-radius(15px);
-
-    &:after {
-      position: absolute;
-      top: 0px;
-      left: -25px;
-      content: "";
-
-      @include images-sprite(icons/attack)
-    }
-
-    .value {
-      font-weight: bold;
-      display: block;
-      text-align: center;
-      line-height: 20px;
-    }
-
-    .add {
-      position: absolute;
-      top: -3px;
-      right: -15px;
-      @include images-sprite(ui/add);
-      cursor: pointer;
-    }
-  }
 }
 
-#main_menu {
-  position: absolute;
-  top: 75px;
-  left: 0px;
-  width: 748px;
-  text-align: center;
-  border: {
-    bottom: 1px solid #ece7d3;
-    top: 1px solid #ece7d3;
-  }
-
-  .menu {
-    position: relative;
-    display: inline-block;
-    padding: 5px 10px;
-    font-size: 15px;
-    margin: 0 8px;
-    cursor: pointer;
-    text-align: center;
-    text-shadow: 1px 1px 2px #000;
-
-    &:before {
-      content: "";
-      width: 20px;
-      height: 20px;
-      position: absolute;
-      top: 2px;
-      left: -15px;
-    }
-
-  }
-}
-
-#experience_to_next_level {
-  width: 160px;
-  text-align: center;
-
-  .value {
-    color: $game_color_yellow;
-  }
-}

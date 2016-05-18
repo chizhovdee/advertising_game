@@ -1,0 +1,7 @@
+ru:
+  trucking:
+    index:
+      title: "Грузоперевозки"
+      routes: "Маршруты"
+      timer: "Осталось: "
+      collect: "Собрать"

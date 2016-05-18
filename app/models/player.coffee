@@ -24,6 +24,7 @@ class Player extends Base
 
   # define in defineStates()
   staffState: null
+  truckingState: null
 
   @default: ->
     new @(DEFAULT_DB_ATTRIBUTES)
@@ -39,10 +40,9 @@ class Player extends Base
     super
 
   checkProgress: ->
+    console.log 'checkProgress'
     if @.levelByCurrentExperience() > @level
       @level += 1
-      @improvement_points += 15 # TODO balance
-      @education_points += 5
 
   defineStates: ->
     for field in @dbFields
@@ -50,8 +50,14 @@ class Player extends Base
         when 'staff'
           Object.defineProperty(@, 'staffState'
             writable: false
-            enumerate: true
+            enumerable: true
             value: new states.StaffState(@)
+          )
+        when 'trucking'
+          Object.defineProperty(@, 'truckingState'
+            writable: false
+            enumerable: true
+            value: new states.TruckingState(@)
           )
 
   toJSON: ->

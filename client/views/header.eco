@@ -1,54 +1,7 @@
-<div class="experience">
-    <%=@safe @.progressBar(@player.level_progress_percentage) %>
-</div>
-
-<div class="level">
-    <span class="value"><%= @player.level %></span>
-</div>
-
 <div class="basic_money">
     <span class="value"><%= @player.basic_money %></span>
-</div>
-
-<div class="vip_money">
-    <span class="value"><%= @player.vip_money %></span>
-
-    <span class="add"></span>
 </div>
 
 <div class="reputation">
     <span class="value"><%= @player.reputation %></span>
 </div>
-
-<div class="fuel">
-    <span class="value"><%= @player.fuel %></span>
-
-    <span class="add"></span>
-</div>
-
-<div id="main_menu">
-    <div class="menu my_company">
-        <span class="text"><%= I18n.t("main_menu.my_company") %></span>
-    </div>
-
-    <div class="menu trucking">
-        <span class="text"><%= I18n.t("main_menu.trucking") %></span>
-    </div>
-
-    <div class="menu transport">
-        <span class="text"><%= I18n.t("main_menu.transport") %></span>
-    </div>
-
-    <div class="menu properties">
-        <span class="text"><%= I18n.t("main_menu.properties") %></span>
-    </div>
-
-    <div class="menu staff">
-        <span class="text"><%= I18n.t("main_menu.staff") %></span>
-    </div>
-
-    <div class="menu rating">
-        <span class="text"><%= I18n.t("main_menu.rating") %></span>
-    </div>
-</div>
-

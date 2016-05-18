@@ -2,7 +2,7 @@ _ = require("lodash")
 Base = require("./base")
 
 class TransportType extends Base
-  @configure()
+  @configure(publicForClient: true)
 
   constructor: ->
     super

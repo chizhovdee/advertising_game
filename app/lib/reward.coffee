@@ -10,10 +10,9 @@ _ = require('lodash')
 class Reward
   @Item: null
   values: null
-  character: null
-  characterState: null
+  player: null
 
-  constructor: (@character = null)->
+  constructor: (@player = null)->
     @values = {}
     @triggers = {}
 
@@ -32,10 +31,8 @@ class Reward
   apply: (reward)->
     for key, value of @values
       switch key
-        when 'energy'
-          reward.addEnergy(value)
-        when 'health'
-          reward.addHealth(value)
+        when 'reputation'
+          reward.addReputation(value)
         when 'basic_money'
           reward.addBasicMoney(value)
         when 'vip_money'
@@ -52,34 +49,28 @@ class Reward
   simpleAttribute: (attribute, value)->
     result = (
       switch attribute
-        when 'energy'
-          oldValue = @character.ep
+        when 'reputation'
+          oldValue = @player.reputation
 
-          @character.ep += value
+          @player.reputation += value
 
-          @character.ep - oldValue
-        when 'health'
-          oldValue = @character.hp
-
-          @character.hp += value
-
-          @character.hp - oldValue
+          @player.reputation - oldValue
         when 'basic_money'
-          if @character.basic_money + value < 0
-            value = value - @character.basic_money
+          if @player.basic_money + value < 0
+            value = value - @player.basic_money
 
-          @character.basic_money += value
+          @player.basic_money += value
 
           value
         when 'vip_money'
-          if @character.vip_money + value < 0
-            value = value - @character.vip_money
+          if @player.vip_money + value < 0
+            value = value - @player.vip_money
 
-          @character.vip_money += value
+          @player.vip_money += value
 
           value
         when 'experience'
-          @character.experience += value
+          @player.experience += value
 
           value
         else
@@ -94,13 +85,9 @@ class Reward
     return if value < 0
     @.simpleAttribute('experience', value)
 
-  addEnergy: (value)->
+  addReputation: (value)->
     return if value < 0
-    @.simpleAttribute('energy', value)
-
-  addHealth: (value)->
-    return if value < 0
-    @.simpleAttribute('health', value)
+    @.simpleAttribute('reputation', value)
 
   addBasicMoney: (value)->
     return if value < 0
@@ -110,25 +97,17 @@ class Reward
     return if value < 0
     @.simpleAttribute('vip_money', value)
 
-  giveItem: (item, amount = 1)->
-    #TODO edit placements
-    return if amount < 1
-
-    itemsState = @character.state.itemsState()
-
-    [item, amount] = itemsState.giveItem(item, amount)
-
-    @.item(item.id, amount)
+#  giveItem: (item, amount = 1)->
+#    #TODO edit placements
+#    return if amount < 1
+#
+#    itemsState = @@player.state.itemsState()
+#
+#    [item, amount] = itemsState.giveItem(item, amount)
+#
+#    @.item(item.id, amount)
 
   # take
-
-  takeEnergy: (value)->
-    return if value < 0
-    @.simpleAttribute('energy', -value)
-
-  takeHealth: (value)->
-    return if value < 0
-    @.simpleAttribute('health', -value)
 
   takeBasicMoney: (value)->
     return if value < 0
@@ -138,23 +117,20 @@ class Reward
     return if value < 0
     @.simpleAttribute('vip_money', -value)
 
-  takeItem: (item, amount = 1)->
-    #TODO edit placements
-    return if amount < 1
-
-    itemsState = @character.state.itemsState()
-
-    [item, amount] = itemsState.takeItem(item, amount)
-
-    @.item(item.id, -amount)
+#  takeItem: (item, amount = 1)->
+#    #TODO edit placements
+#    return if amount < 1
+#
+#    itemsState = @@player.state.itemsState()
+#
+#    [item, amount] = itemsState.takeItem(item, amount)
+#
+#    @.item(item.id, -amount)
 
   # initialize reward attributes
 
-  energy: (value)->
-    @.push('energy', value)
-
-  health: (value)->
-    @.push('health', value)
+  reputation: (value)->
+    @.push('reputation', value)
 
   basicMoney: (value)->
     @.push('basic_money', value)
@@ -165,12 +141,12 @@ class Reward
   experience: (value)->
     @.push('experience', value)
 
-  item: (keyOrId, amount = 1)->
-    return if amount == 0
-
-    @values.items ?= {}
-    @values.items[keyOrId] ?= 0
-    @values.items[keyOrId] += amount
+#  item: (keyOrId, amount = 1)->
+#    return if amount == 0
+#
+#    @values.items ?= {}
+#    @values.items[keyOrId] ?= 0
+#    @values.items[keyOrId] += amount
 
   push: (key, value)->
     if @values[key]

@@ -1,0 +1,15 @@
+ru:
+  routes:
+    index:
+      title: "Маршруты"
+    route:
+      good: "Груз: %{name}"
+      distance: "Дистанция: %{value} км"
+      weight: "Вес: %{value} тонн"
+      start: "Запустить"
+      started: "Запущено"
+    start:
+      title: "Запуск маршрута"
+      text: "Вы можете собрать траснпорт из тягача и прицепа"
+      select: "Выбрать"
+      compose: "Составить автопоезд"

@@ -1,0 +1,26 @@
+<div class="trucking_item" id="trucking_<%= @trucking.id %>">
+  <div class="picture <%= @trucking.route.typeKey %>"></div>
+
+  <div class="info">
+    <div class="good"><%= I18n.t("routes.route.good", name: @trucking.route.goodName()) %></div>
+
+    <div class="distance"><%= I18n.t("routes.route.distance", value: @trucking.route.distance) %></div>
+
+    <div class="transport"><%=@safe @.transportPicture(@trucking.transport) %></div>
+
+    <% if @trucking.leftTime > 0: %>
+      <div class="timer">
+        <%= I18n.t("trucking.index.timer") %>
+        <span class="value"></span>
+      </div>
+    <% end %>
+
+
+  </div>
+
+  <% if @trucking.leftTime < 0: %>
+    <button class="collect" data-trucking-id="<%= @trucking.id %>">
+      <%= I18n.t("trucking.index.collect") %>
+    </button>
+  <% end %>
+</div>

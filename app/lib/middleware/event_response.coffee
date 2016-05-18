@@ -48,16 +48,16 @@ sendEventError = (error, type = '')->
 
   null
 
-addEventProgress = ->
-  return new Error('undefined current player for event progress') unless @currentPlayer?
+addEventProgress = (player)->
+  return new Error('undefined player for event progress') unless player?
 
   @addEvent('player_updated',
-    player: @currentPlayer.toJSON()
-    new_level: 'level' in @currentPlayer.changed
+    player: player.toJSON()
+    new_level: 'level' in player.changed
   )
 
-sendEventsWithProgress = ->
-  @.addEventProgress()
+sendEventsWithProgress = (player)->
+  @.addEventProgress(player)
 
   @.sendEvents()
 

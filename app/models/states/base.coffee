@@ -4,7 +4,9 @@ class BaseState
   defaultState: null
   stateName: null # должен совпадать с полем в бд таблице
 
-  constructor: (@player)->
+  constructor: (player)->
+    Object.defineProperty(@, 'player', value: player)
+
     throw new Error("player undefined") unless @player?
     throw new Error("stateName is undefined") unless @stateName?
     throw new Error("defaultState is undefined") unless @defaultState?

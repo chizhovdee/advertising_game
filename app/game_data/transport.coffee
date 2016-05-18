@@ -7,7 +7,8 @@ class Transport extends Base
 
   consumption: null # расход топлива на 100 км
   reliability: null # надежность - процент на 10 000 км
-  carrying: null # грузоподъемность кг
+  carrying: null # грузоподъемность тонны
+  travelSpeed: null # скорость перемещения
 
   # тип груза / груз
   goodTypeKeys: null
@@ -15,7 +16,7 @@ class Transport extends Base
 
   isPrimary: false # параметр для обозначения тягача, тепловозов, всего что само приводится в движение
 
-  @configure()
+  @configure(publicForClient: true)
 
   @afterDefine 'setType'
 
@@ -27,6 +28,7 @@ class Transport extends Base
     @consumption = null
     @reliability = null
     @carrying = null
+    @travelSpeed = null
 
     @goodTypeKeys = []
     @goodKeys = []
@@ -43,9 +45,25 @@ class Transport extends Base
     @type.addTransport(@)
 
   validationForDefine: ->
-    return new Error('undefined typeKey') unless @typeKey?
-    return new Error('undefined consumption') unless @consumption?
-    return new Error('undefined reliability') unless @reliability?
-    return new Error('empty goodTypeKeys or goodKeys') if @goodKeys.length == 0 && @goodTypeKeys.length == 0
+    throw new Error('undefined typeKey') unless @typeKey?
 
+    throw new Error('undefined consumption') unless @consumption?
+    throw new Error('undefined reliability') unless @reliability?
+    throw new Error('undefined travel speed') unless @travelSpeed?
+
+    throw new Error('empty goodTypeKeys or goodKeys') if @goodKeys.length == 0 && @goodTypeKeys.length == 0
+
+  toJSON: ->
+    _.assign(
+      consumption: @consumption
+      reliability: @reliability
+      carrying: @carrying
+      travelSpeed: @travelSpeed
+      typeKey: @typeKey
+      goodKeys: @goodKeys
+      goodTypeKeys: @goodTypeKeys
+      isPrimary: @isPrimary
+      ,
+      super
+    )
 module.exports = Transport

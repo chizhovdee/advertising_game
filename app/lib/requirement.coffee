@@ -15,7 +15,7 @@ class Requirement
 
   on: (trigger)->
     if !trigger || trigger.trim().length == 0
-      throw new Error("Argument Error: no correct trigger name for reward")
+      throw new Error("Argument Error: no correct trigger name for requirement")
 
     @triggers[trigger] ?= new Requirement()
 
@@ -25,8 +25,8 @@ class Requirement
   getValue: (key)->
     @values[key]
 
-  energy: (value)->
-    @.push('energy', value)
+  reputation: (value)->
+    @.push('reputation', value)
 
   basicMoney: (value)->
     @.push('basic_money', value)
@@ -40,20 +40,17 @@ class Requirement
     else
       @values[key] = value
 
-  isSatisfiedFor: (character)->
+  isSatisfiedFor: (player)->
     for key, value of @values
       switch key
-        when 'energy'
-          return false if value > character.ep
-
-        when 'health'
-          return false if value > character.hp
+        when 'reputation'
+          return false if value > player.reputation
 
         when 'basic_money'
-          return false if value > character.basic_money
+          return false if value > player.basic_money
 
         when 'vip_money'
-          return false if value > character.vip_money
+          return false if value > player.vip_money
 
     true
 
@@ -64,31 +61,24 @@ class Requirement
   apply: (reward)->
     for key, value of @values
       switch key
-        when 'energy'
-          reward.takeEnergy(value)
-        when 'health'
-          reward.takeHealth(value)
         when 'basic_money'
           reward.takeBasicMoney(value)
         when 'vip_money'
           reward.takeVipMoney(value)
 
-  unSatisfiedFor: (character)->
+  unSatisfiedFor: (player)->
     result = {}
 
     for key, value of @values
       switch key
-        when 'energy'
-          result[key] = [value, false] if value > character.ep
-
-        when 'health'
-          result[key] = [value, false] if value > character.hp
+        when 'reputation'
+          result[key] = [value, false] if value > player.reputation
 
         when 'basic_money'
-          result[key] = [value, false] if value > character.basic_money
+          result[key] = [value, false] if value > player.basic_money
 
         when 'vip_money'
-          result[key] = [value, false] if value > character.vip_money
+          result[key] = [value, false] if value > player.vip_money
 
     result
 

@@ -1,25 +1,25 @@
 assets = require('./assets')
 gameData = require('../game_data')
-#Item = require('../game_data').Item
+Transport = require('../game_data').Transport
 EmployeeType = gameData.EmployeeType
 
 module.exports =
-  itemPictureUrl: (item, format = 'large')->
-    unless item instanceof Item
-     item = Item.find(item)
+  transportPictureUrl: (transport, format = 'large')->
+    unless transport instanceof Transport
+      transport = Transport.find(transport)
 
     unless format in ['large', 'medium', 'icon']
       throw new Error('format for item picture url not correct')
 
-    assets.assetsPath("images/items/#{ format }/#{ item.key }.jpg")
+    assets.assetsPath("images/transport/#{ format }/#{ transport.key }.jpg")
 
-  itemPicture: (item, format = 'large')->
-    unless item instanceof Item
-      item = Item.find(item)
+  transportPicture: (transport, format = 'large')->
+    unless transport instanceof Transport
+      transport = Transport.find(transport)
 
-    title = "title=#{item.name()}"
+    alt = "alt='#{transport.name()}'"
 
-    "<img src='#{ @.itemPictureUrl(item, format) }' #{title} />"
+    "<img src='#{ @.transportPictureUrl(transport, format) }' #{alt} />"
 
   employeeTypePictureUrl: (type, format = 'large')->
     unless type instanceof EmployeeType

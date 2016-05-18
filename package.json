@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "env TZ='UTC' OFFLINE=true DEBUG=rpg_game:* supervisor -p 2000 -w ./build -i ./build/client ./bin/www"
+    "start": "env TZ='UTC' OFFLINE=true DEBUG=simulator_game:* supervisor -p 2000 -w ./build -i ./build/client ./bin/www"
   },
   "browser": {},
   "browserify-shim": {},

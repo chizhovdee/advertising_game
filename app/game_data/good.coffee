@@ -26,7 +26,7 @@ class Good extends Base
     @type.addGood(@)
 
   validationForDefine: ->
-    return new Error('undefined typeKey') unless @typeKey?
+    throw new Error('undefined typeKey') unless @typeKey?
 
 
 module.exports = Good

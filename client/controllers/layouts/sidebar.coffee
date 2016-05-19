@@ -22,10 +22,12 @@ class SidebarLayout extends Layout
 
     @player.bind("update", @.onPlayerUpdate)
 
+    @el.on("click", ".menu.home", -> pages.HomePage.show())
+
 #    @el.on("click", ".menu.staff", -> pages.StaffPage.show())
-    @el.on("click", ".menu.routes", -> pages.RoutesPage.show())
-    @el.on("click", ".menu.trucking", -> pages.TruckingPage.show())
-    @el.on("click", ".menu.transport", -> pages.TransportPage.show())
+#    @el.on("click", ".menu.routes", -> pages.RoutesPage.show())
+#    @el.on("click", ".menu.trucking", -> pages.TruckingPage.show())
+#    @el.on("click", ".menu.transport", -> pages.TransportPage.show())
 
     @el.on('click', '.experience', @.onExprerienceClick)
 

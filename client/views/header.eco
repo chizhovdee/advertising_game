@@ -5,3 +5,8 @@
 <div class="reputation">
     <span class="value"><%= @player.reputation %></span>
 </div>
+
+<div class="fuel">
+    <span class="value"><%= @player.fuel %></span>
+    <span class="add"></span>
+</div>

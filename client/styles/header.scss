@@ -3,7 +3,7 @@
   top: 0px;
   left: 200px;
 
-  .basic_money, .reputation, {
+  .basic_money, .reputation, .fuel {
     position: absolute;
   }
 
@@ -34,7 +34,7 @@
 
   .reputation {
     top: 10px;
-    left: 320px;
+    left: 220px;
     width: 100px;
     height: 20px;
     border: 1px solid #000;
@@ -54,6 +54,39 @@
       display: block;
       text-align: center;
       line-height: 20px;
+    }
+  }
+
+  .fuel {
+    top: 10px;
+    left: 400px;
+    width: 100px;
+    height: 20px;
+    border: 1px solid #000;
+    @include border-radius(15px);
+
+    &:after {
+      position: absolute;
+      top: 0px;
+      left: -25px;
+      content: "";
+
+      @include images-sprite(icons/fuel)
+    }
+
+    .value {
+      font-weight: bold;
+      display: block;
+      text-align: center;
+      line-height: 20px;
+    }
+
+    .add {
+      position: absolute;
+      top: -3px;
+      right: -15px;
+      @include images-sprite(ui/add);
+      cursor: pointer;
     }
   }
 }

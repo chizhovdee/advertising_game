@@ -1,0 +1,13 @@
+<h1><%= I18n.t('home.title') %></h1>
+
+<div class="tabs">
+  <% for type in ['trucking', 'routes', 'advertising']: %>
+    <div class="tab <%= type %> <%= 'current' if @currentType == type %>" data-type="<%= type %>">
+      <%= I18n.t("home.tabs.#{ type }") %>
+    </div>
+  <% end %>
+</div>
+
+<div class="tab_content">
+  <%=@safe @.renderTemplate("home/#{ @currentType }") %>
+</div>

@@ -12,7 +12,7 @@
     left: 40px;
     width: 120px;
     height: 20px;
-    border: 1px solid #ffd57b;
+    border: 1px solid #000;
     @include border-radius(15px);
 
     &:after {
@@ -37,7 +37,7 @@
     left: 320px;
     width: 100px;
     height: 20px;
-    border: 1px solid #ffd57b;
+    border: 1px solid #000;
     @include border-radius(15px);
 
     &:after {

@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-right: 1px solid #ffd57b;
+  border-right: 1px solid #000;
   height: 640px;
   width: 200px;
 
@@ -15,7 +15,7 @@
 
     .progress_bar {
       @include border-radius(0px);
-      border: 1px solid #ffd57b;
+      border: 1px solid #000;
 
       .percentage {
         @include border-radius(0px);
@@ -32,9 +32,8 @@
     left: 28px;
     width: 50px;
     height: 25px;
-    border: 1px solid #ffd57b;
+    border: 1px solid #000;
     @include border-radius(15px);
-    background-color: #344a5f;
 
     &:after {
       position: absolute;
@@ -58,7 +57,7 @@
     left: 30px;
     width: 80px;
     height: 20px;
-    border: 1px solid #ffd57b;
+    border: 1px solid #000;
     @include border-radius(15px);
 
     &:after {
@@ -92,7 +91,7 @@
     width: 200px;
 
     .menu {
-      border-top: 1px solid #ffd57b;
+      border-top: 1px solid #000;
       text-align: center;
       line-height: 35px;
       font-size: 14px;
@@ -100,11 +99,11 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #35545f;
+        background-color: #ccc;
       }
 
       &:last-child {
-        border-bottom: 1px solid #ffd57b;
+        border-bottom: 1px solid #000;
       }
     }
   }

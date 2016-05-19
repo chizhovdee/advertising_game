@@ -1,0 +1,7 @@
+ru:
+  game_data:
+    advertising:
+      newspaper: "Газета"
+      radio: "Радио"
+      tv: "Телевидение"
+      internet: "Интернет"

@@ -66,4 +66,5 @@ class Transport extends Base
       ,
       super
     )
+
 module.exports = Transport

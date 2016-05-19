@@ -1,0 +1,26 @@
+.advertising_purchase.modal {
+  width: 400px !important;
+
+  .picture, .info {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .picture {
+    width: 180px;
+
+    img {
+      width: 180px;
+      height: 180px;
+    }
+  }
+
+  .info {
+    margin-left: 10px;
+
+    .name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}

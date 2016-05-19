@@ -1,9 +1,8 @@
-Layout = require("../layout")
+BaseController = require("../base_controller")
 request = require("../../lib/request")
-pages = require('../pages')
 modals = require('../modals')
 
-class HeaderLayout extends Layout
+class HeaderLayout extends BaseController
   elements:
     '.basic_money': 'basicMoneyEl'
     '.reputation': 'reputationEl'

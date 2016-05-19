@@ -7,23 +7,23 @@
       cursor: pointer;
       margin: 25px 55px;
 
-      @include images-sprite-dimensions(icons/truck);
-
-      &.auto {
-        @include images-sprite-background(icons/truck);
-      }
-
-      &.railway {
-        @include images-sprite-background(icons/train);
-      }
-
-      &.air {
-        @include images-sprite-background(icons/plane);
-      }
-
-      &.sea {
-        @include images-sprite-background(icons/ship);
-      }
+      //@include images-sprite-dimensions(transport_types/truck);
+      //
+      //&.auto {
+      //  @include images-sprite-background(transport_types/truck);
+      //}
+      //
+      //&.railway {
+      //  @include images-sprite-background(transport_types/train);
+      //}
+      //
+      //&.air {
+      //  @include images-sprite-background(transport_types/plane);
+      //}
+      //
+      //&.sea {
+      //  @include images-sprite-background(transport_types/ship);
+      //}
     }
   }
 

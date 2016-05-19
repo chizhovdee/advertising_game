@@ -1,0 +1,26 @@
+.advertising.inner_page {
+  .list {
+    .ad {
+      display: inline-block;
+      vertical-align: top;
+      width: 207px;
+      height: 160px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+      @include border-radius(5px);
+      margin: 10px;
+      text-align: center;
+
+      .picture {
+        img {
+          width: 120px;
+          height: 120px;
+        }
+      }
+
+      .controls {
+        margin-top: 10px;
+      }
+    }
+  }
+}

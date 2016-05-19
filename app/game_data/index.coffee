@@ -7,4 +7,5 @@ module.exports =
   PropertyType: require('./property_type')
   RouteType: require('./route_type')
   Route: require('./route')
+  Advertising: require('./advertising')
 

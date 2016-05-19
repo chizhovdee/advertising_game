@@ -1,4 +1,5 @@
 Page = require("../page")
+AdvertisingPage = require('./advertising')
 
 class HomePage extends Page
   className: "home page"
@@ -7,20 +8,21 @@ class HomePage extends Page
     '.tab_content': 'tabContentEl'
 
   hide: ->
+    @innerPage?.hide()
+
     super
 
   show: ->
     super
 
-    @currentType = 'trucking'
+    @currentTab = 'trucking'
 
     @.render()
 
+    @.showInnerPage()
+
   render: ->
     @html(@.renderTemplate("home/index"))
-
-  renderTabContent: ->
-    @tabContentEl.html(@.renderTemplate("home/#{ @currentType }") )
 
   bindEventListeners: ->
     super
@@ -38,8 +40,22 @@ class HomePage extends Page
     @el.find('.tabs .tab').removeClass('current')
     tabEl.addClass('current')
 
-    console.log @currentType = tabEl.data('type')
+    @currentTab = tabEl.data('type')
 
-    @.renderTabContent()
+    @.showInnerPage()
+
+  showInnerPage: ->
+    @innerPage?.hide()
+
+    switch @currentTab
+      when 'trucking'
+        1
+
+      when 'routes'
+        2
+      when 'advertising'
+        @innerPage = new AdvertisingPage()
+
+    @innerPage?.show(@el.find('.tab_content'))
 
 module.exports = HomePage

@@ -2,4 +2,8 @@
   .tabs {
     @extend %tabs;
   }
+
+  .tab_content {
+    margin-top: 20px;
+  }
 }

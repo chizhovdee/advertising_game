@@ -59,8 +59,8 @@ class App
 
     ctx.set("player", @player)
 
-    layouts.HeaderLayout.show(el: $("#application .header"))
-    layouts.SidebarLayout.show(el: $("#sidebar"))
+    new layouts.HeaderLayout(el: $("#application .header")).show()
+    new layouts.SidebarLayout(el: $("#sidebar")).show()
 
     HomePage.show()
 

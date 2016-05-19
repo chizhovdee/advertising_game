@@ -1,9 +1,9 @@
-Layout = require("../layout")
+BaseController = require("../base_controller")
 request = require("../../lib/request")
 pages = require('../pages')
 modals = require('../modals')
 
-class SidebarLayout extends Layout
+class SidebarLayout extends BaseController
   elements:
     '.vip_money': 'vipMoneyEl'
     '.experience': 'experienceEl'

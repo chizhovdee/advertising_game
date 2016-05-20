@@ -1,5 +1,11 @@
 ru:
   advertising:
+    buttons:
+      new: "Новая рекламная кампания"
     buy: "Купить"
     purchase:
       title: "Купить рекламу"
+    new:
+      title: "Новая рекламная компания"
+      select_type: "Выберите тип:"
+      select_period: "Выберите срок действия (дни):"

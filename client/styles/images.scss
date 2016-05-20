@@ -6,11 +6,11 @@
 
 $images_image_url: image-url('images.png');
 
-$images_piece_names: icons/accept, icons/achievement, icons/add, icons/alliance, icons/app_requests, icons/basic_money, icons/chat, icons/collections, icons/credits, icons/delete, icons/drag_n_drop_item, icons/exchange, icons/experience, icons/fuel, icons/gift, icons/help, icons/hide, icons/home, icons/inventory, icons/level, icons/lock, icons/next, icons/previous, icons/profile, icons/properties, icons/publish, icons/quests, icons/rating, icons/reputation, icons/shop, icons/step, icons/time, icons/vip_money, trucking_placeholder, ui/add, ui/arrow_left, ui/arrow_right, ui/button, ui/close_icon, ui/round, ui/round_checked;
-$images_piece_widths: 20px, 16px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 120px, 28px, 23px, 23px, 300px, 20px, 15px, 15px;
-$images_piece_heights: 20px, 16px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 120px, 27px, 34px, 33px, 23px, 20px, 15px, 15px;
-$images_piece_positions_x: 123px, 148px, 145px, 148px, 170px, 178px, 167px, 192px, 200px, 189px, 200px, 214px, 222px, 211px, 222px, 236px, 189px, 244px, 233px, 244px, 258px, 266px, 255px, 266px, 280px, 288px, 277px, 288px, 302px, 310px, 299px, 310px, 324px, 1px, 148px, 123px, 123px, 123px, 332px, 166px, 183px;
-$images_piece_positions_y: 97px, 77px, 97px, 55px, 55px, 26px, 94px, 48px, 26px, 94px, 70px, 48px, 26px, 92px, 70px, 48px, 94px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 1px, 26px, 26px, 62px, 1px, 26px, 77px, 77px;
+$images_piece_names: advertising_status/normal, advertising_status/premium, advertising_status/vip, icons/accept, icons/achievement, icons/add, icons/alliance, icons/app_requests, icons/basic_money, icons/chat, icons/collections, icons/credits, icons/delete, icons/drag_n_drop_item, icons/exchange, icons/experience, icons/fuel, icons/gift, icons/help, icons/hide, icons/home, icons/inventory, icons/level, icons/lock, icons/next, icons/previous, icons/profile, icons/properties, icons/publish, icons/quests, icons/rating, icons/reputation, icons/shop, icons/step, icons/time, icons/vip_money, trucking_placeholder, ui/add, ui/arrow_left, ui/arrow_right, ui/button, ui/close_icon, ui/round, ui/round_checked;
+$images_piece_widths: 120px, 120px, 120px, 20px, 16px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 120px, 28px, 23px, 23px, 300px, 20px, 15px, 15px;
+$images_piece_heights: 120px, 120px, 120px, 20px, 16px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 120px, 27px, 34px, 33px, 23px, 20px, 15px, 15px;
+$images_piece_positions_x: 1px, 123px, 245px, 489px, 514px, 511px, 514px, 536px, 544px, 533px, 558px, 566px, 555px, 566px, 580px, 588px, 577px, 588px, 602px, 555px, 610px, 599px, 610px, 624px, 632px, 621px, 632px, 646px, 654px, 643px, 654px, 668px, 676px, 665px, 676px, 690px, 367px, 514px, 489px, 489px, 489px, 698px, 532px, 549px;
+$images_piece_positions_y: 1px, 1px, 1px, 97px, 77px, 97px, 55px, 55px, 26px, 94px, 48px, 26px, 94px, 70px, 48px, 26px, 92px, 70px, 48px, 94px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 1px, 26px, 26px, 62px, 1px, 26px, 77px, 77px;
 
 @function images-sprite-width($name) {
   $index: index($images_piece_names, $name);
@@ -68,4 +68,4 @@ $images_piece_positions_y: 97px, 77px, 97px, 55px, 55px, 26px, 94px, 48px, 26px,
   @include images-sprite-background($name);
 }
 
-// $TexturePacker:SmartUpdate:d2cd89a37968c97c996540c9dd82083c:5726de72a60be40323add4fb63aabe37:376d2bb6512222bd8af7f4ca32620778$
+// $TexturePacker:SmartUpdate:cad16db08cfe292098f5a17ab9dc599b:0722a7921e23e3c9dd25acca6731b622:376d2bb6512222bd8af7f4ca32620778$

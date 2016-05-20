@@ -2,7 +2,7 @@ assets = require('./assets')
 gameData = require('../game_data')
 Transport = require('../game_data').Transport
 EmployeeType = gameData.EmployeeType
-Advertising = gameData.Advertising
+AdvertisingType = gameData.AdvertisingType
 
 module.exports =
   transportPictureUrl: (transport, format = 'large')->
@@ -40,17 +40,17 @@ module.exports =
     "<img src='#{ @.employeeTypePictureUrl(type, format) }' #{title} />"
 
   advertisingPictureUrl: (resource, format = 'large')->
-    unless resource.constructor?.name == 'Advertising'
-      resource = Advertising.find(resource)
+    unless resource.constructor?.name == 'AdvertisingType'
+      resource = AdvertisingType.find(resource)
 
     unless format in ['large', 'medium', 'icon']
       throw new Error('format for item picture url not correct')
 
-    assets.assetsPath("images/advertising/#{ format }/#{ resource.key }.jpg")
+    assets.assetsPath("images/advertising_types/#{ format }/#{ resource.key }.jpg")
 
   advertisingPicture: (resource, format = 'large')->
-    unless resource.constructor?.name == 'Advertising'
-      resource = Advertising.find(resource)
+    unless resource.constructor?.name == 'AdvertisingType'
+      resource = AdvertisingType.find(resource)
 
     title = "title=#{resource.name()}"
 

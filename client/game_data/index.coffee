@@ -4,4 +4,4 @@ module.exports =
   Route: require('./route')
   TransportType: require('./transport_type')
   Transport: require('./transport')
-  Advertising: require('./advertising')
+  AdvertisingType: require('./advertising_type')

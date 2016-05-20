@@ -1,0 +1,59 @@
+.new_advertising.modal {
+  .advertising_types {
+    .advertising_type {
+      display: inline-block;
+      vertical-align: top;
+      width: 130px;
+      height: 150px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+      @include border-radius(5px);
+      margin: 10px;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid transparent;
+
+      &.selected {
+        border: 1px solid #FF3333;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      .picture {
+        img {
+          width: 120px;
+          height: 120px;
+        }
+      }
+
+      .name {
+        margin-top: 10px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .period {
+    margin-top: 10px;
+
+    .amount {
+      display: inline-block;
+      margin: 10px 0 0 10px;
+
+      .radio_input, .value {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .radio_input {
+        margin-right: 2px;
+        @include images-sprite(ui/round);
+        cursor: pointer;
+
+        &.selected {
+          @include images-sprite-background(ui/round_checked);
+        }
+      }
+    }
+  }
+}

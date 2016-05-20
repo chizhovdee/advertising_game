@@ -46,6 +46,9 @@ class HomePage extends Page
 
   showInnerPage: ->
     @innerPage?.hide()
+    @innerPage = null
+
+    console.log @currentTab
 
     switch @currentTab
       when 'trucking'

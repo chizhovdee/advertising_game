@@ -1,7 +1,9 @@
 _ = require("lodash")
 Base = require("./base")
 
-class Advertising extends Base
+class AdvertisingType extends Base
+  @periods: [1..7] # days
+
   level: null
   basicPrice: null
 
@@ -21,4 +23,4 @@ class Advertising extends Base
       super
     )
 
-module.exports = Advertising
+module.exports = AdvertisingType

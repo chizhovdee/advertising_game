@@ -1,5 +1,5 @@
 require("./lib/lodash_mixin").register()
-require("./populate_game_data") # замещается автоматически при сборке
+require("./populate_game_data") # генерируется автоматически при сборке
 require('./lib/notify_styles')
 
 request = require("./lib/request")

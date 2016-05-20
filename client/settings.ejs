@@ -1,3 +1,5 @@
-module.exports = {
+module.exports = {};
 
-};
+<% for(var key in settings) { %>
+  module.exports['<%= key %>'] = <%- JSON.stringify(settings[key]) %>;
+<% } %>

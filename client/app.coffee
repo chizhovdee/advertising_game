@@ -7,7 +7,7 @@ Player = require("./models").Player
 preloader = require("./lib/preloader")
 signatureKeeper = require('./lib/signature_keeper')
 layouts = require("./controllers/layouts")
-TruckingPage = require('./controllers/pages').TruckingPage
+HomePage = require('./controllers/pages').HomePage
 modals = require('./controllers/modals')
 ctx = require('./context')
 
@@ -59,10 +59,10 @@ class App
 
     ctx.set("player", @player)
 
-    layouts.HeaderLayout.show(el: $("#application .header"))
-    layouts.SidebarLayout.show(el: $("#sidebar"))
+    new layouts.HeaderLayout(el: $("#application .header")).show()
+    new layouts.SidebarLayout(el: $("#sidebar")).show()
 
-    TruckingPage.show()
+    HomePage.show()
 
   onPlayerUpdated: (response)=>
     console.log 'onPlayerUpdated'

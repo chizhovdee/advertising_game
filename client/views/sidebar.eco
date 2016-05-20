@@ -13,8 +13,7 @@
 </div>
 
 <div class="main_menu">
-  <div class="menu trucking"><%= I18n.t("main_menu.trucking") %></div>
-  <div class="menu routes"><%= I18n.t("main_menu.routes") %></div>
+  <div class="menu home"><%= I18n.t("main_menu.home") %></div>
   <div class="menu transport"><%= I18n.t("main_menu.transport") %></div>
   <div class="menu rating"><%= I18n.t("main_menu.rating") %></div>
 

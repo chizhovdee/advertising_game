@@ -1,4 +1,9 @@
 gameData = require('./game_data')
+AdvertisingType = gameData.AdvertisingType
 
 module.exports =
-  advertisingPeriods: gameData.AdvertisingType.periods
+  advertisingType:
+    periods: AdvertisingType.periods
+    status: AdvertisingType.status
+    discountPerDay: AdvertisingType.discountPerDay
+    statusFactor: AdvertisingType.statusFactor

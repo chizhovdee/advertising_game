@@ -89,3 +89,6 @@ module.exports =
   # advertising
   load_advertising: ->
     @.get('/advertising')
+
+  create_advertising: (data)->
+    @.post('/advertising/create', data)

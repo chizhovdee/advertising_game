@@ -32,3 +32,4 @@ exports.setup = (app)->
 
     # advertising
     apiRoutes.get('/advertising', controllers.advertising.index)
+    apiRoutes.post('/advertising/create', controllers.advertising.create)

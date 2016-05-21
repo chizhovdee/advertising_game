@@ -34,7 +34,7 @@
   }
 
   .period {
-    margin-top: 10px;
+    margin-top: 20px;
 
     .amount {
       display: inline-block;
@@ -55,5 +55,68 @@
         }
       }
     }
+  }
+
+  .status {
+    margin-top: 20px;
+
+    .status_item {
+      display: inline-block;
+      vertical-align: top;
+      width: 130px;
+      height: 150px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+      @include border-radius(5px);
+      margin: 10px;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid transparent;
+
+      &.selected {
+        border: 1px solid #FF3333;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      .picture {
+        margin: auto;
+
+        &.normal {
+          @include images-sprite(advertising_status/normal);
+        }
+
+        &.vip {
+          @include images-sprite(advertising_status/vip);
+        }
+
+        &.premium {
+          @include images-sprite(advertising_status/premium);
+        }
+      }
+
+      .name {
+        margin-top: 10px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .time_generation {
+    margin-top: 20px;
+  }
+
+  .price {
+    margin-top: 20px;
+    
+    .value {
+      .requirement {
+        display: inline-block;
+      }
+    }
+  }
+
+  .controls {
+    margin-top: 20px;
   }
 }

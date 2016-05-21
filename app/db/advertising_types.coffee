@@ -1,21 +1,23 @@
+_ = require('lodash')
+
 AdvertisingType = require('../game_data').AdvertisingType
 
 AdvertisingType.define('newspaper', (obj)->
-  obj.level = 1
-  obj.basicPrice = 5
+  obj.basicPrice = 50
+  obj.timeGeneration = _(30).minutes()
 )
 
 AdvertisingType.define('radio', (obj)->
-  obj.level = 10
-  obj.basicPrice = 10
+  obj.basicPrice = 150
+  obj.timeGeneration = _(20).minutes()
 )
 
 AdvertisingType.define('tv', (obj)->
-  obj.level = 20
-  obj.basicPrice = 15
+  obj.basicPrice = 300
+  obj.timeGeneration = _(10).minutes()
 )
 
 AdvertisingType.define('internet', (obj)->
-  obj.level = 30
-  obj.basicPrice = 20
+  obj.basicPrice = 500
+  obj.timeGeneration = _(5).minutes()
 )

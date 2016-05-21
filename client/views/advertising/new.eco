@@ -4,9 +4,20 @@
   <h3><%= I18n.t('advertising.new.select_type') %></h3>
 
   <% for type in @advertisingTypes: %>
-    <div class="advertising_type" data-type="<%= type.key %>">
+    <div class="advertising_type <%= 'selected' if @advertisingData.type == type.key %>" data-type="<%= type.key %>">
       <div class="picture"><%=@safe @.advertisingPicture(type) %></div>
       <div class="name"><%= type.name() %></div>
+    </div>
+  <% end %>
+</div>
+
+<div class="status">
+  <h3><%= I18n.t('advertising.new.select_status') %></h3>
+
+  <% for status in @settings.advertisingType.status: %>
+    <div class="status_item <%= 'selected' if @advertisingData.status == status %>" data-status="<%= status %>">
+      <div class="picture <%= status %>"></div>
+      <div class="name"><%= I18n.t("advertising.status.#{ status }") %></div>
     </div>
   <% end %>
 </div>
@@ -14,10 +25,29 @@
 <div class="period">
   <h3><%= I18n.t('advertising.new.select_period') %></h3>
 
-  <% for amount in @settings.advertisingPeriods: %>
+  <% for amount in @settings.advertisingType.periods: %>
     <div class="amount">
-      <span class="radio_input" data-amount="<%= amount %>"></span>
+      <span class="radio_input <%= 'selected' if @advertisingData.period == amount %>" data-amount="<%= amount %>"></span>
       <span class="value"><%= amount %></span>
     </div>
   <% end %>
+</div>
+
+<div class="time_generation">
+  <h3>
+    <%= I18n.t('advertising.new.time_generation') %>
+    <span class="value"><%= @.displayTime(@advertisingType.timeGeneration) %></span>
+  </h3>
+</div>
+
+<div class="price">
+  <h3>
+    <%= I18n.t('advertising.new.price') %>
+
+    <span class="value"><%=@safe @.renderTemplate('requirements', requirements: @.priceRequirements()) %></span>
+  </h3>
+</div>
+
+<div class="controls">
+  <button class="create"><%= I18n.t('advertising.buttons.create_advertising') %></button>
 </div>

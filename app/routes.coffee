@@ -31,5 +31,4 @@ exports.setup = (app)->
 #    apiRoutes.get('/transport', controllers.transport.index)
 
     # advertising
-    apiRoutes.get('/advertising', controllers.advertising.index)
     apiRoutes.post('/advertising/create', controllers.advertising.create)

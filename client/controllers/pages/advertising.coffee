@@ -2,7 +2,7 @@ InnerPage = require("../inner_page")
 modals = require('../modals')
 request = require("../../lib/request")
 Pagination = require("../../lib").Pagination
-Advertising = require('../../game_data').Advertising
+ctx = require('../../context')
 
 class AdvertisingPage extends InnerPage
   className: 'advertising inner_page'
@@ -14,23 +14,18 @@ class AdvertisingPage extends InnerPage
 
     @loading = true
 
+    @.defineData()
+
     @.render()
 
-    request.send('load_advertising')
-
   render: ->
-    if @loading
-      @.renderPreloader()
-    else
-      @html(@.renderTemplate("advertising/index"))
+    @html(@.renderTemplate("advertising/index"))
 
   renderList: ->
     @el.find('.list').html(@.renderTemplate("advertising/list"))
 
   bindEventListeners: ->
     super
-
-    request.bind('advertising_loaded', @.onDataLoaded)
 
     @el.on('click', '.new', @.onNewClick)
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
@@ -39,8 +34,6 @@ class AdvertisingPage extends InnerPage
   unbindEventListeners: ->
     super
 
-    request.unbind('advertising_loaded', @.onDataLoaded)
-
     @el.off('click', '.new', @.onNewClick)
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -48,12 +41,17 @@ class AdvertisingPage extends InnerPage
   onNewClick: =>
     modals.NewAdvertisingModal.show()
 
-  onDataLoaded: (response)=>
-    console.log response
+  defineData: ->
+    @playerState = ctx.get('playerState')
 
-    @loading = false
+    @list = @playerState.advertising
 
-    console.log @list = response.advertising
+    console.log @list = _.sortBy((
+      for id, resource of @playerState.advertising
+        _.assignIn({
+          id: id
+        }, resource)
+    ), (ad)-> ad.completeAt)
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)

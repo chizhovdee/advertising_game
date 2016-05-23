@@ -1,7 +1,7 @@
 <div class="page">
   <div class="paginate left <%= 'disabled' unless @listPagination.canBack() %>" data-type="back"></div>
 
-  <% for trucking in @paginatedList: %>
+  <% for ad in @paginatedList: %>
     <%=@safe @.renderTemplate('advertising/ad', ad: ad) %>
   <% end %>
 

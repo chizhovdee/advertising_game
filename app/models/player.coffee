@@ -25,6 +25,7 @@ class Player extends Base
   # define in defineStates()
   staffState: null
   truckingState: null
+  advertisingState: null
 
   @default: ->
     new @(DEFAULT_DB_ATTRIBUTES)
@@ -58,6 +59,12 @@ class Player extends Base
             writable: false
             enumerable: true
             value: new states.TruckingState(@)
+          )
+        when 'advertising'
+          Object.defineProperty(@, 'advertisingState'
+            writable: false
+            enumerable: true
+            value: new states.AdvertisingState(@)
           )
 
   toJSON: ->

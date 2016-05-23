@@ -24,6 +24,12 @@ class BaseState
       enumerable: true
     )
 
+  generateId: (excludingdIds)->
+    id = _.random(10000000)
+    id = _.random(10000000) while id in excludingdIds
+    id
+
+
   update: ->
     @player[@stateName] = @state
 

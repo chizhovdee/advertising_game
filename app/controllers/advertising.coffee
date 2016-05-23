@@ -19,7 +19,7 @@ module.exports =
 
       result = executor.create(
         req.currentPlayer
-        _.parseRequestParams(req.body)
+        _.parseRequestParams(req.body).data
       )
 
       res.addEventWithResult('advertising_created', result)

@@ -9,14 +9,17 @@ class AdvertisingState extends BaseState
     super(_.keys(@state))
 
   create: (type, status, period)->
-    result = @state[@.generateId()] = {
+    newId = @.generateId()
+    newResource = {
       typeId: type.id
       status: status
       completeAt: Date.now() + _(period).hours()
     }
 
+    @state[newId] = newResource
+
     @.update()
 
-    result
+    @.addOperation('add', newId, newResource)
 
 module.exports = AdvertisingState

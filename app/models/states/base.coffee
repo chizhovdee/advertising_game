@@ -1,8 +1,11 @@
 _ = require('lodash')
 
 class BaseState
+  @operationTypes: ['add', 'update', 'delete']
+
   defaultState: null
   stateName: null # должен совпадать с полем в бд таблице
+  changingOperations: null # хранение операций по изменению стейта для передачи на клиент
 
   constructor: (player)->
     Object.defineProperty(@, 'player', value: player)
@@ -24,11 +27,21 @@ class BaseState
       enumerable: true
     )
 
+    Object.defineProperty(@, 'changingOperations',
+      value: []
+      writable: false
+      enumerable: true
+    )
+
+  addOperation: (type, id, data)->
+    throw new Error('unknown operation: type' + type) unless type in BaseState.operationTypes
+
+    @changingOperations.push([type, id, data])
+
   generateId: (excludingdIds)->
     id = _.random(10000000)
     id = _.random(10000000) while id in excludingdIds
     id
-
 
   update: ->
     @player[@stateName] = @state

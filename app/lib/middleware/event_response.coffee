@@ -53,6 +53,7 @@ addEventProgress = (player)->
 
   @addEvent('player_updated',
     player: player.toJSON()
+    state_operations: player.stateOperations()
     new_level: 'level' in player.changed
   )
 

@@ -4,6 +4,7 @@ require('./lib/notify_styles')
 
 request = require("./lib/request")
 Player = require("./models").Player
+PlayerState = require("./models").PlayerState
 preloader = require("./lib/preloader")
 signatureKeeper = require('./lib/signature_keeper')
 layouts = require("./controllers/layouts")
@@ -56,8 +57,10 @@ class App
     console.log response
 
     @player = Player.create(response.player)
+    @playerState = PlayerState.create(response.states)
 
     ctx.set("player", @player)
+    ctx.set('playerState', @playerState)
 
     new layouts.HeaderLayout(el: $("#application .header")).show()
     new layouts.SidebarLayout(el: $("#sidebar")).show()
@@ -69,6 +72,7 @@ class App
     console.log response
 
     @player.updateAttributes(response.player)
+    @playerState.applyChangingOperations(response.state_operations)
 
     modals.NewLevelModal.show() if response.new_level
 

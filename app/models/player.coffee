@@ -22,6 +22,8 @@ class Player extends Base
     fuel: 0
   }
 
+  @stateFields: ['staff', 'trucking', 'advertising']
+
   # define in defineStates()
   staffState: null
   truckingState: null
@@ -46,7 +48,7 @@ class Player extends Base
       @level += 1
 
   defineStates: ->
-    for field in @dbFields
+    for field in Player.stateFields
       switch field
         when 'staff'
           Object.defineProperty(@, 'staffState'
@@ -66,6 +68,19 @@ class Player extends Base
             enumerable: true
             value: new states.AdvertisingState(@)
           )
+
+  stateOperations: ->
+    result = {}
+
+    for field in Player.stateFields
+      operations = @["#{ field }State"].changingOperations
+
+      result[field] = operations if operations.length > 0
+
+    result
+
+  statesToJson: ->
+    advertising: @advertisingState.state
 
   toJSON: ->
     id: @id

@@ -23,11 +23,10 @@ module.exports =
       )
 
     reward = new Reward(player)
-    newAdvertising = player.advertisingState.create(type, status, period)
+    player.advertisingState.create(type, status, period)
     requirement.apply(reward)
 
     new Result(
       data:
         reward: reward
-        advertising: newAdvertising
     )

@@ -2,12 +2,14 @@ InnerPage = require("../inner_page")
 modals = require('../modals')
 request = require("../../lib/request")
 Pagination = require("../../lib").Pagination
+VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
+AdvertisingType = require('../../game_data').AdvertisingType
 
 class AdvertisingPage extends InnerPage
   className: 'advertising inner_page'
 
-  PER_PAGE = 4
+  PER_PAGE = 3
 
   show: ->
     super
@@ -17,6 +19,12 @@ class AdvertisingPage extends InnerPage
     @.defineData()
 
     @.render()
+
+    for resource in @paginatedList
+      continue if resource.lifeTimeLeft <= 0
+
+      timer = new VisualTimer($("#ad_#{ resource.id } .life_timer .value"))
+      timer.start(resource.lifeTimeLeft)
 
   render: ->
     @html(@.renderTemplate("advertising/index"))
@@ -50,6 +58,7 @@ class AdvertisingPage extends InnerPage
       for id, resource of @playerState.advertising
         _.assignIn({
           id: id
+          type: AdvertisingType.find(resource.typeId)
         }, resource)
     ), (ad)-> ad.completeAt)
 
@@ -57,8 +66,6 @@ class AdvertisingPage extends InnerPage
     @paginatedList = @listPagination.paginate(@list, initialize: true)
 
     @listPagination.setSwitches(@list)
-
-    @.render()
 
   onListPaginateClick: (e)=>
     @paginatedList = @listPagination.paginate(@list,

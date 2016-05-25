@@ -10,7 +10,6 @@ class AdvertisingType extends Base
     vip: 2
     premium: 3
 
-  level: null
   basicPrice: null
   timeGeneration: null
 

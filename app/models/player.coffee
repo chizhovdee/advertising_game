@@ -80,7 +80,7 @@ class Player extends Base
     result
 
   statesToJson: ->
-    advertising: @advertisingState.state
+    advertising: @advertisingState.toJSON()
 
   toJSON: ->
     id: @id

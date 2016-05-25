@@ -87,8 +87,9 @@ class NewAdvertisingModal extends Modal
 
   priceRequirements: ->
     price = Math.floor(
-      @advertisingType.basicPrice * (1 - @settings.advertisingType.discountPerDay * (@advertisingData.period - 1))
-    ) * @settings.advertisingType.statusFactor[@advertisingData.status]
+      @advertisingType.basicPrice *
+      (1 - @settings.advertisingType.discountPerDay * (@advertisingData.period - 1))
+    ) * @advertisingData.period * @settings.advertisingType.statusFactor[@advertisingData.status]
 
     {basic_money: [price, @player.basic_money >= price]}
 

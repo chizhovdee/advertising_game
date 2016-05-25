@@ -22,4 +22,13 @@ class AdvertisingState extends BaseState
 
     @.addOperation('add', newId, newResource)
 
+  toJSON: ->
+    state = {}
+
+    for id, resource of @state
+      state[id] = _.clone(resource)
+      state[id].lifeTimeLeft = resource.completeAt - Date.now()
+
+    state
+
 module.exports = AdvertisingState

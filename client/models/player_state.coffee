@@ -3,10 +3,23 @@ class PlayerState extends Spine.Model
 
   @include require('./modules/model_changes')
 
+  STATES = ['staff', 'trucking', 'advertising']
+
+  constructor: ->
+    super
+
+    for attribute in @.attributes()
+      @.setStateUpdatedAt(attribute)
+
   update: ->
     @.setOldAttributes(@constructor.irecords[@id].attributes())
 
     super
+
+  setStateUpdatedAt: (attribute)->
+    return unless attribute in STATES
+
+    @["#{ attribute }UpdatedAt"] = Date.now()
 
   applyChangingOperations: (operations)->
     changes = {}
@@ -22,6 +35,8 @@ class PlayerState extends Spine.Model
             delete state[id]
 
       changes[key] = state
+
+      @.setStateUpdatedAt(key)
 
     @.updateAttributes(changes)
 

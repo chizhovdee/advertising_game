@@ -3,9 +3,10 @@
 
   .page {
     position: relative;
-    padding-left: 30px;
-    padding-right: 30px;
-    width: 437px;
+    //padding-left: 30px;
+    //padding-right: 30px;
+    //width: 437px;
+    margin-bottom: 20px;
   }
 
   .paginate {
@@ -63,6 +64,7 @@
   .switches {
     text-align: center;
     padding: 0 45px;
+    position: relative;
 
     .switch {
       display: inline-block;

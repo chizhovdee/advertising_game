@@ -1,4 +1,6 @@
-<button class="new"><%= I18n.t("advertising.buttons.new") %></button>
+<div class="controls">
+  <span class="new"><%= I18n.t("advertising.buttons.new") %></span>
+</div>
 
 <div class="list">
   <%=@safe @.renderTemplate('advertising/list') %>

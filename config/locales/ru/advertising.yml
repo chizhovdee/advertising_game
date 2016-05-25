@@ -3,9 +3,12 @@ ru:
     buttons:
       new: "Новая рекламная кампания"
       create_advertising: "Создать"
-    buy: "Купить"
-    purchase:
-      title: "Купить рекламу"
+      extend: "Продлить"
+      delete: "Удалить"
+    ad:
+      life_timer: "<strong>Истекает:</strong>"
+      next_route_timer: "<strong>Следующий маршрут:</strong>"
+      status: "<strong>Статус</strong>: %{status}"
     new:
       title: "Новая рекламная компания"
       select_type: "Выберите тип:"

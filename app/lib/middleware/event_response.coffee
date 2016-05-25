@@ -26,7 +26,7 @@ addEvent = (type, callbackOrData)->
   @eventResponse.add(type, callbackOrData || @executorResult)
 
 sendEvents = ->
-  @.json(@eventResponse.all())
+  @.json(_.sortBy(@eventResponse.all(), (e)-> if e.event_type == 'player_updated' then 0 else 1))
 
   null
 

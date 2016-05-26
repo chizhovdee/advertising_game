@@ -19,3 +19,18 @@ ru:
       reputation: "Репутация"
       experience: "Опыт"
       basic_money: "Деньги"
+    timer:
+      days:
+        zero: "%{count} дней"
+        one: "%{count} день"
+        few: "%{count} дня"
+        many: "%{count} дней"
+        other: "%{count} дней"
+      hours:
+        zero: "%{count} часов"
+        one: "%{count} час"
+        few: "%{count} часа"
+        many: "%{count} часов"
+        other: "%{count} часа"
+      minutes: "%{count} мин."
+      seconds: "%{count} сек."

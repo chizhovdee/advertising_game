@@ -1,6 +1,9 @@
 $game_color_green: #7eff00;
 $game_color_red: #ff3333;
 $game_color_yellow: #bcbc00;
+$link_color: #ffc600;
+$link_shadow: 0px 1px 1px black;
+$link_hover_shadow: 0px 2px 2px black;
 
 @mixin box-shadow($shadows...) {
   -moz-box-shadow: $shadows;

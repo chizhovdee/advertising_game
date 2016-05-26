@@ -81,7 +81,7 @@ class Base
     """, @)
 
   update: (db, timestamps = true)->
-    @updated_at = new Date() if timestamps
+    @updated_at = new Date() if @isChanged && timestamps
 
     db.one("""
         update #{ @.getDBTableName() }

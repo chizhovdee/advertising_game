@@ -62,3 +62,27 @@
     @extend %common-button;
   }
 }
+
+%flat-button {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #FFFF00;
+  text-decoration: none;
+  text-align: center;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 1);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+      text-shadow: $link_shadow;
+    }
+  }
+}

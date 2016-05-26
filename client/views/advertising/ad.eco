@@ -1,0 +1,29 @@
+<div class="ad" id="ad_<%= @ad.id %>">
+  <div class="picture"><%=@safe @.advertisingPicture(@ad.type) %></div>
+
+  <div class="info">
+    <div class="name"><%= @ad.type.name() %></div>
+
+    <div class="status">
+      <%=@safe I18n.t("advertising.ad.status", status: "#{I18n.t("advertising.status.#{ @ad.status }")}") %>
+      <span class="value"></span>
+    </div>
+
+    <div class="next_route_timer">
+      <%=@safe I18n.t("advertising.ad.next_route_timer") %>
+    </div>
+  </div>
+
+  <div class="life_timer">
+    <%=@safe I18n.t("advertising.ad.life_timer") %>
+    <span class="value"></span>
+  </div>
+
+  <div class="controls">
+    <% if @ad.lifeTimeLeft > 0: %>
+      <button class="extend"><%= I18n.t("advertising.buttons.extend") %></button>
+    <% else: %>
+      <button class="delete"><%= I18n.t("advertising.buttons.delete") %></button>
+    <% end %>
+  </div>
+</div>

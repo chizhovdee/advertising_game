@@ -1,5 +1,22 @@
 ru:
   advertising:
-    buy: "Купить"
-    purchase:
-      title: "Купить рекламу"
+    buttons:
+      new: "Новая рекламная кампания"
+      create_advertising: "Создать"
+      extend: "Продлить"
+      delete: "Удалить"
+    ad:
+      life_timer: "<strong>Истекает:</strong>"
+      next_route_timer: "<strong>Следующий маршрут:</strong>"
+      status: "<strong>Статус</strong>: %{status}"
+    new:
+      title: "Новая рекламная компания"
+      select_type: "Выберите тип:"
+      select_period: "Выберите срок действия (дни):"
+      select_status: "Выберите статус:"
+      time_generation: "Время генерации одного маршрута:"
+      price: "Цена:"
+    status:
+      normal: "Обычный"
+      vip: "Вип"
+      premium: "Премиум"

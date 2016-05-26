@@ -11,6 +11,7 @@ module.exports =
     .then(->
       res.sendEvent("game_data_loaded", (data)->
         data.player = req.currentPlayer.toJSON()
+        data.states = req.currentPlayer.statesToJson()
       )
     )
     .catch(

@@ -1,11 +1,7 @@
-<div class="list">
-  <% for ad in @advertising: %>
-    <div class="ad <%= ad.key %>" >
-      <div class="picture"><%=@safe @.advertisingPicture(ad) %></div>
+<div class="controls">
+  <span class="new"><%= I18n.t("advertising.buttons.new") %></span>
+</div>
 
-      <div class="controls">
-        <button class="buy" data-type="<%= ad.key %>"><%= I18n.t('advertising.buy') %></button>
-      </div>
-    </div>
-  <% end %>
+<div class="list">
+  <%=@safe @.renderTemplate('advertising/list') %>
 </div>

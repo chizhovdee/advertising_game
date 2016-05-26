@@ -1,8 +1,10 @@
 utils = require("../utils")
 ctx = require('../context')
+settings = require('../settings')
 
 class BaseController extends Spine.Controller
   player: null
+  settings: null
 
   @include utils.render
   @include utils.time
@@ -18,6 +20,7 @@ class BaseController extends Spine.Controller
     super
 
     @player = ctx.get('player')
+    @settings = settings
 
   show: ->
     @.unbindEventListeners()
@@ -25,6 +28,9 @@ class BaseController extends Spine.Controller
 
   hide: ->
     @.unbindEventListeners()
+
+    @player = null
+    @settings = null
 
     @el.remove()
 

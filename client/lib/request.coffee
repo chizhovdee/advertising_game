@@ -85,3 +85,7 @@ module.exports =
   # transport
   load_transport: ->
     @.get('/transport')
+
+  # advertising
+  create_advertising: (data)->
+    @.post('/advertising/create', data)

@@ -24,7 +24,7 @@ class AdvertisingType extends Base
   price: (status, period)->
     Math.floor(
       @basicPrice * (1 - AdvertisingType.discountPerDay * (period - 1))
-    ) * AdvertisingType.statusFactor[status]
+    ) * period * AdvertisingType.statusFactor[status]
 
   toJSON: ->
     _.assign(

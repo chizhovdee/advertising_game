@@ -20,14 +20,20 @@ class AdvertisingState extends BaseState
 
     @.update()
 
-    @.addOperation('add', newId, newResource)
+    @.addOperation('add', newId, @.adToJSON(newResource))
+
+  adToJSON: (ad)->
+    resource = _.clone(ad)
+    resource.lifeTimeLeft = resource.completeAt - Date.now()
+
+    resource
+
 
   toJSON: ->
     state = {}
 
     for id, resource of @state
-      state[id] = _.clone(resource)
-      state[id].lifeTimeLeft = resource.completeAt - Date.now()
+      state[id] = @.adToJSON(resource)
 
     state
 

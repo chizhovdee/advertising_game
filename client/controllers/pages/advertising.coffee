@@ -12,6 +12,8 @@ class AdvertisingPage extends InnerPage
   PER_PAGE = 3
 
   show: ->
+    @playerState = ctx.get('playerState')
+
     super
 
     @loading = true
@@ -20,6 +22,9 @@ class AdvertisingPage extends InnerPage
 
     @.render()
 
+    @.setTimers()
+
+  setTimers: ->
     for resource in @paginatedList
       continue if resource.lifeTimeLeft <= 0
 
@@ -39,6 +44,8 @@ class AdvertisingPage extends InnerPage
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
 
+    @playerState.bind('update', @.onStateUpdated)
+
   unbindEventListeners: ->
     super
 
@@ -46,14 +53,12 @@ class AdvertisingPage extends InnerPage
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
 
+    @playerState.unbind('update', @.onStateUpdated)
+
   onNewClick: =>
     modals.NewAdvertisingModal.show()
 
   defineData: ->
-    @playerState = ctx.get('playerState')
-
-    @list = @playerState.advertising
-
     console.log @list = _.sortBy((
       for id, resource of @playerState.advertising
         _.assignIn({
@@ -80,5 +85,13 @@ class AdvertisingPage extends InnerPage
     )
 
     @.renderList()
+
+  onStateUpdated: =>
+    @.defineData()
+
+    @.render()
+
+    @.setTimers()
+
 
 module.exports = AdvertisingPage

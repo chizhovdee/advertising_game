@@ -1,5 +1,12 @@
 PropertyType = require('../game_data').PropertyType
 
+PropertyType.define('business_center', (obj)->
+  obj.price = 1000
+  obj.buildLevel = 1
+  obj.improvementPerPlayerLevels = 5
+  #obj.employeeTypeKey = 'warehouse_manager'
+)
+
 PropertyType.define('warehouse', (obj)->
   obj.price = 1000
   obj.baseCargoCount = 10

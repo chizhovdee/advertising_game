@@ -1,0 +1,7 @@
+<div class="page">
+  <% for property in @paginatedList: %>
+    <%=@safe @.renderTemplate('properties/property', property: property) %>
+  <% end %>
+</div>
+
+<%=@safe @.renderTemplate('page_switches') %>

@@ -2,46 +2,66 @@ Page = require("../page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
+VisualTimer = require("../../lib").VisualTimer
+ctx = require('../../context')
 
 class PropertiesPage extends Page
   className: "properties page"
 
+  PER_PAGE = 3
+
   show: ->
+    @playerState = ctx.get('playerState')
+
     super
 
-    @loading = true
+    @.defineData()
 
     @.render()
 
-    request.send('load_properties')
-
   render: ->
-    if @loading
-      @.renderPreloader()
-    else
-      @html(@.renderTemplate("properties/index"))
+    @html(@.renderTemplate("properties/index"))
+
+  renderList: ->
+    @el.find('.list').html(@.renderTemplate("advertising/list"))
 
   bindEventListeners: ->
     super
 
-    request.bind('properties_loaded', @.onDataLoaded)
+    @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
+    @el.on('click', '.switches .switch', @.onSwitchPageClick)
+
+    @playerState.bind('update', @.onStateUpdated)
 
   unbindEventListeners: ->
     super
 
-    request.unbind('properties_loaded', @.onDataLoaded)
+    @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
+    @el.off('click', '.switches .switch', @.onSwitchPageClick)
 
-  onDataLoaded: (response)=>
-    console.log response
+    @playerState.unbind('update', @.onStateUpdated)
 
-    @loading = false
+  defineData: ->
+    console.log @list = []
 
-    @list = EmployeeType.all()
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
 
     @listPagination.setSwitches(@list)
 
-    @.render()
+  onListPaginateClick: (e)=>
+    @paginatedList = @listPagination.paginate(@list,
+      back: $(e.currentTarget).data('type') == 'back'
+    )
+
+    @.renderList()
+
+  onSwitchPageClick: (e)=>
+    @paginatedList = @listPagination.paginate(@list,
+      start_count: ($(e.currentTarget).data('page') - 1) * @listPagination.per_page
+    )
+
+    @.renderList()
+
 
 module.exports = PropertiesPage

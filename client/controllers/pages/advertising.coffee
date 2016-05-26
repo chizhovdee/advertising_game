@@ -16,8 +16,6 @@ class AdvertisingPage extends InnerPage
 
     super
 
-    @loading = true
-
     @.defineData()
 
     @.render()

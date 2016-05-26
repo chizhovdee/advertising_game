@@ -1,0 +1,21 @@
+<div class="property" id="property_type_<%= @type.id %>">
+  <div class="picture"><%=@safe @.propertyPicture(@type) %></div>
+
+  <div class="info">
+    <div class="name"><%= @type.name() %></div>
+  </div>
+
+  <% if @property?: %>
+    <div class="level"><%= I18n.t("properties.property.level", level: @property.level) %></div>
+  <% end %>
+
+  <div class="controls">
+    <% if @property?: %>
+
+    <% else: %>
+      <button class="build" data-type-id="<%= @type.id %>">
+        <%= I18n.t("properties.property.build") %>
+      </button>
+    <% end %>
+  </div>
+</div>

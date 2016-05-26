@@ -12,6 +12,7 @@ create TABLE players (
   staff jsonb,
   trucking jsonb,
   advertising jsonb,
+  properties jsonb,
 
   session_key varchar(255),
   session_secret_key varchar(255),

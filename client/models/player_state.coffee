@@ -1,9 +1,12 @@
 class PlayerState extends Spine.Model
-  @configure "PlayerState", "oldAttributes", 'staff', 'trucking', 'advertising'
+  @configure "PlayerState", "oldAttributes",
+    'staff', 'trucking', 'advertising', 'properties'
 
   @include require('./modules/model_changes')
 
-  STATES = ['staff', 'trucking', 'advertising']
+  STATES = [
+    'staff', 'trucking', 'advertising', 'properties'
+  ]
 
   constructor: ->
     super

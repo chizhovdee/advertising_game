@@ -2,3 +2,10 @@ ru:
   properties:
     index:
       title: "Недвижимость"
+    property:
+      build: "Построить"
+      upgrade: "Улучшить"
+      level: "<strong>Уровень:</strong> %{level}"
+      price: "Цена: "
+      start_build: "Начать"
+      build_duration: "Время строительства: "

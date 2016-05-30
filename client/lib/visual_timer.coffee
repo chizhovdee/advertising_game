@@ -4,6 +4,11 @@ timeUtils = require("../utils").time
 class VisualTimer extends Timer
   constructor: (@element, @finishCallback, @tickCallback)->
 
+  setElement: (element)->
+    @element?.empty()
+
+    @element = element
+
   onTick: ->
     @.render()
 

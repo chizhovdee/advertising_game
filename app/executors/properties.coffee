@@ -3,17 +3,14 @@ Result = lib.Result
 Reward = lib.Reward
 Requirement = lib.Requirement
 
-AdvertisingType = require('../game_data').AdvertisingType
+PropertyType = require('../game_data').PropertyType
 
 module.exports =
-  createAdvertising: (player, data)->
-    type = AdvertisingType.find(data.type)
-    status = data.status
-    period = data.period
-    period = AdvertisingType.periods[0] if period < AdvertisingType.periods[0]
+  createProperty: (player, propertyTypeId)->
+    type = PropertyType.find(propertyTypeId)
 
     requirement = new Requirement()
-    requirement.basicMoney(type.price(status, period))
+    requirement.basicMoney(type.basicPrice)
 
     unless requirement.isSatisfiedFor(player)
       return new Result(
@@ -23,7 +20,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.advertisingState.create(type, status, period)
+    player.propertiesState.create(type)
     requirement.apply(reward)
 
     new Result(

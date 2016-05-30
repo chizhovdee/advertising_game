@@ -1,11 +1,23 @@
-module.exports =
-  index: (req, res)->
-    req.findCurrentPlayer()
-    .then(->
-      res.sendEvent("properties_loaded", (data)->
+_ = require('lodash')
+executor = require('../executors').properties
 
+module.exports =
+  create: (req, res)->
+    req.db.tx((t)->
+      req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
+
+      result = executor.createProperty(
+        req.currentPlayer
+        _.toInteger(req.body.property_type_id)
       )
+
+      res.addEventWithResult('property_created', result)
+
+      res.updateResources(t, req.currentPlayer)
     )
-    .catch(
-      (err)-> res.sendEventError(err)
+    .then(->
+      res.sendEventsWithProgress(req.currentPlayer)
+    )
+    .catch((error)->
+      res.sendEventError(error)
     )

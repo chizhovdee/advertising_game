@@ -11,7 +11,9 @@
 </div>
 
 <div class="controls">
-  <button class="start_build"><%= I18n.t("properties.property.start_build") %></button>
+  <button class="start_build" data-type-id="<%= @property.id %>">
+    <%= I18n.t("properties.property.start_build") %>
+  </button>
 
   <span class="cancel"><%= I18n.t("common.cancel") %></span>
 </div>

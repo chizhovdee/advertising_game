@@ -13,6 +13,9 @@ class PropertiesState extends BaseState
     newResource = {
       typeId: type.id
       level: 1
+      createdAt: Date.now()
+      updatedAt: Date.now()
+      builtAt: Date.now() + type.buildDuration
     }
 
     @state[newId] = newResource
@@ -24,10 +27,10 @@ class PropertiesState extends BaseState
   propertyToJSON: (ad)->
     resource = _.clone(ad)
 
-    # extend
+    if resource.builtAt?
+      resource.buildingTimeLeft = resource.builtAt - Date.now()
 
     resource
-
 
   toJSON: ->
     state = {}

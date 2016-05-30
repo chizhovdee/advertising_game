@@ -6,12 +6,17 @@
   </div>
 
   <% if @property?: %>
-    <div class="level"><%= I18n.t("properties.property.level", level: @property.level) %></div>
+    <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
   <% end %>
 
   <div class="controls">
     <% if @property?: %>
-
+      <% if @property.buildingTimeLeft? && @property.buildingTimeLeft > 0: %>
+        <div class="timer">
+          <span class="label"><%= I18n.t("properties.property.building_timer") %></span>
+          <span class="value"></span>
+        </div>
+      <% end %>
     <% else: %>
       <button class="build" data-type-id="<%= @type.id %>">
         <%= I18n.t("properties.property.build") %>

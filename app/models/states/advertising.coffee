@@ -13,6 +13,8 @@ class AdvertisingState extends BaseState
     newResource = {
       typeId: type.id
       status: status
+      createdAt: Date.now()
+      updatedAt: Date.now()
       completeAt: Date.now() + _(period).hours()
     }
 

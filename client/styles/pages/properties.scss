@@ -34,10 +34,22 @@
         }
       }
 
+      .level {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+      }
+
       > .controls {
         position: absolute;
         bottom: 5px;
         right: 5px;
+
+        .timer {
+          .label {
+            font-weight: bold;
+          }
+        }
       }
     }
   }

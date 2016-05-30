@@ -9,3 +9,4 @@ ru:
       price: "Цена: "
       start_build: "Начать"
       build_duration: "Время строительства: "
+      building_timer: "Строительство завершится в:"

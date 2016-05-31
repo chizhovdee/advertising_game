@@ -48,6 +48,8 @@ module.exports =
   delete: (url, data)->
     @.ajax("DELETE", url, data)
 
+  ##################### requests #########################
+
   loadGameData: ->
     @.get("game_data.json")
 
@@ -60,31 +62,33 @@ module.exports =
 #  buy_item: (data)->
 #    @.post('buy_item.json', data)
 
-  # staff
-  hire_staff: (data)->
-    @.post('/staff/hire.json', data)
+#  # staff
+#  hire_staff: (data)->
+#    @.post('/staff/hire.json', data)
+
+
+
+#  # trucking
+#  load_trucking: ->
+#    @.get('/trucking')
+#
+#  collect_trucking: (data)->
+#    @.put('/trucking/collect', data)
+#
+#  # routes
+#  load_routes: ->
+#    @.get('/routes')
+#
+#  create_trucking: (data)->
+#    @.post('/trucking/create', data)
+#
+#  # transport
+#  load_transport: ->
+#    @.get('/transport')
 
   # properties
-  load_properties: ->
-    @.get('/properties')
-
-  # trucking
-  load_trucking: ->
-    @.get('/trucking')
-
-  collect_trucking: (data)->
-    @.put('/trucking/collect', data)
-
-  # routes
-  load_routes: ->
-    @.get('/routes')
-
-  create_trucking: (data)->
-    @.post('/trucking/create', data)
-
-  # transport
-  load_transport: ->
-    @.get('/transport')
+  create_property: (data)->
+    @.post('/properties/create', data)
 
   # advertising
   create_advertising: (data)->

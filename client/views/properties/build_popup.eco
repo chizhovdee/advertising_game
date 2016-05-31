@@ -1,0 +1,19 @@
+<div class="build_duration">
+  <%= I18n.t("properties.property.build_duration") %>
+  <span class="value"><%= @.displayTime(@property.buildDuration) %></span>
+</div>
+
+<div class="price">
+  <%= I18n.t("properties.property.price") %>
+  <span class="value">
+    <%=@safe @.renderTemplate('requirements', requirements: @.buildPriceRequirement(@property)) %>
+  </span>
+</div>
+
+<div class="controls">
+  <button class="start_build" data-type-id="<%= @property.id %>">
+    <%= I18n.t("properties.property.start_build") %>
+  </button>
+
+  <span class="cancel"><%= I18n.t("common.cancel") %></span>
+</div>

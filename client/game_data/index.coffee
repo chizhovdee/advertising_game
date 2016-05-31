@@ -5,3 +5,4 @@ module.exports =
   TransportType: require('./transport_type')
   Transport: require('./transport')
   AdvertisingType: require('./advertising_type')
+  PropertyType: require('./property_type')

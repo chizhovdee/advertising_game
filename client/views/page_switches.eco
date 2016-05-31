@@ -1,0 +1,11 @@
+<% if @listPagination.switches.length > 1: %>
+  <div class="switches">
+    <div class="paginate left <%= 'disabled' unless @listPagination.canBack() %>" data-type="back"></div>
+
+    <% for [page, start_count] in @listPagination.switches: %>
+      <div class="switch <%= 'checked' if start_count == @listPagination.start_count %>" data-page='<%= page %>'></div>
+    <% end %>
+
+    <div class="paginate right <%= 'disabled' unless @listPagination.canForward() %>" data-type="forward"></div>
+  </div>
+<% end %>

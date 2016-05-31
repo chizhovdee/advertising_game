@@ -1,6 +1,7 @@
 ru:
   main_menu:
     home: "Офис"
+    properties: "Недвижимость"
     trucking: "Грузоперевозки"
     transport: "Траспорт"
     rating: "Рейтинг"

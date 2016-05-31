@@ -1,1 +1,5 @@
 <h1><%= I18n.t('properties.index.title') %></h1>
+
+<div class="list">
+  <%=@safe @.renderTemplate('properties/list') %>
+</div>

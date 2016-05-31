@@ -110,7 +110,7 @@ module.exports =
       _.assignIn({
         raw: true
         style: 'game'
-        className: 'black'
+        className: "black  #{options.alterClassName}"
         autoHide: false
         showAnimation: 'fadeIn'
         hideAnimation: 'fadeOut'

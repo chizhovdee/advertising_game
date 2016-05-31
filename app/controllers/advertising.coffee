@@ -6,7 +6,7 @@ module.exports =
     req.db.tx((t)->
       req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
 
-      result = executor.create(
+      result = executor.createAdvertising(
         req.currentPlayer
         _.parseRequestParams(req.body).data
       )

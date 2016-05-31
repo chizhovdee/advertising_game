@@ -23,6 +23,7 @@ class SidebarLayout extends BaseController
     @player.bind("update", @.onPlayerUpdate)
 
     @el.on("click", ".menu.home", -> pages.HomePage.show())
+    @el.on('click', '.menu.properties', -> pages.PropertiesPage.show())
 
 #    @el.on("click", ".menu.staff", -> pages.StaffPage.show())
 #    @el.on("click", ".menu.routes", -> pages.RoutesPage.show())

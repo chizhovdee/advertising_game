@@ -16,8 +16,7 @@ exports.setup = (app)->
 #    # staff
 #    apiRoutes.post('/staff/hire.json', controllers.staff.hire)
 #
-#    # properties
-#    apiRoutes.get('/properties', controllers.properties.index)
+
 #
 #    # trucking
 #    apiRoutes.get('/trucking', controllers.trucking.index)
@@ -29,6 +28,9 @@ exports.setup = (app)->
 #
 #    # transport
 #    apiRoutes.get('/transport', controllers.transport.index)
+
+    # properties
+    apiRoutes.post('/properties/create', controllers.properties.create)
 
     # advertising
     apiRoutes.post('/advertising/create', controllers.advertising.create)

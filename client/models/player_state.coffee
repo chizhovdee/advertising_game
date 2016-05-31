@@ -1,17 +1,24 @@
 class PlayerState extends Spine.Model
-  @configure "PlayerState", "oldAttributes", 'staff', 'trucking', 'advertising'
+  @configure "PlayerState", "oldAttributes",
+    'staff', 'staffUpdatedAt', 'trucking', 'truckingUpdatedAt',
+    'advertising', 'advertisingUpdatedAt', 'properties', 'propertiesUpdatedAt'
 
   @include require('./modules/model_changes')
 
-  STATES = ['staff', 'trucking', 'advertising']
+  STATES = [
+    'staff', 'trucking', 'advertising', 'properties'
+  ]
 
-  constructor: ->
-    super
-
-    for attribute in @.attributes()
+  create: ->
+    for attribute, value of @.attributes()
       @.setStateUpdatedAt(attribute)
 
+    super
+
   update: ->
+    for attribute, value of @.attributes()
+      @.setStateUpdatedAt(attribute)
+
     @.setOldAttributes(@constructor.irecords[@id].attributes())
 
     super

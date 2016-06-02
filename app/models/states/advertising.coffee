@@ -1,5 +1,6 @@
 _ = require('lodash')
 BaseState = require('./base')
+AdvertisingType = require('../../game_data').AdvertisingType
 
 class AdvertisingState extends BaseState
   defaultState: {}
@@ -8,6 +9,9 @@ class AdvertisingState extends BaseState
   generateId: ->
     super(_.keys(@state))
 
+  find: (id)->
+    @state[id]
+
   create: (type, status, period)->
     newId = @.generateId()
     newResource = {
@@ -15,7 +19,8 @@ class AdvertisingState extends BaseState
       status: status
       createdAt: Date.now()
       updatedAt: Date.now()
-      completeAt: Date.now() + _(period).hours()
+      expireAt: Date.now() + _(period).hours()
+      routeOpenAt: Date.now()
     }
 
     @state[newId] = newResource
@@ -24,12 +29,27 @@ class AdvertisingState extends BaseState
 
     @.addOperation('add', newId, @.adToJSON(newResource))
 
+  updateRouteOpenAt: (id)->
+    type = AdvertisingType.find(@state[id].typeId)
+
+    @state[id].routeOpenAt = Date.now() + type.timeGeneration
+
+    @.update()
+
+    @.addOperation('update', id, @.adToJSON(@state[id]))
+
+  adIsExpired: (id)->
+    @state[id].expireAt <= Date.now()
+
+  canOpenRoute: (id)->
+    @state[id].routeOpenAt > Date.now()
+
   adToJSON: (ad)->
     resource = _.clone(ad)
-    resource.lifeTimeLeft = resource.completeAt - Date.now()
+    resource.expireTimeLeft = resource.expireAt - Date.now()
+    resource.nextRouteTimeLeft = resource.routeOpenAt - Date.now()
 
     resource
-
 
   toJSON: ->
     state = {}

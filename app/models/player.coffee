@@ -23,7 +23,7 @@ class Player extends Base
   }
 
   @stateFields: [
-    'staff', 'trucking', 'advertising', 'properties'
+    'staff', 'trucking', 'advertising', 'properties', 'routes'
   ]
 
   # define in defineStates()
@@ -31,6 +31,7 @@ class Player extends Base
   truckingState: null
   advertisingState: null
   propertiesState: null
+  routesState: null
 
   @default: ->
     new @(DEFAULT_DB_ATTRIBUTES)
@@ -77,6 +78,12 @@ class Player extends Base
             enumerable: true
             value: new states.PropertiesState(@)
           )
+        when 'routes'
+          Object.defineProperty(@, 'routesState'
+            writable: false
+            enumerable: true
+            value: new states.RoutesState(@)
+          )
 
   stateOperations: ->
     result = {}
@@ -91,6 +98,7 @@ class Player extends Base
   statesToJson: ->
     advertising: @advertisingState.toJSON()
     properties: @propertiesState.toJSON()
+    routes: @routesState.toJSON()
 
   toJSON: ->
     id: @id

@@ -1,5 +1,6 @@
 Page = require("../page")
 AdvertisingPage = require('./advertising')
+RoutesPage = require('./routes')
 
 class HomePage extends Page
   className: "home page"
@@ -53,9 +54,8 @@ class HomePage extends Page
     switch @currentTab
       when 'trucking'
         1
-
       when 'routes'
-        2
+        @innerPage = new RoutesPage()
       when 'advertising'
         @innerPage = new AdvertisingPage()
 

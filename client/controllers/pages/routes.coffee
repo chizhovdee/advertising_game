@@ -1,67 +1,68 @@
-Page = require("../page")
+InnerPage = require("../inner_page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
-RouteType = require('../../game_data').RouteType
+VisualTimer = require("../../lib").VisualTimer
+ctx = require('../../context')
 Route = require('../../game_data').Route
 
-class RoutesPage extends Page
-  className: "routes page"
+class RoutesPage extends InnerPage
+  className: "routes inner_page"
 
   PER_PAGE = 3
 
   show: ->
+    @playerState = ctx.get('playerState')
+
     super
 
-    @loading = true
+    @.defineData()
 
     @.render()
 
-    request.send('load_routes')
-
   render: ->
-    if @loading
-      @.renderPreloader()
-    else
-      @html(@.renderTemplate("routes/index"))
+    @html(@.renderTemplate("routes/index"))
+
+  renderList: ->
+    @el.find('.list').html(@.renderTemplate("routes/list"))
 
   bindEventListeners: ->
     super
 
-    request.bind('routes_loaded', @.onDataLoaded)
-
-    @el.on('click', '.type', @.onTypeClick)
     @el.on('click', 'button.start', @.onStartClick)
 
   unbindEventListeners: ->
     super
 
-    request.unbind('routes_loaded', @.onDataLoaded)
-
-    @el.off('click', '.type', @.onTypeClick)
     @el.off('click', 'button.start', @.onStartClick)
 
-  onDataLoaded: (response)=>
-    console.log response
+  defineData: ->
+    console.log @list = _.sortBy((
+      for id, resource of @playerState.routes
+        _.assignIn({
+          id: id
+          route: Route.find(resource.routeId)
+        }, resource)
+    ), (ad)-> ad.createdAt)
 
-    @loading = false
-
-    @types = RouteType.all()
-
-    @.render()
-
-  onTypeClick: (e)=>
-    @currentTypeKey = $(e.currentTarget).data('type-key')
-
-    @routes = Route.findAllByAttribute('typeKey', @currentTypeKey)
-
-    @list = []
     @listPagination = new Pagination(PER_PAGE)
-    @paginatedList = @listPagination.paginate(@routes, initialize: true)
+    @paginatedList = @listPagination.paginate(@list, initialize: true)
 
-    @listPagination.setSwitches(@routes)
+    @listPagination.setSwitches(@list)
 
-    @.render()
+  onListPaginateClick: (e)=>
+    @paginatedList = @listPagination.paginate(@list,
+      back: $(e.currentTarget).data('type') == 'back'
+    )
+
+    @.renderList()
+
+  onSwitchPageClick: (e)=>
+    @paginatedList = @listPagination.paginate(@list,
+      start_count: ($(e.currentTarget).data('page') - 1) * @listPagination.per_page
+    )
+
+    @.renderList()
 
   onStartClick: (e)->
     modals.StartRouteModal.show($(e.currentTarget).data('route-key'))

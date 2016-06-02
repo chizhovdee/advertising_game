@@ -5,6 +5,7 @@ ru:
       create_advertising: "Создать"
       extend: "Продлить"
       delete: "Удалить"
+      open_route: "Открыть маршрут"
     ad:
       life_timer: "<strong>Истекает:</strong>"
       next_route_timer: "<strong>Следующий маршрут:</strong>"

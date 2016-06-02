@@ -39,6 +39,7 @@ class AdvertisingPage extends InnerPage
     super
 
     @el.on('click', '.new', @.onNewClick)
+    @el.on('click', '.open_route', @.onOpenRouteClick)
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
 
@@ -48,6 +49,7 @@ class AdvertisingPage extends InnerPage
     super
 
     @el.off('click', '.new', @.onNewClick)
+    @el.off('click', '.open_route', @.onOpenRouteClick)
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
 
@@ -84,12 +86,21 @@ class AdvertisingPage extends InnerPage
 
     @.renderList()
 
-  onStateUpdated: =>
+  onStateUpdated: (state)=>
+    changes = state.changes()
+    return unless changes.advertising?
+
     @.defineData()
 
     @.render()
 
     @.setTimers()
 
+  onOpenRouteClick: (e)->
+    button = $(e.currentTarget)
+
+    button.addClass('disabled')
+
+    request.send('open_route', advertising_id: button.data('advertising-id'))
 
 module.exports = AdvertisingPage

@@ -12,6 +12,10 @@
     <div class="next_route_timer">
       <%=@safe I18n.t("advertising.ad.next_route_timer") %>
     </div>
+
+    <button class="open_route" data-advertising-id="<%= @ad.id %>">
+      <%= I18n.t("advertising.buttons.open_route") %>
+    </button>
   </div>
 
   <div class="life_timer">

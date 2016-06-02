@@ -6,8 +6,10 @@ class Route extends Base
   typeKey: null
   goodKey: null
   goodTypeKey: null
+  transportTypeKey: null
   distance: null
   weight: null # тонны
+  reputation: null # требуемая репутация для выолнения
 
   @configure(publicForClient: true)
 
@@ -19,8 +21,10 @@ class Route extends Base
     @typeKey = null
     @goodKey = null
     @goodTypeKey = null
+    @transportTypeKey = null
     @distance = null
     @weight = null
+    @reputation = null
 
   setType: ->
     Object.defineProperty(@, 'type'
@@ -36,6 +40,8 @@ class Route extends Base
     throw new Error('undefined goodKey or goodTypeKey') if !@goodKey? && !@goodTypeKey?
     throw new Error('undefined distance') unless @distance?
     throw new Error('undefined weight') unless @weight?
+    throw new Error('undefined transportTypeKey') unless @transportTypeKey?
+    throw new Error('undefined reputation') unless @reputation?
 
   toJSON: ->
     _.assign(
@@ -44,8 +50,10 @@ class Route extends Base
       typeKey: @typeKey
       goodKey: @goodKey
       goodTypeKey: @goodTypeKey
+      transportTypeKey: @transportTypeKey
       distance: @distance
       weight: @weight
+      reputation: @reputation
       ,
       super
     )

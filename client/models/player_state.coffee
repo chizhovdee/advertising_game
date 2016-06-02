@@ -16,9 +16,6 @@ class PlayerState extends Spine.Model
     super
 
   update: ->
-    for attribute, value of @.attributes()
-      @.setStateUpdatedAt(attribute)
-
     @.setOldAttributes(@constructor.irecords[@id].attributes())
 
     super
@@ -45,7 +42,7 @@ class PlayerState extends Spine.Model
 
       @.setStateUpdatedAt(key)
 
-    @.updateAttributes(changes)
+    @.updateAttributes(changes) unless _.isEmpty(changes)
 
 module.exports = PlayerState
 

@@ -23,8 +23,7 @@ exports.setup = (app)->
 #    apiRoutes.post('/trucking/create', controllers.trucking.create)
 #    apiRoutes.put('/trucking/collect', controllers.trucking.collect)
 #
-#    # routes
-#    apiRoutes.get('/routes', controllers.routes.index)
+
 #
 #    # transport
 #    apiRoutes.get('/transport', controllers.transport.index)
@@ -34,3 +33,6 @@ exports.setup = (app)->
 
     # advertising
     apiRoutes.post('/advertising/create', controllers.advertising.create)
+
+    # routes
+    apiRoutes.put('/routes/open', controllers.routes.open)

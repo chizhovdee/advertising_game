@@ -75,13 +75,12 @@ module.exports =
 #  collect_trucking: (data)->
 #    @.put('/trucking/collect', data)
 #
-#  # routes
-#  load_routes: ->
-#    @.get('/routes')
 #
 #  create_trucking: (data)->
 #    @.post('/trucking/create', data)
-#
+
+
+
 #  # transport
 #  load_transport: ->
 #    @.get('/transport')
@@ -93,3 +92,10 @@ module.exports =
   # advertising
   create_advertising: (data)->
     @.post('/advertising/create', data)
+
+  # routes
+  open_route: (data)->
+    @.put('/routes/open', data)
+
+  load_routes: ->
+    @.get('/routes')

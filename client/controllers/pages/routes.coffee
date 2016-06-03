@@ -16,15 +16,36 @@ class RoutesPage extends InnerPage
 
     super
 
+    @timers = {}
+
     @.defineData()
 
     @.render()
 
+  hide: ->
+    for id, timer of @timers
+      timer.stop()
+
+    super
+
   render: ->
     @html(@.renderTemplate("routes/index"))
 
+    @.setupTimers()
+
   renderList: ->
     @el.find('.list').html(@.renderTemplate("routes/list"))
+
+    @.setupTimers()
+
+  setupTimers: ->
+    timeDiff = Date.now() - @playerState.routesUpdatedAt
+
+    for resource in @paginatedList
+      if resource.expireTimeLeft > 0
+        @timers[resource.id] ?= new VisualTimer()
+        @timers[resource.id].setElement($("#route_#{ resource.id } .timer .value"))
+        @timers[resource.id].start(resource.expireTimeLeft - timeDiff)
 
   bindEventListeners: ->
     super

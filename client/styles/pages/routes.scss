@@ -76,6 +76,23 @@
         }
       }
 
+      .timer {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        padding-left: 22px;
+        line-height: 20px;
+
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          @include images-sprite(icons/time);
+        }
+      }
+
       button.start {
         position: absolute;
         bottom: 5px;

@@ -1,4 +1,4 @@
-<div class="route">
+<div class="route" id="route_<%= @route.id %>">
   <div class="picture"><%=@safe @.transportTypePicture(@route.route.transportTypeKey) %></div>
 
   <div class="info">
@@ -13,6 +13,10 @@
 
       <%= content %>
     <% end %>
+  </div>
+
+  <div class="timer hint--bottom hint--no-animate" data-hint='Hui'>
+    <span class="value"></span>
   </div>
 
   <button class="start" data-route-key="<%= @route.route.key %>">

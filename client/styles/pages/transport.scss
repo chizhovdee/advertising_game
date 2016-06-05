@@ -6,24 +6,8 @@
       display: inline-block;
       cursor: pointer;
       margin: 25px 55px;
-
-      //@include images-sprite-dimensions(transport_types/truck);
-      //
-      //&.auto {
-      //  @include images-sprite-background(transport_types/truck);
-      //}
-      //
-      //&.railway {
-      //  @include images-sprite-background(transport_types/train);
-      //}
-      //
-      //&.air {
-      //  @include images-sprite-background(transport_types/plane);
-      //}
-      //
-      //&.sea {
-      //  @include images-sprite-background(transport_types/ship);
-      //}
+      width: 120px;
+      height: 120px;
     }
   }
 

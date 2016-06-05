@@ -8,7 +8,10 @@
 <% else: %>
   <div class="types">
     <% for type in @types: %>
-      <div class="type <%= type.key %>" data-type-key="<%= type.key %>"></div>
+      <div class="type"
+           style="background-image: url('<%= @.transportTypePictureUrl(type) %>');"
+           data-type-key="<%= type.key %>">
+      </div>
     <% end %>
   </div>
 <% end %>

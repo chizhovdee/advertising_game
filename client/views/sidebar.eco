@@ -15,6 +15,6 @@
 <div class="main_menu">
   <div class="menu home"><%= I18n.t("main_menu.home") %></div>
   <div class="menu properties"><%= I18n.t("main_menu.properties") %></div>
+  <div class="menu transport"><%= I18n.t("main_menu.transport") %></div>
   <div class="menu rating"><%= I18n.t("main_menu.rating") %></div>
-
 </div>

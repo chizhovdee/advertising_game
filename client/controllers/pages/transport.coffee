@@ -13,25 +13,18 @@ class TransportPage extends Page
   show: ->
     super
 
-    @loading = true
+    @.defineData()
 
     @.render()
 
-    request.send('load_transport')
-
   render: ->
-    if @loading
-      @.renderPreloader()
-    else
-      @html(@.renderTemplate("transport/index"))
+    @html(@.renderTemplate("transport/index"))
 
   renderList: ->
     @el.find('.list').html(@.renderTemplate("transport/list"))
 
   bindEventListeners: ->
     super
-
-    request.bind('transport_loaded', @.onDataLoaded)
 
     @el.on('click', '.type', @.onTypeClick)
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
@@ -40,20 +33,12 @@ class TransportPage extends Page
   unbindEventListeners: ->
     super
 
-    request.unbind('transport_loaded', @.onDataLoaded)
-
     @el.off('click', '.type', @.onTypeClick)
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
 
-  onDataLoaded: (response)=>
-    console.log response
-
-    @loading = false
-
+  defineData: ->
     @types = TransportType.all()
-
-    @.render()
 
   onTypeClick: (e)=>
     @currentTypeKey = $(e.currentTarget).data('type-key')

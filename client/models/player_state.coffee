@@ -1,13 +1,11 @@
+settings = require('../settings')
+
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
-    'staff', 'staffUpdatedAt', 'trucking', 'truckingUpdatedAt',
+    'trucking', 'truckingUpdatedAt', 'routes', 'routesUpdatedAt',
     'advertising', 'advertisingUpdatedAt', 'properties', 'propertiesUpdatedAt'
 
   @include require('./modules/model_changes')
-
-  STATES = [
-    'staff', 'trucking', 'advertising', 'properties'
-  ]
 
   create: ->
     for attribute, value of @.attributes()
@@ -16,15 +14,12 @@ class PlayerState extends Spine.Model
     super
 
   update: ->
-    for attribute, value of @.attributes()
-      @.setStateUpdatedAt(attribute)
-
     @.setOldAttributes(@constructor.irecords[@id].attributes())
 
     super
 
   setStateUpdatedAt: (attribute)->
-    return unless attribute in STATES
+    return unless attribute in settings.player.stateFields
 
     @["#{ attribute }UpdatedAt"] = Date.now()
 
@@ -45,7 +40,7 @@ class PlayerState extends Spine.Model
 
       @.setStateUpdatedAt(key)
 
-    @.updateAttributes(changes)
+    @.updateAttributes(changes) unless _.isEmpty(changes)
 
 module.exports = PlayerState
 

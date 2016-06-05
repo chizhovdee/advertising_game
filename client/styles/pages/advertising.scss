@@ -41,8 +41,14 @@
           font-weight: bold;
         }
 
-        .status, .next_route_timer {
+        .status, .next_route_timer, .next_route {
           margin-top: 10px;
+        }
+
+        .next_route {
+          .open_route {
+            @extend %flat-button;
+          }
         }
       }
 

@@ -5,10 +5,12 @@ ru:
       create_advertising: "Создать"
       extend: "Продлить"
       delete: "Удалить"
+      open_route: "Открыть"
     ad:
       life_timer: "<strong>Истекает:</strong>"
       next_route_timer: "<strong>Следующий маршрут:</strong>"
       status: "<strong>Статус</strong>: %{status}"
+      next_route: "Маршрут:"
     new:
       title: "Новая рекламная компания"
       select_type: "Выберите тип:"

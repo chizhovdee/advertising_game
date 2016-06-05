@@ -9,9 +9,21 @@
       <span class="value"></span>
     </div>
 
-    <div class="next_route_timer">
-      <%=@safe I18n.t("advertising.ad.next_route_timer") %>
-    </div>
+    <% if @ad.nextRouteTimeLeft > 0: %>
+      <div class="next_route_timer">
+        <strong><%=@safe I18n.t("advertising.ad.next_route_timer") %></strong>
+        <span class="value"></span>
+      </div>
+
+    <% else: %>
+      <div class="next_route">
+        <strong><%= I18n.t("advertising.ad.next_route") %></strong>
+
+        <span class="open_route" data-advertising-id="<%= @ad.id %>">
+          <%= I18n.t("advertising.buttons.open_route") %>
+        </span>
+      </div>
+    <% end %>
   </div>
 
   <div class="life_timer">
@@ -20,7 +32,7 @@
   </div>
 
   <div class="controls">
-    <% if @ad.lifeTimeLeft > 0: %>
+    <% if @ad.expireTimeLeft > 0: %>
       <button class="extend"><%= I18n.t("advertising.buttons.extend") %></button>
     <% else: %>
       <button class="delete"><%= I18n.t("advertising.buttons.delete") %></button>

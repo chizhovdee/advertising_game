@@ -8,11 +8,7 @@ module.exports =
     for attribute, value of @.attributes()
       continue if attribute == "oldAttributes"
 
-      if _.isObject(value)
-        unless _.isEqual(value, @oldAttributes[attribute])
-          changes[attribute] = [@oldAttributes[attribute], value]
-
-      else if value != @oldAttributes[attribute]
+      unless _.isEqual(value, @oldAttributes[attribute])
         changes[attribute] = [@oldAttributes[attribute], value]
 
     changes

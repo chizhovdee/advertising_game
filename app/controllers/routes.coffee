@@ -1,11 +1,24 @@
-module.exports =
-  index: (req, res)->
-    req.findCurrentPlayer()
-    .then(->
-      res.sendEvent("routes_loaded", (data)->
+_ = require('lodash')
+executor = require('../executors').routes
 
+module.exports =
+  open: (req, res)->
+    req.db.tx((t)->
+      req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
+
+      result = executor.openRoute(
+        req.currentPlayer
+        _.toInteger(req.body.advertising_id)
       )
+
+      res.addEventWithResult('route_opened', result)
+
+      res.updateResources(t, req.currentPlayer)
     )
-    .catch(
-      (err)-> res.sendEventError(err)
+    .then(->
+      res.sendEventsWithProgress(req.currentPlayer)
     )
+    .catch((error)->
+      res.sendEventError(error)
+    )
+

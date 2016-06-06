@@ -94,16 +94,12 @@ class PropertiesPage extends Page
 
     @.renderList()
 
-    @.setupTimers()
-
   onSwitchPageClick: (e)=>
     @paginatedList = @listPagination.paginate(@list,
       start_count: ($(e.currentTarget).data('page') - 1) * @listPagination.per_page
     )
 
     @.renderList()
-
-    @.setupTimers()
 
   onBuildClick: (e)=>
     button = $(e.currentTarget)

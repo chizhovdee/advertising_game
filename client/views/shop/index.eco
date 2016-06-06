@@ -1,13 +1,13 @@
-<div id="shop">
-  <h1><%= I18n.t('shop.title') %></h1>
+<h1><%= I18n.t('shop.index.title') %></h1>
 
-  <div class="groups">
-    <div class="tabs">
-      <%=@safe @.renderTemplate("shop/tabs") %>
-    </div>
-  </div>
+<div class="groups">
+  <% for group in @groups: %>
+    <div
+        class="group <%= group %> <%= 'current' if @currentGroup == group %>"
+        data-group="<%= group %>"></div>
+  <% end %>
+</div>
 
-  <div class="item_list">
-    <%=@safe @.renderTemplate("shop/item_list") %>
-  </div>
+<div class="list">
+  <%=@safe @.renderTemplate('shop/list') %>
 </div>

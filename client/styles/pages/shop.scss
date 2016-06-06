@@ -1,0 +1,76 @@
+$shop_groups: sea, auto, air, railway;
+
+.page.shop {
+  .groups {
+    margin-top: 10px;
+
+    .group {
+      display: inline-block;
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      margin: 0 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+
+      &.current {
+       border: 1px solid $game_color_red;
+      }
+
+      @each $group in $shop_groups {
+        &.#{$group} {
+          @include images-sprite(shop_groups/#{$group});
+        }
+      }
+    }
+  }
+
+  .list {
+    margin-top: 25px;
+    text-align: center;
+
+    .item {
+      display: inline-block;
+      vertical-align: top;
+      @include border-radius(10px);
+      width: 240px;
+      background-color: rgba(0, 0, 0, 0.1);
+
+      &:first-child {
+        margin-right: 9px;
+      }
+
+      .name {
+        font-weight: bold;
+        font-size: 15px;
+        background-color: #0c9ef3;
+        line-height: 25px;
+        text-align: center;
+        color: #fff;
+        text-shadow: 0px -1px 0px #000;
+        @include border-top-radius(10px);
+      }
+    }
+
+    .picture {
+      text-align: center;
+      border-bottom: 1px solid #000;
+      height: 120px;
+
+      img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    .info {
+      height: 180px;
+    }
+
+    .controls {
+      height: 100px;
+      background-color: #0A0A0A;
+      @include border-bottom-radius(10px);
+    }
+  }
+}

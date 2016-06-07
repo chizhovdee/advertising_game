@@ -1,13 +1,34 @@
-<div class="item transport">
-  <div class="name"><%= @transport.name() %></div>
-
+<div class="item transport" id="item_<%= @transport.id %>">
   <div class="picture"><%=@safe @.transportPicture(@transport) %></div>
 
   <div class="info">
+    <div class="name"><%= @transport.name() %></div>
 
+    <div class="attributes">
+      <% for attr in @transportAttributes: %>
+        <div class="attribute <%= attr %>">
+          <div class="att_name"><%= I18n.t("transport.attributes.#{attr}") %></div>
+          <div class="value">
+            <% if attr == 'good': %>
+              список...
+            <% else: %>
+              <%= @transport[attr] %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="price">
+    <div class="label"><%= I18n.t("transport.item.price") %></div>
+
+    <%=@safe @.renderTemplate('requirements', requirements: @.basicPriceRequirement(@transport)) %>
   </div>
 
   <div class="controls">
-
+    <button class="buy" data-item-id="<%= @transport.id %>">
+      <%= I18n.t("transport.buttons.buy") %>
+    </button>
   </div>
 </div>

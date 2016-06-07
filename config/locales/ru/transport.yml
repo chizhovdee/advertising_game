@@ -2,3 +2,13 @@ ru:
   transport:
     index:
       title: "Транспорт"
+    item:
+      price: "Цена: "
+    attributes:
+      consumption: "Расход топлива:"
+      reliability: "Надежность:"
+      carrying: "Грузоподъемность:"
+      travelSpeed: "Скорость:"
+      good: "Груз:"
+    buttons:
+      buy: "Купить"

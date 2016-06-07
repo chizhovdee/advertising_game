@@ -36,3 +36,6 @@ exports.setup = (app)->
 
     # routes
     apiRoutes.put('/routes/open', controllers.routes.open)
+
+    # shop
+    apiRoutes.post('/shop/buy', controllers.shop.buy)

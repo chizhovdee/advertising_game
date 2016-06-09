@@ -15,6 +15,7 @@ create TABLE players (
   advertising jsonb,
   properties jsonb,
   routes jsonb,
+  transport jsonb,
 
   session_key varchar(255),
   session_secret_key varchar(255),

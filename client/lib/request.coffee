@@ -53,15 +53,6 @@ module.exports =
   loadGameData: ->
     @.get("game_data.json")
 
-#  load_character_status: ->
-#    @.get("characters/status.json")
-#
-#  load_shop: (data)->
-#    @.get('shop.json', data)
-#
-#  buy_item: (data)->
-#    @.post('buy_item.json', data)
-
 #  # staff
 #  hire_staff: (data)->
 #    @.post('/staff/hire.json', data)
@@ -99,3 +90,7 @@ module.exports =
 
   load_routes: ->
     @.get('/routes')
+
+  # shop
+  buy_item: (data)->
+    @.post('/shop/buy', data)

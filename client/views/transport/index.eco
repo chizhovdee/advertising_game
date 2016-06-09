@@ -1,14 +1,13 @@
 <h1><%= I18n.t('transport.index.title') %></h1>
 
-<% if @currentTypeKey?: %>
-  <div class="list">
-    <%=@safe @.renderTemplate('transport/list') %>
-  </div>
+<div class="groups">
+  <% for group in @groups: %>
+  <div
+      class="group <%= group %> <%= 'current' if @currentGroup == group %>"
+      data-group="<%= group %>"></div>
+  <% end %>
+</div>
 
-<% else: %>
-  <div class="types">
-    <% for type in @types: %>
-      <div class="type <%= type.key %>" data-type-key="<%= type.key %>"></div>
-    <% end %>
-  </div>
-<% end %>
+<div class="list">
+  <%=@safe @.renderTemplate('transport/list') %>
+</div>

@@ -1,7 +1,14 @@
-<div class="transport_item">
-  <div class="picture"><%=@safe @.transportPicture(@transport) %></div>
+<div class="transport" id="transport_<%= @transport.id %>">
+  <div class="picture"><%=@safe @.transportPicture(@transport.type) %></div>
 
   <div class="info">
-    <div class="name"><%= @transport.name() %></div>
+    <div class="name"><%= @transport.type.name() %></div>
+
+    <div class="attributes">
+      <div class="attribute damage">
+        <div class="att_name"><%= I18n.t("transport.attributes.damage") %></div>
+        <div class="value"><%= @transport.damage %>%</div>
+      </div>
+    </div>
   </div>
 </div>

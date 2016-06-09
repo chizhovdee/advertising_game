@@ -45,7 +45,7 @@ class AdvertisingState extends BaseState
     @state[id].routeOpenAt > Date.now()
 
   adToJSON: (ad)->
-    resource = _.clone(ad)
+    resource = @.extendResource(ad)
     resource.expireTimeLeft = resource.expireAt - Date.now()
     resource.nextRouteTimeLeft = resource.routeOpenAt - Date.now()
 

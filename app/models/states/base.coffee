@@ -46,4 +46,10 @@ class BaseState
   update: ->
     @player[@stateName] = @state
 
+  extendResource: (resource)->
+    _resource = _.clone(resource)
+    _resource.loadedAt = Date.now()
+
+    _resource
+
 module.exports = BaseState

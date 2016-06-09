@@ -1,9 +1,13 @@
+# для того чтобы новое поле стейта заработало на клиенте,
+# нужно добавить атрибут здесь и вписать в массив Player.stateFields на бэкенде
+
 settings = require('../settings')
 
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
     'trucking', 'truckingUpdatedAt', 'routes', 'routesUpdatedAt',
-    'advertising', 'advertisingUpdatedAt', 'properties', 'propertiesUpdatedAt'
+    'advertising', 'advertisingUpdatedAt', 'properties', 'propertiesUpdatedAt',
+    'transport', 'transportUpdatedAt'
 
   @include require('./modules/model_changes')
 

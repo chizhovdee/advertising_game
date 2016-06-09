@@ -41,7 +41,7 @@ class RoutesState extends BaseState
     @.addOperation('add', newId, @.routeToJSON(newResource))
 
   routeToJSON: (ad)->
-    resource = _.clone(ad)
+    resource = @.extendResource(ad)
     resource.expireTimeLeft = (resource.createdAt + RoutesState.expireDuration) - Date.now()
 
     resource

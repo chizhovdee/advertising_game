@@ -4,3 +4,4 @@ module.exports =
   AdvertisingState: require('./advertising')
   PropertiesState: require('./properties')
   RoutesState: require('./routes')
+  TransportState: require('./transport')

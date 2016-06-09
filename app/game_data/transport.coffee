@@ -8,7 +8,9 @@ class Transport extends Base
   consumption: null # расход топлива на 100 км
   reliability: null # надежность - процент на 10 000 км
   carrying: null # грузоподъемность тонны
-  travelSpeed: null # скорость перемещения
+  travelSpeed: null # средняя скорость перемещения
+
+  basicPrice: null #
 
   # тип груза / груз
   goodTypeKeys: null
@@ -35,6 +37,8 @@ class Transport extends Base
 
     @isPrimary = false
 
+    @basicPrice = null
+
   setType: ->
     Object.defineProperty(@, 'type'
       value: TransportType.find(@typeKey)
@@ -51,6 +55,8 @@ class Transport extends Base
     throw new Error('undefined reliability') unless @reliability?
     throw new Error('undefined travel speed') unless @travelSpeed?
 
+    throw new Error('undefined basic price') unless @basicPrice?
+
     throw new Error('empty goodTypeKeys or goodKeys') if @goodKeys.length == 0 && @goodTypeKeys.length == 0
 
   toJSON: ->
@@ -63,6 +69,7 @@ class Transport extends Base
       goodKeys: @goodKeys
       goodTypeKeys: @goodTypeKeys
       isPrimary: @isPrimary
+      basicPrice: @basicPrice
       ,
       super
     )

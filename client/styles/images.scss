@@ -6,11 +6,11 @@
 
 $images_image_url: image-url('images.png');
 
-$images_piece_names: advertising_status/normal, advertising_status/premium, advertising_status/vip, icons/accept, icons/achievement, icons/add, icons/alliance, icons/app_requests, icons/basic_money, icons/chat, icons/collections, icons/credits, icons/delete, icons/drag_n_drop_item, icons/exchange, icons/experience, icons/fuel, icons/gift, icons/help, icons/hide, icons/home, icons/inventory, icons/level, icons/lock, icons/next, icons/previous, icons/profile, icons/properties, icons/publish, icons/quests, icons/rating, icons/reputation, icons/shop, icons/step, icons/time, icons/vip_money, trucking_placeholder, ui/add, ui/arrow_left, ui/arrow_right, ui/button, ui/close_icon, ui/round, ui/round_checked;
-$images_piece_widths: 120px, 120px, 120px, 20px, 16px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 120px, 28px, 23px, 23px, 300px, 20px, 15px, 15px;
-$images_piece_heights: 120px, 120px, 120px, 20px, 16px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 120px, 27px, 34px, 33px, 23px, 20px, 15px, 15px;
-$images_piece_positions_x: 1px, 123px, 245px, 489px, 514px, 511px, 514px, 536px, 544px, 533px, 558px, 566px, 555px, 566px, 580px, 588px, 577px, 588px, 602px, 555px, 610px, 599px, 610px, 624px, 632px, 621px, 632px, 646px, 654px, 643px, 654px, 668px, 676px, 665px, 676px, 690px, 367px, 514px, 489px, 489px, 489px, 698px, 532px, 549px;
-$images_piece_positions_y: 1px, 1px, 1px, 97px, 77px, 97px, 55px, 55px, 26px, 94px, 48px, 26px, 94px, 70px, 48px, 26px, 92px, 70px, 48px, 94px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 1px, 26px, 26px, 62px, 1px, 26px, 77px, 77px;
+$images_piece_names: advertising_status/normal, advertising_status/premium, advertising_status/vip, icons/accept, icons/achievement, icons/add, icons/alliance, icons/app_requests, icons/basic_money, icons/chat, icons/collections, icons/credits, icons/delete, icons/drag_n_drop_item, icons/exchange, icons/experience, icons/fuel, icons/gift, icons/help, icons/hide, icons/home, icons/inventory, icons/level, icons/lock, icons/next, icons/previous, icons/profile, icons/properties, icons/publish, icons/quests, icons/rating, icons/reputation, icons/shop, icons/step, icons/time, icons/vip_money, shop_groups/air, shop_groups/auto, shop_groups/railway, shop_groups/sea, trucking_placeholder, ui/add, ui/arrow_left, ui/arrow_right, ui/button, ui/close_icon, ui/round, ui/round_checked;
+$images_piece_widths: 120px, 120px, 120px, 20px, 16px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 30px, 30px, 30px, 30px, 120px, 28px, 23px, 23px, 300px, 20px, 15px, 15px;
+$images_piece_heights: 120px, 120px, 120px, 20px, 16px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 20px, 30px, 30px, 30px, 30px, 120px, 27px, 34px, 33px, 23px, 20px, 15px, 15px;
+$images_piece_positions_x: 1px, 123px, 245px, 489px, 587px, 511px, 565px, 576px, 578px, 587px, 598px, 600px, 609px, 620px, 622px, 622px, 631px, 642px, 644px, 609px, 644px, 653px, 664px, 666px, 666px, 675px, 686px, 688px, 688px, 697px, 708px, 710px, 710px, 719px, 730px, 732px, 514px, 514px, 533px, 546px, 367px, 546px, 489px, 489px, 489px, 732px, 605px, 741px;
+$images_piece_positions_y: 1px, 1px, 1px, 97px, 102px, 97px, 87px, 58px, 26px, 80px, 48px, 26px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 70px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 92px, 70px, 48px, 26px, 26px, 58px, 90px, 26px, 1px, 58px, 26px, 62px, 1px, 92px, 102px, 70px;
 
 @function images-sprite-width($name) {
   $index: index($images_piece_names, $name);
@@ -68,4 +68,4 @@ $images_piece_positions_y: 1px, 1px, 1px, 97px, 77px, 97px, 55px, 55px, 26px, 94
   @include images-sprite-background($name);
 }
 
-// $TexturePacker:SmartUpdate:cad16db08cfe292098f5a17ab9dc599b:0722a7921e23e3c9dd25acca6731b622:376d2bb6512222bd8af7f4ca32620778$
+// $TexturePacker:SmartUpdate:b97ecc0e7be33ae664a6918f8b7186b0:c53d79aabcdb1cc3af9679eaa9aed3b7:376d2bb6512222bd8af7f4ca32620778$

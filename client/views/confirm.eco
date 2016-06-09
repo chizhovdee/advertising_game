@@ -1,0 +1,17 @@
+<div class="text"><%= I18n.t('common.are_you_sure') %></div>
+
+<div class="confirm_controls"
+    <% if @button.data?: %>
+      <% for key, value of @button.data: %>
+        data-<%= key %>="<%= value %>"
+      <% end %>
+    <% end %>
+>
+  <button class="<%= @button.className %>" data-type="yes">
+    <%= @button.text || I18n.t('common.buttons.yes') %>
+  </button>
+
+  <span class="<%= @button.className %> cancel" data-type="cancel">
+    <%= I18n.t('common.buttons.cancel') %>
+  </span>
+</div>

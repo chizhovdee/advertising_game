@@ -1,6 +1,6 @@
-$transport_groups: sea, auto, air, railway;
+$shop_groups: sea, auto, air, railway;
 
-.page.transport {
+.page.shop {
   .groups {
     margin-top: 10px;
 
@@ -14,10 +14,10 @@ $transport_groups: sea, auto, air, railway;
       border: 1px solid transparent;
 
       &.current {
-        border: 1px solid $game_color_red;
+       border: 1px solid $game_color_red;
       }
 
-      @each $group in $transport_groups {
+      @each $group in $shop_groups {
         &.#{$group} {
           @include images-sprite(shop_groups/#{$group});
         }
@@ -29,14 +29,14 @@ $transport_groups: sea, auto, air, railway;
     @include pagination;
     margin-top: 25px;
 
-    .transport {
+    .item {
       position: relative;
       @include border-radius(5px);
       background-color: rgba(0, 0, 0, 0.1);
       border: 1px solid #000;
       margin-bottom: 10px;
       height: 120px;
-
+      
       .picture, .info {
         display: inline-block;
         vertical-align: top;
@@ -59,7 +59,7 @@ $transport_groups: sea, auto, air, railway;
           color: $game_color_yellow;
           margin-bottom: 5px;
         }
-
+        
         .attribute {
           .att_name, .value {
             display: inline-block;
@@ -70,6 +70,29 @@ $transport_groups: sea, auto, air, railway;
           .att_name {
             font-weight: bold;
           }
+        }
+      }
+
+      .price {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+        .label, .requirement {
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .label {
+          font-weight: bold;
+        }
+
+        .requirement {
+          margin: 0;
+        }
+
+        .label {
+          line-height: 15px;
         }
       }
 

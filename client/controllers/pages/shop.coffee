@@ -123,6 +123,8 @@ class ShopPage extends Page
   onItemPurchased: (response)=>
     console.log 'onItemPurchased', response
 
+    @.displaySuccess("Вы успешно купили транспорт!")
+
   basicPriceRequirement: (transport)->
     {basic_money: [transport.basicPrice, @player.basic_money >= transport.basicPrice]}
 

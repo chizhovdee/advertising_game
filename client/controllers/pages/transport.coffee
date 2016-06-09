@@ -2,16 +2,25 @@ Page = require("../page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
-TransportType = require('../../game_data').TransportType
+ctx = require('../../context')
+
 Transport = require('../../game_data').Transport
+TransportType = require('../../game_data').TransportType
 
 class TransportPage extends Page
   className: "transport page"
+  transportGroups: _.map(TransportType.all(), (t)-> t.key)
 
   PER_PAGE = 3
 
   show: ->
+    @playerState = ctx.get('playerState')
+
     super
+
+    @groups = @transportGroups
+
+    @currentGroup = 'auto'
 
     @.defineData()
 
@@ -26,31 +35,38 @@ class TransportPage extends Page
   bindEventListeners: ->
     super
 
-    @el.on('click', '.type', @.onTypeClick)
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
+
+    @el.on('click', '.groups .group:not(.current)', @.onGroupClick)
 
   unbindEventListeners: ->
     super
 
-    @el.off('click', '.type', @.onTypeClick)
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
 
+    @el.off('click', '.groups .group:not(.current)', @.onGroupClick)
+
   defineData: ->
-    @types = TransportType.all()
+    @list = []
 
-  onTypeClick: (e)=>
-    @currentTypeKey = $(e.currentTarget).data('type-key')
+    for id, resource of @playerState.transport
+      type = Transport.find(resource.typeId)
 
-    @list = Transport.findAllByAttribute('typeKey', @currentTypeKey)
+      continue unless type.typeKey == @currentGroup
+
+      @list.push(_.assignIn({
+        id: id
+        type: type
+      }, resource))
+
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
 
     @listPagination.setSwitches(@list)
 
-    @.render()
-
+  # events
   onListPaginateClick: (e)=>
     @paginatedList = @listPagination.paginate(@list,
       back: $(e.currentTarget).data('type') == 'back'
@@ -64,5 +80,18 @@ class TransportPage extends Page
     )
 
     @.renderList()
+
+  onGroupClick: (e)=>
+    groupEl = $(e.currentTarget)
+
+    @el.find('.groups .group').removeClass('current')
+    groupEl.addClass('current')
+
+    @currentGroup = groupEl.data('group')
+
+    @.defineData()
+
+    @.renderList()
+
 
 module.exports = TransportPage

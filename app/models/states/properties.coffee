@@ -24,8 +24,8 @@ class PropertiesState extends BaseState
 
     @.addOperation('add', newId, @.propertyToJSON(newResource))
 
-  propertyToJSON: (ad)->
-    resource = _.clone(ad)
+  propertyToJSON: (property)->
+    resource = @.extendResource(property)
 
     if resource.builtAt?
       resource.buildingTimeLeft = resource.builtAt - Date.now()

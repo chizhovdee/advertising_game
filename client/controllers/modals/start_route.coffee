@@ -1,17 +1,17 @@
 Modal = require("../modal")
+request = require('../../lib').request
+TransportSelectionModal = require('./transport_selection')
+
 Route = require('../../game_data').Route
 Transport = require('../../game_data').Transport
-request = require('../../lib').request
 
 class StartRouteModal extends Modal
   className: 'start_route modal'
 
-  show: (routeKey)->
+  show: (routeId, @stateRouteId)->
     super
 
-    @route = Route.find(routeKey)
-
-    @transports = Transport.findAllByAttribute('typeKey', @route.typeKey)
+    @.defineData(routeId)
 
     @.render()
 
@@ -25,26 +25,25 @@ class StartRouteModal extends Modal
 
     request.bind('trucking_created', @.onTruckingCreated)
 
-    @el.on('click', 'button.select:not(.disabled)', @.onSelectClick)
+    @el.on('click', '.transport_list .add', @.onAddTransportClick)
 
   unbindEventListeners: ->
     super
 
     request.unbind('trucking_created', @.onTruckingCreated)
 
-    @el.off('click', 'button.select:not(.disabled)', @.onSelectClick)
+    @el.off('click', '.transport_list .add', @.onAddTransportClick)
 
-  onSelectClick: (e)=>
-    button = $(e.currentTarget)
-    button.addClass('disabled')
+  defineData: (routeId)->
+    console.log @route = Route.find(routeId)
 
-    request.send('create_trucking'
-      route_id: @route.id
-      transport_id: button.data('transport-id')
-    )
-
+  # events
   onTruckingCreated: (response)=>
     console.log response
+
+  onAddTransportClick: =>
+    console.log 'onAddTransportClick'
+    TransportSelectionModal.show()
 
 
 module.exports = StartRouteModal

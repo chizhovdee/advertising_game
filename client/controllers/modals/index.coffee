@@ -3,3 +3,4 @@ module.exports =
   HireStaffModal: require('./hire_staff')
   StartRouteModal: require('./start_route')
   NewAdvertisingModal: require('./new_advertising')
+  TransportSelectionModal: require('./transport_selection')

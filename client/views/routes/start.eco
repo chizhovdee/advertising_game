@@ -1,15 +1,35 @@
 <h2><%= I18n.t('routes.start.title') %></h2>
 
-<div class="text"><%= I18n.t('routes.start.text') %></div>
+<div class="info">
+  <div class="name"><%= I18n.t("routes.route.good", name: @route.goodName()) %></div>
 
-<button class="compose"><%= I18n.t("routes.start.compose") %></button>
+  <div class="distance"><%= I18n.t("routes.route.distance", value: @route.distance) %></div>
 
-<div class="transports">
-  <% for transport in @transports: %>
-    <div class="transport">
-      <div class="picture"><%=@safe @.transportPicture(transport) %></div>
+  <div class="weight"><%= I18n.t("routes.route.weight", value: @route.weight) %></div>
 
-      <button class="select" data-transport-id="<%= transport.id %>"><%= I18n.t("routes.start.select") %></button>
-    </div>
-  <% end %>
+  <div class="total_capacity">
+    <%= I18n.t('routes.start.total_capacity') %>
+
+    <span class="value">0</span>
+  </div>
+
+  <div class="time">
+    <%= I18n.t('routes.start.time') %>
+
+    <span class="value">0</span>
+  </div>
+</div>
+
+<div class="transport_list">
+  <h3><%= I18n.t('routes.start.transport') %></h3>
+
+  <div class="add"></div>
+</div>
+
+<div class="fuel_requirement">
+  <%= I18n.t('routes.start.fuel_requirement') %>
+</div>
+
+<div class="controls">
+  <button class="start"><%= I18n.t('routes.start.start') %></button>
 </div>

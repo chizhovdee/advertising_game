@@ -1,31 +1,26 @@
 .start_route.modal {
-  .transports {
-    .transport {
-      position: relative;
+  .info {
+    margin-bottom: 10px;
+
+    .name, .distance, .weight, .total_capacity {
       margin-bottom: 5px;
-
-      .picture, .name {
-        display: inline-block;
-        vertical-align: top;
-      }
-
-      .picture {
-        img {
-          width: 50px;
-          height: 50px;
-        }
-      }
-
-      .name {
-        font-size: 13px;
-        font-weight: bold;
-      }
-
-      button.select {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-      }
     }
+  }
+
+  .transport_list {
+    margin-bottom: 10px;
+
+    h3 {
+      margin-bottom: 10px;
+    }
+
+    .add {
+      @include images-sprite(ui/add_50x50);
+      cursor: pointer;
+    }
+  }
+
+  .fuel_requirement {
+    margin-bottom: 10px;
   }
 }

@@ -3,46 +3,24 @@ BaseController = require('./base_controller')
 modalList = []
 
 class Modal extends BaseController
+  className: 'modal'
+  displayOverlay: true
+
   @show: (args...)->
     super
 
-    modal = new @()
-
-    modalList.push([modal, args])
-
-    if modalList.length > 1
-      if _.find(modalList, (m)-> m[0].showed)? # проверяем есть ли открытый диалог
-        $('.modal .close').notify(
-          {content: @newDialogMessage || I18n.t('common.new_dialog')}
-          {
-            elementPosition: 'top right'
-            autoHide: false
-            style: "game"
-            className: 'info'
-            showDuration: 200
-          }
-        )
-      else
-        if modalData = modalList[0]
-          modalData[0].show(modalData[1]...)
-    else
-      modal.show(args...)
+    @modal ?= new @()
+    @modal.show(args...)
 
   @close: ->
-    @hide()
-
-  @hide: ->
-    _.find(modalList, (m)=> m[0].dialogKey == @name && m[0].showed)?[0].hide()
-
-    super
+    @modal?.hide()
 
   constructor: ->
     super
 
-    @dialogId = Date.now()
-    @dialogKey = @constructor.name
-
-    @modalsEl ?= $("#modals")
+    @overlay = $("<div class='modal_overlay'></div>") if @displayOverlay
+    @applicationContainer = $("#application")
+    @container = $("<div class='modal_container'></div>")
 
   bindEventListeners: ->
     super
@@ -57,35 +35,25 @@ class Modal extends BaseController
   show: ->
     super
 
-    @showed = true
+    if zIndex = @applicationContainer.find('.modal_overlay:last').css('z-index')
+      zIndex = _.toInteger(zIndex)
+      @overlay.css('z-index', zIndex + 1)
+      @container.css('z-index', zIndex + 2)
 
-    @modalsEl.show()
+    @el.hide().appendTo(@container)
+    @container.appendTo(@applicationContainer)
+    @overlay.appendTo(@applicationContainer) if @overlay?
 
-    @modalsEl.append(@el)
-
-  hide: ->
-    super
-
-    @showed = false
-
-    # удаление текущего диалога
-    modalList = _.reject(modalList, (m)=> m[0].dialogId == @dialogId && m[0].dialogKey == @dialogKey)
-
-    # проверяем следующий по списку диалог
-    if modalData = modalList[0]
-      modalData[0].show(modalData[1]...)
-
-    if $('.modal').length == 0
-      @modalsEl.hide()
+    @el.fadeIn(100)
 
   close: ->
     @.hide()
 
+    @container.remove()
+    @overlay.remove() if @overlay?
+
   updateContent: (content)->
     @.html(@.renderTemplate('modal', content: content))
-
-  onModalsElementClick: (e)=>
-    @.close() if e.target.id == 'modals'
 
   onCloseClick: (e)=>
     $(e.currentTarget).addClass('disabled')

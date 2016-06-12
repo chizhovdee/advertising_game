@@ -11,6 +11,8 @@ class StartRouteModal extends Modal
   show: (routeId, @stateRouteId)->
     super
 
+    console.log routeId, @stateRouteId
+
     @.defineData(routeId)
 
     @.render()

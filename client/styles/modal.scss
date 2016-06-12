@@ -1,0 +1,109 @@
+.modal_container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: $app_height;
+  width: $app_width + 5px;
+  z-index: 1000;
+  text-align: center;
+
+  &:before {
+    content: '';
+    width: 1px;
+    height: 450px;
+  }
+
+  &:before, .modal {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.modal {
+  position: relative;
+  text-align: left;
+  //position: absolute;
+  //top: 0;
+  //left: 0;
+
+  //background: inline-image("dialog_bg.jpg");
+  width: 600px;
+  border: 1px solid #000;
+  @include border-radius(10px);
+
+  &.content_modal {
+    width: 720px;
+  }
+
+  background-color: #ffffff;
+
+  //box-shadow:
+  //0px  0px  180px 0px black,
+  //0px  0px  150px 0px black,
+  //0px  0px  120px 0px black,
+  //0px  0px  100px 0px black;
+
+  & > .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+
+    &:before {
+      position: absolute;
+      display: block;
+      bottom: 0;
+      left: 0;
+      content: '';
+
+      @include images-sprite(ui/close_icon);
+    }
+  }
+
+  .content {
+    padding: 10px;
+
+    h2 {
+      color: $game_color_yellow;
+      margin-bottom: 10px;
+    }
+
+    .success {
+      color: $game_color_green;
+    }
+
+    .failure {
+      color: $game_color_red;
+    }
+
+    .text {
+      margin: 10px 0;
+
+      strong {
+        font-weight: bold;
+      }
+    }
+
+    .rewards_info {
+      margin: 10px 0;
+
+      .rewards, .spendings {
+        display: inline-block;
+        vertical-align: top;
+        width: 130px;
+      }
+    }
+  }
+}
+
+.modal_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}

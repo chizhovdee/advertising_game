@@ -13,7 +13,13 @@ class Modal extends BaseController
     @modal.show(args...)
 
   @close: ->
+    @.hide()
+
+  @hide: ->
+    super
+
     @modal?.hide()
+    @modal = null
 
   constructor: ->
     super
@@ -47,10 +53,10 @@ class Modal extends BaseController
     @el.fadeIn(100)
 
   close: ->
-    @.hide()
-
     @container.remove()
     @overlay.remove() if @overlay?
+
+    @constructor.close()
 
   updateContent: (content)->
     @.html(@.renderTemplate('modal', content: content))

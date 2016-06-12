@@ -15,3 +15,9 @@ ru:
       buy: "Купить"
     selection:
       title: "Выбор транспорта"
+      tabs:
+        own: "Гараж"
+        in_route: "В маршруте"
+        shop: "Магазин"
+      select: "Выбрать"
+      selected: "Выбран"

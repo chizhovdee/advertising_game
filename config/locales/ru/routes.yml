@@ -9,8 +9,8 @@ ru:
       start: "Запустить"
     start:
       title: "Запуск маршрута"
-      start: "Отправить"
-      total_capacity: "Общая грузоподьемность:"
+      send: "Отправить"
+      total_carrying: "Общая грузоподьемность:"
       time: "Время следования:"
       transport: "Транспорт"
       fuel_requirement: "Требуемое топливо:"

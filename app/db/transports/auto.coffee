@@ -8,7 +8,7 @@ Transport.define('van', (obj)->
   obj.reliability = 74
   obj.carrying = 0.5
   obj.travelSpeed = 70
-  obj.goodTypeKeys = ['everyday', 'industrial']
+  obj.goodTypeKeys = ['everyday']
   obj.isPrimary = true
   obj.basicPrice = 100
 )
@@ -19,7 +19,7 @@ Transport.define('van_fugo', (obj)->
   obj.reliability = 76
   obj.carrying = 0.5
   obj.travelSpeed = 73
-  obj.goodTypeKeys = ['everyday', 'industrial']
+  obj.goodTypeKeys = ['industrial']
   obj.isPrimary = true
   obj.basicPrice = 150
 )

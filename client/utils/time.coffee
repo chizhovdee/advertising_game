@@ -35,7 +35,7 @@ module.exports =
     days    = Math.floor(value / 86400)
     hours   = Math.floor((value - days * 86400) / 3600)
     minutes = Math.floor((value - days * 86400 - hours * 3600) / 60)
-    seconds = value - days * 86400 - hours * 3600 - minutes * 60
+    seconds = Math.floor(value - days * 86400 - hours * 3600 - minutes * 60)
 
     result = []
 

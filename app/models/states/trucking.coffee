@@ -8,6 +8,9 @@ class TruckingState extends BaseState
   generateId: ->
     super(_.keys(@state))
 
+  find: (id)->
+    @state[id]
+
   create: (route, stateTransportIds, duration)->
     newId = @.generateId()
     newResource = {
@@ -20,11 +23,18 @@ class TruckingState extends BaseState
 
     @state[newId] = newResource
 
-    @.update()
-
     @.addOperation('add', newId, @.truckingToJSON(newResource))
 
+    @.update()
+
     newId # return new trucking id
+
+  delete: (id)->
+    delete @state[id]
+
+    @.addOperation('delete', id)
+
+    @.update()
 
   getTruckingAttributesBy: (route, transportList)->
     fuel = 0
@@ -39,6 +49,7 @@ class TruckingState extends BaseState
   truckingToJSON: (transport)->
     resource = @.extendResource(transport)
 
+    resource.completeIn = resource.completeAt - Date.now()
     # custom extend here
 
     resource

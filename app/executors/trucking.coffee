@@ -58,8 +58,7 @@ module.exports =
     )
 
   collectTrucking: (player, truckingId)->
-
-    trucking = player.truckingState.findTtrucking(truckingId)
+    trucking = player.truckingState.find(truckingId)
 
     # TODO return error unless trucking?
 
@@ -68,10 +67,11 @@ module.exports =
     reward = new Reward(player)
     route.reward.applyOn('collect', reward)
 
-    player.truckingState.deleteTrucking(truckingId)
+    player.truckingState.delete(truckingId)
+
+    # TODO remove trucking id from transport
 
     new Result(
       data:
         reward: reward
-        trucking_id: truckingId
     )

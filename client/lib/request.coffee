@@ -59,11 +59,11 @@ module.exports =
 
 
   # trucking
-  collect_trucking: (data)->
-    @.put('/trucking/collect', data)
-
   create_trucking: (data)->
     @.post('/trucking/create', data)
+
+  collect_trucking: (data)->
+    @.put('/trucking/collect', data)
 
   # properties
   create_property: (data)->

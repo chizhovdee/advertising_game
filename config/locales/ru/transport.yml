@@ -10,7 +10,7 @@ ru:
       carrying: "Грузоподъемность:"
       travelSpeed: "Скорость:"
       good: "Груз:"
-      damage: "Повреждение:"
+      serviceability: "Исправность:"
     buttons:
       buy: "Купить"
     selection:

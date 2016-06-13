@@ -15,11 +15,11 @@ class Player extends Base
     last_visited_at: null
 
     # game attributes
-    basic_money: 50
-    vip_money: 1
+    basic_money: 5000
+    vip_money: 10
     experience: 0
     reputation: 0
-    fuel: 0
+    fuel: 100
   }
 
   @stateFields: [

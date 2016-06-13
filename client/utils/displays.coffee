@@ -1,6 +1,6 @@
 module.exports =
   displayResult: (element, data = {}, options = {})->
-    element.notify(
+    (element || $('#application .notification')).notify(
       {
         content: @.renderTemplate('notifications/result', data)
       },
@@ -12,6 +12,7 @@ module.exports =
         hideAnimation: 'fadeOut'
         showDuration: 200
         hideDuration: 200
+        alterClassName: 'result_notification'
       }, options)
     )
 

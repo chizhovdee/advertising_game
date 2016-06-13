@@ -34,6 +34,9 @@ class Requirement
   vipMoney: (value)->
     @.push('vip_money', value)
 
+  fuel: (value)->
+    @.push('fuel', value)
+
   push: (key, value)->
     if @values[key]
       @values[key] += value
@@ -52,6 +55,9 @@ class Requirement
         when 'vip_money'
           return false if value > player.vip_money
 
+        when 'fuel'
+          return false if value > player.fuel
+
     true
 
   # reward is instance of Reward class
@@ -63,8 +69,12 @@ class Requirement
       switch key
         when 'basic_money'
           reward.takeBasicMoney(value)
+
         when 'vip_money'
           reward.takeVipMoney(value)
+
+        when 'fuel'
+          reward.takeFuel(value)
 
   unSatisfiedFor: (player)->
     result = {}
@@ -79,6 +89,9 @@ class Requirement
 
         when 'vip_money'
           result[key] = [value, false] if value > player.vip_money
+
+        when 'fuel'
+          result[key] = [value, false] if value > player.fuel
 
     result
 

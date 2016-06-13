@@ -1,56 +1,86 @@
-.page.trucking {
+.inner_page.trucking {
   .list {
     margin-top: 20px;
     @include pagination;
 
     .trucking_item {
       position: relative;
-      padding: 10px;
-      border: 1px solid #ca9943;
-      background: rgba(202, 153, 67, 0.1);
+      width: 500px;
+      height: 120px;
+      background-color: rgba(0, 0, 0, 0.1);
+      @include border-radius(5px);
+      margin-bottom: 10px;
+      border: 1px solid #000;
+
+      .picture {
+        img {
+          width: 120px;
+          height: 120px;
+          @include border-radius(5px);
+        }
+      }
 
       .picture, .info {
         display: inline-block;
         vertical-align: top;
       }
 
-      .picture {
-        //@include images-sprite-dimensions(transport_types/truck);
-        //
-        //&.auto {
-        //  @include images-sprite-background(transport_types/truck);
-        //}
-        //
-        //&.railway {
-        //  @include images-sprite-background(transport_types/train);
-        //}
-        //
-        //&.air {
-        //  @include images-sprite-background(transport_types/plane);
-        //}
-        //
-        //&.sea {
-        //  @include images-sprite-background(transport_types/ship);
-        //}
-      }
 
       .info {
-        .good, .distance, .timer {
-          margin-bottom: 10px;
+        margin: 5px 0 0 5px;
+
+        .good {
+          font-size: 15px;
+          font-weight: bold;
         }
 
-        .transport {
-          img {
-            width: 50px;
-            height: 50px;
+        .distance, .weight {
+          margin-top: 5px;
+        }
+
+        .rewards {
+          margin-top: 10px;
+
+          .reward {
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+
+        .transport_list {
+          .transport {
+            display: inline-block;
+            vertical-align: top;
+
+            img {
+              width: 50px;
+              height: 50px;
+            }
           }
         }
       }
 
-      .collect {
+      .timer {
         position: absolute;
-        bottom: 10px;
-        right: 10px;
+        top: 5px;
+        right: 5px;
+        padding-left: 22px;
+        line-height: 20px;
+
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          @include images-sprite(icons/time);
+        }
+      }
+
+      .controls {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
       }
     }
   }

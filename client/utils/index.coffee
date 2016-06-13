@@ -4,3 +4,4 @@ module.exports =
   render: require('./render')
   assets: require('./assets')
   pictures: require('./pictures')
+  displays: require('./displays')

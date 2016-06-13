@@ -10,6 +10,14 @@ ru:
       carrying: "Грузоподъемность:"
       travelSpeed: "Скорость:"
       good: "Груз:"
-      damage: "Повреждение:"
+      serviceability: "Исправность:"
     buttons:
       buy: "Купить"
+    selection:
+      title: "Выбор транспорта"
+      tabs:
+        own: "Гараж"
+        in_route: "В маршруте"
+        shop: "Магазин"
+      select: "Выбрать"
+      selected: "Выбран"

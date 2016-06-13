@@ -5,6 +5,9 @@ $link_color: #ffc600;
 $link_shadow: 0px 1px 1px black;
 $link_hover_shadow: 0px 2px 2px black;
 
+$app_width: 720px;
+$app_height: 640px;
+
 @mixin box-shadow($shadows...) {
   -moz-box-shadow: $shadows;
   -webkit-box-shadow: $shadows;

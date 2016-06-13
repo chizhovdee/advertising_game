@@ -1,15 +1,44 @@
 <h2><%= I18n.t('routes.start.title') %></h2>
 
-<div class="text"><%= I18n.t('routes.start.text') %></div>
+<div class="info">
+  <div class="name"><%= I18n.t("routes.route.good", name: @route.goodName()) %></div>
 
-<button class="compose"><%= I18n.t("routes.start.compose") %></button>
+  <div class="distance"><%= I18n.t("routes.route.distance", value: @route.distance) %></div>
 
-<div class="transports">
-  <% for transport in @transports: %>
+  <div class="weight"><%= I18n.t("routes.route.weight", value: @route.weight) %></div>
+
+  <div class="total_carrying">
+    <%= I18n.t('routes.start.total_carrying') %>
+
+    <span class="value"><%= @totalCarrying %></span>
+  </div>
+
+  <div class="time">
+    <%= I18n.t('routes.start.time') %>
+
+    <span class="value"><%= @.displayTime(@time) %></span>
+  </div>
+</div>
+
+<div class="transport_list">
+  <h3><%= I18n.t('routes.start.transport') %></h3>
+
+  <% for tId in @transportIds: %>
     <div class="transport">
-      <div class="picture"><%=@safe @.transportPicture(transport) %></div>
-
-      <button class="select" data-transport-id="<%= transport.id %>"><%= I18n.t("routes.start.select") %></button>
+      <span class="delete" data-transport-id="<%= tId %>"></span>
+      <%=@safe @.transportPicture(@playerState.transport[tId].typeId) %>
     </div>
   <% end %>
+
+  <div class="add"></div>
+</div>
+
+<div class="requirements">
+  <span class="label"><%= I18n.t('routes.start.fuel_requirement') %></span>
+
+  <%=@safe @.renderTemplate('requirements', requirements: @.fuelRequirements()) %>
+</div>
+
+<div class="controls">
+  <button class="send"><%= I18n.t('routes.start.send') %></button>
 </div>

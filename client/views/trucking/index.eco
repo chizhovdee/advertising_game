@@ -1,9 +1,3 @@
-<h1><%= I18n.t('trucking.index.title') %></h1>
-
-<div class="head_controls">
-  <button class="routes"><%= I18n.t("trucking.index.routes") %></button>
-</div>
-
 <div class="list">
   <%=@safe @.renderTemplate('trucking/list') %>
 </div>

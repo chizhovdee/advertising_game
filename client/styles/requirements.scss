@@ -29,5 +29,11 @@
         @include images-sprite-background(icons/vip_money);
       }
     }
+
+    &.fuel {
+      &:before {
+        @include images-sprite-background(icons/fuel);
+      }
+    }
   }
 }

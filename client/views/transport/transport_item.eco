@@ -5,9 +5,9 @@
     <div class="name"><%= @transport.type.name() %></div>
 
     <div class="attributes">
-      <div class="attribute damage">
-        <div class="att_name"><%= I18n.t("transport.attributes.damage") %></div>
-        <div class="value"><%= @transport.damage %>%</div>
+      <div class="attribute serviceability">
+        <div class="att_name"><%= I18n.t("transport.attributes.serviceability") %></div>
+        <div class="value"><%= @transport.serviceability %>%</div>
       </div>
     </div>
   </div>

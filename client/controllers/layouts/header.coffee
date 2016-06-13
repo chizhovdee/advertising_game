@@ -6,6 +6,7 @@ class HeaderLayout extends BaseController
   elements:
     '.basic_money': 'basicMoneyEl'
     '.reputation': 'reputationEl'
+    '.fuel': 'fuelEl'
 
   show: ->
     super
@@ -27,6 +28,7 @@ class HeaderLayout extends BaseController
 
     @basicMoneyEl.find('.value').text(@player.basic_money) if changes.basic_money
     @reputationEl.find('.value').text(@player.reputation) if changes.reputation
+    @fuelEl.find('.value').text(@player.fuel) if changes.fuel
 
 
 

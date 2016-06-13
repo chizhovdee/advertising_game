@@ -85,8 +85,10 @@ class RoutesPage extends InnerPage
 
     @.renderList()
 
-  onStartClick: (e)->
-    modals.StartRouteModal.show($(e.currentTarget).data('route-key'))
+  onStartClick: (e)=>
+    stateRouteId = $(e.currentTarget).data('state-route-id')
+    @playerState.routes[stateRouteId].routeId
 
+    modals.StartRouteModal.show(@playerState.routes[stateRouteId].routeId, stateRouteId)
 
 module.exports = RoutesPage

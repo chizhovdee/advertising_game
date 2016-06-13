@@ -58,23 +58,12 @@ module.exports =
 #    @.post('/staff/hire.json', data)
 
 
+  # trucking
+  create_trucking: (data)->
+    @.post('/trucking/create', data)
 
-#  # trucking
-#  load_trucking: ->
-#    @.get('/trucking')
-#
-#  collect_trucking: (data)->
-#    @.put('/trucking/collect', data)
-#
-#
-#  create_trucking: (data)->
-#    @.post('/trucking/create', data)
-
-
-
-#  # transport
-#  load_transport: ->
-#    @.get('/transport')
+  collect_trucking: (data)->
+    @.put('/trucking/collect', data)
 
   # properties
   create_property: (data)->

@@ -2,25 +2,14 @@ _ = require('lodash')
 executor = require('../executors').trucking
 
 module.exports =
-  index: (req, res)->
-    req.findCurrentPlayer()
-    .then(->
-      res.sendEvent("trucking_loaded", (data)->
-        data.trucking = req.currentPlayer.truckingState.allForClient()
-      )
-    )
-    .catch(
-      (err)-> res.sendEventError(err)
-    )
-
   create: (req, res)->
     req.db.tx((t)->
       req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
 
       result = executor.createTrucking(
         req.currentPlayer
-        _.toInteger(req.body.route_id)
-        _.toInteger(req.body.transport_id)
+        _.toInteger(req.body.state_route_id)
+        _.map(req.body.transport_ids.split(','), (tId)-> _.toInteger(tId))
       )
 
       res.addEventWithResult('trucking_created', result)

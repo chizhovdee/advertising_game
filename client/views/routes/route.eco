@@ -19,7 +19,7 @@
     <span class="value"></span>
   </div>
 
-  <button class="start" data-route-key="<%= @route.route.key %>">
+  <button class="start" data-state-route-id="<%= @route.id %>">
     <%= I18n.t("routes.route.start") %>
   </button>
 

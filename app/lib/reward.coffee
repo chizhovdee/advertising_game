@@ -39,8 +39,8 @@ class Reward
           reward.addVipMoney(value)
         when 'experience'
           reward.addExperience(value)
-        when 'items'
-          throw new Error('items reward apply not realized')
+        when 'fuel'
+          reward.addFuel(value)
 
   getValue: (key)->
     @values[key]
@@ -55,6 +55,7 @@ class Reward
           @player.reputation += value
 
           @player.reputation - oldValue
+
         when 'basic_money'
           if @player.basic_money + value < 0
             value = value - @player.basic_money
@@ -62,6 +63,7 @@ class Reward
           @player.basic_money += value
 
           value
+
         when 'vip_money'
           if @player.vip_money + value < 0
             value = value - @player.vip_money
@@ -69,8 +71,17 @@ class Reward
           @player.vip_money += value
 
           value
+
         when 'experience'
           @player.experience += value
+
+          value
+
+        when 'fuel'
+          if @player.fuel + value < 0
+            value = value - @player.fuel
+
+          @player.fuel += value
 
           value
         else
@@ -97,18 +108,11 @@ class Reward
     return if value < 0
     @.simpleAttribute('vip_money', value)
 
-#  giveItem: (item, amount = 1)->
-#    #TODO edit placements
-#    return if amount < 1
-#
-#    itemsState = @@player.state.itemsState()
-#
-#    [item, amount] = itemsState.giveItem(item, amount)
-#
-#    @.item(item.id, amount)
+  addFuel: (value)->
+    return if value < 0
+    @.simpleAttribute('fuel', value)
 
   # take
-
   takeBasicMoney: (value)->
     return if value < 0
     @.simpleAttribute('basic_money', -value)
@@ -117,17 +121,9 @@ class Reward
     return if value < 0
     @.simpleAttribute('vip_money', -value)
 
-#  takeItem: (item, amount = 1)->
-#    #TODO edit placements
-#    return if amount < 1
-#
-#    itemsState = @@player.state.itemsState()
-#
-#    [item, amount] = itemsState.takeItem(item, amount)
-#
-#    @.item(item.id, -amount)
-
-  # initialize reward attributes
+  takeFuel: (value)->
+    return if value < 0
+    @.simpleAttribute('fuel', -value)
 
   reputation: (value)->
     @.push('reputation', value)
@@ -141,12 +137,8 @@ class Reward
   experience: (value)->
     @.push('experience', value)
 
-#  item: (keyOrId, amount = 1)->
-#    return if amount == 0
-#
-#    @values.items ?= {}
-#    @values.items[keyOrId] ?= 0
-#    @values.items[keyOrId] += amount
+  fuel: (value)->
+    @.push('fuel', value)
 
   push: (key, value)->
     if @values[key]

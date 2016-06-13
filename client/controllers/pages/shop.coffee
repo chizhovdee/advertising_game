@@ -94,17 +94,11 @@ class ShopPage extends Page
     button = $(e.currentTarget)
     button.addClass('disabled')
 
-    @.displayPopup(button,
-      @.renderTemplate("confirm",
-        button: {
-          data: {'item-id': button.data('item-id')}
-          className: 'start_purchase'
-          text: I18n.t("transport.buttons.buy")
-        }
-      )
-
-      position: 'left bottom'
-      alterClassName: 'confirm_popup'
+    @.displayConfirm(button,
+      button:
+        data: {'item-id': button.data('item-id')}
+        className: 'start_purchase'
+        text: I18n.t("transport.buttons.buy")
     )
 
   onStartPurchase: (e)=>

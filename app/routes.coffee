@@ -18,11 +18,8 @@ exports.setup = (app)->
 #
 
 #
-#    # trucking
-#    apiRoutes.get('/trucking', controllers.trucking.index)
-#    apiRoutes.post('/trucking/create', controllers.trucking.create)
-#    apiRoutes.put('/trucking/collect', controllers.trucking.collect)
-#
+
+
 
 #
 #    # transport
@@ -39,3 +36,7 @@ exports.setup = (app)->
 
     # shop
     apiRoutes.post('/shop/buy', controllers.shop.buy)
+
+    # trucking
+    apiRoutes.post('/trucking/create', controllers.trucking.create)
+    apiRoutes.put('/trucking/collect', controllers.trucking.collect)

@@ -11,6 +11,7 @@ class BaseController extends Spine.Controller
   @include utils.design
   @include utils.assets
   @include utils.pictures
+  @include utils.displays
 
   @show: ->
 

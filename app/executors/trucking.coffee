@@ -3,19 +3,59 @@ Result = lib.Result
 Reward = lib.Reward
 Requirement = lib.Requirement
 
-#Transport = require('../game_data').Transport
+Transport = require('../game_data').Transport
 Route = require('../game_data').Route
 
+
 module.exports =
-  createTrucking: (player, routeId, transportId)->
-    console.log 'routeId', routeId
-    console.log 'transportId', transportId
+  createTrucking: (player, stateRouteId, transportIds, routeId = null)->
+    console.log 'stateRouteId', stateRouteId
+    console.log 'transportIds', transportIds
 
-    console.log player.truckingState
+    if routeId
+      route = Route.find(routeId)
+    else
+      routeState = player.routesState.find(stateRouteId)
+      route = Route.find(routeState.routeId)
 
-    player.truckingState.createTrucking(routeId, transportId)
+      # TODO check routeState expired
 
-    new Result()
+    transportList = []
+    for tId in transportIds
+      tState = player.transportState.find(tId)
+
+      # TODO check tState.truckingId
+      # TODO check tState.damage
+      transportList.push(Transport.find(tState.typeId))
+
+    attributes = player.truckingState.getTruckingAttributesBy(route, transportList)
+
+    requirement = new Requirement()
+    requirement.fuel(attributes.fuel)
+
+    unless requirement.isSatisfiedFor(player)
+      return new Result(
+        error_code: 'requirements_not_satisfied'
+        data:
+          requirement: requirement.unSatisfiedFor(player)
+      )
+
+    # создание новой грузоперевозки
+    truckingId = player.truckingState.create(route, transportIds, attributes.duration)
+
+    # установка каждому транспорту id грузоперевозки
+    player.transportState.setTruckingFor(transportIds, truckingId)
+
+    # удаление маршрута
+    player.routesState.delete(stateRouteId) if stateRouteId?
+
+    reward = new Reward(player)
+    requirement.apply(reward)
+
+    new Result(
+      data:
+        reward: reward
+    )
 
   collectTrucking: (player, truckingId)->
 

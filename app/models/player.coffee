@@ -107,6 +107,7 @@ class Player extends Base
     properties: @propertiesState.toJSON()
     routes: @routesState.toJSON()
     transport: @transportState.toJSON()
+    trucking: @truckingState.toJSON()
 
   toJSON: ->
     id: @id

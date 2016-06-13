@@ -5,27 +5,50 @@ class TruckingState extends BaseState
   defaultState: {}
   stateName: "trucking"
 
-  allForClient: ->
-    for id, trucking of @state
-      trucking.leftTime = trucking.completeAt - Date.now()
+  generateId: ->
+    super(_.keys(@state))
 
-    @state
-
-  findTtrucking: (id)->
-    @state[id]
-
-  deleteTrucking: (id)->
-    delete @state[id]
-
-    @.update()
-
-  createTrucking: (routeId, transportId)->
-    @state[_.random(10000000)] = {
-      routeId: routeId
-      transportId: transportId
-      completeAt: Date.now() + _(0.2).minutes()
+  create: (route, stateTransportIds, duration)->
+    newId = @.generateId()
+    newResource = {
+      routeId: route.id
+      transportIds: stateTransportIds
+      completeAt: Date.now() + duration
+      createdAt: Date.now()
+      updatedAt: Date.now()
     }
 
+    @state[newId] = newResource
+
     @.update()
+
+    @.addOperation('add', newId, @.truckingToJSON(newResource))
+
+    newId # return new trucking id
+
+  getTruckingAttributesBy: (route, transportList)->
+    fuel = 0
+    duration = 0 # TODO при поезде каждый транспорт должен уменьшать скорость на определенный процент
+
+    for transport in transportList
+      fuel += Math.ceil((transport.consumption / 100) * route.distance)
+      duration = Math.ceil((_(1).hours() / transport.travelSpeed) * route.distance)
+
+    {fuel: fuel, duration: duration}
+
+  truckingToJSON: (transport)->
+    resource = @.extendResource(transport)
+
+    # custom extend here
+
+    resource
+
+  toJSON: ->
+    state = {}
+
+    for id, resource of @state
+      state[id] = @.truckingToJSON(resource)
+
+    state
 
 module.exports = TruckingState

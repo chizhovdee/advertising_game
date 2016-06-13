@@ -36,9 +36,16 @@ class RoutesState extends BaseState
 
     @state[newId] = newResource
 
+    @.addOperation('add', newId, @.routeToJSON(newResource))
+
     @.update()
 
-    @.addOperation('add', newId, @.routeToJSON(newResource))
+  delete: (id)->
+    delete @state[id]
+
+    @.addOperation('delete', id)
+
+    @.update()
 
   routeToJSON: (ad)->
     resource = @.extendResource(ad)

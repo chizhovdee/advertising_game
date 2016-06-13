@@ -8,20 +8,32 @@ class TransportState extends BaseState
   generateId: ->
     super(_.keys(@state))
 
+  find: (id)->
+    @state[id]
+
   create: (type)->
     newId = @.generateId()
     newResource = {
       typeId: type.id
       createdAt: Date.now()
       updatedAt: Date.now()
-      damage: 0 # %
+      serviceability: 100 # исправность %
     }
 
     @state[newId] = newResource
 
+    @.addOperation('add', newId, @.transportToJSON(newResource))
+
     @.update()
 
-    @.addOperation('add', newId, @.transportToJSON(newResource))
+  setTruckingFor: (ids, truckingId)->
+    for id in ids
+      @state[id].truckingId = truckingId
+      @state[id].updatedAt = Date.now()
+
+      @.addOperation('update', id, @.transportToJSON(@state[id]))
+
+    @.update()
 
   transportToJSON: (transport)->
     resource = @.extendResource(transport)

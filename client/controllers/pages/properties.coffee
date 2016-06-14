@@ -10,7 +10,7 @@ PropertyType = require('../../game_data').PropertyType
 class PropertiesPage extends Page
   className: "properties page"
 
-  PER_PAGE = 3
+  PER_PAGE = 4
 
   show: ->
     @playerState = ctx.get('playerState')

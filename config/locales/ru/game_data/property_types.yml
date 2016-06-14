@@ -1,7 +1,7 @@
 ru:
   game_data:
     property_types:
-      business_center: "Офис"
+      command_center: "Центр управления"
       warehouse: "Склад"
       garage: "Гараж"
       sea_port: "Морской порт"

@@ -6,6 +6,7 @@ ru:
       build: "Построить"
       upgrade: "Улучшить"
       level: "<strong>Уровень:</strong> %{level}"
+      using: "<strong>Используется</strong>: %{current} / %{max}"
       price: "Цена: "
       start_build: "Начать"
       build_duration: "Время строительства: "

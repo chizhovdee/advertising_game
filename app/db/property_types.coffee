@@ -1,10 +1,10 @@
 PropertyType = require('../game_data').PropertyType
 _ = require('lodash')
 
-PropertyType.define('business_center', (obj)->
+PropertyType.define('command_center', (obj)->
   obj.basicPrice = 1000
   obj.buildLevel = 1
-  obj.buildDuration = _(10).minutes()
+  obj.buildDuration = _(1).minutes()
 )
 
 PropertyType.define('warehouse', (obj)->

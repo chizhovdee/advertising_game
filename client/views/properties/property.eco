@@ -1,13 +1,19 @@
 <div class="property" id="property_type_<%= @type.id %>">
+  <div class="name">
+    <%= @type.name() %>
+    <span class="wiki_info"></span>
+  </div>
+
   <div class="picture"><%=@safe @.propertyPicture(@type) %></div>
 
   <div class="info">
-    <div class="name"><%= @type.name() %></div>
+    <% if @property?: %>
+      <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
+      <div class="using"><%=@safe I18n.t("properties.property.using", current: 0, max: 5) %></div>
+    <% end %>
+
   </div>
 
-  <% if @property?: %>
-    <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
-  <% end %>
 
   <div class="controls">
     <% if @property?: %>

@@ -2,42 +2,44 @@
   .list {
     @include pagination;
     margin-top: 20px;
+    text-align: center;
 
     .property {
       position: relative;
-      width: 500px;
-      height: 120px;
+      display: inline-block;
+      vertical-align: top;
+      width: 240px;
+      height: 240px;
       background-color: rgba(0, 0, 0, 0.1);
       @include border-radius(5px);
-      margin-bottom: 20px;
-      border: 1px solid #000;
+      margin-bottom: 10px;
+      //border: 1px solid #000;
+
+      &:nth-child(odd) {
+        margin-right: 5px;
+      }
+
+      .name {
+        text-align: center;
+        background-color: #0086b3;
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 25px;
+        @include border-top-radius(5px);
+      }
 
       .picture {
         img {
-          width: 120px;
+          width: 240px;
           height: 120px;
-          @include border-radius(5px);
         }
-      }
-
-      .picture, .info {
-        display: inline-block;
-        vertical-align: top;
       }
 
       .info {
-        margin: 5px 0 0 5px;
-
-        .name {
-          font-size: 17px;
-          font-weight: bold;
+        .level, .using {
+          margin-top: 5px;
         }
-      }
-
-      .level {
-        position: absolute;
-        top: 5px;
-        right: 5px;
       }
 
       > .controls {

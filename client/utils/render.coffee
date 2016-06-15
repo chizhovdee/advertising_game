@@ -45,3 +45,8 @@ module.exports =
 
     @safe result
 
+  renderTimer: (message)->
+    """<div class="timer hint--bottom hint--no-animate" data-hint="#{ message }">
+          <span class="time-icon"></span>
+          <span class="value"></span>
+        </div>"""

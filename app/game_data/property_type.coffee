@@ -4,17 +4,12 @@ Base = require("./base")
 class PropertyType extends Base
   @configure(publicForClient: true)
 
-#  price: null # цена за строительство и улучшение
-#  transportTypeKey: null # вид транспорта какой содержит
-#  employeeTypeKey: null # какой вид сотрудника содержит
-#  baseTransportsCount: null # базовая вместительность траспорта
-#  baseCargoCount: null # базовое кол-во грузоперевозок для склада
-#  buildLevel: null # уровень на котором будет разрешено построить здание
-#  improvementPerPlayerLevels: null # через сколько уровней игрока будет разрешено улучшать на один уровень
-
-  basicPrice: null
-  buildLevel: null
-  buildDuration: null
+  basicPrice: null # базовая цена за строительство и за улучшение
+  buildLevel: null # уровень требуемый для строительства
+  buildDuration: null # время строительства
+  baseCapacity: null # базовая вместительность ресурсов (чего именно, зависит от контекста)
+  upgradePerLevels: null # через сколько уровней игрока будет разрешено улучшать на один уровень, начиная с buildLevel
+  upgradeDuration: null # время улучшения
 
   constructor: ->
     super
@@ -22,8 +17,17 @@ class PropertyType extends Base
     @basicPrice = null
     @buildLevel = null
     @buildDuration = null
+    @baseCapacity = null
+    @upgradePerLevels = null
+    @upgradeDuration = null
 
-#validationForDefine: ->
+  validationForDefine: ->
+    throw new Error('undefined @basicPrice') unless @basicPrice?
+    throw new Error('undefined @buildLevel') unless @buildLevel?
+    throw new Error('undefined @buildDuration') unless @buildDuration?
+    throw new Error('undefined @baseCapacity') unless @baseCapacity?
+    throw new Error('undefined @upgradePerLevels') unless @upgradePerLevels?
+    throw new Error('undefined @upgradeDuration') unless @upgradeDuration?
 
   toJSON: ->
     _.assign(

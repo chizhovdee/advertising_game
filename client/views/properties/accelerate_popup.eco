@@ -1,13 +1,5 @@
 <div class="attributes">
   <div class="build_duration attribute">
-    <span class="label"><%= I18n.t("properties.property.build_duration") %></span>
-    <span class="value"><%= @.displayTime(@property.buildDuration) %></span>
-  </div>
-
-  <div class="build_level attribute <%= 'unsatisfied' if @player.level < @property.buildLevel %>">
-    <span class="label"><%= I18n.t("properties.property.level_requirement") %></span>
-
-    <span class="value"><%= @property.buildLevel %></span>
   </div>
 
   <div class="price attribute">

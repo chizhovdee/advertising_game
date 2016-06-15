@@ -11,8 +11,11 @@ module.exports =
         <div class="percentage" style="width: #{ value }%"></div>
     </div>"""
 
-  formatNumber: (number, spacer = '&thinsp;')->
+  rawFormatNumber: (number, spacer = '&thinsp;')->
     "#{number}".replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1#{ spacer }")
+
+  formatNumber: (number)->
+    @safe @rawFormatNumber(number)
 
   itemName: (item)->
     console.log item
@@ -21,3 +24,4 @@ module.exports =
       item = Item.find(item)
 
     item.name()
+

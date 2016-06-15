@@ -13,7 +13,6 @@
       background-color: rgba(0, 0, 0, 0.1);
       @include border-radius(5px);
       margin-bottom: 10px;
-      //border: 1px solid #000;
 
       &:nth-child(odd) {
         margin-right: 5px;
@@ -37,7 +36,13 @@
       }
 
       .info {
-        .level, .using {
+        padding-top: 5px;
+
+        .warning_label {
+          color: $game_color_red;
+        }
+
+        .timer {
           margin-top: 5px;
         }
       }

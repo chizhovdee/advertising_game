@@ -8,20 +8,23 @@
 
   <div class="info">
     <% if @property?: %>
-      <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
-      <div class="using"><%=@safe I18n.t("properties.property.using", current: 0, max: 5) %></div>
+      <% if @property.isBuilding(): %>
+        <div class="warning_label"><%= I18n.t("properties.property.under_construction") %></div>
+
+        <%=@safe @.renderTimer(I18n.t("properties.property.building_timer")) %>
+      <% else: %>
+        <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
+        <div class="using"><%=@safe I18n.t("properties.property.using", current: 0, max: 5) %></div>
+      <% end %>
     <% end %>
-
   </div>
-
 
   <div class="controls">
     <% if @property?: %>
-      <% if @property.buildingTimeLeft? && @property.buildingTimeLeft > 0: %>
-        <div class="timer">
-          <span class="label"><%= I18n.t("properties.property.building_timer") %></span>
-          <span class="value"></span>
-        </div>
+      <% if @property.isBuilding(): %>
+        <button class="accelerate" data-type-id="<%= @type.id %>">
+          <%= I18n.t("properties.property.accelerate") %>
+        </button>
       <% end %>
     <% else: %>
       <button class="build" data-type-id="<%= @type.id %>">

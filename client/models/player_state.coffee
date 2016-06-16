@@ -37,10 +37,8 @@ class PlayerState extends Spine.Model
     @["#{ attribute }UpdatedAt"] = Date.now()
 
   applyChangingOperations: (operations)->
-    changes = {}
-
     for key, data of operations
-      state = @[key]
+      state = _.cloneDeep(@[key])
 
       for [type, id, resource] in data
         switch type
@@ -49,11 +47,11 @@ class PlayerState extends Spine.Model
           when 'delete'
             delete state[id]
 
-      changes[key] = state
+      @[key] = state
 
       @.setStateUpdatedAt(key)
 
-    @.update() unless _.isEmpty(operations)
+    @.save() unless _.isEmpty(operations)
 
   getProperties: ->
     @_properties ?= (

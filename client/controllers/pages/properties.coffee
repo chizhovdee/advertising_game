@@ -6,7 +6,6 @@ VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
 
 PropertyType = require('../../game_data').PropertyType
-Property = require('../../game_data').Property
 
 class PropertiesPage extends Page
   className: "properties page"
@@ -42,7 +41,7 @@ class PropertiesPage extends Page
 
   setupTimers: ->
     for resource in @paginatedList
-      property = _.find(@properties, (p)-> p.typeId == resource.id)
+      property = _.find(@playerState.getProperties(), (p)-> p.typeId == resource.id)
       continue unless property?
 
       if property.isBuilding()
@@ -63,6 +62,7 @@ class PropertiesPage extends Page
     @el.on('click', '.property .build:not(.disabled)', @.onBuildClick)
     @el.on('click', '.property .start_build:not(.disabled)', @.onStartBuildClick)
     @el.on('click', '.property .accelerate:not(.disabled)', @.onAccelerateClick)
+    @el.on('click', '.property .start_accelerate:not(.disabled)', @.onStartAccelerateClick)
 
   unbindEventListeners: ->
     super
@@ -77,13 +77,9 @@ class PropertiesPage extends Page
     @el.off('click', '.property .build:not(.disabled)', @.onBuildClick)
     @el.off('click', '.property .start_build:not(.disabled)', @.onStartBuildClick)
     @el.off('click', '.property .accelerate:not(.disabled)', @.onAccelerateClick)
+    @el.off('click', '.property .start_accelerate:not(.disabled)', @.onStartAccelerateClick)
 
   defineData: ->
-    @properties = (
-      for id, data of @playerState.properties
-        new Property(_.assignIn({id: id}, data))
-    )
-
     @list = PropertyType.all()
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
@@ -106,10 +102,10 @@ class PropertiesPage extends Page
 
   onBuildClick: (e)=>
     button = $(e.currentTarget)
-    property = _.find(@list, (t)-> t.id == button.data('type-id'))
+    propertyType = _.find(@list, (t)-> t.id == button.data('type-id'))
 
     @.displayPopup(button,
-      @.renderTemplate("properties/build_popup", property: property)
+      @.renderTemplate("properties/build_popup", propertyType: propertyType)
       position: 'left bottom'
     )
 
@@ -123,23 +119,35 @@ class PropertiesPage extends Page
   buildPriceRequirement: (type)->
     {basic_money: [@.formatNumber(type.basicPrice), @player.basic_money >= type.basicPrice]}
 
-  acceleratePriceRequirement: (type)->
-    {vip_money: [@.formatNumber(type.basicPrice), @player.basic_money >= type.basicPrice]}
+  acceleratePriceRequirement: (property)->
+    price = @player.acceleratePrice(property.actualBuildingTimeLeft())
 
+    {vip_money: [@.formatNumber(price), @player.vipMoney >= price]}
 
   onStateUpdated: =>
-    console.log @playerState.properties
+    console.log 'PlayerState', @playerState.changes()
 
   onPropertyCreated: (response)=>
-    console.log 'onPropertyCreated'
+    @.displayResult(
+      $("#property_type_#{ response.data.type_id } .result_anchor")
+      response
+      position: "top center"
+    )
 
   onAccelerateClick: (e)=>
     button = $(e.currentTarget)
-    property = _.find(@list, (t)-> t.id == button.data('type-id'))
+    property = _.find(@playerState.getProperties(), (p)-> p.typeId == button.data('type-id'))
 
-    @.displayPopup($(e.currentTarget)
+    @.displayPopup(button
       @.renderTemplate("properties/accelerate_popup", property: property)
       position: 'left bottom'
     )
+
+  onStartAccelerateClick: (e)->
+    button = $(e.currentTarget)
+    button.addClass('disabled')
+    $("#property_type_#{ button.data('type-id') } button.accelerate").addClass('disabled')
+
+    request.send("accelerate_property", property_type_id: button.data('type-id'))
 
 module.exports = PropertiesPage

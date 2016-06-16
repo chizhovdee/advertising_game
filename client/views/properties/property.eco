@@ -32,4 +32,6 @@
       </button>
     <% end %>
   </div>
+
+  <div class="result_anchor"></div>
 </div>

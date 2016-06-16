@@ -1,7 +1,7 @@
 <% if @type == 'success': %>
-  <h2 class="success"><%= @title || I18n.t("common.title_success") %></h2>
+  <h2 class="<%= @type %>"><%= @title || I18n.t("common.title_success") %></h2>
 <% else if @type == 'failure': %>
-  <h2 class="failure"><%= @title || I18n.t("common.title_failure") %></h2>
+  <h2 class="<%= @type %>"><%= @title || I18n.t("common.title_failure") %></h2>
 <% else: %>
   <h2><%= @title %></h2>
 <% end %>

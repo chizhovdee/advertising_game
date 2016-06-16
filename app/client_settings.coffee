@@ -7,6 +7,7 @@ AdvertisingType = gameData.AdvertisingType
 module.exports =
   player:
     stateFields: Player.stateFields
+    balance: Player.balance
 
   advertisingType:
     periods: AdvertisingType.periods

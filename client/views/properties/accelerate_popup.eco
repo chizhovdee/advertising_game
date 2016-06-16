@@ -1,18 +1,19 @@
 <div class="attributes">
-  <div class="build_duration attribute">
+  <div class="attribute">
+    <span class="label"><%= I18n.t("properties.property.accelerate_building") %></span>
   </div>
 
   <div class="price attribute">
     <span class="label"><%= I18n.t("common.price") %>:</span>
     <span class="value">
-      <%=@safe @.renderTemplate('requirements', requirements: @.buildPriceRequirement(@property)) %>
+      <%=@safe @.renderTemplate('requirements', requirements: @.acceleratePriceRequirement(@property)) %>
     </span>
   </div>
 </div>
 
 <div class="controls">
-  <button class="start_build" data-type-id="<%= @property.id %>">
-    <%= I18n.t("properties.property.start_build") %>
+  <button class="start_accelerate" data-type-id="<%= @property.typeId %>">
+    <%= I18n.t("properties.property.accelerate") %>
   </button>
 
   <span class="cancel"><%= I18n.t("common.cancel") %></span>

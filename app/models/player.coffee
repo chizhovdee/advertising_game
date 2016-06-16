@@ -26,6 +26,11 @@ class Player extends Base
     'staff', 'trucking', 'advertising', 'properties', 'routes', 'transport'
   ]
 
+  # 1 gold per duration
+  @balance: {
+    accelerate: _(10).minutes()
+  }
+
   # define in defineStates()
   staffState: null
   truckingState: null

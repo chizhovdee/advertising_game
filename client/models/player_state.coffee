@@ -3,6 +3,8 @@
 
 settings = require('../settings')
 
+Property = require('../game_data').Property
+
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
     'trucking', 'truckingUpdatedAt', 'routes', 'routesUpdatedAt',
@@ -11,6 +13,9 @@ class PlayerState extends Spine.Model
 
   @include require('./modules/model_changes')
 
+  # resources list from states
+  _properties: null
+
   create: ->
     for attribute, value of @.attributes()
       @.setStateUpdatedAt(attribute)
@@ -18,7 +23,11 @@ class PlayerState extends Spine.Model
     super
 
   update: ->
+    console.log _.cloneDeep(@constructor.irecords[@id].attributes().properties)
     @.setOldAttributes(@constructor.irecords[@id].attributes())
+
+    # reset
+    @_properties = null
 
     super
 
@@ -44,7 +53,13 @@ class PlayerState extends Spine.Model
 
       @.setStateUpdatedAt(key)
 
-    @.updateAttributes(changes) unless _.isEmpty(changes)
+    @.update() unless _.isEmpty(operations)
+
+  getProperties: ->
+    @_properties ?= (
+      for id, data of @properties
+        new Property(_.assignIn({id: id}, data))
+    )
 
 module.exports = PlayerState
 

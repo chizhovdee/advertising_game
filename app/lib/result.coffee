@@ -1,4 +1,8 @@
 class Result
+  @errors:
+    requirementsNotSatisfied: 'requirements_not_satisfied'
+    notReachedLevel: 'not_reached_level'
+
   errorCode: null
   data: null
   reload: false

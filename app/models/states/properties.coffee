@@ -8,6 +8,9 @@ class PropertiesState extends BaseState
   generateId: ->
     super(_.keys(@state))
 
+  find: (id)->
+    @state[id]
+
   create: (type)->
     newId = @.generateId()
     newResource = {
@@ -28,9 +31,17 @@ class PropertiesState extends BaseState
     resource = @.extendResource(property)
 
     if resource.builtAt?
-      resource.buildingTimeLeft = resource.builtAt - Date.now()
+      resource.buildingTimeLeft = @.buildingTimeLeftFor(resource)
 
     resource
+
+  buildingTimeLeftFor: (property)->
+    property.builtAt - Date.now()
+
+  propertyIsBuilding: (id)->
+    property = @.find(id)
+
+    property.builtAt? && @.buildingTimeLeftFor(property)
 
   toJSON: ->
     state = {}

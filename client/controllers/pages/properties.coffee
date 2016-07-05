@@ -4,6 +4,7 @@ modals = require('../modals')
 request = require('../../lib/request')
 VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
+balance = require('../../lib').balance
 
 PropertyType = require('../../game_data').PropertyType
 
@@ -55,6 +56,7 @@ class PropertiesPage extends Page
     @playerState.bind('update', @.onStateUpdated)
 
     request.bind('property_created', @.onPropertyCreated)
+    request.bind('property_accelerated', @.onPropertyAccelerated)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
@@ -70,6 +72,7 @@ class PropertiesPage extends Page
     @playerState.unbind('update', @.onStateUpdated)
 
     request.unbind('property_created', @.onPropertyCreated)
+    request.unbind('property_accelerated', @.onPropertyAccelerated)
 
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -120,12 +123,18 @@ class PropertiesPage extends Page
     {basic_money: [@.formatNumber(type.basicPrice), @player.basic_money >= type.basicPrice]}
 
   acceleratePriceRequirement: (property)->
-    price = @player.acceleratePrice(property.actualBuildingTimeLeft())
+    price = balance.acceleratePrice(property.actualBuildingTimeLeft())
 
     {vip_money: [@.formatNumber(price), @player.vipMoney >= price]}
 
   onStateUpdated: =>
     console.log 'PlayerState', @playerState.changes()
+
+    changes = @playerState.changes()
+
+    return unless changes.properties?
+
+    @.renderList()
 
   onPropertyCreated: (response)=>
     @.displayResult(
@@ -133,6 +142,9 @@ class PropertiesPage extends Page
       response
       position: "top center"
     )
+
+    if response.is_error
+      $("#property_type_#{ response.data.type_id } .controls button").removeClass('disabled')
 
   onAccelerateClick: (e)=>
     button = $(e.currentTarget)
@@ -149,5 +161,15 @@ class PropertiesPage extends Page
     $("#property_type_#{ button.data('type-id') } button.accelerate").addClass('disabled')
 
     request.send("accelerate_property", property_type_id: button.data('type-id'))
+
+  onPropertyAccelerated: (response)=>
+    @.displayResult(
+      $("#property_type_#{ response.data.type_id } .result_anchor")
+      response
+      position: "top center"
+    )
+
+    if response.is_error
+      $("#property_type_#{ response.data.type_id } .controls button").removeClass('disabled')
 
 module.exports = PropertiesPage

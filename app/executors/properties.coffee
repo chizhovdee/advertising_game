@@ -43,23 +43,23 @@ module.exports =
 
     dataResult = {type_id: type.id}
 
-    requirement = new Requirement()
-    requirement.vipMoney(balance.acceleratePrice(player.propertiesState))
-
-    unless requirement.isSatisfiedFor(player)
-      dataResult.requirement = requirement.unSatisfiedFor(player)
-
-      return new Result(
-        error_code: Result.errors.requirementsNotSatisfied
-        data: dataResult
-      )
-
-    reward = new Reward(player)
-    player.propertiesState.create(type)
-    requirement.apply(reward)
-
-    dataResult.reward = reward
-
-    new Result(
-      data: dataResult
-    )
+#    requirement = new Requirement()
+#    requirement.vipMoney(balance.acceleratePrice(player.propertiesState))
+#
+#    unless requirement.isSatisfiedFor(player)
+#      dataResult.requirement = requirement.unSatisfiedFor(player)
+#
+#      return new Result(
+#        error_code: Result.errors.requirementsNotSatisfied
+#        data: dataResult
+#      )
+#
+#    reward = new Reward(player)
+#    player.propertiesState.create(type)
+#    requirement.apply(reward)
+#
+#    dataResult.reward = reward
+#
+#    new Result(
+#      data: dataResult
+#    )

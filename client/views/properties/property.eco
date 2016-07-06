@@ -25,6 +25,11 @@
         <button class="accelerate" data-property-id="<%= @property.id %>">
           <%= I18n.t("properties.property.accelerate") %>
         </button>
+
+      <% else: %>
+        <button class="upgrade" data-property-id="<%= @property.id %>">
+          <%= I18n.t("properties.property.upgrade") %>
+        </button>
       <% end %>
     <% else: %>
       <button class="build" data-type-id="<%= @type.id %>">

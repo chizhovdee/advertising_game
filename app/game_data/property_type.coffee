@@ -34,6 +34,9 @@ class PropertyType extends Base
       basicPrice: @basicPrice
       buildLevel: @buildLevel
       buildDuration: @buildDuration
+      baseCapacity: @baseCapacity
+      upgradePerLevels: @upgradePerLevels
+      upgradeDuration: @upgradeDuration
       ,
       super
     )

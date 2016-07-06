@@ -7,4 +7,7 @@ class PropertyType extends Base
   name: ->
     I18n.t("game_data.property_types.#{@key}")
 
+  upgradeLevelBy: (propertyLevel)->
+    propertyLevel * @upgradePerLevels - @buildLevel - 1
+
 module.exports = PropertyType

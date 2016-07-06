@@ -65,6 +65,7 @@ class PropertiesPage extends Page
     @el.on('click', '.property .start_build:not(.disabled)', @.onStartBuildClick)
     @el.on('click', '.property .accelerate:not(.disabled)', @.onAccelerateClick)
     @el.on('click', '.property .start_accelerate:not(.disabled)', @.onStartAccelerateClick)
+    @el.on('click', '.property .upgrade:not(.disabled)', @.onUpgradeClick)
 
   unbindEventListeners: ->
     super
@@ -81,6 +82,7 @@ class PropertiesPage extends Page
     @el.off('click', '.property .start_build:not(.disabled)', @.onStartBuildClick)
     @el.off('click', '.property .accelerate:not(.disabled)', @.onAccelerateClick)
     @el.off('click', '.property .start_accelerate:not(.disabled)', @.onStartAccelerateClick)
+    @el.off('click', '.property .upgrade:not(.disabled)', @.onUpgradeClick)
 
   defineData: ->
     @list = PropertyType.all()
@@ -176,5 +178,15 @@ class PropertiesPage extends Page
 
     if response.is_error
       $("#property_type_#{ response.data?.type_id } .controls button").removeClass('disabled')
+
+  onUpgradeClick: (e)=>
+    button = $(e.currentTarget)
+    property = _.find(@playerState.getProperties(), (p)-> p.id == button.data('property-id'))
+    propertyType = _.find(@list, (t)-> t.id == property.typeId)
+
+    @.displayPopup(button
+      @.renderTemplate("properties/upgrade_popup", property: property, propertyType: propertyType)
+      position: 'left bottom'
+    )
 
 module.exports = PropertiesPage

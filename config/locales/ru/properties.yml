@@ -14,3 +14,5 @@ ru:
       level_requirement: "Требуемый уровень:"
       under_construction: "Идет строительство"
       accelerate_building: "Ускорьте строительство"
+      upgrade_duration: "Время улучшения:"
+      start_upgrade: "Начать"

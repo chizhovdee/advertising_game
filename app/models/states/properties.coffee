@@ -38,10 +38,17 @@ class PropertiesState extends BaseState
   buildingTimeLeftFor: (property)->
     property.builtAt - Date.now()
 
-  propertyIsBuilding: (id)->
-    property = @.find(id)
-
+  propertyIsBuilding: (property)->
     property.builtAt? && @.buildingTimeLeftFor(property)
+
+  accelerateBuilding: (id)->
+    delete @state[id].builtAt
+
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.propertyToJSON(@state[id]))
 
   toJSON: ->
     state = {}

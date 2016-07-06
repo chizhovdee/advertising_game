@@ -2,6 +2,7 @@ class Result
   @errors:
     requirementsNotSatisfied: 'requirements_not_satisfied'
     notReachedLevel: 'not_reached_level'
+    dataNotFound: 'data_not_found'
 
   errorCode: null
   data: null

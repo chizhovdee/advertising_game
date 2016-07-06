@@ -28,7 +28,7 @@ module.exports =
 
       result = executor.accelerateProperty(
         req.currentPlayer
-        _.toInteger(req.body.property_type_id)
+        _.toInteger(req.body.property_id)
       )
 
       res.addEventWithResult('property_accelerated', result)

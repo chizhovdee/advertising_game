@@ -12,7 +12,7 @@ PropertyType.define('garage', (obj)->
 
 PropertyType.define('command_center', (obj)->
   obj.basicPrice = 1000
-  obj.buildLevel = 2
+  obj.buildLevel = 1
   obj.buildDuration = _(10).minutes()
   obj.baseCapacity = 2
   obj.upgradePerLevels = 5

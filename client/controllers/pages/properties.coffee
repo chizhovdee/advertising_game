@@ -123,9 +123,14 @@ class PropertiesPage extends Page
     {basic_money: [@.formatNumber(type.basicPrice), @player.basic_money >= type.basicPrice]}
 
   acceleratePriceRequirement: (property)->
-    price = balance.acceleratePrice(property.actualBuildingTimeLeft())
+    price = (
+      if property.isBuilding()
+        balance.acceleratePrice(property.actualBuildingTimeLeft())
+      else
+        999
+    )
 
-    {vip_money: [@.formatNumber(price), @player.vipMoney >= price]}
+    {vip_money: [@.formatNumber(price), @player.vip_money >= price]}
 
   onStateUpdated: =>
     console.log 'PlayerState', @playerState.changes()
@@ -148,7 +153,7 @@ class PropertiesPage extends Page
 
   onAccelerateClick: (e)=>
     button = $(e.currentTarget)
-    property = _.find(@playerState.getProperties(), (p)-> p.typeId == button.data('type-id'))
+    property = _.find(@playerState.getProperties(), (p)-> p.id == button.data('property-id'))
 
     @.displayPopup(button
       @.renderTemplate("properties/accelerate_popup", property: property)
@@ -160,16 +165,16 @@ class PropertiesPage extends Page
     button.addClass('disabled')
     $("#property_type_#{ button.data('type-id') } button.accelerate").addClass('disabled')
 
-    request.send("accelerate_property", property_type_id: button.data('type-id'))
+    request.send("accelerate_property", property_id: button.data('property-id'))
 
   onPropertyAccelerated: (response)=>
     @.displayResult(
-      $("#property_type_#{ response.data.type_id } .result_anchor")
+      $("#property_type_#{ response.data.type_id } .result_anchor") if response.data?.type_id?
       response
       position: "top center"
     )
 
     if response.is_error
-      $("#property_type_#{ response.data.type_id } .controls button").removeClass('disabled')
+      $("#property_type_#{ response.data?.type_id } .controls button").removeClass('disabled')
 
 module.exports = PropertiesPage

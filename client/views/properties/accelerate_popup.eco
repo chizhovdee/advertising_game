@@ -1,6 +1,12 @@
 <div class="attributes">
   <div class="attribute">
-    <span class="label"><%= I18n.t("properties.property.accelerate_building") %></span>
+    <span class="label">
+      <% if @property.isBuilding(): %>
+        <%= I18n.t("properties.property.accelerate_building") %>
+      <% else: %>
+
+      <% end %>
+    </span>
   </div>
 
   <div class="price attribute">
@@ -12,7 +18,7 @@
 </div>
 
 <div class="controls">
-  <button class="start_accelerate" data-type-id="<%= @property.typeId %>">
+  <button class="start_accelerate" data-property-id="<%= @property.id %>">
     <%= I18n.t("properties.property.accelerate") %>
   </button>
 

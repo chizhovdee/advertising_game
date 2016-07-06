@@ -22,7 +22,7 @@
   <div class="controls">
     <% if @property?: %>
       <% if @property.isBuilding(): %>
-        <button class="accelerate" data-type-id="<%= @type.id %>">
+        <button class="accelerate" data-property-id="<%= @property.id %>">
           <%= I18n.t("properties.property.accelerate") %>
         </button>
       <% end %>

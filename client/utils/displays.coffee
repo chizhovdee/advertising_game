@@ -3,8 +3,8 @@ module.exports =
     data = {}
 
     data.title = options.title
-    data.reward = result.data.reward
-    data.requirement = result.data.requirement
+    data.reward = result.data?.reward
+    data.requirement = result.data?.requirement
 
     if result.is_error
       data.type = 'failure'

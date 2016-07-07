@@ -50,6 +50,11 @@ class PropertiesPage extends Page
         @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
         @timers[resource.id].start(property.actualBuildingTimeLeft())
 
+      else if property.isUpgrading()
+        @timers[resource.id] ?= new VisualTimer()
+        @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
+        @timers[resource.id].start(property.actualUpgradingTimeLeft())
+
   bindEventListeners: ->
     super
 
@@ -57,6 +62,7 @@ class PropertiesPage extends Page
 
     request.bind('property_created', @.onPropertyCreated)
     request.bind('property_accelerated', @.onPropertyAccelerated)
+    request.bind('property_upgraded', @.onPropertyUpgraded)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
@@ -66,6 +72,7 @@ class PropertiesPage extends Page
     @el.on('click', '.property .accelerate:not(.disabled)', @.onAccelerateClick)
     @el.on('click', '.property .start_accelerate:not(.disabled)', @.onStartAccelerateClick)
     @el.on('click', '.property .upgrade:not(.disabled)', @.onUpgradeClick)
+    @el.on('click', '.property .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
 
   unbindEventListeners: ->
     super
@@ -74,6 +81,7 @@ class PropertiesPage extends Page
 
     request.unbind('property_created', @.onPropertyCreated)
     request.unbind('property_accelerated', @.onPropertyAccelerated)
+    request.unbind('property_upgraded', @.onPropertyUpgraded)
 
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -83,6 +91,7 @@ class PropertiesPage extends Page
     @el.off('click', '.property .accelerate:not(.disabled)', @.onAccelerateClick)
     @el.off('click', '.property .start_accelerate:not(.disabled)', @.onStartAccelerateClick)
     @el.off('click', '.property .upgrade:not(.disabled)', @.onUpgradeClick)
+    @el.off('click', '.property .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
 
   defineData: ->
     @list = PropertyType.all()
@@ -121,13 +130,20 @@ class PropertiesPage extends Page
 
     request.send("create_property", property_type_id: button.data('type-id'))
 
-  buildPriceRequirement: (type)->
+  buildPriceRequirement: (type, property)->
     {basic_money: [@.formatNumber(type.basicPrice), @player.basic_money >= type.basicPrice]}
+
+  upgradePriceRequirement: (type, property)->
+    price = type.upgradePriceBy(property.level)
+
+    {basic_money: [@.formatNumber(price), @player.basic_money >= price]}
 
   acceleratePriceRequirement: (property)->
     price = (
       if property.isBuilding()
         balance.acceleratePrice(property.actualBuildingTimeLeft())
+      else if property.isUpgrading()
+        balance.acceleratePrice(property.actualUpgradingTimeLeft())
       else
         999
     )
@@ -162,10 +178,12 @@ class PropertiesPage extends Page
       position: 'left bottom'
     )
 
-  onStartAccelerateClick: (e)->
+  onStartAccelerateClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    $("#property_type_#{ button.data('type-id') } button.accelerate").addClass('disabled')
+    property = _.find(@playerState.getProperties(), (p)-> p.id == button.data('property-id'))
+
+    $("#property_type_#{ property.typeId } button.accelerate").addClass('disabled')
 
     request.send("accelerate_property", property_id: button.data('property-id'))
 
@@ -188,5 +206,25 @@ class PropertiesPage extends Page
       @.renderTemplate("properties/upgrade_popup", property: property, propertyType: propertyType)
       position: 'left bottom'
     )
+
+  onStartUpgradeClick: (e)=>
+    button = $(e.currentTarget)
+    button.addClass('disabled')
+    property = _.find(@playerState.getProperties(), (p)-> p.id == button.data('property-id'))
+
+    $("#property_type_#{ property.typeId } button.upgrade").addClass('disabled')
+
+    request.send("upgrade_property", property_id: button.data('property-id'))
+
+  onPropertyUpgraded: (response)=>
+    @.displayResult(
+      $("#property_type_#{ response.data.type_id } .result_anchor") if response.data?.type_id?
+      response
+      position: "top center"
+    )
+
+    if response.is_error
+      $("#property_type_#{ response.data?.type_id } .controls button").removeClass('disabled')
+
 
 module.exports = PropertiesPage

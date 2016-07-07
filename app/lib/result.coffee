@@ -4,6 +4,8 @@ class Result
     notReachedLevel: 'not_reached_level'
     dataNotFound: 'data_not_found'
 
+    propertyIsBuilding: "property_is_building"
+
   errorCode: null
   data: null
   reload: false

@@ -12,6 +12,10 @@
         <div class="warning_label"><%= I18n.t("properties.property.under_construction") %></div>
 
         <%=@safe @.renderTimer(I18n.t("properties.property.building_timer")) %>
+      <% else if @property.isUpgrading(): %>
+        <div class="warning_label"><%= I18n.t("properties.property.upgrading") %></div>
+
+        <%=@safe @.renderTimer(I18n.t("properties.property.upgrading_timer")) %>
       <% else: %>
         <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
         <div class="using"><%=@safe I18n.t("properties.property.using", current: 0, max: 5) %></div>
@@ -21,7 +25,7 @@
 
   <div class="controls">
     <% if @property?: %>
-      <% if @property.isBuilding(): %>
+      <% if @property.isUpgrading() || @property.isBuilding(): %>
         <button class="accelerate" data-property-id="<%= @property.id %>">
           <%= I18n.t("properties.property.accelerate") %>
         </button>

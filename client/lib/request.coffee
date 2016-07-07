@@ -72,6 +72,9 @@ module.exports =
   accelerate_property: (data)->
     @.put('/properties/accelerate', data)
 
+  upgrade_property: (data)->
+    @.put('/properties/upgrade', data)
+
 
   #------------- advertising ----------------#
   create_advertising: (data)->

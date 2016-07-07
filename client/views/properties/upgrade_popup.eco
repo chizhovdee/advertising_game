@@ -10,6 +10,12 @@
     <span class="value"><%= @propertyType.upgradeLevelBy(@property.level) %></span>
   </div>
 
+  <div class="price attribute">
+    <span class="label"><%= I18n.t("common.price") %>:</span>
+    <span class="value">
+      <%=@safe @.renderTemplate('requirements', requirements: @.upgradePriceRequirement(@propertyType, @property)) %>
+    </span>
+  </div>
 </div>
 
 <div class="controls">

@@ -42,3 +42,22 @@ module.exports =
       res.sendEventError(error)
     )
 
+  upgrade: (req, res)->
+    req.db.tx((t)->
+      req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
+
+      result = executor.upgradeProperty(
+        req.currentPlayer
+        _.toInteger(req.body.property_id)
+      )
+
+      res.addEventWithResult('property_upgraded', result)
+
+      res.updateResources(t, req.currentPlayer)
+    )
+    .then(->
+      res.sendEventsWithProgress(req.currentPlayer)
+    )
+    .catch((error)->
+      res.sendEventError(error)
+    )

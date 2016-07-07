@@ -19,7 +19,7 @@ class PropertyType extends Base
     @buildDuration = null
     @baseCapacity = null
     @upgradePerLevels = null
-    @upgradeDuration = null
+    @baseUpgradeDuration = null
 
   validationForDefine: ->
     throw new Error('undefined @basicPrice') unless @basicPrice?
@@ -27,7 +27,16 @@ class PropertyType extends Base
     throw new Error('undefined @buildDuration') unless @buildDuration?
     throw new Error('undefined @baseCapacity') unless @baseCapacity?
     throw new Error('undefined @upgradePerLevels') unless @upgradePerLevels?
-    throw new Error('undefined @upgradeDuration') unless @upgradeDuration?
+    throw new Error('undefined @baseUpgradeDuration') unless @baseUpgradeDuration?
+
+  upgradeLevelBy: (propertyLevel)->
+    propertyLevel * @upgradePerLevels - (@buildLevel - 1)
+
+  upgradePriceBy: (propertyLevel)->
+    (propertyLevel + 1) * @basicPrice
+
+  upgradeDurationBy: (propertyLevel)->
+    propertyLevel * @baseUpgradeDuration
 
   toJSON: ->
     _.assign(
@@ -36,7 +45,7 @@ class PropertyType extends Base
       buildDuration: @buildDuration
       baseCapacity: @baseCapacity
       upgradePerLevels: @upgradePerLevels
-      upgradeDuration: @upgradeDuration
+      baseUpgradeDuration: @baseUpgradeDuration
       ,
       super
     )

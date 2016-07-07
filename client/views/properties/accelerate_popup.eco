@@ -3,8 +3,8 @@
     <span class="label">
       <% if @property.isBuilding(): %>
         <%= I18n.t("properties.property.accelerate_building") %>
-      <% else: %>
-
+      <% else if @property.isUpgrading(): %>
+        <%= I18n.t("properties.property.accelerate_upgrading") %>
       <% end %>
     </span>
   </div>

@@ -7,4 +7,10 @@ class Property extends BaseResource
   actualBuildingTimeLeft: ->
     @buildingTimeLeft - @.timeDiff()
 
+  isUpgrading: ->
+    @upgradingTimeLeft? && @.actualUpgradingTimeLeft() > 0
+
+  actualUpgradingTimeLeft: ->
+    @upgradingTimeLeft - @.timeDiff()
+
 module.exports = Property

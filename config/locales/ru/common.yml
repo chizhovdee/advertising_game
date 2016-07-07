@@ -21,6 +21,7 @@ ru:
       requirements_not_satisfied: "Требования не удовлетворены!"
       server_error: "Упс! Что-то пошло не так."
       data_not_found: "Данные не найдены!"
+      property_is_building: "Здание находится в строительстве"
     reward_keys:
       reputation: "Репутация"
       experience: "Опыт"

@@ -1,6 +1,8 @@
 _ = require('lodash')
 BaseState = require('./base')
 
+PropertyType = require('../../game_data').PropertyType
+
 class PropertiesState extends BaseState
   defaultState: {}
   stateName: "properties"
@@ -27,28 +29,53 @@ class PropertiesState extends BaseState
 
     @.addOperation('add', newId, @.propertyToJSON(newResource))
 
-  propertyToJSON: (property)->
-    resource = @.extendResource(property)
-
-    if resource.builtAt?
-      resource.buildingTimeLeft = @.buildingTimeLeftFor(resource)
-
-    resource
-
-  buildingTimeLeftFor: (property)->
-    property.builtAt - Date.now()
-
-  propertyIsBuilding: (property)->
-    property.builtAt? && @.buildingTimeLeftFor(property)
-
   accelerateBuilding: (id)->
     delete @state[id].builtAt
+    delete @state[id].upgradeAt
 
     @state[id].updatedAt = Date.now()
 
     @.update()
 
     @.addOperation('update', id, @.propertyToJSON(@state[id]))
+
+  upgrade: (id)->
+    property = @state[id]
+    type = PropertyType.find(property.typeId)
+
+    delete @state[id].builtAt # удаление лишнего поля
+
+    @state[id].upgradeAt = Date.now() + type.upgradeDurationBy(property.level)
+    # after
+    @state[id].level += 1
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+
+  buildingTimeLeftFor: (property)->
+    property.builtAt - Date.now()
+
+  propertyIsBuilding: (property)->
+    property.builtAt? && property.builtAt > Date.now()
+
+  upgradingTimeLeftFor: (property)->
+    property.upgradeAt - Date.now()
+
+  propertyIsUpgrading: (property)->
+    property.upgradeAt? && property.upgradeAt > Date.now()
+
+  propertyToJSON: (property)->
+    resource = @.extendResource(property)
+
+    if @.propertyIsBuilding(resource)
+      resource.buildingTimeLeft = @.buildingTimeLeftFor(resource)
+
+    else if @.propertyIsUpgrading(resource)
+      resource.upgradingTimeLeft = @.upgradingTimeLeftFor(resource)
+
+    resource
 
   toJSON: ->
     state = {}

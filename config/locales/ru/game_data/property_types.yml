@@ -1,9 +1,18 @@
 ru:
   game_data:
     property_types:
-      command_center: "Центр управления"
-      warehouse: "Склад"
-      garage: "Гараж"
-      sea_port: "Морской порт"
-      hangar: "Ангар"
-      train_depot: "Ж/Д депо"
+      command_center:
+        name: "Центр управления"
+        description: "Позволяет управлять рекламными компаниями"
+      warehouse:
+        name: "Склад"
+        description: "Позволяет управлять грузоперевозками"
+      garage:
+        name: "Гараж"
+        description: "Позволяет держать больше транспорта"
+      sea_port:
+        name: "Морской порт"
+      hangar:
+        name: "Ангар"
+      train_depot:
+        name: "Ж/Д депо"

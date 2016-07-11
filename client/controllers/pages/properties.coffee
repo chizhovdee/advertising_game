@@ -46,12 +46,12 @@ class PropertiesPage extends Page
       continue unless property?
 
       if property.isBuilding()
-        @timers[resource.id] ?= new VisualTimer()
+        @timers[resource.id] ?= new VisualTimer(null, => @.renderList())
         @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
         @timers[resource.id].start(property.actualBuildingTimeLeft())
 
       else if property.isUpgrading()
-        @timers[resource.id] ?= new VisualTimer()
+        @timers[resource.id] ?= new VisualTimer(null, => @.renderList())
         @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
         @timers[resource.id].start(property.actualUpgradingTimeLeft())
 
@@ -73,6 +73,7 @@ class PropertiesPage extends Page
     @el.on('click', '.property .start_accelerate:not(.disabled)', @.onStartAccelerateClick)
     @el.on('click', '.property .upgrade:not(.disabled)', @.onUpgradeClick)
     @el.on('click', '.property .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
+    @el.on('click', '.property .info-icon', @.onInfoClick)
 
   unbindEventListeners: ->
     super
@@ -92,6 +93,7 @@ class PropertiesPage extends Page
     @el.off('click', '.property .start_accelerate:not(.disabled)', @.onStartAccelerateClick)
     @el.off('click', '.property .upgrade:not(.disabled)', @.onUpgradeClick)
     @el.off('click', '.property .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
+    @el.off('click', '.property .info-icon', @.onInfoClick)
 
   defineData: ->
     @list = PropertyType.all()
@@ -225,6 +227,17 @@ class PropertiesPage extends Page
 
     if response.is_error
       $("#property_type_#{ response.data?.type_id } .controls button").removeClass('disabled')
+
+  onInfoClick: (e)=>
+    button = $(e.currentTarget)
+    propertyType = _.find(@list, (t)-> t.id == button.data('type-id'))
+
+    @.displayPopup(button
+      "<div class='description'>#{propertyType.description()}</div>"
+      position: 'left bottom'
+      autoHideDelay: _(10).seconds()
+      autoHide: true
+    )
 
 
 module.exports = PropertiesPage

@@ -5,7 +5,10 @@ class PropertyType extends Base
     'baseCapacity', 'upgradePerLevels', 'baseUpgradeDuration'
 
   name: ->
-    I18n.t("game_data.property_types.#{@key}")
+    I18n.t("game_data.property_types.#{@key}.name")
+
+  description: ->
+    I18n.t("game_data.property_types.#{@key}.description")
 
   upgradeLevelBy: (propertyLevel)->
     propertyLevel * @upgradePerLevels - (@buildLevel - 1)

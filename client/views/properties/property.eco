@@ -1,7 +1,8 @@
 <div class="property" id="property_type_<%= @type.id %>">
+  <span class="info-icon" data-type-id="<%= @type.id %>"></span>
+
   <div class="name">
     <%= @type.name() %>
-    <span class="wiki_info"></span>
   </div>
 
   <div class="picture"><%=@safe @.propertyPicture(@type) %></div>

@@ -4,3 +4,4 @@ module.exports =
   StartRouteModal: require('./start_route')
   NewAdvertisingModal: require('./new_advertising')
   TransportSelectionModal: require('./transport_selection')
+  PropertyRentOutModal: require('./property_rent_out')

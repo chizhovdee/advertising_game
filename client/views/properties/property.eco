@@ -32,10 +32,16 @@
         </button>
 
       <% else: %>
+
+        <button class="rent_out" data-property-id="<%= @property.id %>">
+          <%= I18n.t("properties.property.rent_out") %>
+        </button>
+
         <button class="upgrade" data-property-id="<%= @property.id %>">
           <%= I18n.t("properties.property.upgrade") %>
         </button>
-      <% end %>
+
+    <% end %>
     <% else: %>
       <button class="build" data-type-id="<%= @type.id %>">
         <%= I18n.t("properties.property.build") %>

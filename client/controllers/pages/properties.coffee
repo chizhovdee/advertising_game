@@ -74,6 +74,7 @@ class PropertiesPage extends Page
     @el.on('click', '.property .upgrade:not(.disabled)', @.onUpgradeClick)
     @el.on('click', '.property .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
     @el.on('click', '.property .info-icon', @.onInfoClick)
+    @el.on('click', '.property .rent_out', @.onRentOutClick)
 
   unbindEventListeners: ->
     super
@@ -94,6 +95,7 @@ class PropertiesPage extends Page
     @el.off('click', '.property .upgrade:not(.disabled)', @.onUpgradeClick)
     @el.off('click', '.property .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
     @el.off('click', '.property .info-icon', @.onInfoClick)
+    @el.off('click', '.property .rent_out', @.onRentOutClick)
 
   defineData: ->
     @list = PropertyType.all()
@@ -238,6 +240,9 @@ class PropertiesPage extends Page
       autoHideDelay: _(10).seconds()
       autoHide: true
     )
+
+  onRentOutClick: (e)->
+    modals.PropertyRentOutModal.show($(e.currentTarget).data('property-id'))
 
 
 module.exports = PropertiesPage

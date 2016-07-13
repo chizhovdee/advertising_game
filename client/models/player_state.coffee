@@ -59,5 +59,8 @@ class PlayerState extends Spine.Model
         new Property(_.assignIn({id: _.toInteger(id)}, data))
     )
 
+  findProperty: (id)->
+    _.find(@.getProperties(), id: id)
+
 module.exports = PlayerState
 

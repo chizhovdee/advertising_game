@@ -6,8 +6,8 @@ class PropertyRentOutModal extends Modal
   className: 'property_rent_out modal'
 
   show: (@propertyId)->
-    console.log @propertyId
     @playerState = ctx.get('playerState')
+    console.log @playerState.findProperty(@propertyId)
 
     super
 

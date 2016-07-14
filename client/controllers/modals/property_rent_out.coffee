@@ -1,13 +1,13 @@
 Modal = require("../modal")
 request = require('../../lib').request
 ctx = require('../../context')
+PropertyType = require('../../game_data').PropertyType
 
 class PropertyRentOutModal extends Modal
   className: 'property_rent_out modal'
 
   show: (@propertyId)->
     @playerState = ctx.get('playerState')
-    console.log @playerState.findProperty(@propertyId)
 
     super
 
@@ -27,5 +27,8 @@ class PropertyRentOutModal extends Modal
     super
 
   defineData: ->
+    @property = @playerState.findProperty(@propertyId)
+    @propertyType = PropertyType.find(@property.typeId)
+
 
 module.exports = PropertyRentOutModal

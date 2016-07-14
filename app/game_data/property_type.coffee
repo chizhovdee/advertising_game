@@ -10,6 +10,7 @@ class PropertyType extends Base
   baseCapacity: null # базовая вместительность ресурсов (чего именно, зависит от контекста)
   upgradePerLevels: null # через сколько уровней игрока будет разрешено улучшать на один уровень, начиная с buildLevel
   upgradeDuration: null # время улучшения
+  rentOutAvailable: null # можно ли сдать в аренду
 
   constructor: ->
     super
@@ -20,6 +21,7 @@ class PropertyType extends Base
     @baseCapacity = null
     @upgradePerLevels = null
     @baseUpgradeDuration = null
+    @rentOutAvailable = false
 
   validationForDefine: ->
     throw new Error('undefined @basicPrice') unless @basicPrice?
@@ -46,6 +48,7 @@ class PropertyType extends Base
       baseCapacity: @baseCapacity
       upgradePerLevels: @upgradePerLevels
       baseUpgradeDuration: @baseUpgradeDuration
+      rentOutAvailable: @rentOutAvailable
       ,
       super
     )

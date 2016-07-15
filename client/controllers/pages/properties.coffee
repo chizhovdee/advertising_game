@@ -5,6 +5,7 @@ request = require('../../lib/request')
 VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
 balance = require('../../lib').balance
+settings = require('../../settings')
 
 PropertyType = require('../../game_data').PropertyType
 
@@ -15,6 +16,8 @@ class PropertiesPage extends Page
 
   show: ->
     @playerState = ctx.get('playerState')
+
+    @settings = settings
 
     super
 
@@ -55,6 +58,11 @@ class PropertiesPage extends Page
         @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
         @timers[resource.id].start(property.actualUpgradingTimeLeft())
 
+      else if property.isRented() && !property.rentFinished()
+        @timers[resource.id] ?= new VisualTimer(null, => @.renderList())
+        @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
+        @timers[resource.id].start(property.actualRentTimeLeft())
+
   bindEventListeners: ->
     super
 
@@ -63,6 +71,7 @@ class PropertiesPage extends Page
     request.bind('property_created', @.onPropertyCreated)
     request.bind('property_accelerated', @.onPropertyAccelerated)
     request.bind('property_upgraded', @.onPropertyUpgraded)
+    request.bind('property_rented', @.onPropertyRented)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
@@ -75,6 +84,7 @@ class PropertiesPage extends Page
     @el.on('click', '.property .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
     @el.on('click', '.property .info-icon', @.onInfoClick)
     @el.on('click', '.property .rent_out', @.onRentOutClick)
+    @el.on('click', '.property .start_rent_out', @.onStartRentOutClick)
 
   unbindEventListeners: ->
     super
@@ -84,6 +94,7 @@ class PropertiesPage extends Page
     request.unbind('property_created', @.onPropertyCreated)
     request.unbind('property_accelerated', @.onPropertyAccelerated)
     request.unbind('property_upgraded', @.onPropertyUpgraded)
+    request.unbind('property_rented', @.onPropertyRented)
 
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -96,6 +107,7 @@ class PropertiesPage extends Page
     @el.off('click', '.property .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
     @el.off('click', '.property .info-icon', @.onInfoClick)
     @el.off('click', '.property .rent_out', @.onRentOutClick)
+    @el.off('click', '.property .start_rent_out', @.onStartRentOutClick)
 
   defineData: ->
     @list = PropertyType.all()
@@ -185,7 +197,7 @@ class PropertiesPage extends Page
   onStartAccelerateClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = _.find(@playerState.getProperties(), (p)-> p.id == button.data('property-id'))
+    property = @playerState.findProperty(button.data('property-id'))
 
     $("#property_type_#{ property.typeId } button.accelerate").addClass('disabled')
 
@@ -203,7 +215,7 @@ class PropertiesPage extends Page
 
   onUpgradeClick: (e)=>
     button = $(e.currentTarget)
-    property = _.find(@playerState.getProperties(), (p)-> p.id == button.data('property-id'))
+    property = @playerState.findProperty(button.data('property-id'))
     propertyType = _.find(@list, (t)-> t.id == property.typeId)
 
     @.displayPopup(button
@@ -214,7 +226,7 @@ class PropertiesPage extends Page
   onStartUpgradeClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = _.find(@playerState.getProperties(), (p)-> p.id == button.data('property-id'))
+    property = @playerState.findProperty(button.data('property-id'))
 
     $("#property_type_#{ property.typeId } button.upgrade").addClass('disabled')
 
@@ -241,8 +253,33 @@ class PropertiesPage extends Page
       autoHide: true
     )
 
-  onRentOutClick: (e)->
-    modals.PropertyRentOutModal.show($(e.currentTarget).data('property-id'))
+  onRentOutClick: (e)=>
+    button = $(e.currentTarget)
+    property = @playerState.findProperty(button.data('property-id'))
+    propertyType = _.find(@list, (t)-> t.id == property.typeId)
 
+    @.displayPopup(button
+      @.renderTemplate("properties/rent_out_popup", property: property, propertyType: propertyType)
+      position: 'top center'
+    )
+
+  onStartRentOutClick: (e)=>
+    button = $(e.currentTarget)
+    button.addClass('disabled')
+    property = @playerState.findProperty(button.data('property-id'))
+
+    $("#property_type_#{ property.typeId } button.rent_out").addClass('disabled')
+
+    request.send("rent_out_property", property_id: button.data('property-id'))
+
+  onPropertyRented: (response)=>
+    @.displayResult(
+      $("#property_type_#{ response.data.type_id } .result_anchor") if response.data?.type_id?
+      response
+      position: "top center"
+    )
+
+    if response.is_error
+      $("#property_type_#{ response.data?.type_id } .controls button").removeClass('disabled')
 
 module.exports = PropertiesPage

@@ -4,6 +4,8 @@ Base = require("./base")
 class PropertyType extends Base
   @configure(publicForClient: true)
 
+  @rentOutDuration: _(1).days()
+
   basicPrice: null # базовая цена за строительство и за улучшение
   buildLevel: null # уровень требуемый для строительства
   buildDuration: null # время строительства
@@ -49,6 +51,7 @@ class PropertyType extends Base
       upgradePerLevels: @upgradePerLevels
       baseUpgradeDuration: @baseUpgradeDuration
       rentOutAvailable: @rentOutAvailable
+      reward: @reward
       ,
       super
     )

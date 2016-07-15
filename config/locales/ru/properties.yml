@@ -20,3 +20,9 @@ ru:
       upgrade_duration: "Время улучшения:"
       start_upgrade: "Начать"
       rent_out: "Сдать в аренду"
+      rent_out_duration: "Срок:"
+      collect_rent: "Собрать награду"
+      finish_rent: "Завершить аренду"
+      rented: "Здание в аренде"
+      rented_timer: "Время до завершения аренды"
+

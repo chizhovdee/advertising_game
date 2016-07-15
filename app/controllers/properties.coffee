@@ -61,3 +61,23 @@ module.exports =
     .catch((error)->
       res.sendEventError(error)
     )
+
+  rentOut: (req, res)->
+    req.db.tx((t)->
+      req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
+
+      result = executor.rentOutProperty(
+        req.currentPlayer
+        _.toInteger(req.body.property_id)
+      )
+
+      res.addEventWithResult('property_rented', result)
+
+      res.updateResources(t, req.currentPlayer)
+    )
+    .then(->
+      res.sendEventsWithProgress(req.currentPlayer)
+    )
+    .catch((error)->
+      res.sendEventError(error)
+    )

@@ -75,6 +75,8 @@ module.exports =
   upgrade_property: (data)->
     @.put('/properties/upgrade', data)
 
+  rent_out_property: (data)->
+    @.put('/properties/rent_out', data)
 
   #------------- advertising ----------------#
   create_advertising: (data)->

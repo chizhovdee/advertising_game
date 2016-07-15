@@ -13,10 +13,16 @@
         <div class="warning_label"><%= I18n.t("properties.property.under_construction") %></div>
 
         <%=@safe @.renderTimer(I18n.t("properties.property.building_timer")) %>
+
       <% else if @property.isUpgrading(): %>
         <div class="warning_label"><%= I18n.t("properties.property.upgrading") %></div>
 
         <%=@safe @.renderTimer(I18n.t("properties.property.upgrading_timer")) %>
+
+      <% else if @property.isRented(): %>
+        <div class="warning_label"><%= I18n.t("properties.property.rented") %></div>
+
+        <%=@safe @.renderTimer(I18n.t("properties.property.rented_timer")) %>
       <% else: %>
         <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
         <div class="using"><%=@safe I18n.t("properties.property.using", current: 0, max: 5) %></div>
@@ -31,8 +37,18 @@
           <%= I18n.t("properties.property.accelerate") %>
         </button>
 
-      <% else: %>
+      <% else if @property.isRented(): %>
+        <% if @property.rentFinished(): %>
+          <button class="collect_rent" data-property-id="<%= @property.id %>">
+            <%= I18n.t("properties.property.collect_rent") %>
+          </button>
+        <% else: %>
+          <button class="finish_rent" data-property-id="<%= @property.id %>">
+            <%= I18n.t("properties.property.finish_rent") %>
+          </button>
+        <% end %>
 
+      <% else: %>
         <button class="rent_out" data-property-id="<%= @property.id %>">
           <%= I18n.t("properties.property.rent_out") %>
         </button>
@@ -40,8 +56,8 @@
         <button class="upgrade" data-property-id="<%= @property.id %>">
           <%= I18n.t("properties.property.upgrade") %>
         </button>
+      <% end %>
 
-    <% end %>
     <% else: %>
       <button class="build" data-type-id="<%= @type.id %>">
         <%= I18n.t("properties.property.build") %>

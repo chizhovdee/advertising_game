@@ -8,6 +8,9 @@ PropertyType.define('command_center', (obj)->
   obj.baseCapacity = 2
   obj.upgradePerLevels = 5
   obj.baseUpgradeDuration = _(1).minutes()
+
+  obj.addReward 'rentOutCollect', (r)->
+    r.basicMoney 100
 )
 
 PropertyType.define('garage', (obj)->
@@ -18,6 +21,9 @@ PropertyType.define('garage', (obj)->
   obj.upgradePerLevels = 5
   obj.baseUpgradeDuration = _(1).minutes()
   obj.rentOutAvailable = true
+
+  obj.addReward 'rentOutCollect', (r)->
+    r.basicMoney 100
 )
 
 PropertyType.define('warehouse', (obj)->
@@ -28,6 +34,9 @@ PropertyType.define('warehouse', (obj)->
   obj.upgradePerLevels = 5
   obj.baseUpgradeDuration = _(1).minutes()
   obj.rentOutAvailable = true
+
+  obj.addReward 'rentOutCollect', (r)->
+    r.basicMoney 500
 )
 
 #PropertyType.define('sea_port', (obj)->

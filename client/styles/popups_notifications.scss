@@ -40,6 +40,12 @@
 .notifyjs-container {
   text-align: left;
 
+  .warning {
+    width: 230px;
+    margin-bottom: 10px;
+    color: $game_color_yellow;
+  }
+
   .attributes {
     .attribute {
       margin-bottom: 5px;

@@ -4,6 +4,7 @@ balance = require('./lib').balance
 
 Player = models.Player
 AdvertisingType = gameData.AdvertisingType
+PropertyType = gameData.PropertyType
 
 module.exports =
   player:
@@ -16,3 +17,6 @@ module.exports =
     status: AdvertisingType.status
     discountPerDay: AdvertisingType.discountPerDay
     statusFactor: AdvertisingType.statusFactor
+
+  propertyType:
+    rentOutDuration: PropertyType.rentOutDuration

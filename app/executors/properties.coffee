@@ -12,6 +12,12 @@ module.exports =
 
     dataResult = {type_id: type.id}
 
+    property = player.propertiesState.findByTypeId(propertyTypeId)
+
+    return new Result(
+      error_code: Result.errors.propertyIsBuilt
+    ) if property?
+
     return new Result(
       error_code: Result.errors.notReachedLevel
       data: dataResult
@@ -55,6 +61,8 @@ module.exports =
       requirement.vipMoney(balance.acceleratePrice(player.propertiesState.buildingTimeLeftFor(property)))
     else if player.propertiesState.propertyIsUpgrading(property)
       requirement.vipMoney(balance.acceleratePrice(player.propertiesState.upgradingTimeLeftFor(property)))
+    else
+      # TODO проверка что вообще нет никакой надобности что либо ускорять
 
     unless requirement.isSatisfiedFor(player)
       dataResult.requirement = requirement.unSatisfiedFor(player)
@@ -85,10 +93,8 @@ module.exports =
 
     dataResult = {type_id: type.id}
 
-    return new Result(
-      error_code: Result.errors.propertyIsBuilding
-      data: dataResult
-    ) if player.propertiesState.propertyIsBuilding(property)
+    if checkResult = @.commonChecks(dataResult, player, property)
+      return checkResult
 
     return new Result(
       error_code: Result.errors.notReachedLevel
@@ -112,6 +118,45 @@ module.exports =
 
     dataResult.reward = reward
 
-    new Result(
+    new Result(data: dataResult)
+
+  rentOutProperty: (player, propertyId)->
+    property = player.propertiesState.find(propertyId)
+
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless property?
+
+    type = PropertyType.find(property.typeId)
+
+    dataResult = {type_id: type.id}
+
+    return new Result(
+      error_code: Result.errors.propertyRentOutNotAvailable
       data: dataResult
-    )
+    ) unless type.rentOutAvailable
+
+    if checkResult = @.commonChecks(dataResult, player, property)
+      return checkResult
+
+    # TODO проверка отдельного типа на возможность
+
+    player.propertiesState.rentOut(propertyId)
+
+    new Result(data: dataResult)
+
+  commonChecks: (dataResult, player, property)->
+    return new Result(
+      error_code: Result.errors.propertyIsRented
+      data: dataResult
+    ) if player.propertiesState.propertyIsRented(property)
+
+    return new Result(
+      error_code: Result.errors.propertyIsBuilding
+      data: dataResult
+    ) if player.propertiesState.propertyIsBuilding(property)
+
+    return new Result(
+      error_code: Result.errors.propertyIsUpgrading
+      data: dataResult
+    ) if player.propertiesState.propertyIsUpgrading(property)

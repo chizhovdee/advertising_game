@@ -4,7 +4,11 @@ class Result
     notReachedLevel: 'not_reached_level'
     dataNotFound: 'data_not_found'
 
+    propertyIsBuilt: "property_is_built"
     propertyIsBuilding: "property_is_building"
+    propertyIsUpgrading: "property_is_upgrading"
+    propertyRentOutNotAvailable: "property_rent_out_not_available"
+    propertyIsRented: "property_is_rented"
 
   errorCode: null
   data: null

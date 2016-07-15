@@ -1,1 +1,0 @@
-<h2><%= I18n.t('properties.rent_out.title', name: @propertyType.name() ) %></h2>

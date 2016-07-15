@@ -13,6 +13,10 @@ class PropertiesState extends BaseState
   find: (id)->
     @state[id]
 
+  findByTypeId: (typeId)->
+    for id, resource of @state
+      return resource if resource.typeId == typeId
+
   create: (type)->
     newId = @.generateId()
     newResource = {
@@ -54,6 +58,15 @@ class PropertiesState extends BaseState
 
     @.addOperation('update', id, @.propertyToJSON(@state[id]))
 
+  rentOut: (id)->
+    @state[id].rentFinishdAt = Date.now() + PropertyType.rentOutDuration
+    # after
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+
   buildingTimeLeftFor: (property)->
     property.builtAt - Date.now()
 
@@ -66,6 +79,13 @@ class PropertiesState extends BaseState
   propertyIsUpgrading: (property)->
     property.upgradeAt? && property.upgradeAt > Date.now()
 
+  rentTimeLeftFor: (property)->
+    property.rentFinishdAt - Date.now()
+
+  propertyIsRented: (property)->
+    # достаточно наличие поля
+    property.rentFinishdAt?
+
   propertyToJSON: (property)->
     resource = @.extendResource(property)
 
@@ -74,6 +94,9 @@ class PropertiesState extends BaseState
 
     else if @.propertyIsUpgrading(resource)
       resource.upgradingTimeLeft = @.upgradingTimeLeftFor(resource)
+
+    else if @.propertyIsRented(resource)
+      resource.rentTimeLeft = @.rentTimeLeftFor(resource)
 
     resource
 

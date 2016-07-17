@@ -103,6 +103,11 @@
     margin-bottom: 10px;
     color: $game_color_yellow;
     font-weight: bold;
+
+    &.with_message {
+      white-space: normal;
+      width: 250px;
+    }
   }
 
   .confirm_controls {

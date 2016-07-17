@@ -174,6 +174,26 @@ module.exports =
 
     new Result(data: dataResult)
 
+  finishRent: (player, propertyId)->
+    property = player.propertiesState.find(propertyId)
+
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless property?
+
+    type = PropertyType.find(property.typeId)
+
+    dataResult = {type_id: type.id}
+
+    return new Result(
+      error_code: Result.errors.propertyIsNotRented
+      data: dataResult
+    ) unless player.propertiesState.propertyIsRented(property)
+
+    player.propertiesState.finishRent(propertyId)
+
+    new Result(data: dataResult)
+
   commonChecks: (dataResult, player, property)->
     return new Result(
       error_code: Result.errors.propertyIsRented

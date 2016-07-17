@@ -54,9 +54,11 @@
         <% end %>
 
       <% else: %>
-        <button class="rent_out" data-property-id="<%= @property.id %>">
-          <%= I18n.t("properties.property.rent_out") %>
-        </button>
+        <% if @type.rentOutAvailable: %>
+          <button class="rent_out" data-property-id="<%= @property.id %>">
+            <%= I18n.t("properties.property.rent_out") %>
+          </button>
+        <% end %>
 
         <button class="upgrade" data-property-id="<%= @property.id %>">
           <%= I18n.t("properties.property.upgrade") %>

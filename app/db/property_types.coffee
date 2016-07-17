@@ -8,9 +8,6 @@ PropertyType.define('command_center', (obj)->
   obj.baseCapacity = 2
   obj.upgradePerLevels = 5
   obj.baseUpgradeDuration = _(1).minutes()
-
-  obj.addReward 'collectRent', (r)->
-    r.basicMoney 100
 )
 
 PropertyType.define('garage', (obj)->

@@ -91,6 +91,7 @@ module.exports =
     @.displayPopup(element,
       @.renderTemplate("confirm",
         button: options.button
+        message: options.message
       )
       ,
       position: (options.position || 'left bottom')

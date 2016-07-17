@@ -6,7 +6,7 @@
     <span class="value"><%= @.displayTime(@settings.propertyType.rentOutDuration) %></span>
   </div>
 
-  <%= @.renderRewards @propertyType.reward.rentOutCollect, (content)-> %>
+  <%= @.renderRewards @propertyType.reward.collectRent, (content)-> %>
     <h3><%= I18n.t("common.rewards") %></h3>
 
     <%= content %>

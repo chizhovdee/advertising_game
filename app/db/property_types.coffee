@@ -9,7 +9,7 @@ PropertyType.define('command_center', (obj)->
   obj.upgradePerLevels = 5
   obj.baseUpgradeDuration = _(1).minutes()
 
-  obj.addReward 'rentOutCollect', (r)->
+  obj.addReward 'collectRent', (r)->
     r.basicMoney 100
 )
 
@@ -22,7 +22,7 @@ PropertyType.define('garage', (obj)->
   obj.baseUpgradeDuration = _(1).minutes()
   obj.rentOutAvailable = true
 
-  obj.addReward 'rentOutCollect', (r)->
+  obj.addReward 'collectRent', (r)->
     r.basicMoney 100
 )
 
@@ -35,7 +35,7 @@ PropertyType.define('warehouse', (obj)->
   obj.baseUpgradeDuration = _(1).minutes()
   obj.rentOutAvailable = true
 
-  obj.addReward 'rentOutCollect', (r)->
+  obj.addReward 'collectRent', (r)->
     r.basicMoney 500
 )
 

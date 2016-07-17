@@ -30,6 +30,7 @@ exports.setup = (app)->
     apiRoutes.put('/properties/accelerate', controllers.properties.accelerate)
     apiRoutes.put('/properties/upgrade', controllers.properties.upgrade)
     apiRoutes.put('/properties/rent_out', controllers.properties.rentOut)
+    apiRoutes.put('/properties/collect_rent', controllers.properties.collectRent)
 
     # advertising
     apiRoutes.post('/advertising/create', controllers.advertising.create)

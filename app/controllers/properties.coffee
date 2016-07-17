@@ -81,3 +81,23 @@ module.exports =
     .catch((error)->
       res.sendEventError(error)
     )
+
+  collectRent:(req, res)->
+    req.db.tx((t)->
+      req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
+
+      result = executor.collectRent(
+        req.currentPlayer
+        _.toInteger(req.body.property_id)
+      )
+
+      res.addEventWithResult('property_rent_collected', result)
+
+      res.updateResources(t, req.currentPlayer)
+    )
+    .then(->
+      res.sendEventsWithProgress(req.currentPlayer)
+    )
+    .catch((error)->
+      res.sendEventError(error)
+    )

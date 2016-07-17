@@ -72,6 +72,7 @@ class PropertiesPage extends Page
     request.bind('property_accelerated', @.onPropertyAccelerated)
     request.bind('property_upgraded', @.onPropertyUpgraded)
     request.bind('property_rented', @.onPropertyRented)
+    request.bind('property_rent_collected', @.onPropertyRentCollected)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
@@ -85,6 +86,7 @@ class PropertiesPage extends Page
     @el.on('click', '.property .info-icon', @.onInfoClick)
     @el.on('click', '.property .rent_out', @.onRentOutClick)
     @el.on('click', '.property .start_rent_out', @.onStartRentOutClick)
+    @el.on('click', '.property .collect_rent', @.onCollectRentClick)
 
   unbindEventListeners: ->
     super
@@ -95,6 +97,7 @@ class PropertiesPage extends Page
     request.unbind('property_accelerated', @.onPropertyAccelerated)
     request.unbind('property_upgraded', @.onPropertyUpgraded)
     request.unbind('property_rented', @.onPropertyRented)
+    request.unbind('property_rent_collected', @.onPropertyRentCollected)
 
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -108,6 +111,7 @@ class PropertiesPage extends Page
     @el.off('click', '.property .info-icon', @.onInfoClick)
     @el.off('click', '.property .rent_out', @.onRentOutClick)
     @el.off('click', '.property .start_rent_out', @.onStartRentOutClick)
+    @el.off('click', '.property .collect_rent', @.onCollectRentClick)
 
   defineData: ->
     @list = PropertyType.all()
@@ -273,6 +277,23 @@ class PropertiesPage extends Page
     request.send("rent_out_property", property_id: button.data('property-id'))
 
   onPropertyRented: (response)=>
+    @.displayResult(
+      $("#property_type_#{ response.data.type_id } .result_anchor") if response.data?.type_id?
+      response
+      position: "top center"
+    )
+
+    if response.is_error
+      $("#property_type_#{ response.data?.type_id } .controls button").removeClass('disabled')
+
+  onCollectRentClick: (e)=>
+    button = $(e.currentTarget)
+    button.addClass('disabled')
+    property = @playerState.findProperty(button.data('property-id'))
+
+    request.send("property_collect_rent", property_id: button.data('property-id'))
+
+  onPropertyRentCollected: (response)=>
     @.displayResult(
       $("#property_type_#{ response.data.type_id } .result_anchor") if response.data?.type_id?
       response

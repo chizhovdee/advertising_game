@@ -145,6 +145,35 @@ module.exports =
 
     new Result(data: dataResult)
 
+  collectRent: (player, propertyId)->
+    property = player.propertiesState.find(propertyId)
+
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless property?
+
+    type = PropertyType.find(property.typeId)
+
+    dataResult = {type_id: type.id}
+
+    return new Result(
+      error_code: Result.errors.propertyIsNotRented
+      data: dataResult
+    ) unless player.propertiesState.propertyIsRented(property)
+
+    return new Result(
+      error_code: Result.errors.propertyRentNotFinished
+      data: dataResult
+    ) unless player.propertiesState.propertyRentFinished(property)
+
+    reward = new Reward(player)
+    player.propertiesState.finishRent(propertyId)
+    type.reward.applyOn('collectRent', reward)
+
+    dataResult.reward = reward
+
+    new Result(data: dataResult)
+
   commonChecks: (dataResult, player, property)->
     return new Result(
       error_code: Result.errors.propertyIsRented

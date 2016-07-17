@@ -20,9 +20,14 @@
         <%=@safe @.renderTimer(I18n.t("properties.property.upgrading_timer")) %>
 
       <% else if @property.isRented(): %>
-        <div class="warning_label"><%= I18n.t("properties.property.rented") %></div>
+        <% if @property.rentFinished(): %>
+          <div class="warning_label"><%= I18n.t("properties.property.rent_finished") %></div>
+        <% else: %>
+          <div class="warning_label"><%= I18n.t("properties.property.rented") %></div>
 
-        <%=@safe @.renderTimer(I18n.t("properties.property.rented_timer")) %>
+          <%=@safe @.renderTimer(I18n.t("properties.property.rented_timer")) %>
+        <% end %>
+
       <% else: %>
         <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
         <div class="using"><%=@safe I18n.t("properties.property.using", current: 0, max: 5) %></div>

@@ -67,6 +67,15 @@ class PropertiesState extends BaseState
 
     @.addOperation('update', id, @.propertyToJSON(@state[id]))
 
+  finishRent: (id)->
+    delete @state[id].rentFinishdAt
+    # after
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+
   buildingTimeLeftFor: (property)->
     property.builtAt - Date.now()
 
@@ -85,6 +94,9 @@ class PropertiesState extends BaseState
   propertyIsRented: (property)->
     # достаточно наличие поля
     property.rentFinishdAt?
+
+  propertyRentFinished: (property)->
+    Date.now() >= property.rentFinishdAt
 
   propertyToJSON: (property)->
     resource = @.extendResource(property)

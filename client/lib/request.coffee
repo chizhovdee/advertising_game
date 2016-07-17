@@ -78,6 +78,9 @@ module.exports =
   rent_out_property: (data)->
     @.put('/properties/rent_out', data)
 
+  property_collect_rent: (data)->
+    @.put('/properties/collect_rent', data)
+
   #------------- advertising ----------------#
   create_advertising: (data)->
     @.post('/advertising/create', data)

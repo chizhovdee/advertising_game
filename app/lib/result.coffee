@@ -1,4 +1,17 @@
 class Result
+  @errors:
+    requirementsNotSatisfied: 'requirements_not_satisfied'
+    notReachedLevel: 'not_reached_level'
+    dataNotFound: 'data_not_found'
+
+    propertyIsBuilt: "property_is_built"
+    propertyIsBuilding: "property_is_building"
+    propertyIsUpgrading: "property_is_upgrading"
+    propertyRentOutNotAvailable: "property_rent_out_not_available"
+    propertyIsRented: "property_is_rented"
+    propertyIsNotRented: "property_is_not_rented"
+    propertyRentNotFinished: "property_rent_not_finished"
+
   errorCode: null
   data: null
   reload: false

@@ -5,3 +5,4 @@ module.exports =
   Timer: require('./timer')
   VisualTimer: require('./visual_timer')
   Pagination: require('./pagination')
+  balance: require('./balance')

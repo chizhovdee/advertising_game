@@ -1,9 +1,20 @@
 ru:
   game_data:
     property_types:
-      business_center: "Офис"
-      warehouse: "Склад"
-      garage: "Гараж"
-      sea_port: "Морской порт"
-      hangar: "Ангар"
-      train_depot: "Ж/Д депо"
+      command_center:
+        name: "Центр управления"
+        description: "Позволяет управлять рекламными компаниями"
+      warehouse:
+        name: "Склад"
+        description: "Позволяет управлять грузоперевозками"
+        rent_out_info: "Если вы сдадите в аренду склад, то не сможете запускать грузоперевозки"
+      garage:
+        name: "Гараж"
+        description: "Позволяет держать больше транспорта"
+        rent_out_info: "Если вы сдадите в аренду гараж, то не сможете запускать грузоперевозки с автотранспортом"
+      sea_port:
+        name: "Морской порт"
+      hangar:
+        name: "Ангар"
+      train_depot:
+        name: "Ж/Д депо"

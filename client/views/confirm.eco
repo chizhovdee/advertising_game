@@ -1,4 +1,4 @@
-<div class="text"><%= I18n.t('common.are_you_sure') %></div>
+<div class="text <%= 'with_message' if @message? %>"><%=@safe @message || I18n.t('common.are_you_sure') %></div>
 
 <div class="confirm_controls"
     <% if @button.data?: %>

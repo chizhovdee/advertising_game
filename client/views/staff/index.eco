@@ -1,5 +1,0 @@
-<h1><%= I18n.t("staff.index.title") %></h1>
-
-<div class="head_controls">
-    <button class="hire_staff"><%= I18n.t("staff.index.hire_staff") %></button>
-</div>

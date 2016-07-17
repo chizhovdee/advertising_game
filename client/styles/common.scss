@@ -8,7 +8,7 @@ body {
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -27,64 +27,38 @@ h4 {
   font-weight: bold;
 }
 
-.notifyjs-wrapper {
-  z-index: 2001;
+//.tips {
+//  margin: 10px 0;
+//  padding: 10px;
+//  border: 1px solid #ca9943;
+//  background: rgba(82, 67, 12, 0.5);
+//  @include border-radius(5px);
+//
+//  strong {
+//    font-weight: bold;
+//  }
+//}
+
+.info-icon {
+  display: inline-block;
+  @include images-sprite(icons/help);
+  cursor: pointer;
 }
 
-.notifyjs-game-base {
-  position: relative;
-  min-height: 10px;
-  padding: 5px;
-  color: #444;
-  @include border-radius(5px);
+.time-icon {
+  display: inline-block;
+  @include images-sprite(icons/time);
+}
 
-  h2 {
-    font-size: 15px;
-    margin-bottom: 5px;
-
-    &.success {
-      color: #7eff00;
-    }
-
-    &.failure {
-      color: #ff3333;
-    }
-  }
-
-  h3 {
-    font-size: 13px;
-  }
-
-  .rewards, .spendings {
-    margin: 5px 0 0 0;
-  }
-
-  .result_notification {
-    h2 {
-      white-space: nowrap;
-    }
+.timer {
+  .time-icon, .value {
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 
-.notifyjs-game-info, .notifyjs-game-small_info {
-  span.value {
-    color: $game_color_yellow;
-    font-weight: bold;
-  }
-}
-
-.notifyjs-game-black {
-  @include box-shadow(0 0 5px #aaa);
-}
-
-.tips {
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #ca9943;
-  background: rgba(82, 67, 12, 0.5);
-  @include border-radius(5px);
-
-  strong {
-    font-weight: bold;
-  }
+.result_anchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }

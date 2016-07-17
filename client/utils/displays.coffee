@@ -1,5 +1,17 @@
 module.exports =
-  displayResult: (element, data = {}, options = {})->
+  displayResult: (element, result, options = {})->
+    data = {}
+
+    data.title = options.title
+    data.reward = result.data?.reward
+    data.requirement = result.data?.requirement
+
+    if result.is_error
+      data.type = 'failure'
+      data.title ?= I18n.t("common.errors.#{ result.error_code }")
+    else
+      data.type = 'success'
+
     (element || $('#application .notification')).notify(
       {
         content: @.renderTemplate('notifications/result', data)
@@ -7,12 +19,13 @@ module.exports =
       _.assignIn({
         raw: true
         style: 'game'
-        className: 'black'
-        showAnimation: 'fadeIn'
-        hideAnimation: 'fadeOut'
+        className: 'black result_notification'
+#        showAnimation: 'fadeIn'
+#        hideAnimation: 'fadeOut'
         showDuration: 200
         hideDuration: 200
-        alterClassName: 'result_notification'
+        autoHideDelay: _(5).seconds()
+        position: (options.position || 'left bottom')
       }, options)
     )
 
@@ -78,8 +91,9 @@ module.exports =
     @.displayPopup(element,
       @.renderTemplate("confirm",
         button: options.button
+        message: options.message
       )
-
-      position: options.position || 'left bottom'
+      ,
+      position: (options.position || 'left bottom')
       alterClassName: 'confirm_popup'
     )

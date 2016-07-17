@@ -1,12 +1,21 @@
 _ = require('lodash')
 BaseState = require('./base')
 
+PropertyType = require('../../game_data').PropertyType
+
 class PropertiesState extends BaseState
   defaultState: {}
   stateName: "properties"
 
   generateId: ->
     super(_.keys(@state))
+
+  find: (id)->
+    @state[id]
+
+  findByTypeId: (typeId)->
+    for id, resource of @state
+      return resource if resource.typeId == typeId
 
   create: (type)->
     newId = @.generateId()
@@ -24,11 +33,82 @@ class PropertiesState extends BaseState
 
     @.addOperation('add', newId, @.propertyToJSON(newResource))
 
+  accelerateBuilding: (id)->
+    delete @state[id].builtAt
+    delete @state[id].upgradeAt
+
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+
+  upgrade: (id)->
+    property = @state[id]
+    type = PropertyType.find(property.typeId)
+
+    delete @state[id].builtAt # удаление лишнего поля
+
+    @state[id].upgradeAt = Date.now() + type.upgradeDurationBy(property.level)
+    # after
+    @state[id].level += 1
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+
+  rentOut: (id)->
+    @state[id].rentFinishdAt = Date.now() + PropertyType.rentOutDuration
+    # after
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+
+  finishRent: (id)->
+    delete @state[id].rentFinishdAt
+    # after
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+
+  buildingTimeLeftFor: (property)->
+    property.builtAt - Date.now()
+
+  propertyIsBuilding: (property)->
+    property.builtAt? && property.builtAt > Date.now()
+
+  upgradingTimeLeftFor: (property)->
+    property.upgradeAt - Date.now()
+
+  propertyIsUpgrading: (property)->
+    property.upgradeAt? && property.upgradeAt > Date.now()
+
+  rentTimeLeftFor: (property)->
+    property.rentFinishdAt - Date.now()
+
+  propertyIsRented: (property)->
+    # достаточно наличие поля
+    property.rentFinishdAt?
+
+  propertyRentFinished: (property)->
+    Date.now() >= property.rentFinishdAt
+
   propertyToJSON: (property)->
     resource = @.extendResource(property)
 
-    if resource.builtAt?
-      resource.buildingTimeLeft = resource.builtAt - Date.now()
+    if @.propertyIsBuilding(resource)
+      resource.buildingTimeLeft = @.buildingTimeLeftFor(resource)
+
+    else if @.propertyIsUpgrading(resource)
+      resource.upgradingTimeLeft = @.upgradingTimeLeftFor(resource)
+
+    else if @.propertyIsRented(resource)
+      resource.rentTimeLeft = @.rentTimeLeftFor(resource)
 
     resource
 

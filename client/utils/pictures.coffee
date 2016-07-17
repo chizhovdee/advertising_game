@@ -71,7 +71,7 @@ module.exports =
     unless resource.constructor?.name == 'PropertyType'
       resource = PropertyType.find(resource)
 
-    title = "title=#{resource.name()}"
+    title = "title='#{resource.name()}'"
 
     "<img src='#{ @.propertyPictureUrl(resource, format) }' #{title} />"
 

@@ -65,11 +65,26 @@ module.exports =
   collect_trucking: (data)->
     @.put('/trucking/collect', data)
 
-  # properties
+  #--------------- properties ---------------#
   create_property: (data)->
     @.post('/properties/create', data)
 
-  # advertising
+  accelerate_property: (data)->
+    @.put('/properties/accelerate', data)
+
+  upgrade_property: (data)->
+    @.put('/properties/upgrade', data)
+
+  rent_out_property: (data)->
+    @.put('/properties/rent_out', data)
+
+  property_collect_rent: (data)->
+    @.put('/properties/collect_rent', data)
+
+  property_finish_rent: (data)->
+    @.put('/properties/finish_rent', data)
+
+  #------------- advertising ----------------#
   create_advertising: (data)->
     @.post('/advertising/create', data)
 

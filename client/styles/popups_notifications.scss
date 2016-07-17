@@ -1,0 +1,129 @@
+.notifyjs-wrapper {
+  z-index: 2001;
+}
+
+.notifyjs-game-base {
+  position: relative;
+  min-height: 10px;
+  padding: 5px;
+  color: #444;
+  @include border-radius(5px);
+
+  h2 {
+    font-size: 15px;
+    margin-bottom: 5px;
+
+    &.success {
+      color: #7eff00;
+    }
+
+    &.failure {
+      color: #ff3333;
+    }
+  }
+
+  h3 {
+    font-size: 13px;
+  }
+
+  .rewards, .spendings {
+    margin: 5px 0 0 0;
+  }
+
+  .result_notification {
+    h2 {
+      white-space: nowrap;
+    }
+  }
+}
+
+.notifyjs-container {
+  text-align: left;
+
+  .warning {
+    width: 230px;
+    margin-bottom: 10px;
+    color: $game_color_yellow;
+  }
+
+  .attributes {
+    .attribute {
+      margin-bottom: 5px;
+      white-space: nowrap;
+
+      .label {
+        font-weight: bold;
+      }
+
+      &.unsatisfied {
+        .value {
+          color: $game_color_red;
+        }
+      }
+
+      &.price {
+        .value {
+          .requirement {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+
+  .controls {
+    margin-top: 10px;
+    white-space: nowrap;
+    text-align: center;
+
+    .start_build {
+      margin-right: 10px;
+    }
+
+    .cancel {
+      @extend %flat-button;
+    }
+  }
+}
+
+.notifyjs-game-info, .notifyjs-game-small_info {
+  span.value {
+    color: $game_color_yellow;
+    font-weight: bold;
+  }
+}
+
+.notifyjs-game-black {
+  @include box-shadow(0 0 5px #aaa);
+}
+
+.confirm_popup {
+  .text {
+    white-space: nowrap;
+    margin-bottom: 10px;
+    color: $game_color_yellow;
+    font-weight: bold;
+
+    &.with_message {
+      white-space: normal;
+      width: 250px;
+    }
+  }
+
+  .confirm_controls {
+    white-space: nowrap;
+    text-align: center;
+
+    button {
+      margin-right: 10px;
+    }
+
+    .cancel {
+      @extend %flat-button;
+    }
+  }
+}
+
+.result_notification {
+  white-space: nowrap;
+}

@@ -2,42 +2,61 @@
   .list {
     @include pagination;
     margin-top: 20px;
+    text-align: center;
 
     .property {
       position: relative;
-      width: 500px;
-      height: 120px;
+      display: inline-block;
+      vertical-align: top;
+      width: 240px;
+      height: 240px;
       background-color: rgba(0, 0, 0, 0.1);
       @include border-radius(5px);
-      margin-bottom: 20px;
-      border: 1px solid #000;
+      margin-bottom: 10px;
+
+      &:nth-child(odd) {
+        margin-right: 5px;
+      }
+
+      .info-icon {
+        position: absolute;
+        top: 30px;
+        right: 5px;
+      }
+
+      .notifyjs-container {
+        .description {
+          width: 200px;
+        }
+      }
+
+      .name {
+        text-align: center;
+        background-color: #0086b3;
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 25px;
+        @include border-top-radius(5px);
+      }
 
       .picture {
         img {
-          width: 120px;
+          width: 240px;
           height: 120px;
-          @include border-radius(5px);
         }
-      }
-
-      .picture, .info {
-        display: inline-block;
-        vertical-align: top;
       }
 
       .info {
-        margin: 5px 0 0 5px;
+        padding-top: 5px;
 
-        .name {
-          font-size: 17px;
-          font-weight: bold;
+        .warning_label {
+          color: $game_color_red;
         }
-      }
 
-      .level {
-        position: absolute;
-        top: 5px;
-        right: 5px;
+        .timer {
+          margin-top: 5px;
+        }
       }
 
       > .controls {
@@ -50,6 +69,10 @@
             font-weight: bold;
           }
         }
+      }
+
+      .result_anchor {
+        top: 200px;
       }
     }
   }

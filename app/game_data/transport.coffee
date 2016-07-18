@@ -9,14 +9,14 @@ class Transport extends Base
   reliability: null # надежность - процент на 10 000 км
   carrying: null # грузоподъемность тонны
   travelSpeed: null # средняя скорость перемещения
-
-  basicPrice: null #
+  basicPrice: null
 
   # тип груза / груз
   goodTypeKeys: null
   goodKeys: null
 
   isPrimary: false # параметр для обозначения тягача, тепловозов, всего что само приводится в движение
+  subType: null # подтип. Чисто для визуального различия
 
   @configure(publicForClient: true)
 
@@ -36,8 +36,8 @@ class Transport extends Base
     @goodKeys = []
 
     @isPrimary = false
-
     @basicPrice = null
+    @subType = null
 
   setType: ->
     Object.defineProperty(@, 'type'
@@ -70,6 +70,7 @@ class Transport extends Base
       goodTypeKeys: @goodTypeKeys
       isPrimary: @isPrimary
       basicPrice: @basicPrice
+      subType: @subType
       ,
       super
     )

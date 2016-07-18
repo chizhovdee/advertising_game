@@ -1,7 +1,7 @@
 GoodType = require('../game_data').GoodType
 
 types = [
-  'everyday', 'industrial'
+  'everyday', 'industrial', 'any'
 ]
 
 for type in types

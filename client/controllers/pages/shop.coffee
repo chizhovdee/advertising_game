@@ -16,7 +16,7 @@ class ShopPage extends Page
   show: ->
     super
 
-    @groups = @transportGroups
+    @groups = @transportGroups.concat(['fuel'])
 
     @currentGroup = 'auto'
 

@@ -4,8 +4,12 @@ Base = require("./base")
 class TransportType extends Base
   @configure(publicForClient: true)
 
+  subTypes: null
+
   constructor: ->
     super
+
+    @subTypes = []
 
     Object.defineProperties(@,
       _transports: {
@@ -23,5 +27,12 @@ class TransportType extends Base
 
   validationForDefine: ->
    # empty
+
+  toJSON: ->
+    _.assign(
+      subTypes: @subTypes
+      ,
+      super
+    )
 
 module.exports = TransportType

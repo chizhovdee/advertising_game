@@ -11,12 +11,15 @@ class ShopPage extends Page
   transportGroups: _.map(TransportType.all(), (t)-> t.key)
   transportAttributes: ['consumption', 'reliability', 'carrying', 'travelSpeed', 'good']
 
-  PER_PAGE = 3
+  TRANSPORT_ITEMS_PER_PAGE = 3
+  FUEL_ITEMS_PER_PAGE = 4
 
   show: ->
     super
 
     @groups = @transportGroups.concat(['fuel'])
+
+    @fuelTypes = @transportGroups # тип топлива соответствует типу транспорта
 
     @currentGroup = 'auto'
 
@@ -59,7 +62,10 @@ class ShopPage extends Page
     @el.off('click', '.item.transport .more_goods', @.onMoreGoodsClick)
 
   defineData: ->
-    if @currentGroup in @transportGroups
+    if @currentGroup == 'fuel'
+      @list = _.clone(@fuelTypes)
+
+    else
       @subTypes = TransportType.find(@currentGroup).subTypes
 
       @currentSubType ?= @subTypes[0]
@@ -68,10 +74,9 @@ class ShopPage extends Page
         t.typeKey == @currentGroup && (!@currentSubType? || t.subType == @currentSubType)
       )
 
-    else
-      @list = []
+    per_page = if @currentGroup == 'fuel' then FUEL_ITEMS_PER_PAGE else TRANSPORT_ITEMS_PER_PAGE
 
-    @listPagination = new Pagination(PER_PAGE)
+    @listPagination = new Pagination(per_page)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
 
     @listPagination.setSwitches(@list)
@@ -144,7 +149,16 @@ class ShopPage extends Page
 
     @.displaySuccess("Вы успешно купили транспорт!")
 
-  onMoreGoodsClick: (e)->
+  onMoreGoodsClick: (e)=>
+    button = $(e.currentTarget)
+    transport = Transport.find(button.data('transport-id'))
+
+    @.displayPopup(button
+      @.renderTemplate("transport/goods_popup", transport: transport)
+      position: 'top center'
+      autoHideDelay: _(10).seconds()
+      autoHide: true
+    )
 
 
   basicPriceRequirement: (transport)->

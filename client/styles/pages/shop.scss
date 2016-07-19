@@ -3,7 +3,7 @@ $sub_types: truck, tractor, trailer, semitrailer;
 
 .page.shop {
   .groups {
-    margin-top: 10px;
+    margin: 10px 0;
 
     .group {
       display: inline-block;
@@ -53,9 +53,8 @@ $sub_types: truck, tractor, trailer, semitrailer;
 
   .list {
     @include pagination;
-    margin-top: 10px;
 
-    .item {
+    .item.transport {
       position: relative;
       @include border-radius(5px);
       background-color: rgba(0, 0, 0, 0.1);
@@ -130,6 +129,68 @@ $sub_types: truck, tractor, trailer, semitrailer;
         position: absolute;
         bottom: 5px;
         right: 5px;
+      }
+    }
+
+    .item.fuel {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      width: 240px;
+      height: 240px;
+      background-color: rgba(0, 0, 0, 0.1);
+      @include border-radius(5px);
+      margin-bottom: 10px;
+
+      &:nth-child(odd) {
+        margin-right: 5px;
+      }
+
+      .info-icon {
+        position: absolute;
+        top: 30px;
+        right: 5px;
+      }
+
+      .notifyjs-container {
+        .description {
+          width: 200px;
+        }
+      }
+
+      .name {
+        text-align: center;
+        background-color: #0086b3;
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 25px;
+        @include border-top-radius(5px);
+      }
+
+      .picture {
+        img {
+          width: 240px;
+          height: 120px;
+        }
+      }
+
+      .info {
+        padding-top: 5px;
+
+        .warning_label {
+          color: $game_color_red;
+        }
+      }
+
+      > .controls {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+      }
+
+      .result_anchor {
+        top: 200px;
       }
     }
   }

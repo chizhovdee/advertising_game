@@ -9,8 +9,12 @@
 <% end %>
 
 <div class="page">
-  <% for transport in @paginatedList: %>
-    <%=@safe @.renderTemplate('shop/transport_item', transport: transport) %>
+  <% for item in @paginatedList: %>
+    <% if item.constructor.name == 'Transport': %>
+      <%=@safe @.renderTemplate('shop/transport_item', transport: item) %>
+    <% else: %>
+      <%=@safe @.renderTemplate('shop/fuel_item', item: item) %>
+    <% end %>
   <% end %>
 </div>
 

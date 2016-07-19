@@ -2,3 +2,12 @@ ru:
   shop:
     index:
       title: "Магазин"
+    fuel_items:
+      auto:
+        name: "Автозаправка"
+      sea:
+        name: "Заправочный бункер"
+      railway:
+        name: "Железнодорожная заправка"
+      air:
+        name: "Заправка для самолетов"

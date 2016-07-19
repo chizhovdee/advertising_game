@@ -32,4 +32,6 @@
       <%= I18n.t("transport.buttons.buy") %>
     </button>
   </div>
+
+  <div class="result_anchor"></div>
 </div>

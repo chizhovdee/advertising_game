@@ -20,26 +20,9 @@ module.exports =
     unless transport instanceof Transport
       transport = Transport.find(transport)
 
-    alt = "alt='#{transport.name()}'"
+    alt = "title='#{transport.name()}'"
 
     "<img src='#{ @.transportPictureUrl(transport, format) }' #{alt} />"
-
-#  employeeTypePictureUrl: (type, format = 'large')->
-#    unless type instanceof EmployeeType
-#      type = EmployeeType.find(type)
-#
-#    unless format in ['large', 'medium', 'icon']
-#      throw new Error('format for item picture url not correct')
-#
-#    assets.assetsPath("images/employee_types/#{ format }/#{ type.key }.jpg")
-#
-#  employeeTypePicture: (type, format = 'large')->
-#    unless type instanceof EmployeeType
-#      type = EmployeeType.find(type)
-#
-#    title = "title=#{type.name()}"
-#
-#    "<img src='#{ @.employeeTypePictureUrl(type, format) }' #{title} />"
 
   advertisingPictureUrl: (resource, format = 'large')->
     unless resource.constructor?.name == 'AdvertisingType'
@@ -75,19 +58,13 @@ module.exports =
 
     "<img src='#{ @.propertyPictureUrl(resource, format) }' #{title} />"
 
-  transportTypePictureUrl: (resource, format = 'large')->
-    unless resource.constructor?.name == 'TransportType'
-      resource = TransportType.find(resource)
-
+  fuelItemPictureUrl: (item, format = 'large')->
     unless format in ['large', 'medium', 'icon']
-      throw new Error('format for transport type picture url is not correct')
+      throw new Error('format for fuel item picture url is not correct')
 
-    assets.assetsPath("images/transport_types/#{ format }/#{ resource.key }.jpg")
+    assets.assetsPath("images/fuel_items/#{ format }/#{ item }.jpg")
 
-  transportTypePicture: (resource, format = 'large')->
-    unless resource.constructor?.name == 'TransportType'
-      resource = TransportType.find(resource)
+  fuelItemPicture: (item, format = 'large')->
+    title = "title='#{ I18n.t("shop.fuel_items.#{item}.name") }'"
 
-    title = "title=#{resource.name()}"
-
-    "<img src='#{ @.transportTypePictureUrl(resource, format) }' #{title} />"
+    "<img src='#{ @.fuelItemPictureUrl(item, format) }' #{title} />"

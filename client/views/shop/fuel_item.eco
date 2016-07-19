@@ -1,0 +1,12 @@
+<div class="item fuel" id="item_<%= @item %>">
+    <div class="name">
+        <%= I18n.t("shop.fuel_items.#{@item}.name") %>
+    </div>
+
+    <div class="picture"><%=@safe @.fuelItemPicture(@item) %></div>
+
+    <div class="info">
+    </div>
+
+    <div class="result_anchor"></div>
+</div>

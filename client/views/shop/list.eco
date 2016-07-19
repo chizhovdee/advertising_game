@@ -1,3 +1,13 @@
+<% if @subTypes? && @subTypes.length ? 0: %>
+  <div class="sub_types">
+    <% for type in @subTypes: %>
+    <div
+        class="type <%= type %> <%= 'current' if @currentSubType == type %>"
+        data-type="<%= type %>"></div>
+    <% end %>
+  </div>
+<% end %>
+
 <div class="page">
   <% for transport in @paginatedList: %>
     <%=@safe @.renderTemplate('shop/transport_item', transport: transport) %>

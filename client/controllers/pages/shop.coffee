@@ -39,8 +39,10 @@ class ShopPage extends Page
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
 
     @el.on('click', '.groups .group:not(.current)', @.onGroupClick)
+    @el.on('click', '.sub_types .type:not(.current)', @.onSubTypeClick)
     @el.on('click', '.item .buy:not(.disabled)', @.onBuyClick)
     @el.on('click', '.confirm_popup .start_purchase:not(.disabled)', @.onStartPurchase)
+    @el.on('click', '.item.transport .more_goods', @.onMoreGoodsClick)
 
   unbindEventListeners: ->
     super
@@ -51,12 +53,23 @@ class ShopPage extends Page
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
 
     @el.off('click', '.groups .group:not(.current)', @.onGroupClick)
+    @el.off('click', '.sub_types .type:not(.current)', @.onSubTypeClick)
     @el.off('click', '.item .buy:not(.disabled)', @.onBuyClick)
     @el.off('click', '.confirm_popup .start_purchase:not(.disabled)', @.onStartPurchase)
+    @el.off('click', '.item.transport .more_goods', @.onMoreGoodsClick)
 
   defineData: ->
     if @currentGroup in @transportGroups
-      @list = Transport.findAllByAttribute('typeKey', @currentGroup)
+      @subTypes = TransportType.find(@currentGroup).subTypes
+
+      @currentSubType ?= @subTypes[0]
+
+      @list = Transport.select((t)=>
+        t.typeKey == @currentGroup && (!@currentSubType? || t.subType == @currentSubType)
+      )
+
+    else
+      @list = []
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
@@ -85,6 +98,18 @@ class ShopPage extends Page
     groupEl.addClass('current')
 
     @currentGroup = groupEl.data('group')
+
+    @currentSubType = null
+    @subTypes = []
+
+    @.defineData()
+
+    @.renderList()
+
+  onSubTypeClick: (e)=>
+    el = $(e.currentTarget)
+
+    @currentSubType = el.data('type')
 
     @.defineData()
 
@@ -118,6 +143,9 @@ class ShopPage extends Page
     console.log 'onItemPurchased', response
 
     @.displaySuccess("Вы успешно купили транспорт!")
+
+  onMoreGoodsClick: (e)->
+
 
   basicPriceRequirement: (transport)->
     {basic_money: [transport.basicPrice, @player.basic_money >= transport.basicPrice]}

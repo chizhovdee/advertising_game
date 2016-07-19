@@ -41,7 +41,7 @@ h4 {
 
 .info-icon {
   display: inline-block;
-  @include images-sprite(icons/help);
+  @include images-sprite(icons/info);
   cursor: pointer;
 }
 

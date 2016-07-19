@@ -25,3 +25,12 @@ module.exports =
 
     item.name()
 
+  transportGoodNames: (transport, length = 25)->
+    goodNames = transport.goodNames()
+
+    return goodNames if goodNames.length <= length
+
+    str = _.truncate(transport.goodNames(), 'length': length, 'separator': /,? +/)
+    str += " <span class='more_goods' data-transport-id='<%= transport.id %>'>#{I18n.t('common.more_details')}</span>"
+
+    str

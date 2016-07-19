@@ -47,3 +47,4 @@ ru:
         other: "%{count} часа"
       minutes: "%{count} мин."
       seconds: "%{count} сек."
+    more_details: "подробнее"

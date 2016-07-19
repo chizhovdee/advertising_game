@@ -10,7 +10,8 @@
           <div class="att_name"><%= I18n.t("transport.attributes.#{attr}") %></div>
           <div class="value">
             <% if attr == 'good': %>
-              список...
+              <%=@safe @.transportGoodNames(@transport) %>
+
             <% else: %>
               <%= @transport[attr] %>
             <% end %>

@@ -5,11 +5,13 @@ class TransportType extends Base
   @configure(publicForClient: true)
 
   subTypes: null
+  level: null
 
   constructor: ->
     super
 
     @subTypes = []
+    @level = null
 
     Object.defineProperties(@,
       _transports: {
@@ -26,11 +28,12 @@ class TransportType extends Base
     _.addUniq(@_transports, transport)
 
   validationForDefine: ->
-   # empty
+    throw new Error('undefined level') unless @level?
 
   toJSON: ->
     _.assign(
       subTypes: @subTypes
+      level: @level
       ,
       super
     )

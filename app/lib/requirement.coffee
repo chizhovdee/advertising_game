@@ -34,8 +34,10 @@ class Requirement
   vipMoney: (value)->
     @.push('vip_money', value)
 
-  fuel: (value)->
-    @.push('fuel', value)
+  fuel: (type, value)->
+    field = "fuel_#{ type }"
+
+    @.push(field, value)
 
   push: (key, value)->
     if @values[key]
@@ -45,18 +47,7 @@ class Requirement
 
   isSatisfiedFor: (player)->
     for key, value of @values
-      switch key
-        when 'reputation'
-          return false if value > player.reputation
-
-        when 'basic_money'
-          return false if value > player.basic_money
-
-        when 'vip_money'
-          return false if value > player.vip_money
-
-        when 'fuel'
-          return false if value > player.fuel
+      return false if value > player[key]
 
     true
 
@@ -73,25 +64,16 @@ class Requirement
         when 'vip_money'
           reward.takeVipMoney(value)
 
-        when 'fuel'
-          reward.takeFuel(value)
+        when 'fuel_auto', 'fuel_railway', 'fuel_air', 'fuel_sea'
+          type = key.split('_')[1]
+
+          reward.takeFuel(type, value)
 
   unSatisfiedFor: (player)->
     result = {}
 
     for key, value of @values
-      switch key
-        when 'reputation'
-          result[key] = [value, false] if value > player.reputation
-
-        when 'basic_money'
-          result[key] = [value, false] if value > player.basic_money
-
-        when 'vip_money'
-          result[key] = [value, false] if value > player.vip_money
-
-        when 'fuel'
-          result[key] = [value, false] if value > player.fuel
+      result[key] = [value, false] if value > player[key]
 
     result
 

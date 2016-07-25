@@ -7,7 +7,11 @@ create TABLE players (
   basic_money integer not null,
   vip_money integer not null,
   reputation integer not null,
-  fuel integer not null,
+
+  fuel_auto integer not null,
+  fuel_railway integer not null,
+  fuel_air integer not null,
+  fuel_sea integer not null,
 
   staff jsonb,
 

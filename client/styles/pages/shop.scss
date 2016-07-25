@@ -150,6 +150,12 @@ $sub_types: truck, tractor, trailer, semitrailer;
         margin-right: 5px;
       }
 
+      &.locked {
+        .info {
+          color: $game_color_red;
+        }
+      }
+
       .info-icon {
         position: absolute;
         top: 30px;
@@ -182,8 +188,22 @@ $sub_types: truck, tractor, trailer, semitrailer;
       .info {
         padding-top: 5px;
 
-        .warning_label {
-          color: $game_color_red;
+        .level {
+          margin-bottom: 10px;
+
+          .label {
+            font-weight: bold;
+          }
+        }
+
+        .lock {
+          &:before {
+            content: '';
+            display: inline-block;
+            vertical-align: bottom;
+
+            @include images-sprite(icons/lock);
+          }
         }
 
         .price {
@@ -199,6 +219,10 @@ $sub_types: truck, tractor, trailer, semitrailer;
 
       .selector {
         margin-top: 5px;
+
+        &.disabled {
+          opacity: 0.5;
+        }
 
         .minus, .plus, .fuel_value {
           display: inline-block;
@@ -226,7 +250,6 @@ $sub_types: truck, tractor, trailer, semitrailer;
         position: absolute;
         bottom: 5px;
         right: 5px;
-
       }
 
       .cost {
@@ -240,7 +263,7 @@ $sub_types: truck, tractor, trailer, semitrailer;
       }
 
       .result_anchor {
-        top: 200px;
+        top: 150px;
       }
     }
   }

@@ -19,12 +19,24 @@ class Player extends Base
     vip_money: 10
     experience: 0
     reputation: 0
-    fuel: 100
+    fuel_auto: 10
+    fuel_railway: 0
+    fuel_air: 0
+    fuel_sea: 0
   }
 
   @stateFields: [
     'staff', 'trucking', 'advertising', 'properties', 'routes', 'transport'
   ]
+
+  @fuelTypes: ['auto', 'railway', 'air', 'sea']
+
+  @fuelLevels: { # должны совпадать с уровнями по транспорту
+    auto: 1
+    railway: 10
+    air: 15
+    sea: 25
+  }
 
   # define in defineStates()
   staffState: null
@@ -116,7 +128,10 @@ class Player extends Base
     basic_money: @basic_money
     vip_money: @vip_money
     reputation: @reputation
-    fuel: @fuel
+    fuel_auto: @fuel_auto
+    fuel_railway: @fuel_railway
+    fuel_air: @fuel_air
+    fuel_sea: @fuel_sea
     experience_to_next_level: @.experienceToNextLevel()
     level_progress_percentage: @.levelProgressPercentage()
 

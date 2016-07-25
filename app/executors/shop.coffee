@@ -1,3 +1,5 @@
+_ = require('lodash')
+
 lib = require('../lib')
 Result = lib.Result
 Reward = lib.Reward
@@ -5,12 +7,16 @@ Requirement = lib.Requirement
 balance = lib.balance
 
 Transport = require('../game_data').Transport
+TransportType = require('../game_data').TransportType
+
+Player = require('../models').Player
 
 module.exports =
   buy: (player, itemId, itemType, amount)->
-    console.log itemId
-    console.log itemType
-    console.log amount
+    dataResult = {
+      item_id: itemId
+      item_type: itemType
+    }
 
     requirement = new Requirement()
 
@@ -23,32 +29,50 @@ module.exports =
         # TODO check on capacity
 
       when 'fuel'
-        # TODO check amount
+        return new Result(
+          error_code: Result.errors.dataNotFound
+          # WARNING: without data result
+        ) unless itemId in Player.fuelTypes
+
+        return new Result(
+          error_code: Result.errors.notReachedLevel
+          data: dataResult
+        ) if Player.fuelLevels[itemId] > player.level
+
+        # валидация кол-ва топлива
+        amount = Math.floor(amount)
+        amount = 1 if _.isNaN(amount) || amount < 1
 
         requirement.basicMoney(balance.fuelBasicPrice(itemId) * amount)
 
-        # TODO check on level
+      else
+        # если не правильный тип был передан
+        return new Result(
+          error_code: Result.errors.dataNotFound
+          # WARNING: without data result
+        )
 
     unless requirement.isSatisfiedFor(player)
+      dataResult.requirement = requirement.unSatisfiedFor(player)
+
       return new Result(
         error_code: Result.errors.requirementsNotSatisfied
-        data:
-          requirement: requirement.unSatisfiedFor(player)
+        data: dataResult
       )
 
+    reward = new Reward(player)
 
     switch itemType
       when 'transport'
         player.transportState.create(item)
 
       when 'fuel'
-        1
+        reward.addFuel(itemId, amount)
 
-
-    reward = new Reward(player)
     requirement.apply(reward)
 
+    dataResult.reward = reward
+
     new Result(
-      data:
-        reward: reward
+      data: dataResult
     )

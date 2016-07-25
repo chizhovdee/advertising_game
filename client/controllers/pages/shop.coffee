@@ -2,6 +2,7 @@ Page = require("../page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
+balance = require('../../lib/balance')
 
 Transport = require('../../game_data').Transport
 TransportType = require('../../game_data').TransportType
@@ -23,6 +24,8 @@ class ShopPage extends Page
 
     @currentGroup = 'auto'
 
+    @fuelData = {}
+
     @.defineData()
 
     @.render()
@@ -31,7 +34,13 @@ class ShopPage extends Page
     @html(@.renderTemplate("shop/index"))
 
   renderList: ->
-    @el.find('.list').html(@.renderTemplate("shop/list"))
+    listEl = @el.find('.list')
+    listEl.html(@.renderTemplate("shop/list"))
+    listEl.removeClass('fuel_list')
+    listEl.addClass('fuel_list') if @currentGroup == 'fuel'
+
+  renderFuelItem: (item)->
+    @el.find("#item_#{ item }").replaceWith(@.renderTemplate("shop/fuel_item", item: item))
 
   bindEventListeners: ->
     super
@@ -46,6 +55,9 @@ class ShopPage extends Page
     @el.on('click', '.item .buy:not(.disabled)', @.onBuyClick)
     @el.on('click', '.confirm_popup .start_purchase:not(.disabled)', @.onStartPurchase)
     @el.on('click', '.item.transport .more_goods', @.onMoreGoodsClick)
+    @el.on('click', '.selector .control', @.onSelectorControlClick)
+    @el.on('change', '.selector .fuel_value', @.onFuelValueChange)
+    @el.on('click', '.item.fuel .controls:not(.disabled) .fill:not(.disabled)', @.onFillClick)
 
   unbindEventListeners: ->
     super
@@ -60,9 +72,13 @@ class ShopPage extends Page
     @el.off('click', '.item .buy:not(.disabled)', @.onBuyClick)
     @el.off('click', '.confirm_popup .start_purchase:not(.disabled)', @.onStartPurchase)
     @el.off('click', '.item.transport .more_goods', @.onMoreGoodsClick)
+    @el.off('click', '.selector .control', @.onSelectorControlClick)
+    @el.off('change', '.selector .fuel_value', @.onFuelValueChange)
+    @el.off('click', '.item.fuel .controls:not(.disabled) .fill:not(.disabled)', @.onFillClick)
 
   defineData: ->
     if @currentGroup == 'fuel'
+      @fuelData = {}
       @list = _.clone(@fuelTypes)
 
     else
@@ -142,7 +158,7 @@ class ShopPage extends Page
 
     button.addClass('disabled')
 
-    request.send('buy_item', item_id: itemId)
+    request.send('buy_item', item_id: itemId, item_type: 'transport')
 
   onItemPurchased: (response)=>
     console.log 'onItemPurchased', response
@@ -160,8 +176,59 @@ class ShopPage extends Page
       autoHide: true
     )
 
+  onSelectorControlClick: (e)=>
+    button = $(e.currentTarget)
+
+    fuel = button.data('fuel')
+
+    @fuelData[fuel] ?= 0
+
+    switch button.data('type')
+      when 'plus'
+        @fuelData[fuel] += 1
+
+      when 'minus'
+        @fuelData[fuel] -= 1
+        delete @fuelData[fuel] if @fuelData[fuel] <= 0
+
+    @.renderFuelItem(fuel)
+
+  onFuelValueChange: (e)=>
+    fieldEl = $(e.currentTarget)
+
+    fuel = fieldEl.data('fuel')
+
+    @fuelData[fuel] ?= 0
+
+    value = Math.floor(_.toInteger(fieldEl.val()))
+
+    if _.isNaN(value)
+      delete @fuelData[fuel]
+
+    else
+      @fuelData[fuel] = value
+
+    delete @fuelData[fuel] if @fuelData[fuel] <= 0
+
+    @.renderFuelItem(fuel)
+
+  onFillClick: (e)=>
+    button = $(e.currentTarget)
+    fuel = button.data('fuel')
+    return if !@fuelData[fuel]? || @fuelData[fuel] <= 0
+
+    request.send('buy_item', item_id: fuel, item_type: 'fuel', amount: @fuelData[fuel])
 
   basicPriceRequirement: (transport)->
     {basic_money: [transport.basicPrice, @player.basic_money >= transport.basicPrice]}
+
+  fuelPrice: (fuel, value)->
+    if value?
+      price = balance.fuelBasicPrice(fuel) * value
+
+      {basic_money: [price, @player.basic_money >= price]}
+
+    else
+      {basic_money: [balance.fuelBasicPrice(fuel), true]}
 
 module.exports = ShopPage

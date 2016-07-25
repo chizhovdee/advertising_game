@@ -8,7 +8,9 @@ module.exports =
 
       result = executor.buy(
         req.currentPlayer
-        _.toInteger(req.body.item_id)
+        req.body.item_id
+        req.body.item_type
+        _.toInteger(req.body.amount)
       )
 
       res.addEventWithResult('item_purchased', result)

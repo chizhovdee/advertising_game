@@ -11,6 +11,7 @@ class Result
     propertyIsRented: "property_is_rented"
     propertyIsNotRented: "property_is_not_rented"
     propertyRentNotFinished: "property_rent_not_finished"
+    noFreePlaces: "no_free_places"
 
   errorCode: null
   data: null

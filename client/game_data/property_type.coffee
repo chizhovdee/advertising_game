@@ -1,7 +1,7 @@
 Base = require("./base")
 
 class PropertyType extends Base
-  @configure 'PropertyType', 'key', 'basicPrice', 'buildLevel', 'buildDuration',
+  @configure 'PropertyType', 'key', 'basicPrice', 'buildLevel', 'buildDuration', 'freeCapacity',
     'baseCapacity', 'upgradePerLevels', 'baseUpgradeDuration', 'rentOutAvailable', 'reward'
 
   name: ->

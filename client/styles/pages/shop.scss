@@ -54,6 +54,19 @@ $sub_types: truck, tractor, trailer, semitrailer;
   .list {
     @include pagination;
 
+    .locked_group {
+      margin-top: 10px;
+      color: $game_color_red;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        vertical-align: bottom;
+
+        @include images-sprite(icons/lock);
+      }
+    }
+
     &.fuel_list {
       text-align: center;
     }
@@ -103,6 +116,18 @@ $sub_types: truck, tractor, trailer, semitrailer;
 
         .more_goods {
           @extend %flat-button;
+        }
+
+        .lock {
+          color: $game_color_red;
+
+          &:before {
+            content: '';
+            display: inline-block;
+            vertical-align: bottom;
+
+            @include images-sprite(icons/lock);
+          }
         }
       }
 

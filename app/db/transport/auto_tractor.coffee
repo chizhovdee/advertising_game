@@ -7,6 +7,7 @@ Transport = require('../../game_data').Transport
 
 Transport.define('tractor_1', (obj)->
   obj.typeKey = type
+  obj.level = 2
   obj.subType = subType
   obj.consumption = 7
   obj.reliability = 74
@@ -19,6 +20,7 @@ Transport.define('tractor_1', (obj)->
 
 Transport.define('tractor_2', (obj)->
   obj.typeKey = type
+  obj.level = 3
   obj.subType = subType
   obj.consumption = 8
   obj.reliability = 76

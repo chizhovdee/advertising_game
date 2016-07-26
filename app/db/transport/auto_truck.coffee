@@ -7,6 +7,7 @@ Transport = require('../../game_data').Transport
 
 Transport.define('van', (obj)->
   obj.typeKey = type
+  obj.level = 1
   obj.subType = subType
   obj.consumption = 7
   obj.reliability = 74
@@ -19,6 +20,7 @@ Transport.define('van', (obj)->
 
 Transport.define('van_fugo', (obj)->
   obj.typeKey = type
+  obj.level = 1
   obj.subType = subType
   obj.consumption = 8
   obj.reliability = 76
@@ -31,6 +33,7 @@ Transport.define('van_fugo', (obj)->
 
 Transport.define('van_hask', (obj)->
   obj.typeKey = type
+  obj.level = 2
   obj.subType = subType
   obj.consumption = 8
   obj.reliability = 79
@@ -43,6 +46,7 @@ Transport.define('van_hask', (obj)->
 
 Transport.define('van_pup', (obj)->
   obj.typeKey = type
+  obj.level = 2
   obj.subType = subType
   obj.consumption = 8
   obj.reliability = 79

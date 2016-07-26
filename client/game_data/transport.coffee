@@ -1,7 +1,7 @@
 Base = require("./base")
 
 class Transport extends Base
-  @configure 'Transport', 'key', 'typeKey', 'goodKeys', 'goodTypeKeys', 'isPrimary',
+  @configure 'Transport', 'key', 'level', 'typeKey', 'goodKeys', 'goodTypeKeys', 'isPrimary',
     'consumption', 'reliability', 'carrying', 'travelSpeed', 'basicPrice', 'subType'
 
   name: ->

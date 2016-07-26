@@ -5,6 +5,8 @@ TransportType = require('./transport_type')
 class Transport extends Base
   typeKey: null
 
+  level: null
+
   consumption: null # расход топлива на 100 км
   reliability: null # надежность - процент на 10 000 км
   carrying: null # грузоподъемность тонны
@@ -26,6 +28,8 @@ class Transport extends Base
     super
 
     @typeKey = null
+
+    @level = null
 
     @consumption = null
     @reliability = null
@@ -51,6 +55,8 @@ class Transport extends Base
   validationForDefine: ->
     throw new Error('undefined typeKey') unless @typeKey?
 
+    throw new Error('undefined level') unless @level?
+
     throw new Error('undefined consumption') unless @consumption?
     throw new Error('undefined reliability') unless @reliability?
     throw new Error('undefined travel speed') unless @travelSpeed?
@@ -61,6 +67,7 @@ class Transport extends Base
 
   toJSON: ->
     _.assign(
+      level: @level
       consumption: @consumption
       reliability: @reliability
       carrying: @carrying

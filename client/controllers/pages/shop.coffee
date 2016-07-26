@@ -90,11 +90,14 @@ class ShopPage extends Page
     if @currentGroup == 'fuel'
       @fuelData = {}
       @list = _.clone(@fuelTypes)
+      @transportType = null
 
     else
       @subTypes = TransportType.find(@currentGroup).subTypes
 
       @currentSubType ?= @subTypes[0]
+
+      @transportType = TransportType.find(@currentGroup)
 
       @list = Transport.select((t)=>
         t.typeKey == @currentGroup && (!@currentSubType? || t.subType == @currentSubType)

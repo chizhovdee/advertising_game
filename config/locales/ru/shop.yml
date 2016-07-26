@@ -15,3 +15,5 @@ ru:
       fill: "Заправить"
       locked: "Заблокировано"
       level: "Уровень:"
+    locked_transport_type: "Этот вид транспорта заблокирован до <strong>%{level}</strong> уровня"
+    locked_transport: "Транспорт заблокирован до <strong>%{level}</strong> уровня"

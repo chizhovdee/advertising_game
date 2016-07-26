@@ -1,21 +1,28 @@
-<% if @subTypes? && @subTypes.length ? 0: %>
-  <div class="sub_types">
-    <% for type in @subTypes: %>
-    <div
-        class="type <%= type %> <%= 'current' if @currentSubType == type %>"
-        data-type="<%= type %>"></div>
+<% if @transportType? && @transportType.level > @player.level: %>
+  <div class="locked_group tips">
+    <%=@safe I18n.t("shop.locked_transport_type", level: @transportType.level) %>
+  </div>
+
+<% else: %>
+  <% if @subTypes? && @subTypes.length ? 0: %>
+    <div class="sub_types">
+      <% for type in @subTypes: %>
+      <div
+          class="type <%= type %> <%= 'current' if @currentSubType == type %>"
+          data-type="<%= type %>"></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="page">
+    <% for item in @paginatedList: %>
+      <% if item.constructor.name == 'Transport': %>
+        <%=@safe @.renderTemplate('shop/transport_item', transport: item) %>
+      <% else: %>
+        <%=@safe @.renderTemplate('shop/fuel_item', item: item) %>
+      <% end %>
     <% end %>
   </div>
+
+  <%=@safe @.renderTemplate('page_switches') %>
 <% end %>
-
-<div class="page">
-  <% for item in @paginatedList: %>
-    <% if item.constructor.name == 'Transport': %>
-      <%=@safe @.renderTemplate('shop/transport_item', transport: item) %>
-    <% else: %>
-      <%=@safe @.renderTemplate('shop/fuel_item', item: item) %>
-    <% end %>
-  <% end %>
-</div>
-
-<%=@safe @.renderTemplate('page_switches') %>

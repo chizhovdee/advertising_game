@@ -1,6 +1,8 @@
 _ = require('lodash')
 BaseState = require('./base')
 
+Transport = require('../../game_data').Transport
+
 class TransportState extends BaseState
   defaultState: {}
   stateName: "transport"
@@ -14,7 +16,7 @@ class TransportState extends BaseState
   create: (type)->
     newId = @.generateId()
     newResource = {
-      typeId: type.id
+      typeId: type.id # transport id
       createdAt: Date.now()
       updatedAt: Date.now()
       serviceability: 100 # исправность %
@@ -34,6 +36,14 @@ class TransportState extends BaseState
       @.addOperation('update', id, @.transportToJSON(@state[id]))
 
     @.update()
+
+  countByTransportTypeKey: (typeKey)->
+    count = 0
+
+    for id, resource of @state
+      (count += 1 if Transport.find(resource.typeId)?.typeKey == typeKey)
+
+    count
 
   transportToJSON: (transport)->
     resource = @.extendResource(transport)

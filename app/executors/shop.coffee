@@ -7,7 +7,7 @@ Requirement = lib.Requirement
 balance = lib.balance
 
 Transport = require('../game_data').Transport
-TransportType = require('../game_data').TransportType
+PropertyType = require('../game_data').PropertyType
 
 Player = require('../models').Player
 
@@ -23,10 +23,25 @@ module.exports =
     switch itemType
       when 'transport'
         itemId = _.toInteger(itemId)
-        item = Transport.find(itemId)
-        requirement.basicMoney(item.basicPrice)
+        transport = Transport.find(itemId)
 
-        # TODO check on capacity
+        # check level
+        return new Result(
+          error_code: Result.errors.notReachedLevel
+          data: dataResult
+        ) if transport.level > player.level
+
+        propertyType = PropertyType.find(transport.type.propertyTypeKey)
+        property = player.propertiesState.findByTypeId(propertyType.id)
+
+        # check capacity
+        if player.transportState.countByTransportTypeKey(transport.typeKey) > propertyType.fullCapacityBy(property)
+          return new Result(
+            error_code: Result.errors.noFreePlaces
+            data: dataResult
+          )
+
+        requirement.basicMoney(transport.basicPrice)
 
       when 'fuel'
         return new Result(
@@ -52,6 +67,7 @@ module.exports =
           # WARNING: without data result
         )
 
+    # check money
     unless requirement.isSatisfiedFor(player)
       dataResult.requirement = requirement.unSatisfiedFor(player)
 
@@ -64,7 +80,7 @@ module.exports =
 
     switch itemType
       when 'transport'
-        player.transportState.create(item)
+        player.transportState.create(transport)
 
       when 'fuel'
         reward.addFuel(itemId, amount)

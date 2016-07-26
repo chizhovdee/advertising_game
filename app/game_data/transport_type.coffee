@@ -6,12 +6,14 @@ class TransportType extends Base
 
   subTypes: null
   level: null
+  propertyTypeKey: null # ключ property для размещения транспорта
 
   constructor: ->
     super
 
     @subTypes = []
     @level = null
+    @propertyTypeKey = null
 
     Object.defineProperties(@,
       _transports: {
@@ -29,11 +31,13 @@ class TransportType extends Base
 
   validationForDefine: ->
     throw new Error('undefined level') unless @level?
+    throw new Error('undefined propertyTypeKey') unless @propertyTypeKey?
 
   toJSON: ->
     _.assign(
       subTypes: @subTypes
       level: @level
+      propertyTypeKey: @propertyTypeKey
       ,
       super
     )

@@ -16,7 +16,7 @@ class ShopPage extends Page
   TRANSPORT_ITEMS_PER_PAGE = 3
   FUEL_ITEMS_PER_PAGE = 4
 
-  show: ->
+  show: (options = {})->
     super
 
     @settings = settings
@@ -25,7 +25,7 @@ class ShopPage extends Page
 
     @fuelTypes = @settings.fuel.types
 
-    @currentGroup = 'auto'
+    @currentGroup = options.group || 'auto'
 
     @fuelData = {}
 

@@ -19,4 +19,10 @@ class PropertyType extends Base
   upgradePriceBy: (propertyLevel)->
     (propertyLevel + 1) * @basicPrice
 
+  fullCapacityBy: (property)->
+    @.capacityByLevel(property?.level || 0) + @freeCapacity
+
+  capacityByLevel: (level)->
+    @baseCapacity * level
+
 module.exports = PropertyType

@@ -15,12 +15,16 @@
   <% end %>
 
   <div class="page">
-    <% for item in @paginatedList: %>
-      <% if item.constructor.name == 'Transport': %>
-        <%=@safe @.renderTemplate('shop/transport_item', transport: item) %>
-      <% else: %>
-        <%=@safe @.renderTemplate('shop/fuel_item', item: item) %>
+    <% if @list.length > 0: %>
+      <% for item in @paginatedList: %>
+        <% if item.constructor.name == 'Transport': %>
+          <%=@safe @.renderTemplate('shop/transport_item', transport: item) %>
+        <% else: %>
+          <%=@safe @.renderTemplate('shop/fuel_item', item: item) %>
+        <% end %>
       <% end %>
+    <% else: %>
+      <div class="tips"><%= I18n.t('shop.empty_list') %></div>
     <% end %>
   </div>
 

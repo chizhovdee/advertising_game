@@ -7,7 +7,11 @@ ctx = require('../../context')
 balance = require('../../lib').balance
 settings = require('../../settings')
 
-PropertyType = require('../../game_data').PropertyType
+gameData = require('../../game_data')
+
+PropertyType = gameData.PropertyType
+TransportType = gameData.TransportType
+Transport = gameData.Transport
 
 class PropertiesPage extends Page
   className: "properties page"
@@ -308,5 +312,20 @@ class PropertiesPage extends Page
 
     if response.is_error
       $("#property_type_#{ response.data?.type_id } .controls button").removeClass('disabled')
+
+  usingCapacity: (propertyType)->
+    switch propertyType.key
+      when 'garage'
+        transportType = TransportType.detect((t)-> t.propertyTypeKey == propertyType.key)
+
+        count = 0
+
+        for id, resource of @playerState.transport
+          (count += 1 if Transport.find(resource.typeId)?.typeKey == transportType.key)
+
+        count
+
+      else
+        0
 
 module.exports = PropertiesPage

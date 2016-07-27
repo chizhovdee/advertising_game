@@ -2,8 +2,9 @@
 # нужно добавить атрибут здесь и вписать в массив Player.stateFields на бэкенде
 
 settings = require('../settings')
+gameData = require('../game_data')
 
-Property = require('../game_data').Property
+Property = gameData.Property
 
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",

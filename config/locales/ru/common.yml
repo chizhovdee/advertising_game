@@ -28,10 +28,15 @@ ru:
       property_is_rented: "Здание находится в аренде"
       property_is_not_rented: "Здание не в аренде"
       property_rent_not_finished: "Аренда еще не завершена"
+      no_free_places: "Нет свободного места."
     reward_keys:
       reputation: "Репутация"
       experience: "Опыт"
       basic_money: "Деньги"
+      fuel_auto: "Топливо для авто"
+      fuel_railway: "Топливо для тепловозов"
+      fuel_sea: "Топливо для судов"
+      fuel_air: "Топливо для самолетов"
     timer:
       days:
         zero: "%{count} дней"
@@ -47,3 +52,4 @@ ru:
         other: "%{count} часа"
       minutes: "%{count} мин."
       seconds: "%{count} сек."
+    more_details: "подробнее"

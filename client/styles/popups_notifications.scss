@@ -84,6 +84,12 @@
       @extend %flat-button;
     }
   }
+
+  // custom
+
+  .goods_names {
+    width: 230px;
+  }
 }
 
 .notifyjs-game-info, .notifyjs-game-small_info {

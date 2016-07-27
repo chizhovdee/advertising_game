@@ -1,6 +1,7 @@
 BaseController = require("../base_controller")
 request = require("../../lib/request")
 modals = require('../modals')
+ShopPage = require('../pages').ShopPage
 
 class HeaderLayout extends BaseController
   elements:
@@ -21,6 +22,8 @@ class HeaderLayout extends BaseController
 
     @player.bind("update", @.onPlayerUpdate)
 
+    @el.on('click', '.fuel .add', @.onFuelAddClick)
+
   onPlayerUpdate: (player)=>
     # обновляем каждый фрагмент отдельно если нужно
 
@@ -28,10 +31,10 @@ class HeaderLayout extends BaseController
 
     @basicMoneyEl.find('.value').text(@player.basic_money) if changes.basic_money
     @reputationEl.find('.value').text(@player.reputation) if changes.reputation
-    @fuelEl.find('.value').text(@player.fuel) if changes.fuel
+    @fuelEl.find('.value').text(@player.fuel_auto) if changes.fuel_auto
 
-
-
+  onFuelAddClick: ->
+    ShopPage.show(group: 'fuel')
 
 
 module.exports = HeaderLayout

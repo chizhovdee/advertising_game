@@ -10,6 +10,11 @@ module.exports =
   player:
     stateFields: Player.stateFields
 
+  fuel: {
+    types: Player.fuelTypes
+    levels: Player.fuelLevels
+  }
+
   balanceSettings: balance.settings
 
   advertisingType:

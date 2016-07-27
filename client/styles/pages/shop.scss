@@ -1,8 +1,9 @@
-$shop_groups: sea, auto, air, railway;
+$shop_groups: sea, auto, air, railway, fuel;
+$sub_types: truck, tractor, trailer, semitrailer;
 
 .page.shop {
   .groups {
-    margin-top: 10px;
+    margin: 10px 0;
 
     .group {
       display: inline-block;
@@ -25,11 +26,52 @@ $shop_groups: sea, auto, air, railway;
     }
   }
 
+  .sub_types {
+    margin-bottom: 15px;
+    border-top: 1px solid #000;
+
+    .type {
+      display: inline-block;
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      margin: 5px 0 0 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+
+      &.current {
+        border: 1px solid $game_color_red;
+      }
+
+      @each $type in $sub_types {
+        &.#{$type} {
+          @include images-sprite(shop_groups/#{$type});
+        }
+      }
+    }
+  }
+
   .list {
     @include pagination;
-    margin-top: 25px;
 
-    .item {
+    .locked_group {
+      margin-top: 10px;
+      color: $game_color_red;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        vertical-align: bottom;
+
+        @include images-sprite(icons/lock);
+      }
+    }
+
+    &.fuel_list {
+      text-align: center;
+    }
+
+    .item.transport {
       position: relative;
       @include border-radius(5px);
       background-color: rgba(0, 0, 0, 0.1);
@@ -71,6 +113,22 @@ $shop_groups: sea, auto, air, railway;
             font-weight: bold;
           }
         }
+
+        .more_goods {
+          @extend %flat-button;
+        }
+
+        .lock {
+          color: $game_color_red;
+
+          &:before {
+            content: '';
+            display: inline-block;
+            vertical-align: bottom;
+
+            @include images-sprite(icons/lock);
+          }
+        }
       }
 
       .price {
@@ -100,6 +158,137 @@ $shop_groups: sea, auto, air, railway;
         position: absolute;
         bottom: 5px;
         right: 5px;
+      }
+    }
+
+    .item.fuel {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      width: 240px;
+      height: 240px;
+      background-color: rgba(0, 0, 0, 0.1);
+      @include border-radius(5px);
+      margin-bottom: 10px;
+
+      &:nth-child(odd) {
+        margin-right: 5px;
+      }
+
+      &.locked {
+        .info {
+          color: $game_color_red;
+        }
+      }
+
+      .info-icon {
+        position: absolute;
+        top: 30px;
+        right: 5px;
+      }
+
+      .notifyjs-container {
+        .description {
+          width: 200px;
+        }
+      }
+
+      .name {
+        text-align: center;
+        background-color: #0086b3;
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 25px;
+        @include border-top-radius(5px);
+      }
+
+      .picture {
+        img {
+          width: 240px;
+          height: 120px;
+        }
+      }
+
+      .info {
+        padding-top: 5px;
+
+        .level {
+          margin-bottom: 10px;
+
+          .label {
+            font-weight: bold;
+          }
+        }
+
+        .lock {
+          &:before {
+            content: '';
+            display: inline-block;
+            vertical-align: bottom;
+
+            @include images-sprite(icons/lock);
+          }
+        }
+
+        .price {
+          .label {
+            font-weight: bold;
+          }
+
+          .requirement {
+            display: inline-block;
+          }
+        }
+      }
+
+      .selector {
+        margin-top: 5px;
+
+        &.disabled {
+          opacity: 0.5;
+        }
+
+        .minus, .plus, .fuel_value {
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0 2px;
+        }
+
+        .minus {
+          @include images-sprite(icons/delete);
+          cursor: pointer;
+        }
+
+        .plus {
+          @include images-sprite(icons/add);
+          cursor: pointer;
+        }
+
+        .fuel_value {
+          width: 30px;
+          text-align: center;
+        }
+      }
+
+      > .controls {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+      }
+
+      .cost {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+
+        .requirement {
+          display: inline-block;
+        }
+      }
+
+      .result_anchor {
+        top: 150px;
       }
     }
   }

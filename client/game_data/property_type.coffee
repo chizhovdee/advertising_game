@@ -1,7 +1,7 @@
 Base = require("./base")
 
 class PropertyType extends Base
-  @configure 'PropertyType', 'key', 'basicPrice', 'buildLevel', 'buildDuration',
+  @configure 'PropertyType', 'key', 'basicPrice', 'buildLevel', 'buildDuration', 'freeCapacity',
     'baseCapacity', 'upgradePerLevels', 'baseUpgradeDuration', 'rentOutAvailable', 'reward'
 
   name: ->
@@ -18,5 +18,11 @@ class PropertyType extends Base
 
   upgradePriceBy: (propertyLevel)->
     (propertyLevel + 1) * @basicPrice
+
+  fullCapacityBy: (property)->
+    @.capacityByLevel(property?.level || 0) + @freeCapacity
+
+  capacityByLevel: (level)->
+    @baseCapacity * level
 
 module.exports = PropertyType

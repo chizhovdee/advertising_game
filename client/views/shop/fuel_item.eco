@@ -1,0 +1,46 @@
+<div class="item fuel <%= 'locked' if @settings.fuel.levels[@item] > @player.level %>" id="item_<%= @item %>">
+    <div class="name">
+        <%= I18n.t("shop.fuel_items.#{@item}.name") %>
+    </div>
+
+    <div class="picture"><%=@safe @.fuelItemPicture(@item) %></div>
+
+    <% if @settings.fuel.levels[@item] > @player.level: %>
+      <div class="info">
+          <div class="level">
+              <span class="label"><%= I18n.t('shop.fuel_items.level') %></span>
+              <span class="value"><%= @settings.fuel.levels[@item] %></span>
+          </div>
+
+          <div class="lock"><%= I18n.t('shop.fuel_items.locked') %></div>
+      </div>
+    <% else: %>
+        <div class="info">
+            <div class="price">
+                <span class="label"><%= I18n.t('shop.fuel_items.price') %></span>
+                <span class="value">
+                  <%=@safe @.renderTemplate('requirements', requirements: @.fuelPrice(@item)) %>
+                </span>
+            </div>
+        </div>
+
+        <div class="selector">
+            <div class="minus control" data-type="minus" data-fuel="<%= @item %>"></div>
+            <input type="text" name="fuel_value" value="<%= @fuelData[@item] || 0 %>" class="fuel_value" data-fuel="<%= @item %>" />
+            <div class="plus control" data-type="plus" data-fuel="<%= @item %>"></div>
+        </div>
+
+        <div class="cost">
+            <%=@safe @.renderTemplate('requirements', requirements: @.fuelPrice(@item, @fuelData[@item] || 0)) %>
+        </div>
+
+        <div class="controls">
+            <button class="fill <%= 'disabled' if !@fuelData[@item]? || @fuelData[@item] < 1 %>" data-fuel="<%= @item %>">
+                <%= I18n.t('shop.fuel_items.fill') %>
+            </button>
+        </div>
+
+    <% end %>
+
+    <div class="result_anchor"></div>
+</div>

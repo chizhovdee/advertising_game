@@ -27,21 +27,21 @@ h4 {
   font-weight: bold;
 }
 
-//.tips {
-//  margin: 10px 0;
-//  padding: 10px;
-//  border: 1px solid #ca9943;
-//  background: rgba(82, 67, 12, 0.5);
-//  @include border-radius(5px);
-//
-//  strong {
-//    font-weight: bold;
-//  }
-//}
+.tips {
+  margin: 10px 0;
+  padding: 5px;
+  border: 1px solid #000;
+  background: rgba(0, 0, 0, 0.1);
+  @include border-radius(5px);
+
+  strong {
+    font-weight: bold;
+  }
+}
 
 .info-icon {
   display: inline-block;
-  @include images-sprite(icons/help);
+  @include images-sprite(icons/info);
   cursor: pointer;
 }
 

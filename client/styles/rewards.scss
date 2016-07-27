@@ -52,6 +52,12 @@
       }
     }
 
+    &.fuel_auto, &.fuel_railway, &.fuel_air, &.fuel_sea {
+      .value .icon {
+        @include images-sprite-background(icons/fuel);
+      }
+    }
+
     &.reward_item {
       margin-top: 5px;
       .reward_picture, .reward_value {

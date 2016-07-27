@@ -30,7 +30,9 @@
 
       <% else: %>
         <div class="level"><%=@safe I18n.t("properties.property.level", level: @property.level) %></div>
-        <div class="using"><%=@safe I18n.t("properties.property.using", current: 0, max: 5) %></div>
+        <div class="using">
+          <%=@safe I18n.t("properties.property.using", current: @.usingCapacity(@type), max: @type.fullCapacityBy(@property)) %>
+        </div>
       <% end %>
     <% end %>
   </div>

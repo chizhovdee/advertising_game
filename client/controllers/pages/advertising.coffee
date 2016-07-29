@@ -1,4 +1,4 @@
-InnerPage = require("../inner_page")
+Page = require("../page")
 modals = require('../modals')
 request = require("../../lib/request")
 Pagination = require("../../lib").Pagination
@@ -6,8 +6,8 @@ VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
 AdvertisingType = require('../../game_data').AdvertisingType
 
-class AdvertisingPage extends InnerPage
-  className: 'advertising inner_page'
+class AdvertisingPage extends Page
+  className: 'advertising page'
 
   PER_PAGE = 3
 

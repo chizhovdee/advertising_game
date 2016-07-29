@@ -5,4 +5,5 @@ module.exports =
   PropertiesPage: require('./properties')
   TransportPage: require('./transport')
   ShopPage: require('./shop')
+  AdvertisingPage: require('./advertising')
 

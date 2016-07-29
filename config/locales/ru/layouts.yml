@@ -1,7 +1,8 @@
 ru:
   main_menu:
-    home: "Офис"
+    home: "Грузоперевозки"
     properties: "Недвижимость"
     transport: "Траспорт"
     rating: "Рейтинг"
     shop: "Магазин"
+    advertising: "Реклама"

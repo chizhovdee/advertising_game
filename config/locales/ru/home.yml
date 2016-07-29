@@ -2,6 +2,6 @@ ru:
   home:
     title: "Офис"
     tabs:
-      trucking: "Грузоперевозки"
-      routes: "Маршруты"
-      advertising: "Реклама"
+      trucking: "Действующие"
+      routes: "Заявки"
+      contracts: "Контракты"

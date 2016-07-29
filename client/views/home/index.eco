@@ -1,9 +1,9 @@
 <h1><%= I18n.t('home.title') %></h1>
 
 <div class="tabs">
-  <% for type in ['trucking', 'routes', 'advertising']: %>
-    <div class="tab <%= type %> <%= 'current' if @currentTab == type %>" data-type="<%= type %>">
-      <%= I18n.t("home.tabs.#{ type }") %>
+  <% for tab in @tabs: %>
+    <div class="tab <%= tab %> <%= 'current' if @currentTab == tab %>" data-type="<%= tab %>">
+      <%= I18n.t("home.tabs.#{ tab }") %>
     </div>
   <% end %>
 </div>

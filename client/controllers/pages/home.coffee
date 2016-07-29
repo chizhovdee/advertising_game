@@ -9,6 +9,8 @@ class HomePage extends Page
   elements:
     '.tab_content': 'tabContentEl'
 
+  tabs: ['trucking', 'routes', 'contracts']
+
   hide: ->
     @innerPage?.hide()
 
@@ -57,8 +59,8 @@ class HomePage extends Page
         @innerPage = new TruckingPage()
       when 'routes'
         @innerPage = new RoutesPage()
-      when 'advertising'
-        @innerPage = new AdvertisingPage()
+      when 'contracts'
+        @innerPage = null
 
     @innerPage?.show(@el.find('.tab_content'))
 

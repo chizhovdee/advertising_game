@@ -151,7 +151,6 @@ class ShopPage extends Page
 
   onBuyClick: (e)=>
     button = $(e.currentTarget)
-    button.addClass('disabled')
 
     @.displayConfirm(button,
       button:
@@ -162,12 +161,12 @@ class ShopPage extends Page
 
   onStartPurchase: (e)=>
     button = $(e.currentTarget)
+
+    return if button.data('type') == 'cancel'
+
     itemId = button.parents('.confirm_controls').data('item-id')
 
-    if button.data('type') == 'cancel'
-      @el.find("#item_#{ itemId } .buy").removeClass('disabled')
-
-      return
+    @el.find("#item_#{ itemId } .buy").addClass('disabled')
 
     button.addClass('disabled')
 

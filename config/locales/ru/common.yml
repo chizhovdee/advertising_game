@@ -28,7 +28,10 @@ ru:
       property_is_rented: "Здание находится в аренде"
       property_is_not_rented: "Здание не в аренде"
       property_rent_not_finished: "Аренда еще не завершена"
-      no_free_places: "Нет свободного места."
+      no_free_places: "Нет свободного места"
+      not_correct_data: "Не корректные данные"
+      advertising_no_places: "Ваш коммандный центр загружен. Пожалуйста, улучшите ваш командный центр"
+      advertising_no_places_build: "Для того чтобы создать еще одну рекламную кампанию, постройте 'Центр управления'"
     reward_keys:
       reputation: "Репутация"
       experience: "Опыт"

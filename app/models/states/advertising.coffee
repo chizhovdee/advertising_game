@@ -12,14 +12,14 @@ class AdvertisingState extends BaseState
   find: (id)->
     @state[id]
 
-  create: (type, status, period)->
+  create: (advertisingType, status, period)->
     newId = @.generateId()
     newResource = {
-      typeId: type.id
+      typeId: advertisingType.id
       status: status
       createdAt: Date.now()
       updatedAt: Date.now()
-      expireAt: Date.now() + _(period).hours()
+      expireAt: Date.now() + _(period).days()
       routeOpenAt: Date.now()
     }
 
@@ -32,11 +32,15 @@ class AdvertisingState extends BaseState
   updateRouteOpenAt: (id)->
     type = AdvertisingType.find(@state[id].typeId)
 
+    @state[id].updatedAt = Date.now()
     @state[id].routeOpenAt = Date.now() + type.timeGeneration
 
     @.update()
 
     @.addOperation('update', id, @.adToJSON(@state[id]))
+
+  count: ->
+    _.keys(@state).length
 
   adIsExpired: (id)->
     @state[id].expireAt <= Date.now()

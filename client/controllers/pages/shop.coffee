@@ -262,7 +262,6 @@ class ShopPage extends Page
       {basic_money: [balance.fuelBasicPrice(fuel), true]}
 
   handleResponse: (response)->
-    console.log response.data
     switch response.data?.item_type
       when 'transport'
         @.renderTransportItem(Transport.find(response.data.item_id))

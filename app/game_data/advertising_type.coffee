@@ -10,6 +10,12 @@ class AdvertisingType extends Base
     vip: 2
     premium: 3
 
+  @statusLevels: {
+    normal: 1
+    vip: 5
+    premium: 10
+  }
+
   basicPrice: null
   timeGeneration: null
 

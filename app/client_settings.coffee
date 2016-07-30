@@ -22,6 +22,7 @@ module.exports =
     status: AdvertisingType.status
     discountPerDay: AdvertisingType.discountPerDay
     statusFactor: AdvertisingType.statusFactor
+    statusLevels: AdvertisingType.statusLevels
 
   propertyType:
     rentOutDuration: PropertyType.rentOutDuration

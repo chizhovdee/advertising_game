@@ -35,7 +35,7 @@ module.exports =
         property = player.propertiesState.findByTypeId(propertyType.id)
 
         # check capacity
-        if player.transportState.countByTransportTypeKey(transport.typeKey) > propertyType.fullCapacityBy(property)
+        if player.transportState.countByTransportTypeKey(transport.typeKey) >= propertyType.fullCapacityBy(property)
           return new Result(
             error_code: Result.errors.noFreePlaces
             data: dataResult

@@ -1,10 +1,6 @@
 .advertising.page {
   > .controls {
     text-align: right;
-
-    .new {
-      @extend %flat-button;
-    }
   }
 
   .list {

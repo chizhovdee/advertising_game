@@ -12,6 +12,10 @@ module.exports =
     else
       data.type = 'success'
 
+    if data.title.length > 50
+      data.message = data.title
+      data.title = null
+
     (element || $('#application .notification')).notify(
       {
         content: @.renderTemplate('notifications/result', data)
@@ -20,10 +24,10 @@ module.exports =
         raw: true
         style: 'game'
         className: 'black result_notification'
-#        showAnimation: 'fadeIn'
-#        hideAnimation: 'fadeOut'
-        showDuration: 200
-        hideDuration: 200
+        showAnimation: 'fadeIn'
+        hideAnimation: 'fadeOut'
+        showDuration: 300
+        hideDuration: 300
         autoHideDelay: _(5).seconds()
         position: (options.position || 'left bottom')
       }, options)

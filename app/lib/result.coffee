@@ -3,6 +3,7 @@ class Result
     requirementsNotSatisfied: 'requirements_not_satisfied'
     notReachedLevel: 'not_reached_level'
     dataNotFound: 'data_not_found'
+    notCorrectData: 'not_correct_data'
 
     propertyIsBuilt: "property_is_built"
     propertyIsBuilding: "property_is_building"
@@ -12,6 +13,9 @@ class Result
     propertyIsNotRented: "property_is_not_rented"
     propertyRentNotFinished: "property_rent_not_finished"
     noFreePlaces: "no_free_places"
+
+    advertisingNoPlaces: "advertising_no_places"
+    advertisingNoPlacesBuild: 'advertising_no_places_build'
 
   errorCode: null
   data: null

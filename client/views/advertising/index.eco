@@ -1,5 +1,7 @@
+<h1><%= I18n.t('advertising.title') %></h1>
+
 <div class="controls">
-  <span class="new"><%= I18n.t("advertising.buttons.new") %></span>
+  <button class="new"><%= I18n.t("advertising.buttons.new") %></button>
 </div>
 
 <div class="list">

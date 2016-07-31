@@ -60,6 +60,7 @@ class AdvertisingPage extends Page
     super
 
     request.bind('route_opened', @.onRouteOpened)
+    request.bind('advertising_created', @.onCreated)
 
     @el.on('click', '.new', @.onNewClick)
     @el.on('click', '.open_route', @.onOpenRouteClick)
@@ -72,6 +73,7 @@ class AdvertisingPage extends Page
     super
 
     request.unbind('route_opened', @.onRouteOpened)
+    request.unbind('advertising_created', @.onCreated)
 
     @el.off('click', '.new', @.onNewClick)
     @el.off('click', '.open_route', @.onOpenRouteClick)
@@ -119,7 +121,7 @@ class AdvertisingPage extends Page
 
     @.render()
 
-    @.setTimers()
+    @.setupTimers()
 
   onOpenRouteClick: (e)->
     button = $(e.currentTarget)
@@ -130,5 +132,21 @@ class AdvertisingPage extends Page
 
   onRouteOpened: (response)->
     console.log 'onRouteOpened', response
+
+  onCreated: (response)=>
+    console.log 'onCreated', response
+
+    if response.is_error
+      @.render()
+
+      @.displayResult(
+        @el.find('.create')
+        response
+        position: "right bottom"
+      )
+
+    else
+      console.log 'close'
+      @.close()
 
 module.exports = AdvertisingPage

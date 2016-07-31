@@ -116,7 +116,8 @@ class NewAdvertisingModal extends Modal
     request.send('create_advertising', data: @advertisingData)
 
   onCreated: (response)=>
-    console.log response
+    console.log 'onCreated', response
+
     if response.is_error
       @.render()
 

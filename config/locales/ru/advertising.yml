@@ -2,6 +2,7 @@ ru:
   advertising:
     title: "Реклама"
     empty_list: "У вас не создано ни одной рекламной кампании."
+    locked_status: "Этот статус заблокирован"
     buttons:
       new: "Новая рекламная кампания"
       create_advertising: "Создать"
@@ -9,7 +10,7 @@ ru:
       delete: "Удалить"
       open_route: "Открыть"
     ad:
-      life_timer: "<strong>Истекает:</strong>"
+      life_timer: "Срок действия рекламной кампании"
       next_route_timer: "<strong>Следующий маршрут:</strong>"
       status: "<strong>Статус</strong>: %{status}"
       next_route: "Маршрут:"

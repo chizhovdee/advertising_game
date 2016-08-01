@@ -134,19 +134,12 @@ class AdvertisingPage extends Page
     console.log 'onRouteOpened', response
 
   onCreated: (response)=>
-    console.log 'onCreated', response
-
-    if response.is_error
-      @.render()
-
+    unless response.is_error
       @.displayResult(
-        @el.find('.create')
+        null
         response
         position: "right bottom"
       )
 
-    else
-      console.log 'close'
-      @.close()
 
 module.exports = AdvertisingPage

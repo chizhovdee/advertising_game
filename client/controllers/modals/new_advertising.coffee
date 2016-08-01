@@ -76,13 +76,20 @@ class NewAdvertisingModal extends Modal
   onStatusClick: (e)=>
     statusEl = $(e.currentTarget)
 
-    @el.find('.status .status_item').removeClass('selected')
+    if statusEl.hasClass('locked')
+      @.displayPopup(statusEl,
+        @.renderTemplate("advertising/locked_status")
+        position: 'top center'
+        autoHide: true
+      )
+    else
+      @el.find('.status .status_item').removeClass('selected')
 
-    statusEl.addClass('selected')
+      statusEl.addClass('selected')
 
-    @advertisingData.status = statusEl.data('status')
+      @advertisingData.status = statusEl.data('status')
 
-    @.updateView()
+      @.updateView()
 
   priceRequirements: ->
     price = Math.floor(
@@ -116,8 +123,6 @@ class NewAdvertisingModal extends Modal
     request.send('create_advertising', data: @advertisingData)
 
   onCreated: (response)=>
-    console.log 'onCreated', response
-
     if response.is_error
       @.render()
 
@@ -128,7 +133,6 @@ class NewAdvertisingModal extends Modal
       )
 
     else
-      console.log 'close'
       @.close()
 
 

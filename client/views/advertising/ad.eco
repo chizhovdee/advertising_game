@@ -5,15 +5,12 @@
     <div class="name"><%= @ad.type.name() %></div>
 
     <div class="status">
-      <%=@safe I18n.t("advertising.ad.status", status: "#{I18n.t("advertising.status.#{ @ad.status }")}") %>
+      <%=@safe I18n.t("advertising.ad.status", status: "#{I18n.t("advertising.status.#{ @ad.status }.title")}") %>
       <span class="value"></span>
     </div>
 
     <% if @ad.nextRouteTimeLeft > 0: %>
-      <div class="next_route_timer">
-        <strong><%=@safe I18n.t("advertising.ad.next_route_timer") %></strong>
-        <span class="value"></span>
-      </div>
+      <%=@safe @.renderTimer(null, className: 'next_route_timer', label: I18n.t("advertising.ad.next_route_timer")) %>
 
     <% else: %>
       <div class="next_route">
@@ -26,10 +23,7 @@
     <% end %>
   </div>
 
-  <div class="life_timer">
-    <%=@safe I18n.t("advertising.ad.life_timer") %>
-    <span class="value"></span>
-  </div>
+  <%=@safe @.renderTimer(I18n.t("advertising.ad.life_timer"), className: 'life_timer', hintPosition: 'left') %>
 
   <div class="controls">
     <% if @ad.expireTimeLeft > 0: %>

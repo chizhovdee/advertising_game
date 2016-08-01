@@ -6,4 +6,3 @@ module.exports =
   Transport: require('./transport')
   AdvertisingType: require('./advertising_type')
   PropertyType: require('./property_type')
-  Property: require('./property')

@@ -4,7 +4,8 @@
 settings = require('../settings')
 gameData = require('../game_data')
 
-Property = gameData.Property
+PropertyRecord = require('./property_record')
+Transport = gameData.Transport
 
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
@@ -54,14 +55,26 @@ class PlayerState extends Spine.Model
 
     @.save() unless _.isEmpty(operations)
 
-  getProperties: ->
-    @_properties ?= (
+  propertyRecords: ->
+    @_propertyRecords ?= (
       for id, data of @properties
-        new Property(_.assignIn({id: _.toInteger(id)}, data))
+        new PropertyRecord(_.assignIn({id: _.toInteger(id)}, data))
     )
 
-  findProperty: (id)->
-    _.find(@.getProperties(), id: id)
+  findPropertyRecord: (id)->
+    _.find(@.propertyRecords(), id: id)
+
+  transportCountByTransportTypeKey: (transportTypeKey)->
+    count = 0
+
+    for id, resource of @transport
+      (count += 1 if Transport.find(resource.typeId)?.typeKey == transportTypeKey)
+
+    count
+
+  advertisingCount: ->
+    _.keys(@advertising).length
+
 
 module.exports = PlayerState
 

@@ -12,7 +12,7 @@ module.exports =
     else
       data.type = 'success'
 
-    if data.title.length > 50
+    if data.title?.length > 50
       data.message = data.title
       data.title = null
 

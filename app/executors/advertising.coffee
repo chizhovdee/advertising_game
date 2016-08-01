@@ -9,6 +9,11 @@ PropertyType = require('../game_data').PropertyType
 module.exports =
   createAdvertising: (player, data)->
     type = AdvertisingType.find(data.type)
+
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless type?
+
     status = data.status
     period = data.period
     period = AdvertisingType.periods[0] if period < AdvertisingType.periods[0]

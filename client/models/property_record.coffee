@@ -5,7 +5,7 @@ class PropertyRecord extends BaseRecord
     @buildingTimeLeft? && @.actualBuildingTimeLeft() >= 0
 
   actualBuildingTimeLeft: ->
-    @buildingTimeLeft - @.timeDiff()
+    @buildingTimeLeft - @.loadedTimeDiff()
 
   isUpgrading: ->
     @upgradingTimeLeft? && @.actualUpgradingTimeLeft() >= 0
@@ -15,10 +15,10 @@ class PropertyRecord extends BaseRecord
     @rentTimeLeft?
 
   actualUpgradingTimeLeft: ->
-    @upgradingTimeLeft - @.timeDiff()
+    @upgradingTimeLeft - @.loadedTimeDiff()
 
   actualRentTimeLeft: ->
-    @rentTimeLeft - @.timeDiff()
+    @rentTimeLeft - @.loadedTimeDiff()
 
   rentFinished: ->
     @.actualRentTimeLeft() < 0

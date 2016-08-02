@@ -5,7 +5,7 @@ class BaseRecord
     for attribute, value of attributes
       @[attribute] = value
 
-  timeDiff: ->
+  loadedTimeDiff: ->
     Date.now() - @loadedAt
 
 module.exports = BaseRecord

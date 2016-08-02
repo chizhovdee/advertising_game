@@ -43,18 +43,16 @@ class AdvertisingPage extends Page
     @.setupTimers()
 
   setupTimers: ->
-    timeDiff = Date.now() - @playerState.propertiesUpdatedAt
+    for record in @paginatedList
+      unless record.isExpired()
+        @expireTimers[record.id] ?= new VisualTimer()
+        @expireTimers[record.id].setElement($("#ad_#{ record.id } .life_timer .value"))
+        @expireTimers[record.id].start(record.actualExpireTimeLeft())
 
-    for resource in @paginatedList
-      if resource.expireTimeLeft > 0
-        @expireTimers[resource.id] ?= new VisualTimer()
-        @expireTimers[resource.id].setElement($("#ad_#{ resource.id } .life_timer .value"))
-        @expireTimers[resource.id].start(resource.expireTimeLeft - timeDiff)
-
-      if resource.nextRouteTimeLeft > 0
-        @nextRouteTmers[resource.id] ?= new VisualTimer()
-        @nextRouteTmers[resource.id].setElement($("#ad_#{ resource.id } .next_route_timer .value"))
-        @nextRouteTmers[resource.id].start(resource.nextRouteTimeLeft - timeDiff)
+      unless record.canOpenRoute()
+        @nextRouteTmers[record.id] ?= new VisualTimer()
+        @nextRouteTmers[record.id].setElement($("#ad_#{ record.id } .next_route_timer .value"))
+        @nextRouteTmers[record.id].start(record.actualNextRouteTimeLeft())
 
   bindEventListeners: ->
     super
@@ -86,13 +84,7 @@ class AdvertisingPage extends Page
     modals.NewAdvertisingModal.show()
 
   defineData: ->
-    console.log @list = _.sortBy((
-      for id, resource of @playerState.advertising
-        _.assignIn({
-          id: id
-          type: AdvertisingType.find(resource.typeId)
-        }, resource)
-    ), (ad)-> ad.expireAt)
+    @list = _.sortBy(@playerState.advertisingRecords(), (ad)-> ad.expireAt)
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)

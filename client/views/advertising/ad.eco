@@ -9,27 +9,31 @@
       <span class="value"></span>
     </div>
 
-    <% if @ad.nextRouteTimeLeft > 0: %>
-      <%=@safe @.renderTimer(null, className: 'next_route_timer', label: I18n.t("advertising.ad.next_route_timer")) %>
-
-    <% else: %>
+    <% if @ad.canOpenRoute(): %>
       <div class="next_route">
         <strong><%= I18n.t("advertising.ad.next_route") %></strong>
 
-        <span class="open_route" data-advertising-id="<%= @ad.id %>">
-          <%= I18n.t("advertising.buttons.open_route") %>
-        </span>
+          <span class="open_route" data-advertising-id="<%= @ad.id %>">
+            <%= I18n.t("advertising.buttons.open_route") %>
+          </span>
       </div>
+    <% else: %>
+      <%=@safe @.renderTimer(null, className: 'next_route_timer', label: I18n.t("advertising.ad.next_route_timer")) %>
     <% end %>
   </div>
 
-  <%=@safe @.renderTimer(I18n.t("advertising.ad.life_timer"), className: 'life_timer', hintPosition: 'left') %>
+  <% if @ad.isExpired(): %>
+    <div class="expired_text"><%= I18n.t("advertising.ad.expired_text") %></div>
+  <% else: %>
+    <%=@safe @.renderTimer(I18n.t("advertising.ad.life_timer"), className: 'life_timer', hintPosition: 'left') %>
+  <% end %>
 
   <div class="controls">
-    <% if @ad.expireTimeLeft > 0: %>
-      <button class="extend"><%= I18n.t("advertising.buttons.extend") %></button>
-    <% else: %>
+    <% if @ad.isExpired(): %>
       <button class="delete"><%= I18n.t("advertising.buttons.delete") %></button>
+
+    <% else: %>
+       <button class="extend"><%= I18n.t("advertising.buttons.extend") %></button>
     <% end %>
   </div>
 </div>

@@ -4,7 +4,12 @@
 settings = require('../settings')
 gameData = require('../game_data')
 
+# state records
 PropertyRecord = require('./property_record')
+AdvertisingRecord = require('./advertising_record')
+
+# game data
+AdvertisingType = gameData.AdvertisingType
 Transport = gameData.Transport
 
 class PlayerState extends Spine.Model
@@ -55,6 +60,7 @@ class PlayerState extends Spine.Model
 
     @.save() unless _.isEmpty(operations)
 
+  # properties
   propertyRecords: ->
     @_propertyRecords ?= (
       for id, data of @properties
@@ -64,6 +70,7 @@ class PlayerState extends Spine.Model
   findPropertyRecord: (id)->
     _.find(@.propertyRecords(), id: id)
 
+  # transport
   transportCountByTransportTypeKey: (transportTypeKey)->
     count = 0
 
@@ -72,8 +79,18 @@ class PlayerState extends Spine.Model
 
     count
 
+  # advertising
   advertisingCount: ->
-    _.keys(@advertising).length
+    _.size(@advertising)
+
+  advertisingRecords: ->
+    @_advertisingRecords ?= (
+      for id, data of @advertising
+        new AdvertisingRecord(_.assignIn({
+          id: id
+          type: AdvertisingType.find(data.typeId)
+        }, data))
+    )
 
 
 module.exports = PlayerState

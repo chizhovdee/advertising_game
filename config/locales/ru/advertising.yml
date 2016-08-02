@@ -11,9 +11,10 @@ ru:
       open_route: "Открыть"
     ad:
       life_timer: "Срок действия рекламной кампании"
-      next_route_timer: "<strong>Следующий маршрут:</strong>"
+      next_route_timer: "<strong>Следующая заявка:</strong>"
       status: "<strong>Статус</strong>: %{status}"
-      next_route: "Маршрут:"
+      next_route: "Заявка готова:"
+      expired_text: "Истек срок действия"
     new:
       title: "Новая рекламная компания"
       select_type: "Выберите тип:"

@@ -179,8 +179,6 @@ class PropertiesPage extends Page
     {vip_money: [@.formatNumber(price), @player.vip_money >= price]}
 
   onStateUpdated: =>
-    console.log 'PlayerState', @playerState.changes()
-
     changes = @playerState.changes()
 
     return unless changes.properties?

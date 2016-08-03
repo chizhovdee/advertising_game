@@ -64,6 +64,7 @@ class AdvertisingPage extends Page
     @el.on('click', '.open_route', @.onOpenRouteClick)
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
+    @el.on('click', '.delete:not(.disabled)', @.onDeleteClick)
 
     @playerState.bind('update', @.onStateUpdated)
 
@@ -77,6 +78,7 @@ class AdvertisingPage extends Page
     @el.off('click', '.open_route', @.onOpenRouteClick)
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
+    @el.off('click', '.delete:not(.disabled)', @.onDeleteClick)
 
     @playerState.unbind('update', @.onStateUpdated)
 
@@ -132,6 +134,9 @@ class AdvertisingPage extends Page
         response
         position: "right bottom"
       )
+
+  onDeleteClick: (e)=>
+    $(e.currentTarget)
 
 
 module.exports = AdvertisingPage

@@ -29,11 +29,14 @@
   <% end %>
 
   <div class="controls">
-    <% if @ad.isExpired(): %>
-      <button class="delete"><%= I18n.t("advertising.buttons.delete") %></button>
+    <button class="extend" data-advertising-id="<%= @ad.id%>">
+      <%= I18n.t("advertising.buttons.extend") %>
+    </button>
 
-    <% else: %>
-       <button class="extend"><%= I18n.t("advertising.buttons.extend") %></button>
+    <% if @ad.isExpired(): %>
+      <button class="delete" data-advertising-id="<%= @ad.id%>">
+        <%= I18n.t("advertising.buttons.delete") %>
+      </button>
     <% end %>
   </div>
 </div>

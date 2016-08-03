@@ -20,8 +20,9 @@ class PlayerState extends Spine.Model
 
   @include require('./modules/model_changes')
 
-  # resources list from states
-  _properties: null
+  # records list from states
+  _propertyRecords: null
+  _advertisingRecords: null
 
   create: ->
     for attribute, value of @.attributes()
@@ -30,11 +31,11 @@ class PlayerState extends Spine.Model
     super
 
   update: ->
-    console.log _.cloneDeep(@constructor.irecords[@id].attributes().properties)
     @.setOldAttributes(@constructor.irecords[@id].attributes())
 
     # reset
-    @_properties = null
+    @_propertyRecords = null
+    @_advertisingRecords = null
 
     super
 
@@ -91,7 +92,6 @@ class PlayerState extends Spine.Model
           type: AdvertisingType.find(data.typeId)
         }, data))
     )
-
 
 module.exports = PlayerState
 

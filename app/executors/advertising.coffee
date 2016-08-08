@@ -54,3 +54,6 @@ module.exports =
       data:
         reward: reward
     )
+
+  deleteAdvertising: (player, advertisingId)->
+    console.log 'advertisingId', advertisingId

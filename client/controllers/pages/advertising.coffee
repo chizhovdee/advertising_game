@@ -59,6 +59,7 @@ class AdvertisingPage extends Page
 
     request.bind('route_opened', @.onRouteOpened)
     request.bind('advertising_created', @.onCreated)
+    request.bind('advertising_deleted', @.onDeleted)
 
     @el.on('click', '.new', @.onNewClick)
     @el.on('click', '.open_route', @.onOpenRouteClick)
@@ -74,6 +75,7 @@ class AdvertisingPage extends Page
 
     request.unbind('route_opened', @.onRouteOpened)
     request.unbind('advertising_created', @.onCreated)
+    request.unbind('advertising_deleted', @.onDeleted)
 
     @el.off('click', '.new', @.onNewClick)
     @el.off('click', '.open_route', @.onOpenRouteClick)
@@ -158,6 +160,8 @@ class AdvertisingPage extends Page
     @el.find("#ad_#{advertising_id} button").addClass('disabled')
 
     request.send('delete_advertising', advertising_id: advertising_id)
+
+  onDeleted: (response)=>
 
 
 module.exports = AdvertisingPage

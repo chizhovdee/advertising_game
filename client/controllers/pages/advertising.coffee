@@ -65,6 +65,7 @@ class AdvertisingPage extends Page
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
     @el.on('click', '.delete:not(.disabled)', @.onDeleteClick)
+    @el.on('click', '.start_delete:not(.disabled)', @.onStartDeleteClick)
 
     @playerState.bind('update', @.onStateUpdated)
 
@@ -79,6 +80,7 @@ class AdvertisingPage extends Page
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
     @el.off('click', '.delete:not(.disabled)', @.onDeleteClick)
+    @el.off('click', '.start_delete:not(.disabled)', @.onStartDeleteClick)
 
     @playerState.unbind('update', @.onStateUpdated)
 
@@ -136,7 +138,26 @@ class AdvertisingPage extends Page
       )
 
   onDeleteClick: (e)=>
-    $(e.currentTarget)
+    button = $(e.currentTarget)
+
+    @.displayConfirm(button,
+      button:
+        className: 'start_delete'
+        data:
+          'advertising-id': _.toInteger(button.data('advertising-id'))
+      position: 'left bottom'
+    )
+
+  onStartDeleteClick: (e)=>
+    button = $(e.currentTarget)
+    return if button.data('type') == 'cancel'
+
+    button.addClass('disabled')
+    advertising_id = button.parents('.confirm_controls').data('advertising-id')
+
+    @el.find("#ad_#{advertising_id} button").addClass('disabled')
+
+    request.send('delete_advertising', advertising_id: advertising_id)
 
 
 module.exports = AdvertisingPage

@@ -16,6 +16,7 @@ class Result
 
     advertisingNoPlaces: "advertising_no_places"
     advertisingNoPlacesBuild: 'advertising_no_places_build'
+    advertisingReachedMaxDuration: 'advertising_reached_max_duration'
 
   errorCode: null
   data: null

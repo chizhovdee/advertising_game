@@ -14,6 +14,7 @@ class TruckingState extends BaseState
   create: (route, stateTransportIds, duration)->
     newId = @.generateId()
     newResource = {
+      id: newId
       routeId: route.id
       transportIds: stateTransportIds
       completeAt: Date.now() + duration
@@ -47,7 +48,7 @@ class TruckingState extends BaseState
     {fuel: fuel, duration: duration}
 
   truckingToJSON: (transport)->
-    resource = @.extendResource(transport)
+    resource = @.extendRecord(transport)
 
     resource.completeIn = resource.completeAt - Date.now()
     # custom extend here

@@ -6,7 +6,7 @@ ru:
     buttons:
       new: "Новая рекламная кампания"
       create_advertising: "Создать"
-      extend: "Продлить"
+      prolong: "Продлить"
       delete: "Удалить"
       open_route: "Открыть"
     ad:
@@ -23,6 +23,10 @@ ru:
       time_generation: "Время генерации одной заявки:"
       price: "Цена:"
       locked_level: "Уровень: %{level}"
+    prolong:
+      title: "Продление рекламной кампании"
+      select_period: "Выберите срок продления (дни):"
+      price: "Цена:"
     status:
       normal:
         title: "Обычный"

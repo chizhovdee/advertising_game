@@ -1,0 +1,23 @@
+<h2><%= I18n.t('advertising.prolong.title') %></h2>
+
+<div class="period">
+    <h3><%= I18n.t('advertising.prolong.select_period') %></h3>
+
+    <% for amount in @settings.advertisingType.periods: %>
+        <div class="amount">
+            <span class="radio_input <%= 'selected' if @selectedPeriod == amount %>" data-amount="<%= amount %>"></span>
+
+            <span class="value"><%= amount %></span>
+        </div>
+    <% end %>
+</div>
+
+<div class="price">
+    <span class="label"><%= I18n.t('advertising.prolong.price') %></span>
+
+    <span class="value"><%=@safe @.renderTemplate('requirements', requirements: @.priceRequirements()) %></span>
+</div>
+
+<div class="controls">
+    <button class="prolong"><%= I18n.t('advertising.buttons.prolong') %></button>
+</div>

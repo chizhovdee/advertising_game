@@ -91,6 +91,9 @@ module.exports =
   delete_advertising: (data)->
     @.delete('/advertising/delete', data)
 
+  prolong_advertising: (data)->
+    @.put('/advertising/prolong', data)
+
   # routes
   open_route: (data)->
     @.put('/routes/open', data)

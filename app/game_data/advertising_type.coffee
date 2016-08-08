@@ -3,6 +3,7 @@ Base = require("./base")
 
 class AdvertisingType extends Base
   @periods: [1..7] # days
+  @maxDuration: 14 # days
   @status: ['normal', 'vip', 'premium']
   @discountPerDay: 0.05 # 5%
   @statusFactor:

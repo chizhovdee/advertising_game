@@ -60,6 +60,7 @@ class AdvertisingPage extends Page
     request.bind('route_opened', @.onRouteOpened)
     request.bind('advertising_created', @.onCreated)
     request.bind('advertising_deleted', @.onDeleted)
+    request.bind('advertising_prolonged', @.onProlonged)
 
     @el.on('click', '.new', @.onNewClick)
     @el.on('click', '.open_route', @.onOpenRouteClick)
@@ -67,6 +68,7 @@ class AdvertisingPage extends Page
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
     @el.on('click', '.delete:not(.disabled)', @.onDeleteClick)
     @el.on('click', '.start_delete:not(.disabled)', @.onStartDeleteClick)
+    @el.on('click', '.prolong', @.onProlongClick)
 
     @playerState.bind('update', @.onStateUpdated)
 
@@ -76,6 +78,7 @@ class AdvertisingPage extends Page
     request.unbind('route_opened', @.onRouteOpened)
     request.unbind('advertising_created', @.onCreated)
     request.unbind('advertising_deleted', @.onDeleted)
+    request.unbind('advertising_prolonged', @.onProlonged)
 
     @el.off('click', '.new', @.onNewClick)
     @el.off('click', '.open_route', @.onOpenRouteClick)
@@ -83,6 +86,7 @@ class AdvertisingPage extends Page
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
     @el.off('click', '.delete:not(.disabled)', @.onDeleteClick)
     @el.off('click', '.start_delete:not(.disabled)', @.onStartDeleteClick)
+    @el.off('click', '.prolong', @.onProlongClick)
 
     @playerState.unbind('update', @.onStateUpdated)
 
@@ -134,7 +138,7 @@ class AdvertisingPage extends Page
   onCreated: (response)=>
     unless response.is_error
       @.displayResult(
-        null
+        @el.find("#ad_#{response.data.advertising_id} .result_anchor")
         response
         position: "right bottom"
       )
@@ -162,6 +166,19 @@ class AdvertisingPage extends Page
     request.send('delete_advertising', advertising_id: advertising_id)
 
   onDeleted: (response)=>
+    @.displayResult(null, response)
+
+  onProlongClick: (e)->
+    modals.ProlongAdvertisingModal.show($(e.currentTarget).data('advertising-id'))
+
+  onProlonged: (response)=>
+    unless response.is_error
+      @.displayResult(
+        @el.find("#ad_#{response.data.advertising_id} button.prolong")
+        response
+        position: "left bottom"
+      )
+
 
 
 module.exports = AdvertisingPage

@@ -41,6 +41,7 @@ class RoutesState extends BaseState
     @.update()
 
   delete: (id)->
+    # TODO replace on deleteRecord from baseState
     delete @state[id]
 
     @.addOperation('delete', id)
@@ -48,16 +49,16 @@ class RoutesState extends BaseState
     @.update()
 
   routeToJSON: (ad)->
-    resource = @.extendResource(ad)
-    resource.expireTimeLeft = (resource.createdAt + RoutesState.expireDuration) - Date.now()
+    record = @.extendRecord(ad)
+    record.expireTimeLeft = (record.createdAt + RoutesState.expireDuration) - Date.now()
 
-    resource
+    record
 
   toJSON: ->
     state = {}
 
-    for id, resource of @state
-      state[id] = @.routeToJSON(resource)
+    for id, record of @state
+      state[id] = @.routeToJSON(record)
 
     state
 

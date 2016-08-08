@@ -20,6 +20,7 @@ class PropertiesState extends BaseState
   create: (type)->
     newId = @.generateId()
     newResource = {
+      id: newId
       typeId: type.id
       level: 1
       createdAt: Date.now()
@@ -99,7 +100,7 @@ class PropertiesState extends BaseState
     Date.now() >= property.rentFinishdAt
 
   propertyToJSON: (property)->
-    resource = @.extendResource(property)
+    resource = @.extendRecord(property)
 
     if @.propertyIsBuilding(resource)
       resource.buildingTimeLeft = @.buildingTimeLeftFor(resource)

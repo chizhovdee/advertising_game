@@ -1,0 +1,45 @@
+.prolong_advertising.modal {
+
+  .period {
+    margin-top: 20px;
+
+    .amount {
+      display: inline-block;
+      margin: 10px 0 0 10px;
+
+      .radio_input, .value {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .radio_input {
+        margin-right: 2px;
+        @include images-sprite(ui/round);
+        cursor: pointer;
+
+        &.selected {
+          @include images-sprite-background(ui/round_checked);
+        }
+      }
+    }
+  }
+
+  .price {
+    margin-top: 20px;
+
+    .label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .value {
+      .requirement {
+        display: inline-block;
+      }
+    }
+  }
+
+  .controls {
+    margin-top: 20px;
+  }
+}

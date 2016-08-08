@@ -16,6 +16,7 @@ class TransportState extends BaseState
   create: (type)->
     newId = @.generateId()
     newResource = {
+      id: newId
       typeId: type.id # transport id
       createdAt: Date.now()
       updatedAt: Date.now()
@@ -46,7 +47,7 @@ class TransportState extends BaseState
     count
 
   transportToJSON: (transport)->
-    resource = @.extendResource(transport)
+    resource = @.extendRecord(transport)
 
     # custom extend here
 

@@ -36,6 +36,7 @@ exports.setup = (app)->
     # advertising
     apiRoutes.post('/advertising/create', controllers.advertising.create)
     apiRoutes.delete('/advertising/delete', controllers.advertising.delete)
+    apiRoutes.put('/advertising/prolong', controllers.advertising.prolong)
 
     # routes
     apiRoutes.put('/routes/open', controllers.routes.open)

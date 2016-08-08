@@ -8,7 +8,7 @@ module.exports =
 
     if result.is_error
       data.type = 'failure'
-      data.title ?= I18n.t("common.errors.#{ result.error_code }")
+      data.title ?= I18n.t("common.errors.#{ result.error_code }", options.errorArgs)
     else
       data.type = 'success'
 

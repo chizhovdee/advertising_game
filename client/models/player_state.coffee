@@ -65,7 +65,7 @@ class PlayerState extends Spine.Model
   propertyRecords: ->
     @_propertyRecords ?= (
       for id, data of @properties
-        new PropertyRecord(_.assignIn({id: _.toInteger(id)}, data))
+        new PropertyRecord(data)
     )
 
   findPropertyRecord: (id)->
@@ -88,10 +88,12 @@ class PlayerState extends Spine.Model
     @_advertisingRecords ?= (
       for id, data of @advertising
         new AdvertisingRecord(_.assignIn({
-          id: id
           type: AdvertisingType.find(data.typeId)
         }, data))
     )
+
+  findAdvertisingRecord: (id)->
+    _.find(@.advertisingRecords(), id: id)
 
 module.exports = PlayerState
 

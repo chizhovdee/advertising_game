@@ -17,6 +17,9 @@ class Result
     advertisingNoPlaces: "advertising_no_places"
     advertisingNoPlacesBuild: 'advertising_no_places_build'
     advertisingReachedMaxDuration: 'advertising_reached_max_duration'
+    advertisingExpired: 'advertising_expired'
+
+    routeCanNotOpen: 'route_can_not_open'
 
   errorCode: null
   data: null

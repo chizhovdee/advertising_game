@@ -16,6 +16,10 @@
       margin-bottom: 10px;
       border: 1px solid #000;
 
+      &.ready {
+        box-shadow: 0px 0px 10px #204450;
+      }
+
       .picture {
         img {
           width: 120px;

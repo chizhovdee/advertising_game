@@ -1,4 +1,4 @@
-<div class="ad" id="ad_<%= @ad.id %>">
+<div class="ad <%= 'ready' if @ad.canOpenRoute() %>" id="ad_<%= @ad.id %>">
   <div class="picture"><%=@safe @.advertisingPicture(@ad.type) %></div>
 
   <div class="info">
@@ -9,16 +9,18 @@
       <span class="value"></span>
     </div>
 
-    <% if @ad.canOpenRoute(): %>
-      <div class="next_route">
-        <strong><%= I18n.t("advertising.ad.next_route") %></strong>
+    <% unless @ad.isExpired(): %>
+      <% if @ad.canOpenRoute(): %>
+        <div class="next_route">
+          <strong><%= I18n.t("advertising.ad.next_route") %></strong>
 
-          <span class="open_route" data-advertising-id="<%= @ad.id %>">
-            <%= I18n.t("advertising.buttons.open_route") %>
-          </span>
-      </div>
-    <% else: %>
-      <%=@safe @.renderTimer(null, className: 'next_route_timer', label: I18n.t("advertising.ad.next_route_timer")) %>
+            <span class="open_route" data-advertising-id="<%= @ad.id %>">
+              <%= I18n.t("advertising.buttons.open_route") %>
+            </span>
+        </div>
+      <% else: %>
+        <%=@safe @.renderTimer(null, className: 'next_route_timer', label: I18n.t("advertising.ad.next_route_timer")) %>
+      <% end %>
     <% end %>
   </div>
 

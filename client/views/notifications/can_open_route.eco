@@ -1,0 +1,1 @@
+<%=@safe I18n.t('advertising.can_open_route_info') %>

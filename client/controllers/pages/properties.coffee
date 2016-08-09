@@ -211,7 +211,7 @@ class PropertiesPage extends Page
 
   onUpgradeClick: (e)=>
     button = $(e.currentTarget)
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
     propertyType = _.find(@list, (t)-> t.id == property.typeId)
 
     @.displayPopup(button
@@ -222,7 +222,7 @@ class PropertiesPage extends Page
   onStartUpgradeClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
 
     $("#property_type_#{ property.typeId } button.upgrade").addClass('disabled')
 
@@ -244,7 +244,7 @@ class PropertiesPage extends Page
 
   onRentOutClick: (e)=>
     button = $(e.currentTarget)
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
     propertyType = _.find(@list, (t)-> t.id == property.typeId)
 
     @.displayPopup(button
@@ -255,7 +255,7 @@ class PropertiesPage extends Page
   onStartRentOutClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
 
     $("#property_type_#{ property.typeId } button.rent_out").addClass('disabled')
 
@@ -267,7 +267,7 @@ class PropertiesPage extends Page
   onCollectRentClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
 
     request.send("property_collect_rent", property_id: button.data('property-id'))
 
@@ -292,7 +292,7 @@ class PropertiesPage extends Page
 
     button.addClass('disabled')
     property_id = button.parents('.confirm_controls').data('property-id')
-    property = @playerState.findProperty(property_id)
+    property = @playerState.findPropertyRecord(property_id)
 
     $("#property_type_#{ property.typeId } button.finish_rent").addClass('disabled')
 

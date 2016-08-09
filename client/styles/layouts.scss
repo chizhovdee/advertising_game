@@ -29,13 +29,24 @@
 
 #application {
   position: relative;
+}
 
-  .notification {
-    z-index: 10000;
-    position: absolute;
-    top: 150px;
-    left: 50%;
-  }
+#left_notification {
+  z-index: 10000;
+  position: absolute;
+  top: 5px;
+  left: 200px;
+  width: 1px;
+  height: 1px;
+}
+
+#right_notification {
+  z-index: 10000;
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  width: 1px;
+  height: 1px;
 }
 
 .loading {

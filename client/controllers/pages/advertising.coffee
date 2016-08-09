@@ -42,17 +42,31 @@ class AdvertisingPage extends Page
 
     @.setupTimers()
 
+  renderAd: (advertisingId)->
+    ad = @playerState.findAdvertisingRecord(advertisingId)
+
+    return unless ad?
+
+    @el.find("#ad_#{ advertisingId }").replaceWith(@.renderTemplate("advertising/ad", ad: ad))
+
+    @.setupTimerFor(ad)
+
   setupTimers: ->
     for record in @paginatedList
-      unless record.isExpired()
-        @expireTimers[record.id] ?= new VisualTimer()
-        @expireTimers[record.id].setElement($("#ad_#{ record.id } .life_timer .value"))
-        @expireTimers[record.id].start(record.actualExpireTimeLeft())
+      @.setupTimerFor(record)
 
-      unless record.canOpenRoute()
-        @nextRouteTmers[record.id] ?= new VisualTimer()
-        @nextRouteTmers[record.id].setElement($("#ad_#{ record.id } .next_route_timer .value"))
-        @nextRouteTmers[record.id].start(record.actualNextRouteTimeLeft())
+  setupTimerFor: (record)->
+    unless record.isExpired()
+      @expireTimers[record.id] ?= new VisualTimer(null, (timer)=> @.renderAd(timer.advertisingId))
+      @expireTimers[record.id].advertisingId = record.id
+      @expireTimers[record.id].setElement($("#ad_#{ record.id } .life_timer .value"))
+      @expireTimers[record.id].start(record.actualExpireTimeLeft())
+
+    unless record.canOpenRoute()
+      @nextRouteTmers[record.id] ?= new VisualTimer(null, (timer)=> @.renderAd(timer.advertisingId))
+      @nextRouteTmers[record.id].advertisingId = record.id
+      @nextRouteTmers[record.id].setElement($("#ad_#{ record.id } .next_route_timer .value"))
+      @nextRouteTmers[record.id].start(record.actualNextRouteTimeLeft())
 
   bindEventListeners: ->
     super
@@ -63,7 +77,7 @@ class AdvertisingPage extends Page
     request.bind('advertising_prolonged', @.onProlonged)
 
     @el.on('click', '.new', @.onNewClick)
-    @el.on('click', '.open_route', @.onOpenRouteClick)
+    @el.on('click', '.open_route:not(.disabled)', @.onOpenRouteClick)
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
     @el.on('click', '.delete:not(.disabled)', @.onDeleteClick)
@@ -81,7 +95,7 @@ class AdvertisingPage extends Page
     request.unbind('advertising_prolonged', @.onProlonged)
 
     @el.off('click', '.new', @.onNewClick)
-    @el.off('click', '.open_route', @.onOpenRouteClick)
+    @el.off('click', '.open_route:not(.disabled)', @.onOpenRouteClick)
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
     @el.off('click', '.delete:not(.disabled)', @.onDeleteClick)
@@ -94,7 +108,16 @@ class AdvertisingPage extends Page
     modals.NewAdvertisingModal.show()
 
   defineData: ->
-    @list = _.sortBy(@playerState.advertisingRecords(), (ad)-> ad.expireAt)
+    # готовые для открытия маршрутов показываем первые
+    readyForOpenRoutes = _.sortBy(
+      _.filter(@playerState.advertisingRecords(), (ad)-> ad.canOpenRoute()),
+      (ad)-> ad.expireAt
+    )
+
+    @list = readyForOpenRoutes.concat(_.sortBy(
+      _.difference(@playerState.advertisingRecords(), readyForOpenRoutes),
+      (ad)-> ad.expireAt
+    ))
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
@@ -117,13 +140,12 @@ class AdvertisingPage extends Page
 
   onStateUpdated: (state)=>
     changes = state.changes()
+
     return unless changes.advertising?
 
     @.defineData()
 
-    @.render()
-
-    @.setupTimers()
+    @.renderList()
 
   onOpenRouteClick: (e)->
     button = $(e.currentTarget)
@@ -132,16 +154,15 @@ class AdvertisingPage extends Page
 
     request.send('open_route', advertising_id: button.data('advertising-id'))
 
-  onRouteOpened: (response)->
-    console.log 'onRouteOpened', response
+  onRouteOpened: (response)=>
+    if response.is_error
+      @.renderList()
+
+    @.displayResult(null, response)
 
   onCreated: (response)=>
     unless response.is_error
-      @.displayResult(
-        @el.find("#ad_#{response.data.advertising_id} .result_anchor")
-        response
-        position: "right bottom"
-      )
+      @.displayResult(null, response)
 
   onDeleteClick: (e)=>
     button = $(e.currentTarget)
@@ -178,7 +199,6 @@ class AdvertisingPage extends Page
         response
         position: "left bottom"
       )
-
 
 
 module.exports = AdvertisingPage

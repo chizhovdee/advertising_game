@@ -45,10 +45,16 @@ class PlayerState extends Spine.Model
     @["#{ attribute }UpdatedAt"] = Date.now()
 
   applyChangingOperations: (operations)->
+    @lastChangingOperations = {}
+
     for key, data of operations
       state = _.cloneDeep(@[key])
 
       for [type, id, resource] in data
+        @lastChangingOperations[key] ?= {}
+        @lastChangingOperations[key][type] ?= []
+        @lastChangingOperations[key][type].push(id)
+
         switch type
           when 'add', 'update'
             state[id] = resource

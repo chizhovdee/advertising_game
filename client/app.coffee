@@ -11,6 +11,9 @@ layouts = require("./controllers/layouts")
 HomePage = require('./controllers/pages').HomePage
 modals = require('./controllers/modals')
 ctx = require('./context')
+Timer = require('./lib').Timer
+displays = require('./utils').displays
+render = require('./utils').render
 
 # сначала грузиться манифест с помощью прелоадера
 # затем загружается персонаж
@@ -18,8 +21,12 @@ ctx = require('./context')
 
 class App
   character: null
+  timers: null
+  infoPopupDuration: _(5).seconds()
 
   constructor: ->
+    @timers = []
+
     @.setupEventListeners()
 
     preloader.loadManifest([
@@ -37,7 +44,6 @@ class App
     request.bind('player_updated', @.onPlayerUpdated)
     request.bind('not_authenticated', @.onCharacterNotAuthorized)
     request.bind('server_error', @.onServerError)
-    request.bind('not_reached_level', @.onNotReachedLevel)
 
     $.ajaxSetup(beforeSend: @.onAjaxBeforeSend)
 
@@ -67,6 +73,10 @@ class App
 
     HomePage.show()
 
+    @.checkPlayerStateStatus()
+
+    @.setCommonTimers()
+
   onPlayerUpdated: (response)=>
     console.log 'onPlayerUpdated'
     console.log response
@@ -76,9 +86,28 @@ class App
 
     modals.NewLevelModal.show() if response.new_level
 
+    @.setCommonTimers()
+
   setTranslations: ->
     I18n.defaultLocale = window.lng
     I18n.locale = window.lng
+    #   :one  = 1, 21, 31, 41, 51, 61...
+    #   :few  = 2-4, 22-24, 32-34...
+    #   :many = 0, 5-20, 25-30, 35-40...
+    #   :other = 1.31, 2.31, 5.31...
+    I18n.pluralization['ru'] = (count)->
+      if count == 0
+        ['zero']
+      else if count % 10 == 1 && count % 100 != 11
+        ['one']
+      else if [2, 3, 4].indexOf(count % 10) >= 0 && [12, 13, 14].indexOf(count % 100) < 0
+        ['few']
+      else if count % 10 == 0 || [5, 6, 7, 8, 9].indexOf(count % 10) >= 0 ||
+              [11, 12, 13, 14].indexOf(count % 100) >= 0
+        ['many']
+      else
+        ['other']
+
     I18n.translations ?= {}
     I18n.translations[window.lng] = preloader.getResult("locale")
 
@@ -94,27 +123,66 @@ class App
   onServerError: (response)->
     console.error 'Server Error:', response.error
 
-    $('#application .notification').notify(
-      {content: I18n.t('common.errors.server_error')}
-      {
-        elementPosition: 'top center'
-        arrowShow: false
-        style: 'game'
-        className: 'error'
-        showDuration: 200
-      }
+    displays.displayError(I18n.t('common.errors.server_error'))
+
+  checkPlayerStateStatus: ->
+    if _.find(@playerState.advertisingRecords(), (ad)-> !ad.isExpired() && ad.canOpenRoute())
+      @.displayInfoPopup(render.renderTemplate('notifications/can_open_route'))
+
+  setCommonTimers: ->
+    @.setAdvertisingTimers()
+
+  setAdvertisingTimers: ->
+    advertising = _.sortBy(@playerState.advertisingRecords(), (ad)-> ad.actualNextRouteTimeLeft())
+
+    ad = _.find(advertising, (ad)-> !ad.isExpired() && !ad.canOpenRoute())
+
+    unless ad?
+      @timers.advertisingNextRoute?.stop()
+
+      return
+
+    @timers.advertisingNextRoute ?= new Timer((timer)=>
+      ad = @playerState.findAdvertisingRecord(timer.advertisingId)
+
+      if ad? && !ad.isExpired()
+        @.displayInfoPopup(render.renderTemplate('notifications/can_open_route'))
+
+      @.setAdvertisingTimers()
     )
 
-  onNotReachedLevel: ->
-    $('#application .notification').notify(
-      {content: I18n.t('common.errors.not_reached_level')}
-      {
-        elementPosition: 'top center'
-        arrowShow: false
-        className: 'error'
-        style: 'game'
-        showDuration: 200
-      }
+    @timers.advertisingNextRoute.advertisingId = ad.id
+
+    @timers.advertisingNextRoute.start(ad.actualNextRouteTimeLeft())
+
+  displayInfoPopup: (content)->
+    @popups ?= []
+
+    @popups.push ->
+      displays.displayPopup(
+        $("#right_notification"),
+        content,
+        position: "left top"
+        className: "info"
+        autoHide: true
+        autoHideDelay: @infoPopupDuration
+      )
+
+    display = =>
+      @curentPopup = @popups.shift()
+
+      if @curentPopup?
+        @curentPopup()
+
+        setTimeout(
+          => @curentPopup = null
+          @infoPopupDuration
+        )
+
+    display() unless @curentPopup?
+
+    @popupsInterval ?= Visibility.every(@infoPopupDuration, =>
+      display()
     )
 
 module.exports = App

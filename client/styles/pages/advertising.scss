@@ -1,10 +1,6 @@
 .advertising.page {
   > .controls {
     text-align: right;
-
-    .new {
-      @extend %flat-button;
-    }
   }
 
   .list {
@@ -19,6 +15,10 @@
       @include border-radius(5px);
       margin-bottom: 10px;
       border: 1px solid #000;
+
+      &.ready {
+        box-shadow: 0px 0px 10px #204450;
+      }
 
       .picture {
         img {
@@ -52,6 +52,13 @@
         }
       }
 
+      .expired_text {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: $game_color_red;
+      }
+
       .life_timer {
         position: absolute;
         top: 10px;
@@ -62,6 +69,14 @@
         position: absolute;
         bottom: 10px;
         right: 10px;
+      }
+
+      .result_anchor {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1px;
+        height: 1px;
       }
     }
   }

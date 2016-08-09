@@ -1,0 +1,1 @@
+<div class="warning"><%=@safe I18n.t("advertising.locked_status") %></div>

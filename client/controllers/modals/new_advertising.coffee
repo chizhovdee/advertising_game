@@ -3,7 +3,7 @@ request = require("../../lib/request")
 AdvertisingType = require('../../game_data').AdvertisingType
 
 class NewAdvertisingModal extends Modal
-  className: 'new_advertising modal content_modal'
+  className: 'new_advertising modal'
   elements:
     '.time_generation .value': 'timeGenerationEl'
     '.price .value': 'priceEl'
@@ -37,6 +37,7 @@ class NewAdvertisingModal extends Modal
     @el.on('click', '.period .radio_input:not(.selected)', @.onPeriodClick)
     @el.on('click', '.status .status_item:not(.selected)', @.onStatusClick)
     @el.on('click', '.controls .create:not(.disabled)', @.onCreateClick)
+    @el.on('click', '.controls .start_create:not(.disabled)', @.onStartCreateClick)
 
   unbindEventListeners: ->
     super
@@ -47,6 +48,7 @@ class NewAdvertisingModal extends Modal
     @el.off('click', '.period .radio_input:not(.selected)', @.onPeriodClick)
     @el.off('click', '.status .status_item:not(.selected)', @.onStatusClick)
     @el.off('click', '.controls .create:not(.disabled)', @.onCreateClick)
+    @el.off('click', '.controls .start_create:not(.disabled)', @.onStartCreateClick)
 
   onAdvertisingTypeClick: (e)=>
     typeEl = $(e.currentTarget)
@@ -54,7 +56,6 @@ class NewAdvertisingModal extends Modal
     @el.find('.advertising_type').removeClass('selected')
 
     typeEl.addClass('selected')
-    console.log typeEl.data('type')
 
     @advertisingData.type = typeEl.data('type')
     @advertisingType = _.find(@advertisingTypes, (type)=> @advertisingData.type == type.key)
@@ -67,7 +68,6 @@ class NewAdvertisingModal extends Modal
     @el.find('.period .radio_input').removeClass('selected')
 
     controlEl.addClass('selected')
-    console.log controlEl.data('amount')
 
     @advertisingData.period = controlEl.data('amount')
 
@@ -76,14 +76,20 @@ class NewAdvertisingModal extends Modal
   onStatusClick: (e)=>
     statusEl = $(e.currentTarget)
 
-    @el.find('.status .status_item').removeClass('selected')
+    if statusEl.hasClass('locked')
+      @.displayPopup(statusEl,
+        @.renderTemplate("advertising/locked_status")
+        position: 'top center'
+        autoHide: true
+      )
+    else
+      @el.find('.status .status_item').removeClass('selected')
 
-    statusEl.addClass('selected')
-    console.log statusEl.data('status')
+      statusEl.addClass('selected')
 
-    @advertisingData.status = statusEl.data('status')
+      @advertisingData.status = statusEl.data('status')
 
-    @.updateView()
+      @.updateView()
 
   priceRequirements: ->
     price = Math.floor(
@@ -98,11 +104,36 @@ class NewAdvertisingModal extends Modal
     @priceEl.html(@.renderTemplate('requirements', requirements: @.priceRequirements()))
 
   onCreateClick: (e)=>
-    $(e.currentTarget).addClass('disabled')
+    button = $(e.currentTarget)
+
+    @.displayConfirm(button,
+      position: 'right bottom'
+      button:
+        className: 'start_create'
+        text: I18n.t('advertising.buttons.create_advertising')
+    )
+
+  onStartCreateClick: (e)=>
+    button = $(e.currentTarget)
+    return if button.data('type') == 'cancel'
+
+    button.addClass('disabled')
+    @el.find('.create').addClass('disabled')
 
     request.send('create_advertising', data: @advertisingData)
 
   onCreated: (response)=>
-    console.log 'onCreated', response
+    if response.is_error
+      @.render()
+
+      @.displayResult(
+        @el.find('.create')
+        response
+        position: "right bottom"
+      )
+
+    else
+      @.close()
+
 
 module.exports = NewAdvertisingModal

@@ -45,8 +45,21 @@ module.exports =
 
     @safe result
 
-  renderTimer: (message)->
-    """<div class="timer hint--bottom hint--no-animate" data-hint="#{ message }">
+  renderTimer: (message, options = {})->
+    className = if options.className? then options.className else ''
+    hintPosition = if options.hintPosition? then options.hintPosition else 'bottom'
+
+    if message?
+      hint = "hint--#{ hintPosition } hint--no-animate"
+      dataHint = "data-hint='#{ message }'"
+    else
+      hint = ""
+      dataHint = ""
+
+    label = if options.label? then "<span class='label'>#{ options.label }</span>" else ''
+
+    """<div class="timer #{ className } #{ hint }" #{ dataHint }>
+          #{ label }
           <span class="time-icon"></span>
           <span class="value"></span>
         </div>"""

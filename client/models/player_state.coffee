@@ -4,7 +4,13 @@
 settings = require('../settings')
 gameData = require('../game_data')
 
-Property = gameData.Property
+# state records
+PropertyRecord = require('./property_record')
+AdvertisingRecord = require('./advertising_record')
+
+# game data
+AdvertisingType = gameData.AdvertisingType
+Transport = gameData.Transport
 
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
@@ -14,8 +20,9 @@ class PlayerState extends Spine.Model
 
   @include require('./modules/model_changes')
 
-  # resources list from states
-  _properties: null
+  # records list from states
+  _propertyRecords: null
+  _advertisingRecords: null
 
   create: ->
     for attribute, value of @.attributes()
@@ -24,11 +31,11 @@ class PlayerState extends Spine.Model
     super
 
   update: ->
-    console.log _.cloneDeep(@constructor.irecords[@id].attributes().properties)
     @.setOldAttributes(@constructor.irecords[@id].attributes())
 
     # reset
-    @_properties = null
+    @_propertyRecords = null
+    @_advertisingRecords = null
 
     super
 
@@ -38,10 +45,16 @@ class PlayerState extends Spine.Model
     @["#{ attribute }UpdatedAt"] = Date.now()
 
   applyChangingOperations: (operations)->
+    @lastChangingOperations = {}
+
     for key, data of operations
       state = _.cloneDeep(@[key])
 
       for [type, id, resource] in data
+        @lastChangingOperations[key] ?= {}
+        @lastChangingOperations[key][type] ?= []
+        @lastChangingOperations[key][type].push(id)
+
         switch type
           when 'add', 'update'
             state[id] = resource
@@ -54,14 +67,39 @@ class PlayerState extends Spine.Model
 
     @.save() unless _.isEmpty(operations)
 
-  getProperties: ->
-    @_properties ?= (
+  # properties
+  propertyRecords: ->
+    @_propertyRecords ?= (
       for id, data of @properties
-        new Property(_.assignIn({id: _.toInteger(id)}, data))
+        new PropertyRecord(data)
     )
 
-  findProperty: (id)->
-    _.find(@.getProperties(), id: id)
+  findPropertyRecord: (id)->
+    _.find(@.propertyRecords(), id: id)
+
+  # transport
+  transportCountByTransportTypeKey: (transportTypeKey)->
+    count = 0
+
+    for id, resource of @transport
+      (count += 1 if Transport.find(resource.typeId)?.typeKey == transportTypeKey)
+
+    count
+
+  # advertising
+  advertisingCount: ->
+    _.size(@advertising)
+
+  advertisingRecords: ->
+    @_advertisingRecords ?= (
+      for id, data of @advertising
+        new AdvertisingRecord(_.assignIn({
+          type: AdvertisingType.find(data.typeId)
+        }, data))
+    )
+
+  findAdvertisingRecord: (id)->
+    _.find(@.advertisingRecords(), id: id)
 
 module.exports = PlayerState
 

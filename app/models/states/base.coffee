@@ -46,10 +46,20 @@ class BaseState
   update: ->
     @player[@stateName] = @state
 
-  extendResource: (resource)->
-    _resource = _.clone(resource)
-    _resource.loadedAt = Date.now()
+  findRecord: (id)->
+    @state[id]
 
-    _resource
+  deleteRecord: (id)->
+    delete @state[id]
+
+    @.addOperation('delete', id)
+
+    @.update()
+
+  extendRecord: (record)->
+    _record = _.clone(record)
+    _record.loadedAt = Date.now()
+
+    _record
 
 module.exports = BaseState

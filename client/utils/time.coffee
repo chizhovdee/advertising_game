@@ -10,7 +10,7 @@ module.exports =
     seconds = value - days * 86400 - hours * 3600 - minutes * 60
 
     if days > 0
-      result = "Days #{ days }, "
+      result = I18n.t('common.timer.days', count: days)
 
     if hours > 0
       result = "#{ result } #{ hours }:"

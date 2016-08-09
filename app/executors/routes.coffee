@@ -7,13 +7,13 @@ module.exports =
   openRoute: (player, advertisingId)->
     ad = player.advertisingState.find(advertisingId)
 
-    return new Result(error_code: 'advertising_not_found') unless ad?
+    return new Result(error_code: Result.errors.dataNotFound) unless ad?
 
     if player.advertisingState.adIsExpired(advertisingId)
-      return new Result(error_code: 'advertising_expired')
+      return new Result(error_code: Result.errors.advertisingExpired)
 
     if player.advertisingState.canOpenRoute(advertisingId)
-      return new Result(error_code: 'route_can_not_open')
+      return new Result(error_code: Result.errors.routeCanNotOpen)
 
     player.routesState.selectAndCreateRoute(ad.status)
     player.advertisingState.updateRouteOpenAt(advertisingId)

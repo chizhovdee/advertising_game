@@ -29,12 +29,6 @@
   .rewards, .spendings {
     margin: 5px 0 0 0;
   }
-
-  .result_notification {
-    h2 {
-      white-space: nowrap;
-    }
-  }
 }
 
 .notifyjs-container {
@@ -132,4 +126,14 @@
 
 .result_notification {
   white-space: nowrap;
+
+  h2 {
+    white-space: nowrap;
+  }
+
+  .text {
+    width: 250px;
+    white-space: normal;
+    color: $game_color_yellow;
+  }
 }

@@ -8,11 +8,16 @@ module.exports =
 
     if result.is_error
       data.type = 'failure'
-      data.title ?= I18n.t("common.errors.#{ result.error_code }")
+      data.title ?= I18n.t("common.errors.#{ result.error_code }", options.errorArgs)
     else
       data.type = 'success'
+      data.title = I18n.t("common.title_success_long") unless element?
 
-    (element || $('#application .notification')).notify(
+    if data.title?.length > 50
+      data.message = data.title
+      data.title = null
+
+    (element || $('#left_notification')).notify(
       {
         content: @.renderTemplate('notifications/result', data)
       },
@@ -20,12 +25,12 @@ module.exports =
         raw: true
         style: 'game'
         className: 'black result_notification'
-#        showAnimation: 'fadeIn'
-#        hideAnimation: 'fadeOut'
-        showDuration: 200
-        hideDuration: 200
+        showAnimation: 'fadeIn'
+        hideAnimation: 'fadeOut'
+        showDuration: 300
+        hideDuration: 300
         autoHideDelay: _(5).seconds()
-        position: (options.position || 'left bottom')
+        position: (options.position || 'right top')
       }, options)
     )
 
@@ -46,19 +51,21 @@ module.exports =
     )
 
   displayError: (message)->
-    $('#application .notification').notify(
+    $('#left_notification').notify(
       {content: message}
       {
-        elementPosition: 'top center'
-        arrowShow: false
+        position: 'right top'
         style: 'game'
         className: 'error'
         showDuration: 200
+        hideDuration: 200
+        showAnimation: 'fadeIn'
+        hideAnimation: 'fadeOut'
       }
     )
 
   displaySuccess: (message)->
-    $('#application .notification').notify(
+    $('#left_notification').notify(
       {content: message}
       {
         elementPosition: 'top center'

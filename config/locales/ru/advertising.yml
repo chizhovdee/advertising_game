@@ -1,24 +1,40 @@
 ru:
   advertising:
+    title: "Реклама"
+    empty_list: "У вас не создано ни одной рекламной кампании."
+    locked_status: "Этот статус заблокирован"
+    can_open_route_info: "Маршрут готов. <br />Вы можете его открыть в разделе 'Реклама'"
     buttons:
       new: "Новая рекламная кампания"
       create_advertising: "Создать"
-      extend: "Продлить"
+      prolong: "Продлить"
       delete: "Удалить"
       open_route: "Открыть"
     ad:
-      life_timer: "<strong>Истекает:</strong>"
-      next_route_timer: "<strong>Следующий маршрут:</strong>"
+      life_timer: "Срок действия рекламной кампании"
+      next_route_timer: "<strong>Следующая заявка:</strong>"
       status: "<strong>Статус</strong>: %{status}"
-      next_route: "Маршрут:"
+      next_route: "Заявка готова:"
+      expired_text: "Истек срок действия"
     new:
       title: "Новая рекламная компания"
       select_type: "Выберите тип:"
       select_period: "Выберите срок действия (дни):"
       select_status: "Выберите статус:"
-      time_generation: "Время генерации одного маршрута:"
+      time_generation: "Время генерации одной заявки:"
+      price: "Цена:"
+      locked_level: "Уровень: %{level}"
+    prolong:
+      title: "Продление рекламной кампании"
+      select_period: "Выберите срок продления (дни):"
       price: "Цена:"
     status:
-      normal: "Обычный"
-      vip: "Вип"
-      premium: "Премиум"
+      normal:
+        title: "Обычный"
+        description: "Генерирует заявки с низкой репутацией."
+      vip:
+        title: "Вип"
+        description: "Генерирует заявки со средней репутацией."
+      premium:
+        title: "Премиум"
+        description: "Генерирует заявки с высокой репутацией."

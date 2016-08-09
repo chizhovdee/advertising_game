@@ -1,11 +1,11 @@
-BaseResource = require('./base_resource')
+BaseRecord = require('./base_record')
 
-class Property extends BaseResource
+class PropertyRecord extends BaseRecord
   isBuilding: ->
     @buildingTimeLeft? && @.actualBuildingTimeLeft() >= 0
 
   actualBuildingTimeLeft: ->
-    @buildingTimeLeft - @.timeDiff()
+    @buildingTimeLeft - @.loadedTimeDiff()
 
   isUpgrading: ->
     @upgradingTimeLeft? && @.actualUpgradingTimeLeft() >= 0
@@ -15,12 +15,12 @@ class Property extends BaseResource
     @rentTimeLeft?
 
   actualUpgradingTimeLeft: ->
-    @upgradingTimeLeft - @.timeDiff()
+    @upgradingTimeLeft - @.loadedTimeDiff()
 
   actualRentTimeLeft: ->
-    @rentTimeLeft - @.timeDiff()
+    @rentTimeLeft - @.loadedTimeDiff()
 
   rentFinished: ->
     @.actualRentTimeLeft() < 0
 
-module.exports = Property
+module.exports = PropertyRecord

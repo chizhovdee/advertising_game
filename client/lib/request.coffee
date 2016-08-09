@@ -88,6 +88,12 @@ module.exports =
   create_advertising: (data)->
     @.post('/advertising/create', data)
 
+  delete_advertising: (data)->
+    @.delete('/advertising/delete', data)
+
+  prolong_advertising: (data)->
+    @.put('/advertising/prolong', data)
+
   # routes
   open_route: (data)->
     @.put('/routes/open', data)

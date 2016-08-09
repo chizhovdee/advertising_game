@@ -6,6 +6,10 @@
   <h2><%= @title %></h2>
 <% end %>
 
+<% if @message?: %>
+  <div class="text"><%=@safe @message %></div>
+<% end %>
+
 <%= @.renderRewards @reward, (content)-> %>
   <h3><%= I18n.t("common.you_received") %></h3>
 

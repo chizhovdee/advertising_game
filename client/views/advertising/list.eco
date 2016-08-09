@@ -1,7 +1,11 @@
-<div class="page">
-  <% for ad in @paginatedList: %>
-    <%=@safe @.renderTemplate('advertising/ad', ad: ad) %>
-  <% end %>
-</div>
+<% if @list.length > 0: %>
+  <div class="page">
+    <% for ad in @paginatedList: %>
+      <%=@safe @.renderTemplate('advertising/ad', ad: ad) %>
+    <% end %>
+  </div>
 
-<%=@safe @.renderTemplate('page_switches') %>
+  <%=@safe @.renderTemplate('page_switches') %>
+<% else: %>
+  <div class="tips"><%= I18n.t("advertising.empty_list") %></div>
+<% end %>

@@ -1,41 +1,44 @@
-<div class="ad" id="ad_<%= @ad.id %>">
+<div class="ad <%= 'ready' if @ad.canOpenRoute() %>" id="ad_<%= @ad.id %>">
   <div class="picture"><%=@safe @.advertisingPicture(@ad.type) %></div>
 
   <div class="info">
     <div class="name"><%= @ad.type.name() %></div>
 
     <div class="status">
-      <%=@safe I18n.t("advertising.ad.status", status: "#{I18n.t("advertising.status.#{ @ad.status }")}") %>
+      <%=@safe I18n.t("advertising.ad.status", status: "#{I18n.t("advertising.status.#{ @ad.status }.title")}") %>
       <span class="value"></span>
     </div>
 
-    <% if @ad.nextRouteTimeLeft > 0: %>
-      <div class="next_route_timer">
-        <strong><%=@safe I18n.t("advertising.ad.next_route_timer") %></strong>
-        <span class="value"></span>
-      </div>
+    <% unless @ad.isExpired(): %>
+      <% if @ad.canOpenRoute(): %>
+        <div class="next_route">
+          <strong><%= I18n.t("advertising.ad.next_route") %></strong>
 
-    <% else: %>
-      <div class="next_route">
-        <strong><%= I18n.t("advertising.ad.next_route") %></strong>
-
-        <span class="open_route" data-advertising-id="<%= @ad.id %>">
-          <%= I18n.t("advertising.buttons.open_route") %>
-        </span>
-      </div>
+            <span class="open_route" data-advertising-id="<%= @ad.id %>">
+              <%= I18n.t("advertising.buttons.open_route") %>
+            </span>
+        </div>
+      <% else: %>
+        <%=@safe @.renderTimer(null, className: 'next_route_timer', label: I18n.t("advertising.ad.next_route_timer")) %>
+      <% end %>
     <% end %>
   </div>
 
-  <div class="life_timer">
-    <%=@safe I18n.t("advertising.ad.life_timer") %>
-    <span class="value"></span>
-  </div>
+  <% if @ad.isExpired(): %>
+    <div class="expired_text"><%= I18n.t("advertising.ad.expired_text") %></div>
+  <% else: %>
+    <%=@safe @.renderTimer(I18n.t("advertising.ad.life_timer"), className: 'life_timer', hintPosition: 'left') %>
+  <% end %>
 
   <div class="controls">
-    <% if @ad.expireTimeLeft > 0: %>
-      <button class="extend"><%= I18n.t("advertising.buttons.extend") %></button>
-    <% else: %>
-      <button class="delete"><%= I18n.t("advertising.buttons.delete") %></button>
-    <% end %>
+    <button class="prolong" data-advertising-id="<%= @ad.id%>">
+      <%= I18n.t("advertising.buttons.prolong") %>
+    </button>
+
+    <button class="delete" data-advertising-id="<%= @ad.id%>">
+      <%= I18n.t("advertising.buttons.delete") %>
+    </button>
   </div>
+
+  <div class="result_anchor"></div>
 </div>

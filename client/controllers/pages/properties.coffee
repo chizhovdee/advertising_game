@@ -48,24 +48,24 @@ class PropertiesPage extends Page
     @.setupTimers()
 
   setupTimers: ->
-    for resource in @paginatedList
-      property = _.find(@playerState.getProperties(), (p)-> p.typeId == resource.id)
+    for propertyType in @paginatedList
+      property = _.find(@playerState.propertyRecords(), (p)-> p.typeId == propertyType.id)
       continue unless property?
 
       if property.isBuilding()
-        @timers[resource.id] ?= new VisualTimer(null, => @.renderList())
-        @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
-        @timers[resource.id].start(property.actualBuildingTimeLeft())
+        @timers[propertyType.id] ?= new VisualTimer(null, => @.renderList())
+        @timers[propertyType.id].setElement($("#property_type_#{ propertyType.id } .timer .value"))
+        @timers[propertyType.id].start(property.actualBuildingTimeLeft())
 
       else if property.isUpgrading()
-        @timers[resource.id] ?= new VisualTimer(null, => @.renderList())
-        @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
-        @timers[resource.id].start(property.actualUpgradingTimeLeft())
+        @timers[propertyType.id] ?= new VisualTimer(null, => @.renderList())
+        @timers[propertyType.id].setElement($("#property_type_#{ propertyType.id } .timer .value"))
+        @timers[propertyType.id].start(property.actualUpgradingTimeLeft())
 
       else if property.isRented() && !property.rentFinished()
-        @timers[resource.id] ?= new VisualTimer(null, => @.renderList())
-        @timers[resource.id].setElement($("#property_type_#{ resource.id } .timer .value"))
-        @timers[resource.id].start(property.actualRentTimeLeft())
+        @timers[propertyType.id] ?= new VisualTimer(null, => @.renderList())
+        @timers[propertyType.id].setElement($("#property_type_#{ propertyType.id } .timer .value"))
+        @timers[propertyType.id].start(property.actualRentTimeLeft())
 
   bindEventListeners: ->
     super
@@ -179,8 +179,6 @@ class PropertiesPage extends Page
     {vip_money: [@.formatNumber(price), @player.vip_money >= price]}
 
   onStateUpdated: =>
-    console.log 'PlayerState', @playerState.changes()
-
     changes = @playerState.changes()
 
     return unless changes.properties?
@@ -192,7 +190,7 @@ class PropertiesPage extends Page
 
   onAccelerateClick: (e)=>
     button = $(e.currentTarget)
-    property = _.find(@playerState.getProperties(), (p)-> p.id == button.data('property-id'))
+    property = _.find(@playerState.propertyRecords(), (p)-> p.id == button.data('property-id'))
 
     @.displayPopup(button
       @.renderTemplate("properties/accelerate_popup", property: property)
@@ -202,7 +200,7 @@ class PropertiesPage extends Page
   onStartAccelerateClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
 
     $("#property_type_#{ property.typeId } button.accelerate").addClass('disabled')
 
@@ -213,7 +211,7 @@ class PropertiesPage extends Page
 
   onUpgradeClick: (e)=>
     button = $(e.currentTarget)
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
     propertyType = _.find(@list, (t)-> t.id == property.typeId)
 
     @.displayPopup(button
@@ -224,7 +222,7 @@ class PropertiesPage extends Page
   onStartUpgradeClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
 
     $("#property_type_#{ property.typeId } button.upgrade").addClass('disabled')
 
@@ -246,7 +244,7 @@ class PropertiesPage extends Page
 
   onRentOutClick: (e)=>
     button = $(e.currentTarget)
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
     propertyType = _.find(@list, (t)-> t.id == property.typeId)
 
     @.displayPopup(button
@@ -257,7 +255,7 @@ class PropertiesPage extends Page
   onStartRentOutClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
 
     $("#property_type_#{ property.typeId } button.rent_out").addClass('disabled')
 
@@ -269,7 +267,7 @@ class PropertiesPage extends Page
   onCollectRentClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    property = @playerState.findProperty(button.data('property-id'))
+    property = @playerState.findPropertyRecord(button.data('property-id'))
 
     request.send("property_collect_rent", property_id: button.data('property-id'))
 
@@ -294,7 +292,7 @@ class PropertiesPage extends Page
 
     button.addClass('disabled')
     property_id = button.parents('.confirm_controls').data('property-id')
-    property = @playerState.findProperty(property_id)
+    property = @playerState.findPropertyRecord(property_id)
 
     $("#property_type_#{ property.typeId } button.finish_rent").addClass('disabled')
 
@@ -318,13 +316,10 @@ class PropertiesPage extends Page
       when 'garage'
         transportType = TransportType.detect((t)-> t.propertyTypeKey == propertyType.key)
 
-        count = 0
+        @playerState.transportCountByTransportTypeKey(transportType.key)
 
-        for id, resource of @playerState.transport
-          (count += 1 if Transport.find(resource.typeId)?.typeKey == transportType.key)
-
-        count
-
+      when 'command_center'
+        @playerState.advertisingCount()
       else
         0
 

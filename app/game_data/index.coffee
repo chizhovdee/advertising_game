@@ -1,11 +1,8 @@
 module.exports =
   Good: require('./good')
-  GoodType: require('./good_type')
-  TransportType: require('./transport_type')
-  Transport: require('./transport')
-  EmployeeType: require('./employee_type')
+  TransportGroup: require('./transport_group')
+  TransportModel: require('./transport_model')
   PropertyType: require('./property_type')
-  RouteType: require('./route_type')
   Route: require('./route')
   AdvertisingType: require('./advertising_type')
 

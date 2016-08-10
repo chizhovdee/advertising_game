@@ -1,69 +1,51 @@
 _ = require("lodash")
 Base = require("./base")
-TransportType = require('./transport_type')
+TransportGroup = require('./transport_group')
 
-class Transport extends Base
-  typeKey: null
-
+class TransportModel extends Base
+  transportGroupKey: null
   level: null
-
   consumption: null # расход топлива на 100 км
   reliability: null # надежность - процент на 10 000 км
   carrying: null # грузоподъемность тонны
   travelSpeed: null # средняя скорость перемещения
   basicPrice: null
-
-  # тип груза / груз
-  goodTypeKeys: null
   goodKeys: null
-
   isPrimary: false # параметр для обозначения тягача, тепловозов, всего что само приводится в движение
-  subType: null # подтип. Чисто для визуального различия
 
   @configure(publicForClient: true)
 
-  @afterDefine 'setType'
+  @afterDefine 'setGroup'
 
   constructor: ->
     super
 
-    @typeKey = null
-
+    @transportGroupKey = null
     @level = null
-
     @consumption = null
     @reliability = null
     @carrying = null
     @travelSpeed = null
-
-    @goodTypeKeys = []
     @goodKeys = []
-
     @isPrimary = false
     @basicPrice = null
-    @subType = null
 
-  setType: ->
-    Object.defineProperty(@, 'type'
-      value: TransportType.find(@typeKey)
+  setGroup: ->
+    Object.defineProperty(@, 'group'
+      value: TransportGroup.find(@transportGroupKey)
       writable: false
       enumerable: true
     )
 
-    @type.addTransport(@)
+    @type.addTransportModel(@)
 
   validationForDefine: ->
-    throw new Error('undefined typeKey') unless @typeKey?
-
+    throw new Error('undefined typeKey') unless @transportGroupKey?
     throw new Error('undefined level') unless @level?
-
     throw new Error('undefined consumption') unless @consumption?
     throw new Error('undefined reliability') unless @reliability?
     throw new Error('undefined travel speed') unless @travelSpeed?
-
     throw new Error('undefined basic price') unless @basicPrice?
-
-    throw new Error('empty goodTypeKeys or goodKeys') if @goodKeys.length == 0 && @goodTypeKeys.length == 0
 
   toJSON: ->
     _.assign(
@@ -72,14 +54,12 @@ class Transport extends Base
       reliability: @reliability
       carrying: @carrying
       travelSpeed: @travelSpeed
-      typeKey: @typeKey
+      transportGroupKey: @transportGroupKey
       goodKeys: @goodKeys
-      goodTypeKeys: @goodTypeKeys
       isPrimary: @isPrimary
       basicPrice: @basicPrice
-      subType: @subType
       ,
       super
     )
 
-module.exports = Transport
+module.exports = TransportModel

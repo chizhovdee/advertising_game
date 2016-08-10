@@ -52,7 +52,7 @@
       }
     }
 
-    &.fuel_auto, &.fuel_railway, &.fuel_air, &.fuel_sea {
+    &.fuel {
       .value .icon {
         @include images-sprite-background(icons/fuel);
       }

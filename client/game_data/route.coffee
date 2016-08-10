@@ -1,19 +1,13 @@
 Base = require("./base")
 
 class Route extends Base
-  @configure 'Route', 'key', 'typeKey', 'goodKey', 'goodTypeKey', 'transportTypeKey',
+  @configure 'Route', 'key', 'tag', 'goodKey',
     'reputation', 'requirement', 'reward', 'distance', 'weight'
 
   name: ->
     I18n.t("game_data.routes.#{ @key }")
 
   goodName: ->
-    if @goodKey?
-      I18n.t("game_data.goods.#{ @goodKey }")
-    else if @goodTypeKey?
-      I18n.t("game_data.good_types.#{ @goodTypeKey }")
-    else
-      "?"
-
+    I18n.t("game_data.goods.#{ @goodKey }")
 
 module.exports = Route

@@ -39,9 +39,8 @@ class Reward
           reward.addVipMoney(value)
         when 'experience'
           reward.addExperience(value)
-        when 'fuel_auto', 'fuel_railway', 'fuel_sea', 'fuel_air'
-          type = key.split('_')[1]
-          reward.addFuel(type, value)
+        when 'fuel'
+          reward.addFuel(value)
 
   getValue: (key)->
     @values[key]
@@ -78,11 +77,11 @@ class Reward
 
           value
 
-        when 'fuel_auto', 'fuel_railway', 'fuel_sea', 'fuel_air'
-          if @player[attribute] + value < 0
-            value = value - @player[attribute]
+        when 'fuel'
+          if @player['fuel'] + value < 0
+            value = value - @player['fuel']
 
-          @player[attribute] += value
+          @player['fuel'] += value
 
           value
         else
@@ -109,10 +108,9 @@ class Reward
     return if value < 0
     @.simpleAttribute('vip_money', value)
 
-  addFuel: (type, value)->
+  addFuel: (value)->
     return if value < 0
-    field = "fuel_#{ type }"
-    @.simpleAttribute(field, value)
+    @.simpleAttribute('fuel', value)
 
   # take
   takeBasicMoney: (value)->
@@ -123,12 +121,10 @@ class Reward
     return if value < 0
     @.simpleAttribute('vip_money', -value)
 
-  takeFuel: (type, value)->
+  takeFuel: (value)->
     return if value < 0
 
-    field = "fuel_#{ type }"
-
-    @.simpleAttribute(field, -value)
+    @.simpleAttribute('fuel', -value)
 
   reputation: (value)->
     @.push('reputation', value)
@@ -142,10 +138,8 @@ class Reward
   experience: (value)->
     @.push('experience', value)
 
-  fuel: (type, value)->
-    field = "fuel_#{ type }"
-
-    @.push(field, value)
+  fuel: (value)->
+    @.push('fuel', value)
 
   push: (key, value)->
     if @values[key]

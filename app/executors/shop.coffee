@@ -6,7 +6,7 @@ Reward = lib.Reward
 Requirement = lib.Requirement
 balance = lib.balance
 
-Transport = require('../game_data').Transport
+TransportModel = require('../game_data').TransportModel
 PropertyType = require('../game_data').PropertyType
 
 Player = require('../models').Player

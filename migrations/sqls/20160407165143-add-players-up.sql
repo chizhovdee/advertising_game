@@ -8,10 +8,7 @@ create TABLE players (
   vip_money integer not null,
   reputation integer not null,
 
-  fuel_auto integer not null,
-  fuel_railway integer not null,
-  fuel_air integer not null,
-  fuel_sea integer not null,
+  fuel integer not null,
 
   staff jsonb,
 

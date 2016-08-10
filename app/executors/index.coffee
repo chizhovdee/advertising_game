@@ -4,6 +4,3 @@ module.exports =
   routes: require('./routes')
   shop: require('./shop')
   trucking: require('./trucking')
-
-#  staff: require('./staff')
-#

@@ -15,7 +15,7 @@ class TransportModel extends Base
 
   @configure(publicForClient: true)
 
-  @afterDefine 'setGroup'
+  @afterDefine 'setTransportGroup'
 
   constructor: ->
     super
@@ -30,14 +30,14 @@ class TransportModel extends Base
     @isPrimary = false
     @basicPrice = null
 
-  setGroup: ->
-    Object.defineProperty(@, 'group'
+  setTransportGroup: ->
+    Object.defineProperty(@, 'transportGroup'
       value: TransportGroup.find(@transportGroupKey)
       writable: false
       enumerable: true
     )
 
-    @type.addTransportModel(@)
+    @transportGroup.addTransportModel(@)
 
   validationForDefine: ->
     throw new Error('undefined typeKey') unless @transportGroupKey?

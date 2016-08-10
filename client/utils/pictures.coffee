@@ -83,14 +83,3 @@ module.exports =
     title = "title='#{resource.name()}'"
 
     "<img src='#{ @.propertyPictureUrl(resource, format) }' #{title} />"
-
-  fuelItemPictureUrl: (item, format = 'large')->
-    unless format in ['large', 'medium', 'icon']
-      throw new Error('format for fuel item picture url is not correct')
-
-    assets.assetsPath("images/fuel_items/#{ format }/#{ item }.jpg")
-
-  fuelItemPicture: (item, format = 'large')->
-    title = "title='#{ I18n.t("shop.fuel_items.#{item}.name") }'"
-
-    "<img src='#{ @.fuelItemPictureUrl(item, format) }' #{title} />"

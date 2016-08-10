@@ -94,7 +94,7 @@ class PlayerState extends Spine.Model
     @_advertisingRecords ?= (
       for id, data of @advertising
         new AdvertisingRecord(_.assignIn({
-          type: AdvertisingType.find(data.typeId)
+          type: AdvertisingType.find(data.advertisingTypeId)
         }, data))
     )
 

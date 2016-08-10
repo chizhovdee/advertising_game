@@ -49,12 +49,11 @@ module.exports =
       )
 
     reward = new Reward(player)
-    advertising = player.advertisingState.create(type, status, period)
+    player.advertisingState.create(type.id, status, _(period).days())
     requirement.apply(reward)
 
     new Result(
       data:
-        advertising_id: advertising.id
         reward: reward
     )
 
@@ -96,11 +95,10 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.advertisingState.prolong(advertising.id, period)
+    player.advertisingState.prolong(advertising.id, _(period).days())
     requirement.apply(reward)
 
     new Result(
       data:
-        advertising_id: advertising.id
         reward: reward
     )

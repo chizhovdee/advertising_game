@@ -9,19 +9,15 @@ class AdvertisingState extends BaseState
   generateId: ->
     super(_.keys(@state))
 
-  find: (id)->
-    # TODO replace on findRecord from baseState
-    @state[id]
-
-  create: (advertisingType, status, period)->
+  create: (advertisingTypeId, status, duration)->
     newId = @.generateId()
     newRecord = {
       id: newId
-      typeId: advertisingType.id
+      advertisingTypeId: advertisingTypeId
       status: status
       createdAt: Date.now()
       updatedAt: Date.now()
-      expireAt: Date.now() + _(period).days()
+      expireAt: Date.now() + duration
       routeOpenAt: Date.now()
     }
 
@@ -31,10 +27,8 @@ class AdvertisingState extends BaseState
 
     @.addOperation('add', newId, @.adToJSON(newRecord))
 
-    newRecord # return new record
-
   updateRouteOpenAt: (id)->
-    type = AdvertisingType.find(@state[id].typeId)
+    type = AdvertisingType.find(@state[id].advertisingTypeId)
 
     @state[id].updatedAt = Date.now()
     @state[id].routeOpenAt = Date.now() + type.timeGeneration
@@ -43,9 +37,9 @@ class AdvertisingState extends BaseState
 
     @.addOperation('update', id, @.adToJSON(@state[id]))
 
-  prolong: (id, period)->
+  prolong: (id, duration)->
     @state[id].updatedAt = Date.now()
-    @state[id].expireAt = @state[id].expireAt + _(period).days()
+    @state[id].expireAt = @state[id].expireAt + duration
 
     @.update()
 

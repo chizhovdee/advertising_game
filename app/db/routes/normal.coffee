@@ -1,5 +1,3 @@
-require('../route_types')
-
 Route = require('../../game_data').Route
 
 Route.define('everyday_van_1', (obj)->
@@ -8,6 +6,7 @@ Route.define('everyday_van_1', (obj)->
   obj.reputation = 0
   obj.distance = 10
   obj.weight = 0.1
+  obj.goodKey = 'any'
 
   obj.addReward 'collect', (r)->
     r.reputation 1

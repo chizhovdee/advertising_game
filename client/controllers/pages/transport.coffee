@@ -4,12 +4,12 @@ modals = require('../modals')
 request = require('../../lib/request')
 ctx = require('../../context')
 
-Transport = require('../../game_data').Transport
-TransportType = require('../../game_data').TransportType
+TransportModel = require('../../game_data').TransportModel
+TransportGroup = require('../../game_data').TransportGroup
 
 class TransportPage extends Page
   className: "transport page"
-  transportGroups: _.map(TransportType.all(), (t)-> t.key)
+  transportGroups: _.map(TransportGroup.all(), (t)-> t.key)
 
   PER_PAGE = 3
 
@@ -52,7 +52,7 @@ class TransportPage extends Page
     @list = []
 
     for id, resource of @playerState.transport
-      type = Transport.find(resource.typeId)
+      type = TransportModel.find(resource.typeId)
 
       continue unless type.typeKey == @currentGroup
 

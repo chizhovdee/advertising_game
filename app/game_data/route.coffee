@@ -1,6 +1,5 @@
 _ = require("lodash")
 Base = require("./base")
-RouteType = require('./route_type')
 
 class Route extends Base
   tag: null
@@ -11,8 +10,6 @@ class Route extends Base
 
   @configure(publicForClient: true)
 
-  @afterDefine 'setType'
-
   constructor: ->
     super
 
@@ -21,15 +18,6 @@ class Route extends Base
     @distance = null
     @weight = null
     @reputation = null
-
-  setType: ->
-    Object.defineProperty(@, 'type'
-      value: RouteType.find(@typeKey)
-      writable: false
-      enumerable: true
-    )
-
-    @type.addRoute(@)
 
   validationForDefine: ->
     throw new Error('undefined tag') unless @tag?

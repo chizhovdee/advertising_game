@@ -5,12 +5,11 @@ request = require('../../lib/request')
 balance = require('../../lib/balance')
 settings = require('../../settings')
 
-Transport = require('../../game_data').Transport
-TransportType = require('../../game_data').TransportType
+TransportModel = require('../../game_data').TransportModel
+TransportGroup = require('../../game_data').TransportGroup
 
 class ShopPage extends Page
   className: "shop page"
-  transportGroups: _.map(TransportType.all(), (t)-> t.key)
   transportAttributes: ['consumption', 'reliability', 'carrying', 'travelSpeed', 'good']
 
   TRANSPORT_ITEMS_PER_PAGE = 3
@@ -19,15 +18,9 @@ class ShopPage extends Page
   show: (options = {})->
     super
 
-    @settings = settings
+    @groups = _.map(TransportGroup.all(), (t)-> t.key)
 
-    @groups = @transportGroups.concat(['fuel'])
-
-    @fuelTypes = @settings.fuel.types
-
-    @currentGroup = options.group || 'auto'
-
-    @fuelData = {}
+    @currentGroupKey = options.transportGroupKey || 'truck'
 
     @.defineData()
 
@@ -39,16 +32,11 @@ class ShopPage extends Page
   renderList: ->
     listEl = @el.find('.list')
     listEl.html(@.renderTemplate("shop/list"))
-    listEl.removeClass('fuel_list')
-    listEl.addClass('fuel_list') if @currentGroup == 'fuel'
 
   renderTransportItem: (transport)->
     @el.find("#item_#{ transport.id }").replaceWith(
       @.renderTemplate("shop/transport_item", transport: transport)
     )
-
-  renderFuelItem: (item)->
-    @el.find("#item_#{ item }").replaceWith(@.renderTemplate("shop/fuel_item", item: item))
 
   bindEventListeners: ->
     super
@@ -87,21 +75,15 @@ class ShopPage extends Page
     @el.off('click', '.item.fuel .start_fill:not(.disabled)', @.onStartFillClick)
 
   defineData: ->
-    if @currentGroup == 'fuel'
+    if @currentGroupKey == 'fuel'
       @fuelData = {}
       @list = _.clone(@fuelTypes)
-      @transportType = null
+      @transportGroup = null
 
     else
-      @subTypes = TransportType.find(@currentGroup).subTypes
+      @transportGroup = TransportGroup.find(@currentGroupKey)
 
-      @currentSubType ?= @subTypes[0]
-
-      @transportType = TransportType.find(@currentGroup)
-
-      @list = Transport.select((t)=>
-        t.typeKey == @currentGroup && (!@currentSubType? || t.subType == @currentSubType)
-      )
+      @list = TransportModel.select((t)=>t.transportGroupKey == @currentGroup)
 
     per_page = if @currentGroup == 'fuel' then FUEL_ITEMS_PER_PAGE else TRANSPORT_ITEMS_PER_PAGE
 
@@ -174,7 +156,7 @@ class ShopPage extends Page
 
   onMoreGoodsClick: (e)=>
     button = $(e.currentTarget)
-    transport = Transport.find(button.data('transport-id'))
+    transport = TransportModel.find(button.data('transport-id'))
 
     @.displayPopup(button
       @.renderTemplate("transport/goods_popup", transport: transport)
@@ -264,7 +246,7 @@ class ShopPage extends Page
   handleResponse: (response)->
     switch response.data?.item_type
       when 'transport'
-        @.renderTransportItem(Transport.find(response.data.item_id))
+        @.renderTransportItem(TransportModel.find(response.data.item_id))
       when 'fuel'
         @.renderFuelItem(response.data.item_id)
 

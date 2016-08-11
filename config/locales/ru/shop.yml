@@ -2,19 +2,11 @@ ru:
   shop:
     index:
       title: "Магазин"
-    fuel_items:
-      auto:
-        name: "Автозаправка"
-      sea:
-        name: "Заправочный бункер"
-      railway:
-        name: "Железнодорожная заправка"
-      air:
-        name: "Заправка для самолетов"
-      price: "Цена:"
-      fill: "Заправить"
-      locked: "Заблокировано"
-      level: "Уровень:"
     locked_transport_type: "Этот вид транспорта заблокирован до <strong>%{level}</strong> уровня"
     locked_transport: "Транспорт заблокирован до <strong>%{level}</strong> уровня"
     empty_list: "Раздел пуст. Скоро будет добавление."
+    buy_fuel:
+      title: "Автозаправка"
+      price: "Цена:"
+      cost: "Сумма:"
+      fill: "Заправить"

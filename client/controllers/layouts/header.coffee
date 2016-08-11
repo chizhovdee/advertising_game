@@ -27,14 +27,13 @@ class HeaderLayout extends BaseController
   onPlayerUpdate: (player)=>
     # обновляем каждый фрагмент отдельно если нужно
 
-    console.log 'Player changes', changes = player.changes()
+    changes = player.changes()
 
-    @basicMoneyEl.find('.value').text(@player.basic_money) if changes.basic_money
-    @reputationEl.find('.value').text(@player.reputation) if changes.reputation
-    @fuelEl.find('.value').text(@player.fuel_auto) if changes.fuel_auto
+    @basicMoneyEl.find('.value').text(@player.basic_money) if changes.basic_money?
+    @reputationEl.find('.value').text(@player.reputation) if changes.reputation?
+    @fuelEl.find('.value').text(@player.fuel) if changes.fuel?
 
   onFuelAddClick: ->
-    ShopPage.show(group: 'fuel')
-
+    modals.BuyFuelModal.show()
 
 module.exports = HeaderLayout

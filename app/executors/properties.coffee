@@ -35,7 +35,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.propertiesState.create(type)
+    player.propertiesState.createProperty(type.id, type.buildDuration)
     requirement.apply(reward)
 
     dataResult.reward = reward

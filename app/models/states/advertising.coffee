@@ -25,17 +25,18 @@ class AdvertisingState extends BaseState
 
     @.update()
 
-    @.addOperation('add', newId, @.adToJSON(newRecord))
+    @.addOperation('add', newId, @.recordToJSON(newRecord))
 
   updateRouteOpenAt: (id)->
-    type = AdvertisingType.find(@state[id].advertisingTypeId)
+    # TODO вынести type.timeGeneration за пределы этой функции
+    #type = AdvertisingType.find(@state[id].advertisingTypeId)
 
     @state[id].updatedAt = Date.now()
     @state[id].routeOpenAt = Date.now() + type.timeGeneration
 
     @.update()
 
-    @.addOperation('update', id, @.adToJSON(@state[id]))
+    @.addOperation('update', id, @.recordToJSON(@state[id]))
 
   prolong: (id, duration)->
     @state[id].updatedAt = Date.now()
@@ -43,10 +44,7 @@ class AdvertisingState extends BaseState
 
     @.update()
 
-    @.addOperation('update', id, @.adToJSON(@state[id]))
-
-  count: ->
-    _.keys(@state).length
+    @.addOperation('update', id, @.recordToJSON(@state[id]))
 
   adIsExpired: (id)->
     @state[id].expireAt <= Date.now()
@@ -57,9 +55,9 @@ class AdvertisingState extends BaseState
   expireTimeLeftFor: (id)->
     @state[id].expireAt - Date.now()
 
-  adToJSON: (ad)->
-    record = @.extendRecord(ad)
-    record.expireTimeLeft = @.expireTimeLeftFor(ad.id)
+  recordToJSON: (record)->
+    record = super(record)
+    record.expireTimeLeft = @.expireTimeLeftFor(record.id)
     record.nextRouteTimeLeft = record.routeOpenAt - Date.now()
 
     record
@@ -68,7 +66,7 @@ class AdvertisingState extends BaseState
     state = {}
 
     for id, record of @state
-      state[id] = @.adToJSON(record)
+      state[id] = @.recordToJSON(record)
 
     state
 

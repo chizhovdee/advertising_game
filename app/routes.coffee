@@ -30,7 +30,8 @@ exports.setup = (app)->
     apiRoutes.put('/routes/open', controllers.routes.open)
 
     # shop
-    apiRoutes.post('/shop/buy', controllers.shop.buy)
+    apiRoutes.post('/shop/buy_transport', controllers.shop.buyTransport)
+    apiRoutes.put('/shop/buy_fuel', controllers.shop.buyFuel)
 
     # trucking
     apiRoutes.post('/trucking/create', controllers.trucking.create)

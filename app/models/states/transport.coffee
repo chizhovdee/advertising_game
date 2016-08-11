@@ -1,31 +1,23 @@
 _ = require('lodash')
 BaseState = require('./base')
 
-Transport = require('../../game_data').Transport
-
 class TransportState extends BaseState
   defaultState: {}
   stateName: "transport"
 
-  generateId: ->
-    super(_.keys(@state))
-
-  find: (id)->
-    @state[id]
-
-  create: (type)->
+  addTransport: (transportModelId)->
     newId = @.generateId()
-    newResource = {
+    newRecord = {
       id: newId
-      typeId: type.id # transport id
+      transportModelId: transportModelId
       createdAt: Date.now()
       updatedAt: Date.now()
       serviceability: 100 # исправность %
     }
 
-    @state[newId] = newResource
+    @state[newId] = newRecord
 
-    @.addOperation('add', newId, @.transportToJSON(newResource))
+    @.addOperation('add', newId, @.recordToJSON(newRecord))
 
     @.update()
 
@@ -34,30 +26,15 @@ class TransportState extends BaseState
       @state[id].truckingId = truckingId
       @state[id].updatedAt = Date.now()
 
-      @.addOperation('update', id, @.transportToJSON(@state[id]))
+      @.addOperation('update', id, @.recordToJSON(@state[id]))
 
     @.update()
-
-  countByTransportTypeKey: (typeKey)->
-    count = 0
-
-    for id, resource of @state
-      (count += 1 if Transport.find(resource.typeId)?.typeKey == typeKey)
-
-    count
-
-  transportToJSON: (transport)->
-    resource = @.extendRecord(transport)
-
-    # custom extend here
-
-    resource
 
   toJSON: ->
     state = {}
 
-    for id, resource of @state
-      state[id] = @.transportToJSON(resource)
+    for id, record of @state
+      state[id] = @.recordToJSON(record)
 
     state
 

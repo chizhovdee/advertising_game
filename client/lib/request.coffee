@@ -102,5 +102,8 @@ module.exports =
     @.get('/routes')
 
   # shop
-  buy_item: (data)->
-    @.post('/shop/buy', data)
+  buy_transport: (data)->
+    @.post('/shop/buy_transport', data)
+
+  buy_fuel: (data)->
+    @.put('/shop/buy_fuel', data)

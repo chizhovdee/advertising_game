@@ -7,6 +7,6 @@
 </div>
 
 <div class="fuel">
-    <span class="value"><%= @player.fuel_auto %></span>
+    <span class="value"><%= @player.fuel %></span>
     <span class="add"></span>
 </div>

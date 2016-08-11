@@ -4,3 +4,4 @@ module.exports =
   NewAdvertisingModal: require('./new_advertising')
   TransportSelectionModal: require('./transport_selection')
   ProlongAdvertisingModal: require('./prolong_advertising')
+  BuyFuelModal: require('./buy_fuel')

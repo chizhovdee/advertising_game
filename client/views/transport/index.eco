@@ -1,10 +1,10 @@
 <h1><%= I18n.t('transport.index.title') %></h1>
 
 <div class="groups">
-  <% for group in @groups: %>
+  <% for groupKey in @groupKeys: %>
   <div
-      class="group <%= group %> <%= 'current' if @currentGroup == group %>"
-      data-group="<%= group %>"></div>
+      class="group <%= groupKey %> <%= 'current' if @currentGroupKey == groupKey %>"
+      data-group-key="<%= groupKey %>"></div>
   <% end %>
 </div>
 

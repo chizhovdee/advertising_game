@@ -2,18 +2,16 @@ _ = require('lodash')
 executor = require('../executors').shop
 
 module.exports =
-  buy: (req, res)->
+  buyTransport: (req, res)->
     req.db.tx((t)->
       req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
 
-      result = executor.buy(
+      result = executor.buyTransport(
         req.currentPlayer
-        req.body.item_id
-        req.body.item_type
-        _.toInteger(req.body.amount)
+        req.body.transport_model_id
       )
 
-      res.addEventWithResult('item_purchased', result)
+      res.addEventWithResult('transport_purchased', result)
 
       res.updateResources(t, req.currentPlayer)
     )

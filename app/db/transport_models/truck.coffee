@@ -1,8 +1,9 @@
 require('../transport_groups')
 
-group = 'truck'
-
 TransportModel = require('../../game_data').TransportModel
+Good = require('../../game_data').Good
+
+group = 'truck'
 
 TransportModel.define('van', (obj)->
   obj.transportGroupKey = group
@@ -13,6 +14,7 @@ TransportModel.define('van', (obj)->
   obj.travelSpeed = 70
   obj.isPrimary = true
   obj.basicPrice = 100
+  obj.goodKeys = [Good.types.everyday]
 )
 
 TransportModel.define('van_fugo', (obj)->
@@ -24,6 +26,7 @@ TransportModel.define('van_fugo', (obj)->
   obj.travelSpeed = 73
   obj.isPrimary = true
   obj.basicPrice = 150
+  obj.goodKeys = [Good.types.industrial]
 )
 
 TransportModel.define('van_hask', (obj)->
@@ -35,6 +38,7 @@ TransportModel.define('van_hask', (obj)->
   obj.travelSpeed = 80
   obj.isPrimary = true
   obj.basicPrice = 200
+  obj.goodKeys = [Good.types.industrial, Good.types.everyday]
 )
 
 TransportModel.define('van_pup', (obj)->
@@ -46,5 +50,6 @@ TransportModel.define('van_pup', (obj)->
   obj.travelSpeed = 80
   obj.isPrimary = true
   obj.basicPrice = 200
+  obj.goodKeys = [Good.types.industrial]
 )
 

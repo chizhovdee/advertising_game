@@ -83,5 +83,4 @@ class ProlongAdvertisingModal extends Modal
     else
       @.close()
 
-
 module.exports = ProlongAdvertisingModal

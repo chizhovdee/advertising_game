@@ -1,7 +1,7 @@
 Base = require("./base")
 
 class Route extends Base
-  @configure 'Route', 'key', 'tag', 'goodKey',
+  @configure 'Route', 'key', 'status', 'goodKey',
     'reputation', 'requirement', 'reward', 'distance', 'weight'
 
   name: ->

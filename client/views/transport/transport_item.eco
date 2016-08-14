@@ -1,8 +1,8 @@
 <div class="transport" id="transport_<%= @transport.id %>">
-  <div class="picture"><%=@safe @.transportPicture(@transport.type) %></div>
+  <div class="picture"><%=@safe @.transportModelPicture(@transport.model) %></div>
 
   <div class="info">
-    <div class="name"><%= @transport.type.name() %></div>
+    <div class="name"><%= @transport.model.name() %></div>
 
     <div class="attributes">
       <div class="attribute serviceability">

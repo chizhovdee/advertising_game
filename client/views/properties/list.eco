@@ -1,6 +1,6 @@
 <div class="page">
   <% for type in @paginatedList: %>
-    <%=@safe @.renderTemplate('properties/property', type: type, property: _.find(@playerState.propertyRecords(), (p)-> p.typeId == type.id)) %>
+    <%=@safe @.renderTemplate('properties/property', type: type, property: _.find(@playerState.propertyRecords(), (p)-> p.propertyTypeId == type.id)) %>
   <% end %>
 </div>
 

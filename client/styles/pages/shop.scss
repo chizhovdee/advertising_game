@@ -1,5 +1,4 @@
-$shop_groups: sea, auto, air, railway, fuel;
-$sub_types: truck, tractor, trailer, semitrailer;
+$shop_groups: truck, tractor, trailer, semitrailer;
 
 .page.shop {
   .groups {
@@ -26,31 +25,6 @@ $sub_types: truck, tractor, trailer, semitrailer;
     }
   }
 
-  .sub_types {
-    margin-bottom: 15px;
-    border-top: 1px solid #000;
-
-    .type {
-      display: inline-block;
-      vertical-align: middle;
-      width: 30px;
-      height: 30px;
-      margin: 5px 0 0 10px;
-      cursor: pointer;
-      border: 1px solid transparent;
-
-      &.current {
-        border: 1px solid $game_color_red;
-      }
-
-      @each $type in $sub_types {
-        &.#{$type} {
-          @include images-sprite(shop_groups/#{$type});
-        }
-      }
-    }
-  }
-
   .list {
     @include pagination;
 
@@ -65,10 +39,6 @@ $sub_types: truck, tractor, trailer, semitrailer;
 
         @include images-sprite(icons/lock);
       }
-    }
-
-    &.fuel_list {
-      text-align: center;
     }
 
     .item.transport {

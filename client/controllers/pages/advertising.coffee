@@ -197,7 +197,6 @@ class AdvertisingPage extends Page
       @.displayResult(
         null
         response
-        position: "left bottom"
       )
 
 

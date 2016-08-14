@@ -2,7 +2,7 @@ ru:
   shop:
     index:
       title: "Магазин"
-    locked_transport_type: "Этот вид транспорта заблокирован до <strong>%{level}</strong> уровня"
+    locked_transport_group: "Этот вид транспорта заблокирован до <strong>%{level}</strong> уровня"
     locked_transport: "Транспорт заблокирован до <strong>%{level}</strong> уровня"
     empty_list: "Раздел пуст. Скоро будет добавление."
     buy_fuel:

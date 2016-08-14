@@ -11,12 +11,12 @@ class ShopPage extends Page
   className: "shop page"
   transportAttributes: ['consumption', 'reliability', 'carrying', 'travelSpeed', 'good']
 
-  PER_PAGE = 4
+  PER_PAGE = 3
 
   show: (options = {})->
     super
 
-    @groups = _.map(TransportGroup.all(), (t)-> t.key)
+    @groupKeys = _.map(TransportGroup.all(), (t)-> t.key)
 
     @currentGroupKey = options.transportGroupKey || 'truck'
 
@@ -31,34 +31,40 @@ class ShopPage extends Page
     listEl = @el.find('.list')
     listEl.html(@.renderTemplate("shop/list"))
 
-  renderTransportItem: (transport)->
-    @el.find("#item_#{ transport.id }").replaceWith(
-      @.renderTemplate("shop/transport_item", transport: transport)
+  renderTransportModel: (transportModel)->
+    @el.find("#transport_model_#{ transportModel.id }").replaceWith(
+      @.renderTemplate("shop/transport_model", transportModel: transportModel)
     )
 
   bindEventListeners: ->
     super
 
-    request.bind('item_purchased', @.onItemPurchased)
+    request.bind('transport_purchased', @.onTransportPurchased)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
-
     @el.on('click', '.groups .group:not(.current)', @.onGroupClick)
-    @el.on('click', '.sub_types .type:not(.current)', @.onSubTypeClick)
     @el.on('click', '.item .buy:not(.disabled)', @.onBuyClick)
     @el.on('click', '.confirm_popup .start_purchase:not(.disabled)', @.onStartPurchase)
-
-
+    @el.on('click', '.item.transport .more_goods', @.onMoreGoodsClick)
 
   unbindEventListeners: ->
     super
+
+    request.unbind('transport_purchased', @.onTransportPurchased)
+
+    @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
+    @el.off('click', '.switches .switch', @.onSwitchPageClick)
+    @el.off('click', '.groups .group:not(.current)', @.onGroupClick)
+    @el.off('click', '.item .buy:not(.disabled)', @.onBuyClick)
+    @el.off('click', '.confirm_popup .start_purchase:not(.disabled)', @.onStartPurchase)
+    @el.off('click', '.item.transport .more_goods', @.onMoreGoodsClick)
 
 
   defineData: ->
     @transportGroup = TransportGroup.find(@currentGroupKey)
 
-    @list = TransportModel.select((t)=>t.transportGroupKey == @currentGroup)
+    @list = TransportModel.select((t)=> t.transportGroupKey == @currentGroupKey)
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
@@ -86,7 +92,7 @@ class ShopPage extends Page
     @el.find('.groups .group').removeClass('current')
     groupEl.addClass('current')
 
-    @currentGroup = groupEl.data('group')
+    @currentGroupKey = groupEl.data('group-key')
 
     @.defineData()
 
@@ -113,21 +119,29 @@ class ShopPage extends Page
 
     button.addClass('disabled')
 
-    request.send('buy_item', item_id: itemId, item_type: 'transport')
+    request.send('buy_transport', transport_model_id: itemId)
 
-  onItemPurchased: (response)=>
-    @.handleResponse(response)
-
-  basicPriceRequirement: (transport)->
-    {basic_money: [transport.basicPrice, @player.basic_money >= transport.basicPrice]}
-
-  handleResponse: (response)->
-    @.renderTransportItem(TransportModel.find(response.data.item_id))
+  onTransportPurchased: (response)=>
+    @.renderTransportModel(TransportModel.find(response.data.transport_model_id))
 
     @.displayResult(
-      $("#item_#{ response.data.item_id } .result_anchor") if response.data?.item_id?
+      $("#transport_model_#{ response.data.transport_model_id } .result_anchor")
       response
       position: "top center"
+    )
+
+  basicPriceRequirement: (transportModel)->
+    {basic_money: [transportModel.basicPrice, @player.basic_money >= transportModel.basicPrice]}
+
+  onMoreGoodsClick: (e)=>
+    button = $(e.currentTarget)
+    transportModel = TransportModel.find(button.data('transport-model-id'))
+
+    @.displayPopup(button
+      @.renderTemplate("transport/goods_popup", transportModel: transportModel)
+      position: 'top center'
+      autoHideDelay: _(10).seconds()
+      autoHide: true
     )
 
 module.exports = ShopPage

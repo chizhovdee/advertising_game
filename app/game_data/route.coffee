@@ -2,7 +2,7 @@ _ = require("lodash")
 Base = require("./base")
 
 class Route extends Base
-  tag: null
+  status: null
   goodKey: null
   distance: null
   weight: null # тонны
@@ -13,14 +13,14 @@ class Route extends Base
   constructor: ->
     super
 
-    @tag = null
+    @status = null
     @goodKey = null
     @distance = null
     @weight = null
     @reputation = null
 
   validationForDefine: ->
-    throw new Error('undefined tag') unless @tag?
+    throw new Error('undefined status') unless @status?
     throw new Error('undefined goodKey') unless @goodKey?
     throw new Error('undefined distance') unless @distance?
     throw new Error('undefined weight') unless @weight?
@@ -30,7 +30,7 @@ class Route extends Base
     _.assign(
       reward: @reward
       requirement: @requirement
-      tag: @tag
+      status: @status
       goodKey: @goodKey
       distance: @distance
       weight: @weight

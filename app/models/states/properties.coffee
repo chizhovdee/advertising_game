@@ -5,9 +5,9 @@ class PropertiesState extends BaseState
   defaultState: {}
   stateName: "properties"
 
-  findRecordByPropertyTypeId: (typeId)->
+  findRecordByPropertyTypeId: (propertyTypeId)->
     for id, record of @state
-      return record if record.typeId == typeId
+      return record if record.propertyTypeId == propertyTypeId
 
   createProperty: (propertyTypeId, buildDuration)->
     newId = @.generateId()
@@ -36,13 +36,10 @@ class PropertiesState extends BaseState
 
     @.addOperation('update', id, @.recordToJSON(@state[id]))
 
-  upgrade: (id)->
-    property = @state[id]
-    type = PropertyType.find(property.typeId)
-
+  upgrade: (id, duration)->
     delete @state[id].builtAt # удаление лишнего поля
 
-    @state[id].upgradeAt = Date.now() + type.upgradeDurationBy(property.level)
+    @state[id].upgradeAt = Date.now() + duration
     # after
     @state[id].level += 1
     @state[id].updatedAt = Date.now()
@@ -51,8 +48,8 @@ class PropertiesState extends BaseState
 
     @.addOperation('update', id, @.recordToJSON(@state[id]))
 
-  rentOut: (id)->
-    @state[id].rentFinishdAt = Date.now() + PropertyType.rentOutDuration
+  rentOut: (id, duration)->
+    @state[id].rentFinishdAt = Date.now() + duration
     # after
     @state[id].updatedAt = Date.now()
 

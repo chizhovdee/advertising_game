@@ -15,12 +15,14 @@ module.exports =
   formatNumber: (number)->
     @safe @rawFormatNumber(number)
 
-  transportGoodNames: (transport, length = 25)->
-    goodNames = transport.goodNames()
+  transportModelGoodNames: (transportModel, length = 25)->
+    goodNames = transportModel.goodNames()
 
     return goodNames if goodNames.length <= length
 
-    str = _.truncate(transport.goodNames(), 'length': length, 'separator': /,? +/)
-    str += " <span class='more_goods' data-transport-id='#{ transport.id }'>#{I18n.t('common.more_details')}</span>"
+    str = _.truncate(transportModel.goodNames(), 'length': length, 'separator': /,? +/)
+    str += """ <span class='more_goods' data-transport-model-id='#{ transportModel.id }'>
+      #{I18n.t('common.more_details')}
+    </span>"""
 
     str

@@ -1,13 +1,14 @@
-<div class="item transport <%= 'locked' if @transport.level > @player.level %>" id="item_<%= @transport.id %>">
-  <div class="picture"><%=@safe @.transportPicture(@transport) %></div>
+<div class="item transport <%= 'locked' if @transportModel.level > @player.level %>"
+     id="transport_model_<%= @transportModel.id %>">
+  <div class="picture"><%=@safe @.transportModelPicture(@transportModel) %></div>
 
-  <% if @transport.level > @player.level: %>
+  <% if @transportModel.level > @player.level: %>
     <div class="info">
-      <div class="lock"><%=@safe I18n.t('shop.locked_transport', level: @transport.level) %></div>
+      <div class="lock"><%=@safe I18n.t('shop.locked_transport', level: @transportModel.level) %></div>
     </div>
   <% else: %>
     <div class="info">
-      <div class="name"><%= @transport.name() %></div>
+      <div class="name"><%= @transportModel.name() %></div>
 
       <div class="attributes">
         <% for attr in @transportAttributes: %>
@@ -15,10 +16,10 @@
             <div class="att_name"><%= I18n.t("transport.attributes.#{attr}") %></div>
             <div class="value">
               <% if attr == 'good': %>
-                <%=@safe @.transportGoodNames(@transport) %>
+                <%=@safe @.transportModelGoodNames(@transportModel) %>
 
               <% else: %>
-                <%= @transport[attr] %>
+                <%= @transportModel[attr] %>
               <% end %>
             </div>
           </div>
@@ -29,11 +30,11 @@
     <div class="price">
       <div class="label"><%= I18n.t("transport.item.price") %></div>
 
-      <%=@safe @.renderTemplate('requirements', requirements: @.basicPriceRequirement(@transport)) %>
+      <%=@safe @.renderTemplate('requirements', requirements: @.basicPriceRequirement(@transportModel)) %>
     </div>
 
     <div class="controls">
-      <button class="buy" data-item-id="<%= @transport.id %>">
+      <button class="buy" data-item-id="<%= @transportModel.id %>">
         <%= I18n.t("transport.buttons.buy") %>
       </button>
     </div>

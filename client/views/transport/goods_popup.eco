@@ -1,4 +1,4 @@
 <div class="goods_names">
     <strong><%= I18n.t("transport.attributes.good") %></strong>
-    <%= @transport.goodNames() %>
+    <%= @transportModel.goodNames() %>
 </div>

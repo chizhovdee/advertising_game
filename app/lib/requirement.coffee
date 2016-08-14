@@ -34,10 +34,8 @@ class Requirement
   vipMoney: (value)->
     @.push('vip_money', value)
 
-  fuel: (type, value)->
-    field = "fuel_#{ type }"
-
-    @.push(field, value)
+  fuel: (value)->
+    @.push('fuel', value)
 
   push: (key, value)->
     if @values[key]
@@ -64,10 +62,8 @@ class Requirement
         when 'vip_money'
           reward.takeVipMoney(value)
 
-        when 'fuel_auto', 'fuel_railway', 'fuel_air', 'fuel_sea'
-          type = key.split('_')[1]
-
-          reward.takeFuel(type, value)
+        when 'fuel'
+          reward.takeFuel(value)
 
   unSatisfiedFor: (player)->
     result = {}

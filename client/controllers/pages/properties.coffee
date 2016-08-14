@@ -5,13 +5,10 @@ request = require('../../lib/request')
 VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
 balance = require('../../lib').balance
-settings = require('../../settings')
 
 gameData = require('../../game_data')
 
 PropertyType = gameData.PropertyType
-TransportType = gameData.TransportType
-Transport = gameData.Transport
 
 class PropertiesPage extends Page
   className: "properties page"
@@ -20,8 +17,6 @@ class PropertiesPage extends Page
 
   show: ->
     @playerState = ctx.get('playerState')
-
-    @settings = settings
 
     super
 
@@ -49,7 +44,7 @@ class PropertiesPage extends Page
 
   setupTimers: ->
     for propertyType in @paginatedList
-      property = _.find(@playerState.propertyRecords(), (p)-> p.typeId == propertyType.id)
+      property = _.find(@playerState.propertyRecords(), (p)-> p.propertyTypeId == propertyType.id)
       continue unless property?
 
       if property.isBuilding()
@@ -202,7 +197,7 @@ class PropertiesPage extends Page
     button.addClass('disabled')
     property = @playerState.findPropertyRecord(button.data('property-id'))
 
-    $("#property_type_#{ property.typeId } button.accelerate").addClass('disabled')
+    $("#property_type_#{ property.propertyTypeId } button.accelerate").addClass('disabled')
 
     request.send("accelerate_property", property_id: button.data('property-id'))
 
@@ -212,7 +207,7 @@ class PropertiesPage extends Page
   onUpgradeClick: (e)=>
     button = $(e.currentTarget)
     property = @playerState.findPropertyRecord(button.data('property-id'))
-    propertyType = _.find(@list, (t)-> t.id == property.typeId)
+    propertyType = _.find(@list, (t)-> t.id == property.propertyTypeId)
 
     @.displayPopup(button
       @.renderTemplate("properties/upgrade_popup", property: property, propertyType: propertyType)
@@ -224,7 +219,7 @@ class PropertiesPage extends Page
     button.addClass('disabled')
     property = @playerState.findPropertyRecord(button.data('property-id'))
 
-    $("#property_type_#{ property.typeId } button.upgrade").addClass('disabled')
+    $("#property_type_#{ property.propertyTypeId } button.upgrade").addClass('disabled')
 
     request.send("upgrade_property", property_id: button.data('property-id'))
 
@@ -245,7 +240,7 @@ class PropertiesPage extends Page
   onRentOutClick: (e)=>
     button = $(e.currentTarget)
     property = @playerState.findPropertyRecord(button.data('property-id'))
-    propertyType = _.find(@list, (t)-> t.id == property.typeId)
+    propertyType = _.find(@list, (t)-> t.id == property.propertyTypeId)
 
     @.displayPopup(button
       @.renderTemplate("properties/rent_out_popup", property: property, propertyType: propertyType)
@@ -257,7 +252,7 @@ class PropertiesPage extends Page
     button.addClass('disabled')
     property = @playerState.findPropertyRecord(button.data('property-id'))
 
-    $("#property_type_#{ property.typeId } button.rent_out").addClass('disabled')
+    $("#property_type_#{ property.propertyTypeId } button.rent_out").addClass('disabled')
 
     request.send("rent_out_property", property_id: button.data('property-id'))
 
@@ -294,7 +289,7 @@ class PropertiesPage extends Page
     property_id = button.parents('.confirm_controls').data('property-id')
     property = @playerState.findPropertyRecord(property_id)
 
-    $("#property_type_#{ property.typeId } button.finish_rent").addClass('disabled')
+    $("#property_type_#{ property.propertyTypeId } button.finish_rent").addClass('disabled')
 
     request.send("property_finish_rent", property_id: property_id)
 
@@ -303,20 +298,18 @@ class PropertiesPage extends Page
 
   handleResponse: (response)->
     @.displayResult(
-      $("#property_type_#{ response.data.type_id } .result_anchor") if response.data?.type_id?
+      $("#property_type_#{ response.data.property_type_id } .result_anchor") if response.data?.property_type_id?
       response
       position: "top center"
     )
 
     if response.is_error
-      $("#property_type_#{ response.data?.type_id } .controls button").removeClass('disabled')
+      $("#property_type_#{ response.data?.property_type_id } .controls button").removeClass('disabled')
 
   usingCapacity: (propertyType)->
     switch propertyType.key
       when 'garage'
-        transportType = TransportType.detect((t)-> t.propertyTypeKey == propertyType.key)
-
-        @playerState.transportCountByTransportTypeKey(transportType.key)
+        @playerState.transportCount()
 
       when 'command_center'
         @playerState.advertisingCount()

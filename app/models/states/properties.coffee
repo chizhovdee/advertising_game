@@ -1,38 +1,30 @@
 _ = require('lodash')
 BaseState = require('./base')
 
-PropertyType = require('../../game_data').PropertyType
-
 class PropertiesState extends BaseState
   defaultState: {}
   stateName: "properties"
 
-  generateId: ->
-    super(_.keys(@state))
+  findRecordByPropertyTypeId: (propertyTypeId)->
+    for id, record of @state
+      return record if record.propertyTypeId == propertyTypeId
 
-  find: (id)->
-    @state[id]
-
-  findByTypeId: (typeId)->
-    for id, resource of @state
-      return resource if resource.typeId == typeId
-
-  create: (type)->
+  createProperty: (propertyTypeId, buildDuration)->
     newId = @.generateId()
-    newResource = {
+    newRecord = {
       id: newId
-      typeId: type.id
+      propertyTypeId: propertyTypeId
       level: 1
       createdAt: Date.now()
       updatedAt: Date.now()
-      builtAt: Date.now() + type.buildDuration
+      builtAt: Date.now() + buildDuration
     }
 
-    @state[newId] = newResource
+    @state[newId] = newRecord
 
     @.update()
 
-    @.addOperation('add', newId, @.propertyToJSON(newResource))
+    @.addOperation('add', newId, @.recordToJSON(newRecord))
 
   accelerateBuilding: (id)->
     delete @state[id].builtAt
@@ -42,31 +34,28 @@ class PropertiesState extends BaseState
 
     @.update()
 
-    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+    @.addOperation('update', id, @.recordToJSON(@state[id]))
 
-  upgrade: (id)->
-    property = @state[id]
-    type = PropertyType.find(property.typeId)
-
+  upgrade: (id, duration)->
     delete @state[id].builtAt # удаление лишнего поля
 
-    @state[id].upgradeAt = Date.now() + type.upgradeDurationBy(property.level)
+    @state[id].upgradeAt = Date.now() + duration
     # after
     @state[id].level += 1
     @state[id].updatedAt = Date.now()
 
     @.update()
 
-    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+    @.addOperation('update', id, @.recordToJSON(@state[id]))
 
-  rentOut: (id)->
-    @state[id].rentFinishdAt = Date.now() + PropertyType.rentOutDuration
+  rentOut: (id, duration)->
+    @state[id].rentFinishdAt = Date.now() + duration
     # after
     @state[id].updatedAt = Date.now()
 
     @.update()
 
-    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+    @.addOperation('update', id, @.recordToJSON(@state[id]))
 
   finishRent: (id)->
     delete @state[id].rentFinishdAt
@@ -75,7 +64,7 @@ class PropertiesState extends BaseState
 
     @.update()
 
-    @.addOperation('update', id, @.propertyToJSON(@state[id]))
+    @.addOperation('update', id, @.recordToJSON(@state[id]))
 
   buildingTimeLeftFor: (property)->
     property.builtAt - Date.now()
@@ -99,25 +88,25 @@ class PropertiesState extends BaseState
   propertyRentFinished: (property)->
     Date.now() >= property.rentFinishdAt
 
-  propertyToJSON: (property)->
-    resource = @.extendRecord(property)
+  recordToJSON: (record)->
+    record = super(record)
 
-    if @.propertyIsBuilding(resource)
-      resource.buildingTimeLeft = @.buildingTimeLeftFor(resource)
+    if @.propertyIsBuilding(record)
+      record.buildingTimeLeft = @.buildingTimeLeftFor(record)
 
-    else if @.propertyIsUpgrading(resource)
-      resource.upgradingTimeLeft = @.upgradingTimeLeftFor(resource)
+    else if @.propertyIsUpgrading(record)
+      record.upgradingTimeLeft = @.upgradingTimeLeftFor(record)
 
-    else if @.propertyIsRented(resource)
-      resource.rentTimeLeft = @.rentTimeLeftFor(resource)
+    else if @.propertyIsRented(record)
+      record.rentTimeLeft = @.rentTimeLeftFor(record)
 
-    resource
+    record
 
   toJSON: ->
     state = {}
 
-    for id, resource of @state
-      state[id] = @.propertyToJSON(resource)
+    for id, record of @state
+      state[id] = @.recordToJSON(record)
 
     state
 

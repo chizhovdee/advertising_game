@@ -21,35 +21,22 @@ class RoutesState extends BaseState
       .sample()
       .value()
 
-  generateId: ->
-    super(_.keys(@state))
-
-  find: (id)->
-    @state[id]
-
   create: (route)->
     newId = @.generateId()
-    newResource = {
+    newRecord = {
+      id: newId
       routeId: route.id
       createdAt: Date.now()
     }
 
-    @state[newId] = newResource
+    @state[newId] = newRecord
 
-    @.addOperation('add', newId, @.routeToJSON(newResource))
-
-    @.update()
-
-  delete: (id)->
-    # TODO replace on deleteRecord from baseState
-    delete @state[id]
-
-    @.addOperation('delete', id)
+    @.addOperation('add', newId, @.recordToJSON(newRecord))
 
     @.update()
 
-  routeToJSON: (ad)->
-    record = @.extendRecord(ad)
+  recordToJSON: (record)->
+    record = super(record)
     record.expireTimeLeft = (record.createdAt + RoutesState.expireDuration) - Date.now()
 
     record
@@ -58,7 +45,7 @@ class RoutesState extends BaseState
     state = {}
 
     for id, record of @state
-      state[id] = @.routeToJSON(record)
+      state[id] = @.recordToJSON(record)
 
     state
 

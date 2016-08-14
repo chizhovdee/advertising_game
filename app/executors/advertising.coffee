@@ -30,10 +30,10 @@ module.exports =
 
 
     propertyType = PropertyType.find('command_center')
-    property = player.propertiesState.findByTypeId(propertyType.id)
+    property = player.propertiesState.findRecordByPropertyTypeId(propertyType.id)
 
     # check capacity
-    if player.advertisingState.count() >= propertyType.fullCapacityBy(property)
+    if player.advertisingState.recordsCount() >= propertyType.fullCapacityBy(property)
       return new Result(
         error_code: if property? then Result.errors.advertisingNoPlaces else Result.errors.advertisingNoPlacesBuild
       )
@@ -49,12 +49,11 @@ module.exports =
       )
 
     reward = new Reward(player)
-    advertising = player.advertisingState.create(type, status, period)
+    player.advertisingState.create(type.id, status, _(period).days())
     requirement.apply(reward)
 
     new Result(
       data:
-        advertising_id: advertising.id
         reward: reward
     )
 
@@ -74,7 +73,7 @@ module.exports =
       error_code: Result.errors.dataNotFound
     ) unless advertising?
 
-    advertisingType = AdvertisingType.find(advertising.typeId)
+    advertisingType = AdvertisingType.find(advertising.advertisingTypeId)
 
     period = _.first(AdvertisingType.periods) if period < _.first(AdvertisingType.periods)
     period = _.last(AdvertisingType.periods) if period > _.last(AdvertisingType.periods)
@@ -96,11 +95,10 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.advertisingState.prolong(advertising.id, period)
+    player.advertisingState.prolong(advertising.id, _(period).days())
     requirement.apply(reward)
 
     new Result(
       data:
-        advertising_id: advertising.id
         reward: reward
     )

@@ -78,13 +78,8 @@ class PlayerState extends Spine.Model
     _.find(@.propertyRecords(), id: id)
 
   # transport
-  transportCountByTransportTypeKey: (transportTypeKey)->
-    count = 0
-
-    for id, resource of @transport
-      (count += 1 if Transport.find(resource.typeId)?.typeKey == transportTypeKey)
-
-    count
+  transportCount: ->
+    _.size(@transport)
 
   # advertising
   advertisingCount: ->
@@ -94,7 +89,7 @@ class PlayerState extends Spine.Model
     @_advertisingRecords ?= (
       for id, data of @advertising
         new AdvertisingRecord(_.assignIn({
-          type: AdvertisingType.find(data.typeId)
+          type: AdvertisingType.find(data.advertisingTypeId)
         }, data))
     )
 

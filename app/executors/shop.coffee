@@ -6,66 +6,39 @@ Reward = lib.Reward
 Requirement = lib.Requirement
 balance = lib.balance
 
-Transport = require('../game_data').Transport
+TransportModel = require('../game_data').TransportModel
 PropertyType = require('../game_data').PropertyType
 
 Player = require('../models').Player
 
 module.exports =
-  buy: (player, itemId, itemType, amount)->
+  buyTransport: (player, transportModelId)->
     dataResult = {
-      item_id: itemId
-      item_type: itemType
+      transport_model_id: transportModelId
     }
 
     requirement = new Requirement()
 
-    switch itemType
-      when 'transport'
-        itemId = _.toInteger(itemId)
-        transport = Transport.find(itemId)
+    transportModelId = _.toInteger(transportModelId)
+    transportModel = TransportModel.find(transportModelId)
 
-        # check level
-        return new Result(
-          error_code: Result.errors.notReachedLevel
-          data: dataResult
-        ) if transport.level > player.level
+    # check level
+    return new Result(
+      error_code: Result.errors.notReachedLevel
+      data: dataResult
+    ) if transportModel.level > player.level
 
-        propertyType = PropertyType.find(transport.type.propertyTypeKey)
-        property = player.propertiesState.findByTypeId(propertyType.id)
+    propertyType = PropertyType.find('garage')
+    property = player.propertiesState.findRecordByPropertyTypeId(propertyType.id)
 
-        # check capacity
-        if player.transportState.countByTransportTypeKey(transport.typeKey) >= propertyType.fullCapacityBy(property)
-          return new Result(
-            error_code: Result.errors.noFreePlaces
-            data: dataResult
-          )
+    # check capacity
+    if player.transportState.recordsCount() >= propertyType.fullCapacityBy(property)
+      return new Result(
+        error_code: Result.errors.noFreePlaces
+        data: dataResult
+      )
 
-        requirement.basicMoney(transport.basicPrice)
-
-      when 'fuel'
-        return new Result(
-          error_code: Result.errors.dataNotFound
-          # WARNING: without data result
-        ) unless itemId in Player.fuelTypes
-
-        return new Result(
-          error_code: Result.errors.notReachedLevel
-          data: dataResult
-        ) if Player.fuelLevels[itemId] > player.level
-
-        # валидация кол-ва топлива
-        amount = Math.floor(amount)
-        amount = 1 if _.isNaN(amount) || amount < 1
-
-        requirement.basicMoney(balance.fuelBasicPrice(itemId) * amount)
-
-      else
-        # если не правильный тип был передан
-        return new Result(
-          error_code: Result.errors.dataNotFound
-          # WARNING: without data result
-        )
+    requirement.basicMoney(transportModel.basicPrice)
 
     # check money
     unless requirement.isSatisfiedFor(player)
@@ -78,12 +51,7 @@ module.exports =
 
     reward = new Reward(player)
 
-    switch itemType
-      when 'transport'
-        player.transportState.create(transport)
-
-      when 'fuel'
-        reward.addFuel(itemId, amount)
+    player.transportState.addTransport(transportModel.id)
 
     requirement.apply(reward)
 
@@ -91,4 +59,30 @@ module.exports =
 
     new Result(
       data: dataResult
+    )
+
+  buyFuel: (player, amount)->
+    # валидация кол-ва топлива
+    amount = Math.floor(amount)
+    amount = 1 if _.isNaN(amount) || amount < 1
+
+    requirement = new Requirement()
+
+    requirement.basicMoney(balance.fuelBasicPrice() * amount)
+
+    # check money
+    unless requirement.isSatisfiedFor(player)
+      return new Result(
+        error_code: Result.errors.requirementsNotSatisfied
+        data:
+          requirement: requirement.unSatisfiedFor(player)
+      )
+
+    reward = new Reward(player)
+    requirement.apply(reward)
+    reward.addFuel(amount)
+
+    new Result(
+      data:
+        reward: reward
     )

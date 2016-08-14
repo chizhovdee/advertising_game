@@ -1,8 +1,6 @@
 module.exports =
-  EmployeeType: require('./employee_type')
-  RouteType: require('./route_type')
   Route: require('./route')
-  TransportType: require('./transport_type')
-  Transport: require('./transport')
+  TransportGroup: require('./transport_group')
+  TransportModel: require('./transport_model')
   AdvertisingType: require('./advertising_type')
   PropertyType: require('./property_type')

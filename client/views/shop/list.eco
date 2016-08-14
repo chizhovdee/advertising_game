@@ -1,27 +1,13 @@
-<% if @transportType? && @transportType.level > @player.level: %>
+<% if @transportGroup? && @transportGroup.level > @player.level: %>
   <div class="locked_group tips">
-    <%=@safe I18n.t("shop.locked_transport_type", level: @transportType.level) %>
+    <%=@safe I18n.t("shop.locked_transport_group", level: @transportGroup.level) %>
   </div>
 
 <% else: %>
-  <% if @subTypes? && @subTypes.length ? 0: %>
-    <div class="sub_types">
-      <% for type in @subTypes: %>
-      <div
-          class="type <%= type %> <%= 'current' if @currentSubType == type %>"
-          data-type="<%= type %>"></div>
-      <% end %>
-    </div>
-  <% end %>
-
   <div class="page">
     <% if @list.length > 0: %>
-      <% for item in @paginatedList: %>
-        <% if item.constructor.name == 'Transport': %>
-          <%=@safe @.renderTemplate('shop/transport_item', transport: item) %>
-        <% else: %>
-          <%=@safe @.renderTemplate('shop/fuel_item', item: item) %>
-        <% end %>
+      <% for transportModel in @paginatedList: %>
+          <%=@safe @.renderTemplate('shop/transport_model', transportModel: transportModel) %>
       <% end %>
     <% else: %>
       <div class="tips"><%= I18n.t('shop.empty_list') %></div>

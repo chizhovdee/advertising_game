@@ -10,9 +10,9 @@ module.exports =
   createProperty: (player, propertyTypeId)->
     type = PropertyType.find(propertyTypeId)
 
-    dataResult = {type_id: type.id}
+    dataResult = {property_type_id: type.id}
 
-    property = player.propertiesState.findByTypeId(propertyTypeId)
+    property = player.propertiesState.findRecordByPropertyTypeId(propertyTypeId)
 
     return new Result(
       error_code: Result.errors.propertyIsBuilt
@@ -35,7 +35,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.propertiesState.create(type)
+    player.propertiesState.createProperty(type.id, type.buildDuration)
     requirement.apply(reward)
 
     dataResult.reward = reward
@@ -45,15 +45,15 @@ module.exports =
     )
 
   accelerateProperty: (player, propertyId)->
-    property = player.propertiesState.find(propertyId)
+    property = player.propertiesState.findRecord(propertyId)
 
     return new Result(
       error_code: Result.errors.dataNotFound
     ) unless property?
 
-    type = PropertyType.find(property.typeId)
+    type = PropertyType.find(property.propertyTypeId)
 
-    dataResult = {type_id: type.id}
+    dataResult = {property_type_id: type.id}
 
     requirement = new Requirement()
 
@@ -83,15 +83,15 @@ module.exports =
     )
 
   upgradeProperty: (player, propertyId)->
-    property = player.propertiesState.find(propertyId)
+    property = player.propertiesState.findRecord(propertyId)
 
     return new Result(
       error_code: Result.errors.dataNotFound
     ) unless property?
 
-    type = PropertyType.find(property.typeId)
+    type = PropertyType.find(property.propertyTypeId)
 
-    dataResult = {type_id: type.id}
+    dataResult = {property_type_id: type.id}
 
     if checkResult = @.commonChecks(dataResult, player, property)
       return checkResult
@@ -113,7 +113,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.propertiesState.upgrade(propertyId)
+    player.propertiesState.upgrade(propertyId, type.upgradeDurationBy(property.level))
     requirement.apply(reward)
 
     dataResult.reward = reward
@@ -121,15 +121,15 @@ module.exports =
     new Result(data: dataResult)
 
   rentOutProperty: (player, propertyId)->
-    property = player.propertiesState.find(propertyId)
+    property = player.propertiesState.findRecord(propertyId)
 
     return new Result(
       error_code: Result.errors.dataNotFound
     ) unless property?
 
-    type = PropertyType.find(property.typeId)
+    type = PropertyType.find(property.propertyTypeId)
 
-    dataResult = {type_id: type.id}
+    dataResult = {property_type_id: type.id}
 
     return new Result(
       error_code: Result.errors.propertyRentOutNotAvailable
@@ -141,20 +141,20 @@ module.exports =
 
     # TODO проверка отдельного типа на возможность
 
-    player.propertiesState.rentOut(propertyId)
+    player.propertiesState.rentOut(propertyId, PropertyType.rentOutDuration)
 
     new Result(data: dataResult)
 
   collectRent: (player, propertyId)->
-    property = player.propertiesState.find(propertyId)
+    property = player.propertiesState.findRecord(propertyId)
 
     return new Result(
       error_code: Result.errors.dataNotFound
     ) unless property?
 
-    type = PropertyType.find(property.typeId)
+    type = PropertyType.find(property.propertyTypeId)
 
-    dataResult = {type_id: type.id}
+    dataResult = {property_type_id: type.id}
 
     return new Result(
       error_code: Result.errors.propertyIsNotRented
@@ -175,15 +175,15 @@ module.exports =
     new Result(data: dataResult)
 
   finishRent: (player, propertyId)->
-    property = player.propertiesState.find(propertyId)
+    property = player.propertiesState.findRecord(propertyId)
 
     return new Result(
       error_code: Result.errors.dataNotFound
     ) unless property?
 
-    type = PropertyType.find(property.typeId)
+    type = PropertyType.find(property.propertyTypeId)
 
-    dataResult = {type_id: type.id}
+    dataResult = {property_type_id: type.id}
 
     return new Result(
       error_code: Result.errors.propertyIsNotRented

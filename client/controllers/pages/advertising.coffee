@@ -195,9 +195,8 @@ class AdvertisingPage extends Page
   onProlonged: (response)=>
     unless response.is_error
       @.displayResult(
-        @el.find("#ad_#{response.data.advertising_id} button.prolong")
+        null
         response
-        position: "left bottom"
       )
 
 

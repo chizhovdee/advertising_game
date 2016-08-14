@@ -39,6 +39,8 @@ class BaseState
     @changingOperations.push([type, id, data])
 
   generateId: (excludingdIds)->
+    excludingdIds ?= _.keys(@state)
+
     id = _.random(10000000)
     id = _.random(10000000) while id in excludingdIds
     id
@@ -56,10 +58,13 @@ class BaseState
 
     @.update()
 
-  extendRecord: (record)->
-    _record = _.clone(record)
-    _record.loadedAt = Date.now()
+  recordToJSON: (record)->
+    record = _.clone(record)
+    record.loadedAt = Date.now()
 
-    _record
+    record
+
+  recordsCount: ->
+    _.size(@state)
 
 module.exports = BaseState

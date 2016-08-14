@@ -1,62 +1,62 @@
 assets = require('./assets')
 gameData = require('../game_data')
-Transport = gameData.Transport
-TransportType = gameData.TransportType
-EmployeeType = gameData.EmployeeType
+
+TransportGroup = gameData.TransportGroup
+TransportModel = gameData.TransportModel
 AdvertisingType = gameData.AdvertisingType
 PropertyType = gameData.PropertyType
 
 module.exports =
-  transportPictureUrl: (transport, format = 'large')->
-    unless transport instanceof Transport
-      transport = Transport.find(transport)
+  transportModelPictureUrl: (transportModel, format = 'large')->
+    if transportModel.constructor?.name != 'TransportModel'
+      transportModel = TransportModel.find(transportModel)
 
     unless format in ['large', 'medium', 'icon']
-      throw new Error('format for transport picture url not correct')
+      throw new Error('format for transport model picture url not correct')
 
-    assets.assetsPath("images/transport/#{ format }/#{ transport.key }.jpg")
+    assets.assetsPath("images/transport_models/#{ format }/#{ transportModel.key }.jpg")
 
-  transportPicture: (transport, format = 'large')->
-    unless transport instanceof Transport
-      transport = Transport.find(transport)
+  transportModelPicture: (transportModel, format = 'large')->
+    if transportModel.constructor?.name != 'TransportModel'
+      transportModel = TransportModel.find(transportModel)
 
-    alt = "title='#{transport.name()}'"
+    alt = "title='#{transportModel.name()}'"
 
-    "<img src='#{ @.transportPictureUrl(transport, format) }' #{alt} />"
+    "<img src='#{ @.transportModelPictureUrl(transportModel, format) }' #{alt} />"
 
-  transportTypePictureUrl: (type, format = 'large')->
-    unless type instanceof TransportType
-      type = TransportType.find(type)
+  transportGroupPictureUrl: (group, format = 'large')->
+    if group.constructor?.name != 'TransportGroup'
+      group = TransportGroup.find(group)
 
     unless format in ['large', 'medium', 'icon']
-      throw new Error('format for transport type picture url not correct')
+      throw new Error('format for transport group picture url not correct')
 
-    assets.assetsPath("images/transport_types/#{ format }/#{ type.key }.jpg")
+    assets.assetsPath("images/transport_groups/#{ format }/#{ type.key }.jpg")
 
-  transportTypePicture: (type, format = 'large')->
-    unless type instanceof TransportType
-      type = TransportType.find(type)
+  transportGroupPicture: (group, format = 'large')->
+    if group.constructor?.name != 'TransportGroup'
+      group = TransportGroup.find(group)
 
-    alt = "title='#{type.name()}'"
+    alt = "title='#{group.name()}'"
 
-    "<img src='#{ @.transportTypePictureUrl(type, format) }' #{alt} />"
+    "<img src='#{ @.transportGroupPictureUrl(group, format) }' #{alt} />"
 
-  advertisingPictureUrl: (resource, format = 'large')->
-    unless resource.constructor?.name == 'AdvertisingType'
-      resource = AdvertisingType.find(resource)
+  advertisingPictureUrl: (advertisingType, format = 'large')->
+    unless advertisingType.constructor?.name == 'AdvertisingType'
+      advertisingType = AdvertisingType.find(advertisingType)
 
     unless format in ['large', 'medium', 'icon']
       throw new Error('format for advertising type picture url is not correct')
 
-    assets.assetsPath("images/advertising_types/#{ format }/#{ resource.key }.jpg")
+    assets.assetsPath("images/advertising_types/#{ format }/#{ advertisingType.key }.jpg")
 
-  advertisingPicture: (resource, format = 'large')->
-    unless resource.constructor?.name == 'AdvertisingType'
-      resource = AdvertisingType.find(resource)
+  advertisingPicture: (advertisingType, format = 'large')->
+    unless advertisingType.constructor?.name == 'AdvertisingType'
+      advertisingType = AdvertisingType.find(advertisingType)
 
-    title = "title=#{resource.name()}"
+    title = "title=#{advertisingType.name()}"
 
-    "<img src='#{ @.advertisingPictureUrl(resource, format) }' #{title} />"
+    "<img src='#{ @.advertisingPictureUrl(advertisingType, format) }' #{title} />"
 
   advertisingStatusPictureUrl: (status, format = 'large')->
     unless format in ['large', 'medium', 'icon']
@@ -67,30 +67,19 @@ module.exports =
   advertisingStatusPicture: (status, format = 'large')->
     "<img src='#{ @.advertisingStatusPictureUrl(status, format) }' />"
 
-  propertyPictureUrl: (resource, format = 'large')->
-    unless resource.constructor?.name == 'PropertyType'
-      resource = PropertyType.find(resource)
+  propertyPictureUrl: (propertyType, format = 'large')->
+    unless propertyType.constructor?.name == 'PropertyType'
+      propertyType = PropertyType.find(propertyType)
 
     unless format in ['large', 'medium', 'icon']
       throw new Error('format for property picture url is not correct')
 
-    assets.assetsPath("images/property_types/#{ format }/#{ resource.key }.jpg")
+    assets.assetsPath("images/property_types/#{ format }/#{ propertyType.key }.jpg")
 
-  propertyPicture: (resource, format = 'large')->
-    unless resource.constructor?.name == 'PropertyType'
-      resource = PropertyType.find(resource)
+  propertyPicture: (propertyType, format = 'large')->
+    unless propertyType.constructor?.name == 'PropertyType'
+      propertyType = PropertyType.find(propertyType)
 
-    title = "title='#{resource.name()}'"
+    title = "title='#{propertyType.name()}'"
 
-    "<img src='#{ @.propertyPictureUrl(resource, format) }' #{title} />"
-
-  fuelItemPictureUrl: (item, format = 'large')->
-    unless format in ['large', 'medium', 'icon']
-      throw new Error('format for fuel item picture url is not correct')
-
-    assets.assetsPath("images/fuel_items/#{ format }/#{ item }.jpg")
-
-  fuelItemPicture: (item, format = 'large')->
-    title = "title='#{ I18n.t("shop.fuel_items.#{item}.name") }'"
-
-    "<img src='#{ @.fuelItemPictureUrl(item, format) }' #{title} />"
+    "<img src='#{ @.propertyPictureUrl(propertyType, format) }' #{title} />"

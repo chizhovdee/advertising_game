@@ -4,12 +4,11 @@ modals = require('../modals')
 request = require('../../lib/request')
 ctx = require('../../context')
 
-Transport = require('../../game_data').Transport
-TransportType = require('../../game_data').TransportType
+TransportModel = require('../../game_data').TransportModel
+TransportGroup = require('../../game_data').TransportGroup
 
 class TransportPage extends Page
   className: "transport page"
-  transportGroups: _.map(TransportType.all(), (t)-> t.key)
 
   PER_PAGE = 3
 
@@ -18,9 +17,9 @@ class TransportPage extends Page
 
     super
 
-    @groups = @transportGroups
+    @groupKeys = _.map(TransportGroup.all(), (t)-> t.key)
 
-    @currentGroup = 'auto'
+    @currentGroupKey = 'truck'
 
     @.defineData()
 
@@ -51,15 +50,14 @@ class TransportPage extends Page
   defineData: ->
     @list = []
 
-    for id, resource of @playerState.transport
-      type = Transport.find(resource.typeId)
+    for id, record of @playerState.transport
+      transportModel = TransportModel.find(record.transportModelId)
 
-      continue unless type.typeKey == @currentGroup
+      continue unless transportModel.transportGroupKey == @currentGroupKey
 
       @list.push(_.assignIn({
-        id: id
-        type: type
-      }, resource))
+        model: transportModel
+      }, record))
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
@@ -87,7 +85,7 @@ class TransportPage extends Page
     @el.find('.groups .group').removeClass('current')
     groupEl.addClass('current')
 
-    @currentGroup = groupEl.data('group')
+    @currentGroupKey = groupEl.data('group-key')
 
     @.defineData()
 

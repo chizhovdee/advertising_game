@@ -5,7 +5,7 @@ Requirement = lib.Requirement
 
 module.exports =
   openRoute: (player, advertisingId)->
-    ad = player.advertisingState.find(advertisingId)
+    ad = player.advertisingState.findRecord(advertisingId)
 
     return new Result(error_code: Result.errors.dataNotFound) unless ad?
 

@@ -1,6 +1,6 @@
 ru:
   game_data:
-    transport:
+    transport_model:
       van: "Ван"
       van_fugo: "Ван фьюго"
       van_hask: "Ван Хаски"

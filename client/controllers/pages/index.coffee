@@ -7,3 +7,4 @@ module.exports =
   ShopPage: require('./shop')
   AdvertisingPage: require('./advertising')
 
+

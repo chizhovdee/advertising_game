@@ -1,32 +1,16 @@
-_ = require("lodash")
-Base = require("./base")
-GoodType = require('./good_type')
+# этот файл игнорируется при считывании в gulp game data task
 
 # товар/груз
-class Good extends Base
-  typeKey: null
-  food: false # пищевой или нет
-
-  @configure()
-
-  @afterDefine 'setType'
-
-  constructor: ->
-    super
-
-    @food = false
-
-  setType: ->
-    Object.defineProperty(@, 'type'
-      value: GoodType.find(@typeKey)
-      writable: false
-      enumerable: true
-    )
-
-    @type.addGood(@)
-
-  validationForDefine: ->
-    throw new Error('undefined typeKey') unless @typeKey?
+class Good
+  @types:
+    industrial: 'industrial' # производственные товары
+    everyday: 'everyday' # бытовые товары
+    perishableFood: 'perishable_food' # скоропортящиеся продукты
+    food: 'food' # продукты не требующие особых условий хранения
+    bulkFood: 'bulk_food' # насыпной пищевой груз (крупа, пшено, мука и т.д.)
+    bulkConstructionMaterials: 'bulk_construction_materials' # насыпные строительные материалы
+    fuel: 'fuel' # горючее (бензин, нефть)
+    # продолжение следует...
 
 
 module.exports = Good

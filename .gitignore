@@ -30,3 +30,5 @@ doc/
 /config/database.json
 
 .env
+
+rev-manifest.json

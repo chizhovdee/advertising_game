@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 require('coffee-script/register');
 require("./app/lib/lodash_mixin").register();
 

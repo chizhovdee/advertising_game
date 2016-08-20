@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-require('coffee-script/register');
+require('dotenv').config();
 
 var app = require('../build/app');
 var debug = require('debug')('simulator:server');

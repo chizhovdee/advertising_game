@@ -62,8 +62,8 @@ app.use((req, res, next)->
 if app.get('env') == 'development'
   app.use((err, req, res, next)->
 
-# TODO status
-#res.status(err.status || 500)
+  # TODO status
+  #res.status(err.status || 500)
 
     if req.xhr
       res.sendEventError(err)

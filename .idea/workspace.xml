@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a1b0499e-6455-4b7e-a710-7f702e9e7536" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/tasks/build.coffee" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/build.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/tasks/coffee_compile.coffee" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/gulpfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/public.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/simulator.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/simulator_node_modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/tasks/watch.coffee" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/server/.gitignore" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/app.coffee" afterPath="$PROJECT_DIR$/server/app/app.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/boot.coffee" afterPath="$PROJECT_DIR$/server/app/boot.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/client_settings.coffee" afterPath="$PROJECT_DIR$/server/app/client_settings.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/advertising.coffee" afterPath="$PROJECT_DIR$/server/app/controllers/advertising.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/home.coffee" afterPath="$PROJECT_DIR$/server/app/controllers/home.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/index.coffee" afterPath="$PROJECT_DIR$/server/app/controllers/index.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/properties.coffee" afterPath="$PROJECT_DIR$/server/app/controllers/properties.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/routes.coffee" afterPath="$PROJECT_DIR$/server/app/controllers/routes.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/shop.coffee" afterPath="$PROJECT_DIR$/server/app/controllers/shop.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/transport.coffee" afterPath="$PROJECT_DIR$/server/app/controllers/transport.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/trucking.coffee" afterPath="$PROJECT_DIR$/server/app/controllers/trucking.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/db/advertising_types.coffee" afterPath="$PROJECT_DIR$/server/app/db/advertising_types.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/db/property_types.coffee" afterPath="$PROJECT_DIR$/server/app/db/property_types.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/db/routes/normal.coffee" afterPath="$PROJECT_DIR$/server/app/db/routes/normal.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/db/transport_groups.coffee" afterPath="$PROJECT_DIR$/server/app/db/transport_groups.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/db/transport_models/truck.coffee" afterPath="$PROJECT_DIR$/server/app/db/transport_models/truck.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/db/transport_models/tructor.coffee" afterPath="$PROJECT_DIR$/server/app/db/transport_models/tructor.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/executors/advertising.coffee" afterPath="$PROJECT_DIR$/server/app/executors/advertising.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/executors/index.coffee" afterPath="$PROJECT_DIR$/server/app/executors/index.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/executors/properties.coffee" afterPath="$PROJECT_DIR$/server/app/executors/properties.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/executors/routes.coffee" afterPath="$PROJECT_DIR$/server/app/executors/routes.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/executors/shop.coffee" afterPath="$PROJECT_DIR$/server/app/executors/shop.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/executors/trucking.coffee" afterPath="$PROJECT_DIR$/server/app/executors/trucking.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/game_data/advertising_type.coffee" afterPath="$PROJECT_DIR$/server/app/game_data/advertising_type.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/game_data/base.coffee" afterPath="$PROJECT_DIR$/server/app/game_data/base.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/game_data/good.coffee" afterPath="$PROJECT_DIR$/server/app/game_data/good.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/game_data/index.coffee" afterPath="$PROJECT_DIR$/server/app/game_data/index.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/game_data/property_type.coffee" afterPath="$PROJECT_DIR$/server/app/game_data/property_type.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/game_data/route.coffee" afterPath="$PROJECT_DIR$/server/app/game_data/route.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/game_data/transport_group.coffee" afterPath="$PROJECT_DIR$/server/app/game_data/transport_group.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/game_data/transport_model.coffee" afterPath="$PROJECT_DIR$/server/app/game_data/transport_model.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/balance.coffee" afterPath="$PROJECT_DIR$/server/app/lib/balance.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/index.coffee" afterPath="$PROJECT_DIR$/server/app/lib/index.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/lodash_mixin.coffee" afterPath="$PROJECT_DIR$/server/app/lib/lodash_mixin.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/middleware/assignment.coffee" afterPath="$PROJECT_DIR$/server/app/lib/middleware/assignment.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/middleware/current_player.coffee" afterPath="$PROJECT_DIR$/server/app/lib/middleware/current_player.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/middleware/event_response.coffee" afterPath="$PROJECT_DIR$/server/app/lib/middleware/event_response.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/middleware/index.coffee" afterPath="$PROJECT_DIR$/server/app/lib/middleware/index.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/middleware/offline_user.coffee" afterPath="$PROJECT_DIR$/server/app/lib/middleware/offline_user.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/middleware/request_params_log.coffee" afterPath="$PROJECT_DIR$/server/app/lib/middleware/request_params_log.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/middleware/utils.coffee" afterPath="$PROJECT_DIR$/server/app/lib/middleware/utils.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/odnoklassniki/api.coffee" afterPath="$PROJECT_DIR$/server/app/lib/odnoklassniki/api.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/odnoklassniki/config.coffee" afterPath="$PROJECT_DIR$/server/app/lib/odnoklassniki/config.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/odnoklassniki/index.coffee" afterPath="$PROJECT_DIR$/server/app/lib/odnoklassniki/index.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/odnoklassniki/middleware.coffee" afterPath="$PROJECT_DIR$/server/app/lib/odnoklassniki/middleware.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/odnoklassniki/user.coffee" afterPath="$PROJECT_DIR$/server/app/lib/odnoklassniki/user.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/requirement.coffee" afterPath="$PROJECT_DIR$/server/app/lib/requirement.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/result.coffee" afterPath="$PROJECT_DIR$/server/app/lib/result.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/lib/reward.coffee" afterPath="$PROJECT_DIR$/server/app/lib/reward.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/base.coffee" afterPath="$PROJECT_DIR$/server/app/models/base.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/index.coffee" afterPath="$PROJECT_DIR$/server/app/models/index.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/modules/player_experience.coffee" afterPath="$PROJECT_DIR$/server/app/models/modules/player_experience.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/player.coffee" afterPath="$PROJECT_DIR$/server/app/models/player.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/states/advertising.coffee" afterPath="$PROJECT_DIR$/server/app/models/states/advertising.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/states/base.coffee" afterPath="$PROJECT_DIR$/server/app/models/states/base.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/states/index.coffee" afterPath="$PROJECT_DIR$/server/app/models/states/index.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/states/properties.coffee" afterPath="$PROJECT_DIR$/server/app/models/states/properties.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/states/routes.coffee" afterPath="$PROJECT_DIR$/server/app/models/states/routes.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/states/transport.coffee" afterPath="$PROJECT_DIR$/server/app/models/states/transport.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/states/trucking.coffee" afterPath="$PROJECT_DIR$/server/app/models/states/trucking.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/routes.coffee" afterPath="$PROJECT_DIR$/server/app/routes.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/error.ejs" afterPath="$PROJECT_DIR$/server/app/views/error.ejs" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/index.ejs" afterPath="$PROJECT_DIR$/server/app/views/index.ejs" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/bin/repl" afterPath="$PROJECT_DIR$/server/bin/repl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/bin/www" afterPath="$PROJECT_DIR$/server/bin/www" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/certificates/development.crt" afterPath="$PROJECT_DIR$/server/config/certificates/development.crt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/certificates/development.csr" afterPath="$PROJECT_DIR$/server/config/certificates/development.csr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/certificates/development.key" afterPath="$PROJECT_DIR$/server/config/certificates/development.key" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/database.example.json" afterPath="$PROJECT_DIR$/server/config/database.example.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/en/test.yml" afterPath="$PROJECT_DIR$/client/locales/en/test.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/advertising.yml" afterPath="$PROJECT_DIR$/client/locales/ru/advertising.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/common.yml" afterPath="$PROJECT_DIR$/client/locales/ru/common.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/game_data/advertising.yml" afterPath="$PROJECT_DIR$/client/locales/ru/game_data/advertising.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/game_data/goods.yml" afterPath="$PROJECT_DIR$/client/locales/ru/game_data/goods.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/game_data/property_types.yml" afterPath="$PROJECT_DIR$/client/locales/ru/game_data/property_types.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/game_data/routes.yml" afterPath="$PROJECT_DIR$/client/locales/ru/game_data/routes.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/game_data/transport.yml" afterPath="$PROJECT_DIR$/client/locales/ru/game_data/transport.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/home.yml" afterPath="$PROJECT_DIR$/client/locales/ru/home.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/layouts.yml" afterPath="$PROJECT_DIR$/client/locales/ru/layouts.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/properties.yml" afterPath="$PROJECT_DIR$/client/locales/ru/properties.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/routes.yml" afterPath="$PROJECT_DIR$/client/locales/ru/routes.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/shop.yml" afterPath="$PROJECT_DIR$/client/locales/ru/shop.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/staff.yml" afterPath="$PROJECT_DIR$/client/locales/ru/staff.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/test.yml" afterPath="$PROJECT_DIR$/client/locales/ru/test.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/transport.yml" afterPath="$PROJECT_DIR$/client/locales/ru/transport.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/locales/ru/trucking.yml" afterPath="$PROJECT_DIR$/client/locales/ru/trucking.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/odnoklassniki.json" afterPath="$PROJECT_DIR$/server/config/odnoklassniki.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/redis.json" afterPath="$PROJECT_DIR$/server/config/redis.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/secrets.json" afterPath="$PROJECT_DIR$/server/config/secrets.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/client/gulpfile.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/migrations/20160407165143-add-players.js" afterPath="$PROJECT_DIR$/server/migrations/20160407165143-add-players.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/migrations/sqls/20160407165143-add-players-down.sql" afterPath="$PROJECT_DIR$/server/migrations/sqls/20160407165143-add-players-down.sql" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/migrations/sqls/20160407165143-add-players-up.sql" afterPath="$PROJECT_DIR$/server/migrations/sqls/20160407165143-add-players-up.sql" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/server/package.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/favicon.ico" afterPath="$PROJECT_DIR$/server/public/favicon.ico" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/advertising_status/large/normal.jpg" afterPath="$PROJECT_DIR$/server/public/images/advertising_status/large/normal.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/advertising_status/large/premium.jpg" afterPath="$PROJECT_DIR$/server/public/images/advertising_status/large/premium.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/advertising_status/large/vip.jpg" afterPath="$PROJECT_DIR$/server/public/images/advertising_status/large/vip.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/advertising_types/large/internet.jpg" afterPath="$PROJECT_DIR$/server/public/images/advertising_types/large/internet.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/advertising_types/large/newspaper.jpg" afterPath="$PROJECT_DIR$/server/public/images/advertising_types/large/newspaper.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/advertising_types/large/radio.jpg" afterPath="$PROJECT_DIR$/server/public/images/advertising_types/large/radio.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/advertising_types/large/tv.jpg" afterPath="$PROJECT_DIR$/server/public/images/advertising_types/large/tv.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/property_types/large/command_center.jpg" afterPath="$PROJECT_DIR$/server/public/images/property_types/large/command_center.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/property_types/large/garage.jpg" afterPath="$PROJECT_DIR$/server/public/images/property_types/large/garage.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/property_types/large/hangar.jpg" afterPath="$PROJECT_DIR$/server/public/images/property_types/large/hangar.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/property_types/large/sea_port.jpg" afterPath="$PROJECT_DIR$/server/public/images/property_types/large/sea_port.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/property_types/large/train_depot.jpg" afterPath="$PROJECT_DIR$/server/public/images/property_types/large/train_depot.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/property_types/large/warehouse.jpg" afterPath="$PROJECT_DIR$/server/public/images/property_types/large/warehouse.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_groups/large/semitrailer.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_groups/large/semitrailer.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_groups/large/tractor.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_groups/large/tractor.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_groups/large/trailer.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_groups/large/trailer.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_groups/large/truck.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_groups/large/truck.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_models/large/tractor_1.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_models/large/tractor_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_models/large/tractor_2.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_models/large/tractor_2.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_models/large/van.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_models/large/van.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_models/large/van_fugo.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_models/large/van_fugo.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_models/large/van_hask.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_models/large/van_hask.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/images/transport_models/large/van_pup.jpg" afterPath="$PROJECT_DIR$/server/public/images/transport_models/large/van_pup.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/assets.coffee" afterPath="$PROJECT_DIR$/client/tasks/assets.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/browserify.coffee" afterPath="$PROJECT_DIR$/client/tasks/browserify.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/build.coffee" afterPath="$PROJECT_DIR$/client/tasks/build.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/client_settings.coffee" afterPath="$PROJECT_DIR$/client/tasks/client_settings.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/client_vendors.coffee" afterPath="$PROJECT_DIR$/client/tasks/client_vendors.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/coffee_compile.coffee" afterPath="$PROJECT_DIR$/client/tasks/coffee_compile.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/eco_compile.coffee" afterPath="$PROJECT_DIR$/client/tasks/eco_compile.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/game_data.coffee" afterPath="$PROJECT_DIR$/client/tasks/game_data.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/images.coffee" afterPath="$PROJECT_DIR$/client/tasks/images.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/locales.coffee" afterPath="$PROJECT_DIR$/client/tasks/locales.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/stylesheets.coffee" afterPath="$PROJECT_DIR$/client/tasks/stylesheets.coffee" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tasks/watch.coffee" afterPath="$PROJECT_DIR$/client/tasks/watch.coffee" />
+    </list>
+    <ignored path="simulator.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="simulator" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CoffeeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/client/game_data/route.coffee" />
+        <option value="$PROJECT_DIR$/tasks/game_data.coffee" />
+        <option value="$PROJECT_DIR$/app/game_data/good.coffee" />
+        <option value="$PROJECT_DIR$/client/views/shop/transport_model.eco" />
+        <option value="$PROJECT_DIR$/client/utils/design.coffee" />
+        <option value="$PROJECT_DIR$/config/locales/ru/game_data/goods.yml" />
+        <option value="$PROJECT_DIR$/app/db/transport_models/truck.coffee" />
+        <option value="$PROJECT_DIR$/client/utils/pictures.coffee" />
+        <option value="$PROJECT_DIR$/client/views/properties/list.eco" />
+        <option value="$PROJECT_DIR$/app/executors/properties.coffee" />
+        <option value="$PROJECT_DIR$/app/models/states/properties.coffee" />
+        <option value="$PROJECT_DIR$/client/controllers/pages/properties.coffee" />
+        <option value="$PROJECT_DIR$/app/executors/advertising.coffee" />
+        <option value="$PROJECT_DIR$/client/controllers/modals/prolong_advertising.coffee" />
+        <option value="$PROJECT_DIR$/client/controllers/pages/advertising.coffee" />
+        <option value="$PROJECT_DIR$/config/locales/ru/properties.yml" />
+        <option value="$PROJECT_DIR$/client/controllers/pages/home.coffee" />
+        <option value="$PROJECT_DIR$/config/locales/ru/home.yml" />
+        <option value="$PROJECT_DIR$/config/locales/ru/layouts.yml" />
+        <option value="$PROJECT_DIR$/app/game_data/route.coffee" />
+        <option value="$PROJECT_DIR$/app/game_data/index.coffee" />
+        <option value="$PROJECT_DIR$/app/game_data/route_type.coffee" />
+        <option value="$PROJECT_DIR$/app/db/route_types/normal.coffee" />
+        <option value="$PROJECT_DIR$/app/models/states/routes.coffee" />
+        <option value="$PROJECT_DIR$/client/game_data/route_type.coffee" />
+        <option value="$PROJECT_DIR$/client/game_data/index.coffee" />
+        <option value="$PROJECT_DIR$/app/models/states/advertising.coffee" />
+        <option value="$PROJECT_DIR$/app/executors/routes.coffee" />
+        <option value="$PROJECT_DIR$/client/models/route_record.coffee" />
+        <option value="$PROJECT_DIR$/client/models/player_state.coffee" />
+        <option value="$PROJECT_DIR$/client/controllers/pages/routes.coffee" />
+        <option value="$PROJECT_DIR$/migrations/sqls/20160407165143-add-players-up.sql" />
+        <option value="$PROJECT_DIR$/app/models/states/factories.coffee" />
+        <option value="$PROJECT_DIR$/app/models/states/index.coffee" />
+        <option value="$PROJECT_DIR$/app/models/player.coffee" />
+        <option value="$PROJECT_DIR$/app/app.coffee" />
+        <option value="$PROJECT_DIR$/bin/www" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/tasks/stylesheets.coffee" />
+        <option value="$PROJECT_DIR$/tasks/images.coffee" />
+        <option value="$PROJECT_DIR$/rev-manifest.json" />
+        <option value="$PROJECT_DIR$/build/client/assets_timestamps.js" />
+        <option value="$PROJECT_DIR$/tasks/build.coffee" />
+        <option value="$PROJECT_DIR$/server/tasks/coffee_compile.coffee" />
+        <option value="$PROJECT_DIR$/server/tasks/build.coffee" />
+        <option value="$PROJECT_DIR$/server/tasks/watch.coffee" />
+        <option value="$PROJECT_DIR$/server/package.json" />
+        <option value="$PROJECT_DIR$/client/package.json" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="37" />
+    <option name="y" value="24" />
+    <option name="width" value="1329" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="FullScreen" value="false" />
+    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="editor.config.accepted" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client" />
+      <recent name="$PROJECT_DIR$/server" />
+      <recent name="$PROJECT_DIR$/app/db/route_types" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client" />
+      <recent name="$PROJECT_DIR$/server" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GoRunFileConfiguration" factoryName="Go Single File">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="DIRECTORY" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a1b0499e-6455-4b7e-a710-7f702e9e7536" name="Default" comment="" />
+      <created>1468648150561</created>
+      <option name="number" value="Default" />
+      <updated>1468648150561</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="37" y="24" width="1329" height="744" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28024504" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/server/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/styles/layouts.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/styles/application.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/styles/design.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/styles/utils.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.030456852">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/styles/images.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18274112">
+          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/app/db/routes/normal.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/locales/en/test.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.060708262">
+          <caret line="2" column="31" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/locales/ru/advertising.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.030354131">
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/assets_timestamps.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/app/app.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tasks/coffee_compile.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.16">
+          <caret line="3" column="29" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tasks/build.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.64">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.030354131">
+          <caret line="1" column="11" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tasks/watch.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.030354131">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5724382">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56360424">
+          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

@@ -7,19 +7,15 @@ buffer     = require('vinyl-buffer')
 file = require('gulp-file')
 
 gulp.task('watch', ->
-  gulp.watch('./app/**/*.coffee', ["build:server"])
+  gulp.watch('../server/app/db/game_data/**/*.coffee', ["game-data-populate-browserify"])
 
-  gulp.watch('./app/views/**/*.ejs', ["server-views-copy"])
+  gulp.watch('./**/*.coffee', ["coffee-compile-browserify"])
 
-  gulp.watch('./app/db/game_data/**/*.coffee', ["game-data-populate-browserify"])
+  gulp.watch('./views/**/*.eco', ["eco-compile-browserify"])
 
-  gulp.watch('./client/**/*.coffee', ["client-compile-browserify"])
+  gulp.watch('./styles/**/*.scss', ["stylesheets"])
 
-  gulp.watch('./client/views/**/*.eco', ["eco-compile-browserify"])
-
-  gulp.watch('./client/styles/**/*.scss', ["stylesheets"])
-
-  gulp.watch('./config/locales/**/*.yml', ["locales"])
+  gulp.watch('./config/locales/**/*.yml', ["compile-locales"])
 )
 
 browserifyConcat = ->
@@ -39,7 +35,7 @@ gulp.task("game-data-populate-browserify", ['game_data:populate'], ->
   browserifyConcat()
 )
 
-gulp.task("client-compile-browserify", ['coffee-compile:client'], ->
+gulp.task("coffee-compile-browserify", ['coffee-compile'], ->
   browserifyConcat()
 )
 

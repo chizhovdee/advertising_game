@@ -1,7 +1,7 @@
 # для того чтобы новое поле стейта заработало на клиенте,
 # нужно добавить атрибут здесь и вписать в массив Player.stateFields на бэкенде
 
-settings = require('../settings')
+#settings = require('../settings')
 gameData = require('../game_data')
 
 # state records

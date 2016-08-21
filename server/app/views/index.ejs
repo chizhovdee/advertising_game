@@ -9,11 +9,13 @@
     <script type="text/javascript" charset="UTF-8">
       window.okSignedParams = '<%= okSignedParams %>';
       window.offlineSignedParams = '<%= offlineSignedParams %>';
+      window.assetsManifest = JSON.parse('<%- JSON.stringify(assetsManifest) %>');
+      window.assetsRevision = JSON.parse('<%- JSON.stringify(assetsRevision) %>');
     </script>
   </head>
 
   <body>
-    <link href="/assets/application.css" media="all" rel="stylesheet" />
+    <link href="/assets/<%= assetsManifest['application.css'] %>" media="all" rel="stylesheet" />
 
     <div class="wrapper">
       <div id="application">
@@ -33,6 +35,6 @@
       window.lng = "ru"
     </script>
 
-    <script src="/assets/application.js" type="application/javascript" charset="UTF-8"></script>
+    <script src="/assets/<%= assetsManifest['application.js'] %>" type="application/javascript" charset="UTF-8"></script>
   </body>
 </html>

@@ -1,6 +1,5 @@
 utils = require("../utils")
 ctx = require('../context')
-settings = require('../settings')
 
 class BaseController extends Spine.Controller
   player: null

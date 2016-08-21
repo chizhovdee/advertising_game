@@ -1,4 +1,4 @@
-assetsTimestamps = require('../assets_timestamps') # generated with gulp
+#assetsTimestamps = require('../assets_timestamps') # generated with gulp
 
 module.exports =
   assetsPath: (path)->

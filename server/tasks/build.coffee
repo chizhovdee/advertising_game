@@ -1,10 +1,9 @@
 gulp = require("gulp")
+rev = require('gulp-rev')
+revdelOriginal = require('gulp-rev-delete-original')
+fs = require('fs')
 
-source = require('vinyl-source-stream')
-fs = require("fs")
-concat = require('gulp-concat')
-buffer = require('vinyl-buffer')
-file = require('gulp-file')
+assetsDir = './public/assets'
 
 gulp.task("build", ['coffee-compile', 'views-copy'])
 

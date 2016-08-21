@@ -51,3 +51,28 @@ module.exports =
     cn = fs.readFileSync(configPath)
 
     JSON.parse(cn)
+
+  loadAssetsManifest: ->
+    try
+      file = fs.readFileSync(path.join(__dirname, '../public/assets/', 'rev-manifest.json'))
+
+      JSON.parse(file)
+    catch error
+      console.error("\n====================================================")
+      console.error("\nPlease run gulp build from client folder!")
+      console.error("\n=====================================================")
+
+      throw error
+
+  loadAssetsRevision: ->
+    try
+      file = fs.readFileSync(path.join(__dirname, '../public/assets/', 'revision.json'))
+
+      JSON.parse(file)
+    catch error
+      console.error("\n====================================================")
+      console.error("\nPlease run gulp build from client folder!")
+      console.error("\n=====================================================")
+
+      throw error
+

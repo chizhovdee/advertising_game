@@ -2,15 +2,19 @@ gulp = require("gulp")
 map     = require('map-stream')
 yaml    = require('js-yaml')
 gutil = require("gulp-util")
+del = require('del')
 _ = require("lodash")
 
-gulp.task('locales', ->
+serverAssetsDir = '../server/public/assets'
+
+gulp.task('compile-locales', ->
   data = {
     ru: {}
     en: {}
   }
+  del.sync("#{ serverAssetsDir }/locales*",force: true)
 
-  gulp.src('./config/locales/**/*.yml').pipe(map((file,cb)->
+  gulp.src('./locales/**/*.yml').pipe(map((file,cb)->
       return cb(null, file) if file.isNull() # pass along
       return cb(new Error("Streaming not supported")) if file.isStream()
 
@@ -35,10 +39,10 @@ gulp.task('locales', ->
       file = new gutil.File(
         cwd: ""
         base: ""
-        path: lng + ".json"
+        path: "locales_#{ lng }.json"
         contents: new Buffer(JSON.stringify(data[lng]))
       );
 
       cb(null, file)
-  )).pipe(gulp.dest('./public/locales'))
+  )).pipe(gulp.dest(serverAssetsDir))
 )

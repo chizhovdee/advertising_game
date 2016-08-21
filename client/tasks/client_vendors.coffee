@@ -1,8 +1,8 @@
 gulp = require("gulp")
 concat = require('gulp-concat')
 
-gulp.task('client-vendors', ->
-  gulp.src("./client/vendor/**/*.js")
+gulp.task('concat-vendors', ->
+  gulp.src("./vendor/**/*.js")
   .pipe(concat("vendors.js"))
-  .pipe(gulp.dest("./build/client/"))
+  .pipe(gulp.dest("./build"))
 )

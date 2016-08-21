@@ -7,19 +7,20 @@ fs = require("fs")
 del = require('del')
 
 gulp.task("stylesheets", ['sass-compile'], ->
-  del.sync(['public/assets/*.css'])
 
-  gulp.src("./build/client/styles/application.css")
-  .pipe(gulp.dest("./public/assets"))
+  del.sync(['../server/public/assets/*.css'], force: true)
+
+  gulp.src("./build/styles/application.css")
+  .pipe(gulp.dest("../server/public/assets"))
 )
 
 gulp.task('sass-compile', ->
-  gulp.src('./client/styles/application.scss')
+  gulp.src('./styles/application.scss')
   .pipe(include())
   .pipe(gulpif('application.scss', sass()))
   .on('error', notify.onError(
       title: "SASS ERROR"
       message: "Look in the console for details.\n <%= error.message %>"
     ))
-  .pipe(gulpif('application.css', gulp.dest('./build/client/styles')))
+  .pipe(gulpif('application.css', gulp.dest('./build/styles')))
 )

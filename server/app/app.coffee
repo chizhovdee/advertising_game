@@ -16,7 +16,8 @@ boot.loadGameData()
 
 db = boot.setupPostgresqlConnection(app.get('env'))
 redis = boot.setupRedisConnection(app.get('env'))
-
+assetsManifest = boot.loadAssetsManifest()
+assetsRevision = boot.loadAssetsRevision()
 
 # собственные модули загружаем здесь
 Ok = require('./lib/odnoklassniki')
@@ -40,7 +41,15 @@ app.use(express.static(publicDir))
 
 #app.use(Ok.middleware)
 app.use(middleware.offlineUser)
-app.use(middleware.assignment(db: db, redis: redis))
+
+app.use((req, res, next)->
+  req.db = db
+  req.redis = redis
+  req.assetsManifest = assetsManifest
+  req.assetsRevision = assetsRevision
+
+  next()
+)
 app.use(middleware.currentPlayer)
 app.use(middleware.requestParamsLog)
 app.use(middleware.utils)

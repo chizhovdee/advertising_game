@@ -20,7 +20,7 @@ class BaseController extends Spine.Controller
     super
 
     @player = ctx.get('player')
-    @settings = settings
+    @settings = ctx.get('settings')
 
   show: ->
     @.unbindEventListeners()

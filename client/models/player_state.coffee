@@ -1,7 +1,7 @@
 # для того чтобы новое поле стейта заработало на клиенте,
 # нужно добавить атрибут здесь и вписать в массив Player.stateFields на бэкенде
 
-#settings = require('../settings')
+ctx = require('../context')
 gameData = require('../game_data')
 
 # state records
@@ -40,7 +40,7 @@ class PlayerState extends Spine.Model
     super
 
   setStateUpdatedAt: (attribute)->
-    return unless attribute in settings.player.stateFields
+    return unless attribute in ctx.get('settings').player.stateFields
 
     @["#{ attribute }UpdatedAt"] = Date.now()
 

@@ -6,8 +6,10 @@ concat = require('gulp-concat')
 buffer     = require('vinyl-buffer')
 file = require('gulp-file')
 
+serverAssetsDir = "../server/public/assets"
+
 gulp.task('watch', ->
-  gulp.watch('../server/app/db/game_data/**/*.coffee', ["game-data-populate-browserify"])
+  gulp.watch('../server/app/db/game_data/**/*.coffee', ["game-data-json-browserify"])
 
   gulp.watch('./**/*.coffee', ["coffee-compile-browserify"])
 
@@ -19,19 +21,19 @@ gulp.task('watch', ->
 )
 
 browserifyConcat = ->
-  vendors = fs.readFileSync("./build/client/vendors.js");
+  vendors = fs.readFileSync("./build/vendors.js")
 
-  browserify("./build/client/main.js", debug: false)
+  browserify("./build/main.js", {debug: false})
   .bundle()
   .pipe(source("application.js"))
-  .pipe(gulp.dest("./public/assets/"))
+  .pipe(gulp.dest(serverAssetsDir))
   .pipe(file("vendor.js", vendors))
   .pipe(buffer())
   .pipe(concat("application.js"))
-  .pipe(gulp.dest("./public/assets/"))
+  .pipe(gulp.dest(serverAssetsDir))
 
 
-gulp.task("game-data-populate-browserify", ['game_data:populate'], ->
+gulp.task("game-data-json-browserify", ['game_data_json'], ->
   browserifyConcat()
 )
 

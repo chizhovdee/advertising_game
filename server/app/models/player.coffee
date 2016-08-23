@@ -13,6 +13,7 @@ class Player extends Base
     session_secret_key: null
     installed: false
     last_visited_at: null
+    locale: 'ru'
 
     # game attributes
     basic_money: 5000
@@ -112,6 +113,7 @@ class Player extends Base
     fuel: @fuel
     experience_to_next_level: @.experienceToNextLevel()
     level_progress_percentage: @.levelProgressPercentage()
+    locale: @locale
 
 
 module.exports = Player

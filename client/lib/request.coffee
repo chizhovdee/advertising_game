@@ -21,7 +21,7 @@ module.exports =
     @.trigger(res.event_type, res.data) for res in response
 
   prefixUrl: (url)->
-    "/api/777/#{url}"
+    "/api/#{ window.assetsRevision }/#{url}"
 
   ajax: (type, url, data)->
     $.ajax(
@@ -50,14 +50,6 @@ module.exports =
 
   ##################### requests #########################
 
-  loadGameData: ->
-    @.get("game_data.json")
-
-#  # staff
-#  hire_staff: (data)->
-#    @.post('/staff/hire.json', data)
-
-
   # trucking
   create_trucking: (data)->
     @.post('/trucking/create', data)
@@ -65,7 +57,7 @@ module.exports =
   collect_trucking: (data)->
     @.put('/trucking/collect', data)
 
-  #--------------- properties ---------------#
+  # properties
   create_property: (data)->
     @.post('/properties/create', data)
 

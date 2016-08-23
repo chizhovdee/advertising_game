@@ -56,7 +56,6 @@ gulp.task("build", tasks, ->
   .pipe(gulp.dest(serverAssetsDir))
 )
 
-
 gulp.task("build:production", tasks, ->
   delRevisionFiles()
 

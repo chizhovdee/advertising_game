@@ -11,8 +11,6 @@ exports.setup = (app)->
   do (apiRoutes = express.Router())->
     app.use("/api/:version", apiRoutes)
 
-    apiRoutes.get("/game_data.json", controllers.home.gameData)
-
     # properties
     apiRoutes.post('/properties/create', controllers.properties.create)
     apiRoutes.put('/properties/accelerate', controllers.properties.accelerate)

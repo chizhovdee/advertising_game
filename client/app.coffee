@@ -13,6 +13,7 @@ ctx = require('./context')
 Timer = require('./lib').Timer
 displays = require('./utils').displays
 render = require('./utils').render
+gameData = require('./game_data')
 
 # сначала грузиться манифест с помощью прелоадера
 # затем загружается персонаж
@@ -28,9 +29,18 @@ class App
 
     @.setupEventListeners()
 
-    preloader.loadManifest([
-      {id: "locale", src: "locales/#{ window.lng }.json"}
-    ])
+    assets = []
+
+    for key, value of window.assetsManifest
+      key = key.split('.')[0]
+
+      if key == 'application' ||
+         (key.match(/locales/) && key != "locales_#{ window.currentPlayerData.locale }")
+        continue
+
+      assets.push {id: key, src: "assets/#{ value }"}
+
+    preloader.loadManifest(assets)
 
   # все общие события для игры
   setupEventListeners: ->
@@ -38,15 +48,11 @@ class App
     preloader.on("complete", @.onManifestLoadComplete, this)
     preloader.on("progress", @.onManifestLoadProgress, this)
 
-    # события транспорта
-    request.one("game_data_loaded", @.onGameDataLoaded)
     request.bind('player_updated', @.onPlayerUpdated)
     request.bind('not_authenticated', @.onCharacterNotAuthorized)
     request.bind('server_error', @.onServerError)
 
     $.ajaxSetup(beforeSend: @.onAjaxBeforeSend)
-
-    # события DOM
 
   onManifestLoadProgress: (e)->
     console.log "Total:", e.total, ", loaded:", e.loaded
@@ -54,19 +60,31 @@ class App
   onManifestLoadComplete: ->
     console.log "onManifestLoadComplete"
 
-    @.setTranslations()
+    @.populateData()
 
-    request.send("loadGameData")
+  populateData: ->
+    ctx.set('images_timestamps', preloader.getResult('images_timestamps'))
 
-  onGameDataLoaded: (response)=>
-    console.log response
+    for key, value of preloader.getResult('game_data')
+      if key == 'settings'
+        ctx.set("settings", value)
+      else
+        gameData[_.upperFirst(_.camelCase(key))].populate(value)
 
-    @player = Player.create(response.player)
-    @playerState = PlayerState.create(response.states)
+    # определены в index.html
+    @player = Player.create(window.currentPlayerData)
+    @playerState = PlayerState.create(window.currentPlayerState)
 
     ctx.set("player", @player)
     ctx.set('playerState', @playerState)
 
+    @.setTranslations()
+
+    preloader.removeAll() # вычищаем прелоадер, освобождаем память
+
+    @.show()
+
+  show: ->
     new layouts.HeaderLayout(el: $("#application .header")).show()
     new layouts.SidebarLayout(el: $("#sidebar")).show()
 
@@ -88,8 +106,8 @@ class App
     @.setCommonTimers()
 
   setTranslations: ->
-    I18n.defaultLocale = window.lng
-    I18n.locale = window.lng
+    I18n.defaultLocale = @player.locale
+    I18n.locale = @player.locale
     #   :one  = 1, 21, 31, 41, 51, 61...
     #   :few  = 2-4, 22-24, 32-34...
     #   :many = 0, 5-20, 25-30, 35-40...
@@ -108,7 +126,7 @@ class App
         ['other']
 
     I18n.translations ?= {}
-    I18n.translations[window.lng] = preloader.getResult("locale")
+    I18n.translations[@player.locale] = preloader.getResult("locales_#{ @player.locale }")
 
   onCharacterNotAuthorized: ->
     alert('Персонаж не авторизован')

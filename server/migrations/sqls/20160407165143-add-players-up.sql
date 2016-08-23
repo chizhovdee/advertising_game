@@ -24,6 +24,8 @@ create TABLE players (
 
   last_visited_at timestamp not null,
 
+  locale varchar(20),
+
   created_at timestamp not null,
   updated_at timestamp not null
 );

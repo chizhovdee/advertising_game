@@ -32,7 +32,8 @@
     </div>
 
     <script type="text/javascript" charset="UTF-8">
-      window.lng = "ru"
+      window.currentPlayerData = JSON.parse('<%- JSON.stringify(currentPlayer.toJSON()) %>');
+      window.currentPlayerState = JSON.parse('<%- JSON.stringify(currentPlayer.statesToJson()) %>');
     </script>
 
     <script src="/assets/<%= assetsManifest['application.js'] %>" type="application/javascript" charset="UTF-8"></script>

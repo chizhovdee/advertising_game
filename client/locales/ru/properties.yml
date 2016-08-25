@@ -1,7 +1,7 @@
 ru:
   properties:
     index:
-      title: "Недвижимость"
+      title: "Управление"
     property:
       build: "Построить"
       upgrade: "Улучшить"

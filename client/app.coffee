@@ -15,9 +15,8 @@ displays = require('./utils').displays
 render = require('./utils').render
 gameData = require('./game_data')
 
-# сначала грузиться манифест с помощью прелоадера
-# затем загружается персонаж
-# затем запускается главная сцена
+# сначала грузиться ассеты с помощью прелоадера
+# затем запускается главная сцен
 
 class App
   character: null

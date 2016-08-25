@@ -1,8 +1,8 @@
-#settings = require('../settings')
+ctx = require('../context')
 
 module.exports =
   acceleratePrice: (duration)->
-    Math.ceil(duration / settings.balanceSettings.accelerate)
+    Math.ceil(duration / ctx.get('settings').balanceSettings.accelerate)
 
   fuelBasicPrice: ->
-    settings.balanceSettings.fuelBasicPrice
+    ctx.get('settings').balanceSettings.fuelBasicPrice

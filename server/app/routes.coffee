@@ -19,13 +19,13 @@ exports.setup = (app)->
     apiRoutes.put('/properties/collect_rent', controllers.properties.collectRent)
     apiRoutes.put('/properties/finish_rent', controllers.properties.finishRent)
 
-    # advertising
-    apiRoutes.post('/advertising/create', controllers.advertising.create)
-    apiRoutes.delete('/advertising/delete', controllers.advertising.delete)
-    apiRoutes.put('/advertising/prolong', controllers.advertising.prolong)
-
-    # routes
-    apiRoutes.put('/routes/open', controllers.routes.open)
+#    # advertising
+#    apiRoutes.post('/advertising/create', controllers.advertising.create)
+#    apiRoutes.delete('/advertising/delete', controllers.advertising.delete)
+#    apiRoutes.put('/advertising/prolong', controllers.advertising.prolong)
+#
+#    # routes
+#    apiRoutes.put('/routes/open', controllers.routes.open)
 
     # shop
     apiRoutes.post('/shop/buy_transport', controllers.shop.buyTransport)

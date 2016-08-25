@@ -21,7 +21,7 @@ module.exports =
     @.trigger(res.event_type, res.data) for res in response
 
   prefixUrl: (url)->
-    "/api/#{ window.assetsRevision }/#{url}"
+    "/api/#{ window.assetsRevision.revision }/#{url}"
 
   ajax: (type, url, data)->
     $.ajax(

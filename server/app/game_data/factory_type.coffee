@@ -26,14 +26,14 @@ class FactoryType extends Base
     throw new Error('undefined @upgradePerLevels') unless @upgradePerLevels?
     throw new Error('undefined @baseUpgradeDuration') unless @baseUpgradeDuration?
 
-  upgradeLevelBy: (propertyLevel)->
-    propertyLevel * @upgradePerLevels - (@buildLevel - 1)
+  upgradeLevelBy: (factoryLevel)->
+    factoryLevel * @upgradePerLevels - (@buildLevel - 1)
 
-  upgradePriceBy: (propertyLevel)->
-    (propertyLevel + 1) * @basicPrice
+  upgradePriceBy: (factoryLevel)->
+    (factoryLevel + 1) * @basicPrice
 
-  upgradeDurationBy: (propertyLevel)->
-    propertyLevel * @baseUpgradeDuration
+  upgradeDurationBy: (factoryLevel)->
+    factoryLevel * @baseUpgradeDuration
 
   toJSON: ->
     _.assign(

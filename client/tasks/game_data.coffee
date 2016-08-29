@@ -13,7 +13,7 @@ gulp.task('game_data_json', ->
   gameData = {}
 
   fs.readdirSync("../server/app/game_data/").forEach((name)->
-    if name.indexOf(".coffee") > 0 && name not in ['base.coffee', 'index.coffee', 'good.coffee']
+    if name.indexOf(".coffee") > 0 && name not in ['base.coffee', 'index.coffee', 'advertising_type.coffee']
       baseName = name.split(".coffee")[0]
 
       resource = require("../../server/app/game_data/" + baseName)

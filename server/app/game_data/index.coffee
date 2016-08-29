@@ -5,5 +5,6 @@ module.exports =
   Route: require('./route') # rename to route type
   FactoryType: require('./factory_type')
   MaterialType: require('./material_type')
+  AdvertisingType: require('./advertising_type')
 
 

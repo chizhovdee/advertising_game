@@ -6,5 +6,6 @@ module.exports =
   TransportPage: require('./transport')
   ShopPage: require('./shop')
   AdvertisingPage: require('./advertising')
+  FactoriesPage: require('./factories')
 
 

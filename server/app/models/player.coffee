@@ -1,9 +1,9 @@
 _ = require("lodash")
 Base = require('./base')
-states = require('./states')
 
 class Player extends Base
   @include require('./modules/player_experience')
+  @include require('./modules/player_states')
 
   DEFAULT_DB_ATTRIBUTES = {
     # account attributes
@@ -24,23 +24,11 @@ class Player extends Base
   }
 
   @stateFields: [
-    'trucking', 'advertising', 'properties', 'routes', 'transport'
+    'trucking', 'advertising', 'properties', 'routes', 'transport', 'factories'
   ]
-
-  # define in defineStates()
-  truckingState: null
-  advertisingState: null
-  propertiesState: null
-  routesState: null
-  transportState: null
 
   @default: ->
     new @(DEFAULT_DB_ATTRIBUTES)
-
-  constructor: ->
-    super
-
-    @.defineStates()
 
   insert: ->
     @last_visited_at = new Date()
@@ -52,56 +40,23 @@ class Player extends Base
     if @.levelByCurrentExperience() > @level
       @level += 1
 
-  defineStates: ->
-    for field in Player.stateFields
-      switch field
-        when 'trucking'
-          Object.defineProperty(@, 'truckingState'
-            writable: false
-            enumerable: true
-            value: new states.TruckingState(@)
-          )
-        when 'advertising'
-          Object.defineProperty(@, 'advertisingState'
-            writable: false
-            enumerable: true
-            value: new states.AdvertisingState(@)
-          )
-        when 'properties'
-          Object.defineProperty(@, 'propertiesState'
-            writable: false
-            enumerable: true
-            value: new states.PropertiesState(@)
-          )
-        when 'routes'
-          Object.defineProperty(@, 'routesState'
-            writable: false
-            enumerable: true
-            value: new states.RoutesState(@)
-          )
-        when 'transport'
-          Object.defineProperty(@, 'transportState'
-            writable: false
-            enumerable: true
-            value: new states.TransportState(@)
-          )
-
   stateOperations: ->
     result = {}
 
     for field in Player.stateFields
-      operations = @["#{ field }State"].changingOperations
+      operations = @["#{ field }State"]().changingOperations
 
       result[field] = operations if operations.length > 0
 
     result
 
   statesToJson: ->
-    advertising: @advertisingState.toJSON()
-    properties: @propertiesState.toJSON()
-    routes: @routesState.toJSON()
-    transport: @transportState.toJSON()
-    trucking: @truckingState.toJSON()
+    advertising: @.advertisingState().toJSON()
+    properties: @.propertiesState().toJSON()
+    routes: @.routesState().toJSON()
+    transport: @.transportState().toJSON()
+    trucking: @.truckingState().toJSON()
+    factories: @.factoriesState().toJSON()
 
   toJSON: ->
     id: @id

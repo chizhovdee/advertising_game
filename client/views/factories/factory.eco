@@ -1,0 +1,61 @@
+<div class="factory" id="factory_type_<%= @type.id %>">
+  <span class="info-icon" data-type-id="<%= @type.id %>"></span>
+
+  <div class="name">
+    <%= @type.name() %>
+  </div>
+
+  <div class="picture"><%=@safe @.factoryPicture(@type) %></div>
+
+  <div class="info">
+    <% if @factory?: %>
+      <% if @factory.isBuilding(): %>
+        <div class="warning_label"><%= I18n.t("factories.factory.under_construction") %></div>
+
+        <%=@safe @.renderTimer(I18n.t("factories.factory.building_timer")) %>
+
+      <% else if @factory.isUpgrading(): %>
+        <div class="warning_label"><%= I18n.t("factories.factory.upgrading") %></div>
+
+        <%=@safe @.renderTimer(I18n.t("factories.factory.upgrading_timer")) %>
+
+      <% else if @factory.isRented(): %>
+        <% if @factory.rentFinished(): %>
+          <div class="warning_label"><%= I18n.t("factories.factory.rent_finished") %></div>
+        <% else: %>
+          <div class="warning_label"><%= I18n.t("factories.factory.rented") %></div>
+
+          <%=@safe @.renderTimer(I18n.t("factories.factory.rented_timer")) %>
+        <% end %>
+
+      <% else: %>
+        <div class="level"><%=@safe I18n.t("factories.factory.level", level: @factory.level) %></div>
+        <div class="using">
+          <%=@safe I18n.t("factories.factory.using", current: @.usingCapacity(@type), max: @type.fullCapacityBy(@factory)) %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="controls">
+    <% if @factory?: %>
+      <% if @factory.isUpgrading() || @factory.isBuilding(): %>
+        <button class="accelerate" data-factory-id="<%= @factory.id %>">
+          <%= I18n.t("factories.factory.accelerate") %>
+        </button>
+
+      <% else: %>
+        <button class="upgrade" data-factory-id="<%= @factory.id %>">
+          <%= I18n.t("factories.factory.upgrade") %>
+        </button>
+      <% end %>
+
+    <% else: %>
+      <button class="build" data-type-id="<%= @type.id %>">
+        <%= I18n.t("factories.factory.build") %>
+      </button>
+    <% end %>
+  </div>
+
+  <div class="result_anchor"></div>
+</div>

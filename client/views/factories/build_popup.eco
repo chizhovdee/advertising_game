@@ -1,0 +1,27 @@
+<div class="attributes">
+  <div class="build_duration attribute">
+    <span class="label"><%= I18n.t("factories.factory.build_duration") %></span>
+    <span class="value"><%= @.displayTime(@factoryType.buildDuration) %></span>
+  </div>
+
+  <div class="build_level attribute <%= 'unsatisfied' if @player.level < @factoryType.buildLevel %>">
+    <span class="label"><%= I18n.t("factories.factory.level_requirement") %></span>
+
+    <span class="value"><%= @factoryType.buildLevel %></span>
+  </div>
+
+  <div class="price attribute">
+    <span class="label"><%= I18n.t("common.price") %>:</span>
+    <span class="value">
+      <%=@safe @.renderTemplate('requirements', requirements: @.buildPriceRequirement(@factoryType)) %>
+    </span>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="start_build" data-type-id="<%= @factoryType.id %>">
+    <%= I18n.t("factories.factory.start_build") %>
+  </button>
+
+  <span class="cancel"><%= I18n.t("common.cancel") %></span>
+</div>

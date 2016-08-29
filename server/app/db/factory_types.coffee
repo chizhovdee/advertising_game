@@ -1,3 +1,4 @@
+_ = require("lodash")
 FactoryType = require('../game_data').FactoryType
 
 FactoryType.define('coal_factory', (obj)->

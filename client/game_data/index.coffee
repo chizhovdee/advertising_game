@@ -5,3 +5,4 @@ module.exports =
   PropertyType: require('./property_type')
   MaterialType: require('./material_type')
   FactoryType: require('./factory_type')
+  AdvertisingType: require('./advertising_type')

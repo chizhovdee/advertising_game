@@ -36,7 +36,7 @@ class FactoriesState extends BaseState
 
     @.addOperation('update', id, @.recordToJSON(@state[id]))
 
-  upgrade: (id, duration)->
+  upgradeFactory: (id, duration)->
     delete @state[id].builtAt # удаление лишнего поля
 
     @state[id].upgradeAt = Date.now() + duration

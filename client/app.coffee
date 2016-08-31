@@ -72,6 +72,7 @@ class App
 
     # определены в index.html
     @player = Player.create(window.currentPlayerData)
+    console.log window.currentPlayerState
     @playerState = PlayerState.create(window.currentPlayerState)
 
     ctx.set("player", @player)

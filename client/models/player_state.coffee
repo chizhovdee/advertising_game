@@ -83,7 +83,7 @@ class PlayerState extends Spine.Model
   # factories
   factoryRecords: ->
     @_factoryRecords ?= (
-      for id, data of @properties
+      for id, data of @factories
         new FactoryRecord(data)
     )
 

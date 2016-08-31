@@ -19,20 +19,8 @@
 
         <%=@safe @.renderTimer(I18n.t("factories.factory.upgrading_timer")) %>
 
-      <% else if @factory.isRented(): %>
-        <% if @factory.rentFinished(): %>
-          <div class="warning_label"><%= I18n.t("factories.factory.rent_finished") %></div>
-        <% else: %>
-          <div class="warning_label"><%= I18n.t("factories.factory.rented") %></div>
-
-          <%=@safe @.renderTimer(I18n.t("factories.factory.rented_timer")) %>
-        <% end %>
-
       <% else: %>
         <div class="level"><%=@safe I18n.t("factories.factory.level", level: @factory.level) %></div>
-        <div class="using">
-          <%=@safe I18n.t("factories.factory.using", current: @.usingCapacity(@type), max: @type.fullCapacityBy(@factory)) %>
-        </div>
       <% end %>
     <% end %>
   </div>
@@ -45,6 +33,10 @@
         </button>
 
       <% else: %>
+        <button class="start" data-factory-id="<%= @factory.id %>">
+          <%= I18n.t("factories.factory.start") %>
+        </button>
+
         <button class="upgrade" data-factory-id="<%= @factory.id %>">
           <%= I18n.t("factories.factory.upgrade") %>
         </button>

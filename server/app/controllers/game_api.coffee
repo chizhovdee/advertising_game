@@ -1,26 +1,37 @@
 _ = require('lodash')
 executors = require('../executors')
+factories = executors.factories
 
 module.exports =
-  action: (req, res)->
+  update: (req, res)->
     [controller, action] = req.path.slice(1).split('/')
 
     req.db.tx((t)->
+      resourcesForSaving = [] # сюда записиваем ресурсы и объекты, которые должны сохраниться в хранилища
+
       req.setCurrentPlayer(yield req.currentPlayerForUpdate(t))
 
       switch controller
         when 'factories'
           switch action
             when 'create'
-              1
+              result = factories.createFactory(req.currentPlayer,
+                _.toInteger(req.body.factory_type_id)
+              )
             when 'accelerate'
-              2
+              result = factories.accelerateFactory(req.currentPlayer,
+                _.toInteger(req.body.factory_id)
+              )
             when 'upgrade'
-              3
+              result = factories.upgradeFactory(req.currentPlayer,
+                _.toInteger(req.body.factory_id)
+              )
 
       res.addEventWithResult([controller, action], result)
 
-      res.updateResources(t, req.currentPlayer)
+      resourcesForSaving.push(req.currentPlayer)
+
+      res.saveResources(t, resourcesForSaving...)
     )
     .then(->
       res.sendEventsWithProgress(req.currentPlayer)

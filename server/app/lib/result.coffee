@@ -21,6 +21,10 @@ class Result
 
     routeCanNotOpen: 'route_can_not_open'
 
+    factoryIsBuilt: "factory_is_built"
+    factoryIsBuilding: "factory_is_building"
+    factoryIsUpgrading: "factory_is_upgrading"
+
   errorCode: null
   data: null
   reload: false

@@ -75,6 +75,7 @@ class FactoriesPage extends Page
     @el.on('click', '.factory .upgrade:not(.disabled)', @.onUpgradeClick)
     @el.on('click', '.factory .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
     @el.on('click', '.factory .info-icon', @.onInfoClick)
+    @el.on('click', '.factory .start:not(.disabled)', @.onStartClick)
 
   unbindEventListeners: ->
     super
@@ -94,6 +95,7 @@ class FactoriesPage extends Page
     @el.off('click', '.factory .upgrade:not(.disabled)', @.onUpgradeClick)
     @el.off('click', '.factory .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
     @el.off('click', '.factory .info-icon', @.onInfoClick)
+    @el.off('click', '.factory .start:not(.disabled)', @.onStartClick)
 
   defineData: ->
     @list = FactoryType.all()
@@ -174,7 +176,7 @@ class FactoriesPage extends Page
   onStartAccelerateClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    factory = @playerState.findfactoryRecord(button.data('factory-id'))
+    factory = @playerState.findFactoryRecord(button.data('factory-id'))
 
     $("#factory_type_#{ factory.factoryTypeId } button.accelerate").addClass('disabled')
 
@@ -196,7 +198,7 @@ class FactoriesPage extends Page
   onStartUpgradeClick: (e)=>
     button = $(e.currentTarget)
     button.addClass('disabled')
-    factory = @playerState.findfactoryRecord(button.data('factory-id'))
+    factory = @playerState.findFactoryRecord(button.data('factory-id'))
 
     $("#factory_type_#{ factory.factoryTypeId } button.upgrade").addClass('disabled')
 
@@ -215,6 +217,9 @@ class FactoriesPage extends Page
       autoHideDelay: _(10).seconds()
       autoHide: true
     )
+
+  onStartClick: (e)->
+    modals.StartFactoryModal.show($(e.currentTarget).data('factory-id'))
 
   handleResponse: (response)->
     @.displayResult(

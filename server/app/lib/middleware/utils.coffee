@@ -17,8 +17,8 @@ addResult = (result)->
 
   @executorResult = result
 
-# сохранение ресурсов в базы данных: postgresql, redis
-updateResources = (transaction, resources...)->
+# сохранение ресурсов в базы данных и хранилища: postgresql, redis
+saveResources = (transaction, resources...)->
   throw new Error('you need to add the result of the execution') unless @executorResult?
 
   for resource in resources
@@ -40,6 +40,6 @@ module.exports = (req, res, next)->
 
   res.addResult = addResult
 
-  res.updateResources = updateResources
+  res.saveResources = saveResources
 
   next()

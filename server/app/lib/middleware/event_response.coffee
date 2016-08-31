@@ -1,7 +1,14 @@
 _ = require('lodash')
 
 class EventResponse
+  @types:
+    factories:
+      create: 'factory_created'
+      accelerate: 'factory_accelerated'
+      upgrade: 'factory_upgraded'
+
   events: null
+
   constructor: ->
     @events = []
 
@@ -22,6 +29,13 @@ class EventResponse
     @events
 
 addEvent = (type, callbackOrData)->
+  if _.isArray(type)
+    [controller, action] = type
+
+    type = EventResponse.types[controller][action]
+
+    throw new Error("Undefined event type for controller - #{ controller } and action - #{ action }") unless type?
+
   # @executorResult from addResult method
   @eventResponse.add(type, callbackOrData || @executorResult)
 

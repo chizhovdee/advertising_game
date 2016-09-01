@@ -24,7 +24,7 @@ class Player extends Base
   }
 
   @stateFields: [
-    'trucking', 'advertising', 'properties', 'routes', 'transport', 'factories'
+    'trucking', 'advertising', 'properties', 'routes', 'transport', 'factories', 'materials'
   ]
 
   @default: ->

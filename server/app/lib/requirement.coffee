@@ -3,6 +3,7 @@
 # - health
 # - basic_money
 # - vip_money
+# - materials
 
 _ = require('lodash')
 
@@ -37,6 +38,11 @@ class Requirement
   fuel: (value)->
     @.push('fuel', value)
 
+  material: (type, value)->
+    @values.materials ?= {}
+    @values.materials[type] ?= 0
+    @values.materials[type] += value
+
   push: (key, value)->
     if @values[key]
       @values[key] += value
@@ -65,11 +71,23 @@ class Requirement
         when 'fuel'
           reward.takeFuel(value)
 
+        when 'materials'
+          for type, amount of value
+            reward.takeMaterial(type, amount)
+
   unSatisfiedFor: (player)->
     result = {}
 
     for key, value of @values
-      result[key] = [value, false] if value > player[key]
+      if key == 'materials'
+        for type, amount of value
+          continue if amount <= player.materialsState().get(type)
+
+          result.materials ?= {}
+          result.materials[type] = [amount, false]
+
+      else
+        result[key] = [value, false] if value > player[key]
 
     result
 

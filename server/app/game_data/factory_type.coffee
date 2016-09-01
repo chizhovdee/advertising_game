@@ -4,14 +4,19 @@ Base = require("./base")
 class FactoryType extends Base
   @configure publicForClient: true
 
+  @durationsCount: 6
+
   basicPrice: null # базовая цена за строительство и за улучшение
   buildLevel: null # уровень требуемый для строительства
   buildDuration: null # время строительства
   upgradePerLevels: null # через сколько уровней игрока будет разрешено улучшать на один уровень, начиная с buildLevel
   upgradeDuration: null # время улучшения
+  durations: null
 
   constructor: ->
     super
+
+    @durations = {}
 
     @basicPrice = null
     @buildLevel = null
@@ -35,6 +40,12 @@ class FactoryType extends Base
   upgradeDurationBy: (factoryLevel)->
     factoryLevel * @baseUpgradeDuration
 
+  addRewardForDuration: (durationNumber, callback)->
+    @.addReward("collect_duration_#{ durationNumber }", callback)
+
+  addRequirementForDuration: (durationNumber, callback)->
+    @.addRequirement("start_duration_#{ durationNumber }", callback)
+
   toJSON: ->
     _.assign(
       basicPrice: @basicPrice
@@ -43,6 +54,7 @@ class FactoryType extends Base
       upgradePerLevels: @upgradePerLevels
       baseUpgradeDuration: @baseUpgradeDuration
       reward: @reward
+      requirement: @requirement
       ,
       super
     )

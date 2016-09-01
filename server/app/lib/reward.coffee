@@ -32,15 +32,18 @@ class Reward
     for key, value of @values
       switch key
         when 'reputation'
-          reward.addReputation(value)
+          reward.giveReputation(value)
         when 'basic_money'
-          reward.addBasicMoney(value)
+          reward.giveBasicMoney(value)
         when 'vip_money'
-          reward.addVipMoney(value)
+          reward.giveVipMoney(value)
         when 'experience'
-          reward.addExperience(value)
+          reward.giveExperience(value)
         when 'fuel'
-          reward.addFuel(value)
+          reward.giveFuel(value)
+        when 'materials'
+          for type, amount of value
+            reward.giveMaterial(type, amount)
 
   getValue: (key)->
     @values[key]
@@ -90,25 +93,31 @@ class Reward
 
     @.push(attribute, result) if result != 0
 
-  # add
+  # give
+  giveMaterial: (type, value)->
+    return if value < 0
 
-  addExperience: (value)->
+    @player.materialsState().give(type, value)
+
+    @.material(type, value)
+
+  giveExperience: (value)->
     return if value < 0
     @.simpleAttribute('experience', value)
 
-  addReputation: (value)->
+  giveReputation: (value)->
     return if value < 0
     @.simpleAttribute('reputation', value)
 
-  addBasicMoney: (value)->
+  giveBasicMoney: (value)->
     return if value < 0
     @.simpleAttribute('basic_money', value)
 
-  addVipMoney: (value)->
+  giveVipMoney: (value)->
     return if value < 0
     @.simpleAttribute('vip_money', value)
 
-  addFuel: (value)->
+  giveFuel: (value)->
     return if value < 0
     @.simpleAttribute('fuel', value)
 
@@ -126,6 +135,17 @@ class Reward
 
     @.simpleAttribute('fuel', -value)
 
+  takeMaterial: (type, value)->
+    return if value < 0
+
+    source = @player.materialsState().get(type)
+
+    value = source if value > source
+
+    @player.materialsState().take(type, value)
+
+    @.material(type, value)
+
   reputation: (value)->
     @.push('reputation', value)
 
@@ -140,6 +160,11 @@ class Reward
 
   fuel: (value)->
     @.push('fuel', value)
+
+  material: (type, value)->
+    @values.materials ?= {}
+    @values.materials[type] ?= 0
+    @values.materials[type] += value
 
   push: (key, value)->
     if @values[key]

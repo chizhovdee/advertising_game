@@ -57,6 +57,7 @@ class Player extends Base
     transport: @.transportState().toJSON()
     trucking: @.truckingState().toJSON()
     factories: @.factoriesState().toJSON()
+    materials: @.materialsState().toJSON()
 
   toJSON: ->
     id: @id

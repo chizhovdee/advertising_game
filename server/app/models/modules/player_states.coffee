@@ -7,6 +7,7 @@ module.exports =
   _routesState: null
   _transportState: null
   _factoriesState: null
+  _materialsState: null
 
   truckingState: ->
     return @_truckingState if @_truckingState?
@@ -73,3 +74,14 @@ module.exports =
     )
 
     @_transportState
+
+  materialsState: ->
+    return @_materialsState if @_materialsState?
+
+    Object.defineProperty(@, '_materialsState'
+      writable: false
+      enumerable: true
+      value: new states.MaterialsState(@)
+    )
+
+    @_materialsState

@@ -1,1 +1,1 @@
-start factory
+<h2><%= I18n.t('factories.start.title') %></h2>

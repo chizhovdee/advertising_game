@@ -26,6 +26,11 @@ module.exports =
               result = factories.upgradeFactory(req.currentPlayer,
                 _.toInteger(req.body.factory_id)
               )
+            when 'start'
+              result = factories.startFactory(req.currentPlayer,
+                _.toInteger(req.body.factory_id),
+                _.toInteger(req.body.duration_number)
+              )
 
       res.addEventWithResult([controller, action], result)
 

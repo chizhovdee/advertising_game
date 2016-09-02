@@ -45,10 +45,10 @@ ru:
       reputation: "Репутация"
       experience: "Опыт"
       basic_money: "Деньги"
-      fuel_auto: "Топливо для авто"
-      fuel_railway: "Топливо для тепловозов"
-      fuel_sea: "Топливо для судов"
-      fuel_air: "Топливо для самолетов"
+      fuel: "Топливо"
+      coal: "Уголь"
+      wood: "Древесина"
+
     timer:
       days:
         zero: "%{count} дней"
@@ -67,3 +67,4 @@ ru:
     more_details: "подробнее"
     time: "Время"
     income: "Доход"
+    spending: "Затраты"

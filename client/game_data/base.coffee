@@ -44,5 +44,35 @@ class Base extends Spine.Model
 
     delete @constructor.recordsByKey[@key] if options.clear
 
+  getReward: (trigger, multiplier = 1)->
+    return unless @reward?[trigger]?
+
+    reward = {}
+
+    for key, value of @reward[trigger]
+      if _.isPlainObject(value) # materials...
+        for type, amount of value
+          reward[key] ?= {}
+          reward[key][type] = amount * multiplier
+      else
+        reward[key] = value * multiplier
+
+    reward
+
+  getRequirement: (trigger, multiplier = 1, player, playerState)->
+    return unless @requirement?[trigger]?
+
+    requirement = {}
+
+    for key, value of @requirement[trigger]
+      if _.isPlainObject(value) # materials...
+        for type, amount of value
+
+          requirement[key] ?= {}
+          requirement[key][type] = [amount * multiplier, playerState[key][type] >= amount * multiplier]
+      else
+        requirement[key] = [value * multiplier, player[key] >= value * multiplier]
+
+    requirement
 
 module.exports = Base

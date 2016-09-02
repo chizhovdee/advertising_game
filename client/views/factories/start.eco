@@ -2,18 +2,28 @@
 
 <div class="options">
   <% for number, duration of @factoryType.durations: %>
-    <div class="option">
+    <div class="option" data-duration-number="<%= number %>">
       <div class="time">
         <span class="label"><%= I18n.t('common.time') %>:</span>
         <span class="value"><%= @displayTime(duration) %></span>
       </div>
 
-      <%= @.renderRewards @factoryType.reward["collect_duration_#{ number }"], (content)-> %>
+      <%= @.renderRewards @factoryType.getReward("collect_duration_#{ number }", @factory.level), (content)-> %>
         <span class="label"><%= I18n.t('common.income') %></span>
+
+        <div><%= content %></div>
+      <% end %>
+
+      <%= @.renderRequirements @factoryType.getRequirement("start_duration_#{ number }", @factory.level, @player, @playerState), (content)-> %>
+        <span class="label"><%= I18n.t('common.spending') %></span>
 
         <div><%= content %></div>
       <% end %>
 
     </div>
   <% end %>
+</div>
+
+<div class="controls">
+  <button class="make disabled"><%= I18n.t('factories.start.make') %></button>
 </div>

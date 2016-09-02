@@ -87,6 +87,8 @@ module.exports =
   upgrade_factory: (data)->
     @.put('factories/upgrade', data)
 
+  start_factory: (data)->
+    @.put('factories/start', data)
 
   # advertising
   create_advertising: (data)->

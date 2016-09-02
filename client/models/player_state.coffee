@@ -15,9 +15,9 @@ AdvertisingType = gameData.AdvertisingType
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
     'trucking', 'truckingUpdatedAt', 'advertising', 'advertisingUpdatedAt',
-    'routes', 'routesUpdatedAt',
+    'routes', 'routesUpdatedAt', 'transport', 'transportUpdatedAt',
     'properties', 'propertiesUpdatedAt', 'factories', 'factoriesUpdatedAt',
-    'transport', 'transportUpdatedAt'
+    'materials', 'materialsUpdateAt'
 
   @include require('./modules/model_changes')
 

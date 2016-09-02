@@ -12,8 +12,10 @@ class StartFactoryModal extends Modal
 
     @playerState = ctx.get('playerState')
 
-    console.log @factory = _.find(@playerState.factoryRecords(), (p)-> p.id == factoryId)
-    console.log @factoryType = FactoryType.find(@factory.factoryTypeId)
+    @factory = _.find(@playerState.factoryRecords(), (p)-> p.id == factoryId)
+    @factoryType = FactoryType.find(@factory.factoryTypeId)
+
+    @currentDuration = null
 
     @.render()
 
@@ -25,8 +27,29 @@ class StartFactoryModal extends Modal
   bindEventListeners: ->
     super
 
+    @el.on('click', '.option:not(.selected)', @.onOptionClick)
+    @el.on('click', '.controls:not(.disabled) .make:not(.disabled)', @.onMakeClick)
+
   unbindEventListeners: ->
     super
 
+    @el.off('click', '.option:not(.selected)', @.onOptionClick)
+    @el.off('click', '.controls:not(.disabled) .make:not(.disabled)', @.onMakeClick)
+
+  onOptionClick: (e)=>
+    @el.find('.option.selected').removeClass('selected')
+
+    optionEl = $(e.currentTarget)
+
+    optionEl.addClass('selected')
+
+    @currentDurationNumber = optionEl.data('duration-number')
+
+    @el.find('.make').removeClass('disabled')
+
+  onMakeClick: =>
+    @el.find('.controls').addClass('disabled')
+
+    request.send('start_factory', factory_id: @factory.id, duration_number: @currentDurationNumber)
 
 module.exports = StartFactoryModal

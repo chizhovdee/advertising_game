@@ -59,26 +59,56 @@ FactoryType.define('wood_factory', (obj)->
     switch duration
       when 0
         obj.durations[duration] = _(5).minutes()
-        obj.addRewardForDuration(duration, (r)-> r.material 'wood', 5)
+
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'wood', 5
+          r.experience 1
+        )
+
         obj.addRequirementForDuration(duration, (r)-> r.material 'coal', 1)
       when 1
         obj.durations[duration] = _(15).minutes()
-        obj.addRewardForDuration(duration, (r)-> r.material 'wood', 10)
+
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'wood', 10
+          r.experience 2
+        )
+
         obj.addRequirementForDuration(duration, (r)-> r.material 'coal', 2)
       when 2
         obj.durations[duration] = _(1).hours()
-        obj.addRewardForDuration(duration, (r)-> r.material 'wood', 20)
+
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'wood', 20
+          r.experience 3
+        )
+
         obj.addRequirementForDuration(duration, (r)-> r.material 'coal', 5)
       when 3
         obj.durations[duration] = _(4).hours()
-        obj.addRewardForDuration(duration, (r)-> r.material 'wood', 50)
+
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'wood', 50
+          r.experience 4
+        )
+
         obj.addRequirementForDuration(duration, (r)-> r.material 'coal', 10)
       when 4
         obj.durations[duration] = _(8).hours()
-        obj.addRewardForDuration(duration, (r)-> r.material 'wood', 100)
+
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'wood', 100
+          r.experience 5
+        )
+
         obj.addRequirementForDuration(duration, (r)-> r.material 'coal', 10)
       when 5
         obj.durations[duration] = _(24).hours()
-        obj.addRewardForDuration(duration, (r)-> r.material 'wood', 150)
+
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'wood', 150
+          r.experience 6
+        )
+
         obj.addRequirementForDuration(duration, (r)-> r.material 'coal', 20)
 )

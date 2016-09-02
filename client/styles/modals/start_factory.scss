@@ -7,6 +7,14 @@
       @include border-radius(5px);
       padding: 5px;
       margin: 5px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      width: 165px;
+
+      &.selected {
+        border: 1px solid #FF3333;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
 
       .label {
         font-weight: bold;
@@ -29,13 +37,26 @@
       }
 
       .rewards {
-        margin-top: 5px;
+        margin-top: 10px;
         
         .reward {
           display: inline-block;
           vertical-align: top;
         }
       }
+
+      .requirements {
+        margin-top: 10px;
+
+        .requirement {
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
     }
+  }
+
+  .controls {
+    margin-top: 10px;
   }
 }

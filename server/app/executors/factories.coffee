@@ -121,6 +121,22 @@ module.exports =
 
     new Result(data: dataResult)
 
+  startFactory: (player, factoryId, durationNumber)->
+    factory = player.factoriesState().findRecord(factoryId)
+
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless factory?
+
+    type = FactoryType.find(factory.factoryTypeId)
+
+    if checkResult = @.commonChecks(dataResult, player, factory)
+      return checkResult
+
+    dataResult = {factory_type_id: type.id}
+
+    new Result(data: dataResult)
+
   commonChecks: (dataResult, player, factory)->
     return new Result(
       error_code: Result.errors.factoryIsBuilding

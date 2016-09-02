@@ -1,5 +1,14 @@
 <% for key, value of @requirements: %>
-  <% if _.isArray(value): %>
+  <% if key == 'materials': %>
+     <% for type, amount of value: %>
+       <% if _.isArray(amount): %>
+         <div class="requirement <%= type %> <%= 'unsatisfied' unless amount[1] %>"><%= @.formatNumber(amount[0]) %></div>
+       <% else: %>
+         <div class="requirement <%= type %>"><%= @.formatNumber(amount) %></div>
+       <% end %>
+     <% end %>
+
+  <% else if _.isArray(value): %>
     <div class="requirement <%= key %> <%= 'unsatisfied' unless value[1] %>"><%= @.formatNumber(value[0]) %></div>
   <% else: %>
     <div class="requirement <%= key %>"><%= @.formatNumber(value) %></div>

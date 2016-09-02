@@ -55,6 +55,7 @@ class FactoryType extends Base
       baseUpgradeDuration: @baseUpgradeDuration
       reward: @reward
       requirement: @requirement
+      durations: @durations
       ,
       super
     )

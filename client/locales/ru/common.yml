@@ -65,3 +65,5 @@ ru:
       minutes: "%{count} мин."
       seconds: "%{count} сек."
     more_details: "подробнее"
+    time: "Время"
+    income: "Доход"

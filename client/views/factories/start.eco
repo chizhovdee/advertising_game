@@ -1,1 +1,19 @@
 <h2><%= I18n.t('factories.start.title') %></h2>
+
+<div class="options">
+  <% for number, duration of @factoryType.durations: %>
+    <div class="option">
+      <div class="time">
+        <span class="label"><%= I18n.t('common.time') %>:</span>
+        <span class="value"><%= @displayTime(duration) %></span>
+      </div>
+
+      <%= @.renderRewards @factoryType.reward["collect_duration_#{ number }"], (content)-> %>
+        <span class="label"><%= I18n.t('common.income') %></span>
+
+        <div><%= content %></div>
+      <% end %>
+
+    </div>
+  <% end %>
+</div>

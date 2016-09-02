@@ -12,22 +12,40 @@ FactoryType.define('coal_factory', (obj)->
     switch duration
       when 0
         obj.durations[duration] = _(1).minutes()
-        obj.addRewardForDuration(duration, (r)-> r.material 'coal', 5)
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'coal', 5
+          r.experience 1
+        )
       when 1
         obj.durations[duration] = _(5).minutes()
-        obj.addRewardForDuration(duration, (r)-> r.material 'coal', 10)
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'coal', 10
+          r.experience 2
+        )
       when 2
         obj.durations[duration] = _(15).minutes()
-        obj.addRewardForDuration(duration, (r)-> r.material 'coal', 20)
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'coal', 20
+          r.experience 3
+        )
       when 3
         obj.durations[duration] = _(1).hours()
-        obj.addRewardForDuration(duration, (r)-> r.material 'coal', 50)
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'coal', 50
+          r.experience 4
+        )
       when 4
         obj.durations[duration] = _(4).hours()
-        obj.addRewardForDuration(duration, (r)-> r.material 'coal', 100)
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'coal', 100
+          r.experience 5
+        )
       when 5
         obj.durations[duration] = _(8).hours()
-        obj.addRewardForDuration(duration, (r)-> r.material 'coal', 150)
+        obj.addRewardForDuration(duration, (r)->
+          r.material 'coal', 150
+          r.experience 6
+        )
 )
 
 FactoryType.define('wood_factory', (obj)->

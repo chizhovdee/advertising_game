@@ -20,6 +20,9 @@ ru:
       upgrade_duration: "Время улучшения:"
       start_upgrade: "Начать"
       start: "Произвести"
+      in_production: "Идет производство"
+      production_timer: "Время до завершения производства"
+      collect: "Собрать прибыль"
     start:
       title: "Запуск производства"
-      make: "Произвести"
+      run: "Произвести"

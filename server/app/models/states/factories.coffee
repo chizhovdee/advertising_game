@@ -20,21 +20,15 @@ class FactoriesState extends BaseState
       builtAt: Date.now() + buildDuration
     }
 
-    @state[newId] = newRecord
+    @.addRecord(newId, newRecord)
 
-    @.update()
-
-    @.addOperation('add', newId, @.recordToJSON(newRecord))
-
-  accelerateBuilding: (id)->
+  accelerateFactory: (id)->
     delete @state[id].builtAt
     delete @state[id].upgradeAt
 
-    @state[id].updatedAt = Date.now()
+    @state[id].productionFinishAt = Date.now() if @state[id].productionFinishAt?
 
-    @.update()
-
-    @.addOperation('update', id, @.recordToJSON(@state[id]))
+    @.updateRecord(id)
 
   upgradeFactory: (id, duration)->
     delete @state[id].builtAt # удаление лишнего поля
@@ -42,11 +36,13 @@ class FactoriesState extends BaseState
     @state[id].upgradeAt = Date.now() + duration
     # after
     @state[id].level += 1
-    @state[id].updatedAt = Date.now()
 
-    @.update()
+    @.updateRecord(id)
 
-    @.addOperation('update', id, @.recordToJSON(@state[id]))
+  startFactory: (id, duration)->
+    @state[id].productionFinishAt = Date.now() + duration
+
+    @.updateRecord(id)
 
   buildingTimeLeftFor: (factory)->
     factory.builtAt - Date.now()
@@ -60,6 +56,12 @@ class FactoriesState extends BaseState
   factoryIsUpgrading: (factory)->
     factory.upgradeAt? && factory.upgradeAt > Date.now()
 
+  productionTimeLeftFor: (factory)->
+    factory.productionFinishAt - Date.now()
+
+  factoryInProduction: (factory)->
+    factory.productionFinishAt? && factory.productionFinishAt > Date.now()
+
   recordToJSON: (record)->
     record = super(record)
 
@@ -68,6 +70,9 @@ class FactoriesState extends BaseState
 
     else if @.factoryIsUpgrading(record)
       record.upgradingTimeLeft = @.upgradingTimeLeftFor(record)
+
+    else if record.productionFinishAt?
+      record.productionTimeLeft = @.productionTimeLeftFor(record)
 
     record
 

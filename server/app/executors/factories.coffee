@@ -62,8 +62,14 @@ module.exports =
 
     else if player.factoriesState().factoryIsUpgrading(factory)
       requirement.vipMoney(balance.acceleratePrice(player.factoriesState().upgradingTimeLeftFor(factory)))
+
+    else if player.factoriesState().factoryInProduction(factory)
+      requirement.vipMoney(balance.acceleratePrice(player.factoriesState().productionTimeLeftFor(factory)))
     else
-    # TODO проверка что вообще нет никакой надобности что либо ускорять
+      return new Result(
+        error_code: Result.errors.accelerationNotAvailable
+        data: dataResult
+      )
 
     unless requirement.isSatisfiedFor(player)
       dataResult.requirement = requirement.unSatisfiedFor(player)
@@ -74,7 +80,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.factoriesState().accelerateBuilding(factory.id)
+    player.factoriesState().accelerateFactory(factory.id)
     requirement.apply(reward)
 
     dataResult.reward = reward
@@ -121,8 +127,12 @@ module.exports =
 
     new Result(data: dataResult)
 
-  startFactory: (player, factoryId, durationNumber)->
+  startFactory: (player, factoryId, productionNumber)->
     factory = player.factoriesState().findRecord(factoryId)
+
+    return new Result(
+      error_code: Result.errors.notCorrectData
+    ) unless productionNumber in FactoryType.productionNumbers
 
     return new Result(
       error_code: Result.errors.dataNotFound
@@ -130,10 +140,28 @@ module.exports =
 
     type = FactoryType.find(factory.factoryTypeId)
 
+    dataResult = {factory_type_id: type.id}
+
     if checkResult = @.commonChecks(dataResult, player, factory)
       return checkResult
 
-    dataResult = {factory_type_id: type.id}
+    requirement = type.requirement?.getOn("startProduction#{productionNumber}")
+
+    if requirement? && !requirement.isSatisfiedFor(player, factory.level)
+      dataResult.requirement = requirement.unSatisfiedFor(player, factory.level)
+
+      return new Result(
+        error_code: Result.errors.requirementsNotSatisfied
+        data: dataResult
+      )
+
+    reward = new Reward(player)
+
+    player.factoriesState().startFactory(factory.id, type.productions[productionNumber])
+
+    requirement?.apply(reward, factory.level)
+
+    dataResult.reward = reward
 
     new Result(data: dataResult)
 
@@ -147,3 +175,8 @@ module.exports =
       error_code: Result.errors.factoryIsUpgrading
       data: dataResult
     ) if player.factoriesState().factoryIsUpgrading(factory)
+
+    return new Result(
+      error_code: Result.errors.factoryInProduction
+      data: dataResult
+    ) if player.factoriesState().factoryInProduction(factory)

@@ -59,7 +59,7 @@ class Base extends Spine.Model
 
     reward
 
-  getRequirement: (trigger, multiplier = 1, player, playerState)->
+  getRequirement: (trigger, player, playerState, multiplier = 1)->
     return unless @requirement?[trigger]?
 
     requirement = {}

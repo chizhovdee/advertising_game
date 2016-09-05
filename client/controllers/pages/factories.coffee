@@ -57,6 +57,11 @@ class FactoriesPage extends Page
         @timers[factoryType.id].setElement($("#factory_type_#{ factoryType.id } .timer .value"))
         @timers[factoryType.id].start(factory.actualUpgradingTimeLeft())
 
+      else if factory.inProduction()
+        @timers[factoryType.id] ?= new VisualTimer(null, => @.renderList())
+        @timers[factoryType.id].setElement($("#factory_type_#{ factoryType.id } .timer .value"))
+        @timers[factoryType.id].start(factory.actualProductionTimeLeft())
+
   bindEventListeners: ->
     super
 
@@ -65,6 +70,7 @@ class FactoriesPage extends Page
     request.bind('factory_created', @.onFactoryCreated)
     request.bind('factory_accelerated', @.onFactoryAccelerated)
     request.bind('factory_upgraded', @.onFactoryUpgraded)
+    request.bind('factory_started', @.onFactoryStarted)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
@@ -85,6 +91,7 @@ class FactoriesPage extends Page
     request.unbind('factory_created', @.onFactoryCreated)
     request.unbind('factory_accelerated', @.onFactoryAccelerated)
     request.unbind('factory_upgraded', @.onFactoryUpgraded)
+    request.unbind('factory_started', @.onFactoryStarted)
 
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -148,8 +155,10 @@ class FactoriesPage extends Page
         balance.acceleratePrice(factory.actualBuildingTimeLeft())
       else if factory.isUpgrading()
         balance.acceleratePrice(factory.actualUpgradingTimeLeft())
+      else if factory.inProduction()
+        balance.acceleratePrice(factory.actualProductionTimeLeft())
       else
-        999
+        99
     )
 
     {vip_money: [@.formatNumber(price), @player.vip_money >= price]}
@@ -220,6 +229,10 @@ class FactoriesPage extends Page
 
   onStartClick: (e)->
     modals.StartFactoryModal.show($(e.currentTarget).data('factory-id'))
+
+  onFactoryStarted: (response)=>
+    unless response.is_error
+      @.handleResponse(response)
 
   handleResponse: (response)->
     @.displayResult(

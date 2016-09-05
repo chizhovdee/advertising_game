@@ -49,44 +49,51 @@ class Requirement
     else
       @values[key] = value
 
-  isSatisfiedFor: (player)->
+  isSatisfiedFor: (player, multiplier = 1)->
     for key, value of @values
-      return false if value > player[key]
+      if key == 'materials'
+        for type, amount of value
+          return false if amount * multiplier > player.materialsState().get(type)
+      else
+        return false if value * multiplier > player[key]
 
     true
 
   # reward is instance of Reward class
-  applyOn: (trigger, reward)->
-    @.getOn(trigger).apply(reward)
+  applyOn: (trigger, reward, multiplier = 1)->
+    @.getOn(trigger).apply(reward, multiplier)
 
-  apply: (reward)->
+  apply: (reward, multiplier = 1)->
     for key, value of @values
       switch key
         when 'basic_money'
-          reward.takeBasicMoney(value)
+          reward.takeBasicMoney(value * multiplier)
 
         when 'vip_money'
-          reward.takeVipMoney(value)
+          reward.takeVipMoney(value * multiplier)
 
         when 'fuel'
-          reward.takeFuel(value)
+          reward.takeFuel(value * multiplier)
 
         when 'materials'
           for type, amount of value
-            reward.takeMaterial(type, amount)
+            reward.takeMaterial(type, amount * multiplier)
 
-  unSatisfiedFor: (player)->
+  unSatisfiedFor: (player, multiplier = 1)->
     result = {}
 
     for key, value of @values
       if key == 'materials'
         for type, amount of value
+          amount *= multiplier
+
           continue if amount <= player.materialsState().get(type)
 
           result.materials ?= {}
           result.materials[type] = [amount, false]
 
       else
+        value *= multiplier
         result[key] = [value, false] if value > player[key]
 
     result

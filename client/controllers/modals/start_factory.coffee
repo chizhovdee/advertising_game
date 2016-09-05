@@ -15,7 +15,7 @@ class StartFactoryModal extends Modal
     @factory = _.find(@playerState.factoryRecords(), (p)-> p.id == factoryId)
     @factoryType = FactoryType.find(@factory.factoryTypeId)
 
-    @currentDuration = null
+    @currentProductionumber = null
 
     @.render()
 
@@ -27,29 +27,46 @@ class StartFactoryModal extends Modal
   bindEventListeners: ->
     super
 
-    @el.on('click', '.option:not(.selected)', @.onOptionClick)
-    @el.on('click', '.controls:not(.disabled) .make:not(.disabled)', @.onMakeClick)
+    request.bind('factory_started', @.onFactoryStarted)
+
+    @el.on('click', '.production:not(.selected)', @.onProductionClick)
+    @el.on('click', '.controls:not(.disabled) .run:not(.disabled)', @.onRunClick)
 
   unbindEventListeners: ->
     super
 
-    @el.off('click', '.option:not(.selected)', @.onOptionClick)
-    @el.off('click', '.controls:not(.disabled) .make:not(.disabled)', @.onMakeClick)
+    request.unbind('factory_started', @.onFactoryStarted)
 
-  onOptionClick: (e)=>
-    @el.find('.option.selected').removeClass('selected')
+    @el.off('click', '.production:not(.selected)', @.onProductionClick)
+    @el.off('click', '.controls:not(.disabled) .run:not(.disabled)', @.onRunClick)
+
+  onProductionClick: (e)=>
+    @el.find('.production.selected').removeClass('selected')
 
     optionEl = $(e.currentTarget)
 
     optionEl.addClass('selected')
 
-    @currentDurationNumber = optionEl.data('duration-number')
+    @currentProductionumber = optionEl.data('production-number')
 
-    @el.find('.make').removeClass('disabled')
+    @el.find('.run').removeClass('disabled')
 
-  onMakeClick: =>
+  onRunClick: =>
     @el.find('.controls').addClass('disabled')
 
-    request.send('start_factory', factory_id: @factory.id, duration_number: @currentDurationNumber)
+    request.send('start_factory', factory_id: @factory.id, production_number: @currentProductionumber)
+
+  onFactoryStarted: (response)=>
+    if response.is_error
+      @.render()
+
+      @.displayResult(
+        @el.find('.run')
+        response
+        position: "right bottom"
+      )
+
+    else
+      @.close()
 
 module.exports = StartFactoryModal

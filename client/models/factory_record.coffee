@@ -13,4 +13,13 @@ class FactoryRecord extends BaseRecord
   actualUpgradingTimeLeft: ->
     @upgradingTimeLeft - @.loadedTimeDiff()
 
+  inProduction: ->
+    @productionTimeLeft? && @.actualProductionTimeLeft() >= 0
+
+  canCollectProduction: ->
+    @productionTimeLeft? && @.actualProductionTimeLeft() < 0
+
+  actualProductionTimeLeft: ->
+    @productionTimeLeft - @.loadedTimeDiff()
+
 module.exports = FactoryRecord

@@ -4,6 +4,7 @@ class Result
     notReachedLevel: 'not_reached_level'
     dataNotFound: 'data_not_found'
     notCorrectData: 'not_correct_data'
+    accelerationNotAvailable: 'acceleration_not_available'
 
     propertyIsBuilt: "property_is_built"
     propertyIsBuilding: "property_is_building"
@@ -24,6 +25,7 @@ class Result
     factoryIsBuilt: "factory_is_built"
     factoryIsBuilding: "factory_is_building"
     factoryIsUpgrading: "factory_is_upgrading"
+    factoryInProduction: "factory_in_production"
 
   errorCode: null
   data: null

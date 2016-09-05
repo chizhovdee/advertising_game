@@ -21,13 +21,24 @@
 
       <% else: %>
         <div class="level"><%=@safe I18n.t("factories.factory.level", level: @factory.level) %></div>
+
+        <% if @factory.inProduction(): %>
+          <div class="warning_label"><%= I18n.t("factories.factory.in_production") %></div>
+
+          <%=@safe @.renderTimer(I18n.t("factories.factory.production_timer")) %>
+        <% end %>
       <% end %>
     <% end %>
   </div>
 
   <div class="controls">
     <% if @factory?: %>
-      <% if @factory.isUpgrading() || @factory.isBuilding(): %>
+      <% if @factory.canCollectProduction(): %>
+        <button class="collect" data-factory-id="<%= @factory.id %>">
+          <%= I18n.t("factories.factory.collect") %>
+        </button>
+
+      <% else if @factory.isUpgrading() || @factory.isBuilding() || @factory.inProduction(): %>
         <button class="accelerate" data-factory-id="<%= @factory.id %>">
           <%= I18n.t("factories.factory.accelerate") %>
         </button>

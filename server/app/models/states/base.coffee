@@ -47,6 +47,20 @@ class BaseState
   findRecord: (id)->
     @state[id]
 
+  addRecord: (newId, newRecord)->
+    @state[newId] = newRecord
+
+    @.update()
+  
+    @.addOperation('add', newId, @.recordToJSON(newRecord))
+
+  updateRecord: (id)->
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.recordToJSON(@state[id]))
+
   deleteRecord: (id)->
     delete @state[id]
 

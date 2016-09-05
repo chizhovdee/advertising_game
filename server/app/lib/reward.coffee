@@ -8,7 +8,6 @@
 _ = require('lodash')
 
 class Reward
-  @Item: null
   values: null
   player: null
 
@@ -25,25 +24,25 @@ class Reward
   getOn: (trigger)->
     @triggers[trigger]
 
-  applyOn: (trigger, reward)->
-    @.getOn(trigger).apply(reward)
+  applyOn: (trigger, reward, multiplier = 1)->
+    @.getOn(trigger).apply(reward, multiplier)
 
-  apply: (reward)->
+  apply: (reward, multiplier = 1)->
     for key, value of @values
       switch key
         when 'reputation'
-          reward.giveReputation(value)
+          reward.giveReputation(value * multiplier)
         when 'basic_money'
-          reward.giveBasicMoney(value)
+          reward.giveBasicMoney(value * multiplier)
         when 'vip_money'
-          reward.giveVipMoney(value)
+          reward.giveVipMoney(value * multiplier)
         when 'experience'
-          reward.giveExperience(value)
+          reward.giveExperience(value * multiplier)
         when 'fuel'
-          reward.giveFuel(value)
+          reward.giveFuel(value * multiplier)
         when 'materials'
           for type, amount of value
-            reward.giveMaterial(type, amount)
+            reward.giveMaterial(type, amount * multiplier)
 
   getValue: (key)->
     @values[key]

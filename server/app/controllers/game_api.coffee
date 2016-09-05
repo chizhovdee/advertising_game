@@ -29,7 +29,7 @@ module.exports =
             when 'start'
               result = factories.startFactory(req.currentPlayer,
                 _.toInteger(req.body.factory_id),
-                _.toInteger(req.body.duration_number)
+                _.toInteger(req.body.production_number)
               )
 
       res.addEventWithResult([controller, action], result)

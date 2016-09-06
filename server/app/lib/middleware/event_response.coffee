@@ -7,6 +7,7 @@ class EventResponse
       accelerate: 'factory_accelerated'
       upgrade: 'factory_upgraded'
       start: 'factory_started'
+      collect: 'factory_collected'
 
   events: null
 

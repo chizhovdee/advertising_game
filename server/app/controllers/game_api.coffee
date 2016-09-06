@@ -31,6 +31,10 @@ module.exports =
                 _.toInteger(req.body.factory_id),
                 _.toInteger(req.body.production_number)
               )
+            when 'collect'
+              result = factories.collectFactory(req.currentPlayer,
+                _.toInteger(req.body.factory_id)
+              )
 
       res.addEventWithResult([controller, action], result)
 

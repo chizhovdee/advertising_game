@@ -157,9 +157,33 @@ module.exports =
 
     reward = new Reward(player)
 
-    player.factoriesState().startFactory(factory.id, type.productions[productionNumber])
+    player.factoriesState().startFactory(factory.id, productionNumber, type.productions[productionNumber])
 
     requirement?.apply(reward, factory.level)
+
+    dataResult.reward = reward
+
+    new Result(data: dataResult)
+
+  collectFactory: (player, factoryId)->
+    factory = player.factoriesState().findRecord(factoryId)
+
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless factory?
+
+    type = FactoryType.find(factory.factoryTypeId)
+
+    dataResult = {factory_type_id: type.id}
+
+    return new Result(
+      error_code: Result.errors.factoryCanNotCollect
+      data: dataResult
+    ) unless player.factoriesState().canCollectFactory(factory)
+
+    reward = new Reward(player)
+    type.reward.applyOn("collectProduction#{ factory.productionNumber }", reward, factory.level)
+    player.factoriesState().collectFactory(factory.id)
 
     dataResult.reward = reward
 

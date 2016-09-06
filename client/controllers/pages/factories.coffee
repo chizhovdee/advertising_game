@@ -71,6 +71,7 @@ class FactoriesPage extends Page
     request.bind('factory_accelerated', @.onFactoryAccelerated)
     request.bind('factory_upgraded', @.onFactoryUpgraded)
     request.bind('factory_started', @.onFactoryStarted)
+    request.bind('factory_collected', @.onFactoryCollected)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
@@ -82,6 +83,7 @@ class FactoriesPage extends Page
     @el.on('click', '.factory .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
     @el.on('click', '.factory .info-icon', @.onInfoClick)
     @el.on('click', '.factory .start:not(.disabled)', @.onStartClick)
+    @el.on('click', '.factory .collect:not(.disabled)', @.onCollectClick)
 
   unbindEventListeners: ->
     super
@@ -92,6 +94,7 @@ class FactoriesPage extends Page
     request.unbind('factory_accelerated', @.onFactoryAccelerated)
     request.unbind('factory_upgraded', @.onFactoryUpgraded)
     request.unbind('factory_started', @.onFactoryStarted)
+    request.unbind('factory_collected', @.onFactoryCollected)
 
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -103,6 +106,7 @@ class FactoriesPage extends Page
     @el.off('click', '.factory .start_upgrade:not(.disabled)', @.onStartUpgradeClick)
     @el.off('click', '.factory .info-icon', @.onInfoClick)
     @el.off('click', '.factory .start:not(.disabled)', @.onStartClick)
+    @el.off('click', '.factory .collect:not(.disabled)', @.onCollectClick)
 
   defineData: ->
     @list = FactoryType.all()
@@ -233,6 +237,15 @@ class FactoriesPage extends Page
   onFactoryStarted: (response)=>
     unless response.is_error
       @.handleResponse(response)
+
+  onCollectClick: (e)=>
+    button = $(e.currentTarget)
+    button.addClass('disabled')
+
+    request.send('collect_factory', factory_id: button.data('factory-id'))
+
+  onFactoryCollected: (response)=>
+    @.handleResponse(response)
 
   handleResponse: (response)->
     @.displayResult(

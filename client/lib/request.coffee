@@ -90,6 +90,9 @@ module.exports =
   start_factory: (data)->
     @.put('factories/start', data)
 
+  collect_factory: (data)->
+    @.put('factories/collect', data)
+
   # advertising
   create_advertising: (data)->
     @.post('advertising/create', data)

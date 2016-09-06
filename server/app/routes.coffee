@@ -40,3 +40,4 @@ exports.setup = (app)->
     apiRoutes.put('/factories/accelerate', controllers.gameApi.update)
     apiRoutes.put('/factories/upgrade', controllers.gameApi.update)
     apiRoutes.put('/factories/start', controllers.gameApi.update)
+    apiRoutes.put('/factories/collect', controllers.gameApi.update)

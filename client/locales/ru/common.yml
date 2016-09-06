@@ -33,6 +33,7 @@ ru:
       factory_is_upgrading: "Производство построено"
       factory_is_building: "Производство находится в строительстве"
       factory_is_built: "Производство улучшается"
+      factory_can_not_collect: "Нельзя собрать награду с производства"
       no_free_places: "Нет свободного места"
       not_correct_data: "Не корректные данные"
       advertising_no_places: "Ваш коммандный центр загружен. Пожалуйста, улучшите ваш командный центр"

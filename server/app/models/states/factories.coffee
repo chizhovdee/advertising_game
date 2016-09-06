@@ -39,8 +39,15 @@ class FactoriesState extends BaseState
 
     @.updateRecord(id)
 
-  startFactory: (id, duration)->
+  startFactory: (id, productionNumber, duration)->
     @state[id].productionFinishAt = Date.now() + duration
+    @state[id].productionNumber = productionNumber
+
+    @.updateRecord(id)
+
+  collectFactory: (id)->
+    delete @state[id].productionFinishAt
+    delete @state[id].productionNumber
 
     @.updateRecord(id)
 
@@ -61,6 +68,9 @@ class FactoriesState extends BaseState
 
   factoryInProduction: (factory)->
     factory.productionFinishAt? && factory.productionFinishAt > Date.now()
+
+  canCollectFactory: (factory)->
+    factory.productionFinishAt? && factory.productionFinishAt < Date.now()
 
   recordToJSON: (record)->
     record = super(record)

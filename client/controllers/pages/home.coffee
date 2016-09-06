@@ -9,7 +9,7 @@ class HomePage extends Page
   elements:
     '.tab_content': 'tabContentEl'
 
-  tabs: ['trucking', 'routes', 'contracts']
+  tabs: ['trucking', 'routes']
 
   hide: ->
     @innerPage?.hide()

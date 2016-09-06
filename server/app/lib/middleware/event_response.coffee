@@ -8,6 +8,17 @@ class EventResponse
       upgrade: 'factory_upgraded'
       start: 'factory_started'
       collect: 'factory_collected'
+    properties:
+      create: 'property_created'
+      accelerate: 'property_accelerated'
+      upgrade: 'property_upgraded'
+    shop:
+      buy_transport: 'transport_purchased'
+      buy_fuel: 'fuel_purchased'
+    advertising:
+      create: 'advertising_created'
+      delete: 'advertising_deleted'
+      prolong: 'advertising_prolonged'
 
   events: null
 

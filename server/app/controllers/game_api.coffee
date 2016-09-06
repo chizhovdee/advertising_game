@@ -1,6 +1,9 @@
 _ = require('lodash')
 executors = require('../executors')
 factories = executors.factories
+properties = executors.properties
+shop = executors.shop
+advertising = executors.advertising
 
 module.exports =
   update: (req, res)->
@@ -34,6 +37,56 @@ module.exports =
             when 'collect'
               result = factories.collectFactory(req.currentPlayer,
                 _.toInteger(req.body.factory_id)
+              )
+
+        when 'properties'
+          switch action
+            when 'create'
+              result = properties.createProperty(
+                req.currentPlayer
+                _.toInteger(req.body.property_type_id)
+              )
+            when 'accelerate'
+              result = properties.accelerateProperty(
+                req.currentPlayer
+                _.toInteger(req.body.property_id)
+              )
+            when 'upgrade'
+              result = properties.upgradeProperty(
+                req.currentPlayer
+                _.toInteger(req.body.property_id)
+              )
+
+        when 'shop'
+          switch action
+            when 'buy_transport'
+              result = shop.buyTransport(
+                req.currentPlayer
+                req.body.transport_model_id
+              )
+            when 'buy_fuel'
+              result = shop.buyFuel(
+                req.currentPlayer
+                _.toInteger(req.body.amount)
+              )
+
+        when 'advertising'
+          switch action
+            when 'create'
+              result = advertising.createAdvertising(
+                req.currentPlayer
+                _.parseRequestParams(req.body).data
+              )
+            when 'delete'
+              result = advertising.deleteAdvertising(
+                req.currentPlayer
+                _.toInteger(req.body.advertising_id)
+              )
+            when 'prolong'
+              result = advertising.prolongAdvertising(
+                req.currentPlayer
+                _.toInteger(req.body.advertising_id)
+                _.toInteger(req.body.period)
               )
 
       res.addEventWithResult([controller, action], result)

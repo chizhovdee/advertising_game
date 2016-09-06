@@ -12,7 +12,7 @@ module.exports =
 
     dataResult = {property_type_id: type.id}
 
-    property = player.propertiesState.findRecordByPropertyTypeId(propertyTypeId)
+    property = player.propertiesState().findRecordByPropertyTypeId(propertyTypeId)
 
     return new Result(
       error_code: Result.errors.propertyIsBuilt
@@ -35,7 +35,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.propertiesState.createProperty(type.id, type.buildDuration)
+    player.propertiesState().createProperty(type.id, type.buildDuration)
     requirement.apply(reward)
 
     dataResult.reward = reward
@@ -45,7 +45,7 @@ module.exports =
     )
 
   accelerateProperty: (player, propertyId)->
-    property = player.propertiesState.findRecord(propertyId)
+    property = player.propertiesState().findRecord(propertyId)
 
     return new Result(
       error_code: Result.errors.dataNotFound
@@ -57,12 +57,15 @@ module.exports =
 
     requirement = new Requirement()
 
-    if player.propertiesState.propertyIsBuilding(property)
-      requirement.vipMoney(balance.acceleratePrice(player.propertiesState.buildingTimeLeftFor(property)))
-    else if player.propertiesState.propertyIsUpgrading(property)
-      requirement.vipMoney(balance.acceleratePrice(player.propertiesState.upgradingTimeLeftFor(property)))
+    if player.propertiesState().propertyIsBuilding(property)
+      requirement.vipMoney(balance.acceleratePrice(player.propertiesState().buildingTimeLeftFor(property)))
+    else if player.propertiesState().propertyIsUpgrading(property)
+      requirement.vipMoney(balance.acceleratePrice(player.propertiesState().upgradingTimeLeftFor(property)))
     else
-      # TODO проверка что вообще нет никакой надобности что либо ускорять
+      return new Result(
+        error_code: Result.errors.accelerationNotAvailable
+        data: dataResult
+      )
 
     unless requirement.isSatisfiedFor(player)
       dataResult.requirement = requirement.unSatisfiedFor(player)
@@ -73,7 +76,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.propertiesState.accelerateBuilding(propertyId)
+    player.propertiesState().accelerateBuilding(propertyId)
     requirement.apply(reward)
 
     dataResult.reward = reward
@@ -83,7 +86,7 @@ module.exports =
     )
 
   upgradeProperty: (player, propertyId)->
-    property = player.propertiesState.findRecord(propertyId)
+    property = player.propertiesState().findRecord(propertyId)
 
     return new Result(
       error_code: Result.errors.dataNotFound
@@ -113,99 +116,20 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.propertiesState.upgrade(propertyId, type.upgradeDurationBy(property.level))
+    player.propertiesState().upgrade(propertyId, type.upgradeDurationBy(property.level))
     requirement.apply(reward)
 
     dataResult.reward = reward
 
     new Result(data: dataResult)
 
-  rentOutProperty: (player, propertyId)->
-    property = player.propertiesState.findRecord(propertyId)
-
-    return new Result(
-      error_code: Result.errors.dataNotFound
-    ) unless property?
-
-    type = PropertyType.find(property.propertyTypeId)
-
-    dataResult = {property_type_id: type.id}
-
-    return new Result(
-      error_code: Result.errors.propertyRentOutNotAvailable
-      data: dataResult
-    ) unless type.rentOutAvailable
-
-    if checkResult = @.commonChecks(dataResult, player, property)
-      return checkResult
-
-    # TODO проверка отдельного типа на возможность
-
-    player.propertiesState.rentOut(propertyId, PropertyType.rentOutDuration)
-
-    new Result(data: dataResult)
-
-  collectRent: (player, propertyId)->
-    property = player.propertiesState.findRecord(propertyId)
-
-    return new Result(
-      error_code: Result.errors.dataNotFound
-    ) unless property?
-
-    type = PropertyType.find(property.propertyTypeId)
-
-    dataResult = {property_type_id: type.id}
-
-    return new Result(
-      error_code: Result.errors.propertyIsNotRented
-      data: dataResult
-    ) unless player.propertiesState.propertyIsRented(property)
-
-    return new Result(
-      error_code: Result.errors.propertyRentNotFinished
-      data: dataResult
-    ) unless player.propertiesState.propertyRentFinished(property)
-
-    reward = new Reward(player)
-    player.propertiesState.finishRent(propertyId)
-    type.reward.applyOn('collectRent', reward)
-
-    dataResult.reward = reward
-
-    new Result(data: dataResult)
-
-  finishRent: (player, propertyId)->
-    property = player.propertiesState.findRecord(propertyId)
-
-    return new Result(
-      error_code: Result.errors.dataNotFound
-    ) unless property?
-
-    type = PropertyType.find(property.propertyTypeId)
-
-    dataResult = {property_type_id: type.id}
-
-    return new Result(
-      error_code: Result.errors.propertyIsNotRented
-      data: dataResult
-    ) unless player.propertiesState.propertyIsRented(property)
-
-    player.propertiesState.finishRent(propertyId)
-
-    new Result(data: dataResult)
-
   commonChecks: (dataResult, player, property)->
-    return new Result(
-      error_code: Result.errors.propertyIsRented
-      data: dataResult
-    ) if player.propertiesState.propertyIsRented(property)
-
     return new Result(
       error_code: Result.errors.propertyIsBuilding
       data: dataResult
-    ) if player.propertiesState.propertyIsBuilding(property)
+    ) if player.propertiesState().propertyIsBuilding(property)
 
     return new Result(
       error_code: Result.errors.propertyIsUpgrading
       data: dataResult
-    ) if player.propertiesState.propertyIsUpgrading(property)
+    ) if player.propertiesState().propertyIsUpgrading(property)

@@ -12,24 +12,21 @@ exports.setup = (app)->
     app.use("/api/:version", apiRoutes)
 
     # properties
-    apiRoutes.post('/properties/create', controllers.properties.create)
-    apiRoutes.put('/properties/accelerate', controllers.properties.accelerate)
-    apiRoutes.put('/properties/upgrade', controllers.properties.upgrade)
-    apiRoutes.put('/properties/rent_out', controllers.properties.rentOut)
-    apiRoutes.put('/properties/collect_rent', controllers.properties.collectRent)
-    apiRoutes.put('/properties/finish_rent', controllers.properties.finishRent)
+    apiRoutes.post('/properties/create', controllers.gameApi.update)
+    apiRoutes.put('/properties/accelerate', controllers.gameApi.update)
+    apiRoutes.put('/properties/upgrade', controllers.gameApi.update)
 
     # advertising
-    apiRoutes.post('/advertising/create', controllers.advertising.create)
-    apiRoutes.delete('/advertising/delete', controllers.advertising.delete)
-    apiRoutes.put('/advertising/prolong', controllers.advertising.prolong)
+    apiRoutes.post('/advertising/create', controllers.gameApi.update)
+    apiRoutes.delete('/advertising/delete', controllers.gameApi.update)
+    apiRoutes.put('/advertising/prolong', controllers.gameApi.update)
 
     # routes
     apiRoutes.put('/routes/open', controllers.routes.open)
 
     # shop
-    apiRoutes.post('/shop/buy_transport', controllers.shop.buyTransport)
-    apiRoutes.put('/shop/buy_fuel', controllers.shop.buyFuel)
+    apiRoutes.post('/shop/buy_transport', controllers.gameApi.update)
+    apiRoutes.put('/shop/buy_fuel', controllers.gameApi.update)
 
     # trucking
     apiRoutes.post('/trucking/create', controllers.trucking.create)

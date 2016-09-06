@@ -10,17 +10,7 @@ class PropertyRecord extends BaseRecord
   isUpgrading: ->
     @upgradingTimeLeft? && @.actualUpgradingTimeLeft() >= 0
 
-  isRented: ->
-    # достаточно проверки одного поля
-    @rentTimeLeft?
-
   actualUpgradingTimeLeft: ->
     @upgradingTimeLeft - @.loadedTimeDiff()
-
-  actualRentTimeLeft: ->
-    @rentTimeLeft - @.loadedTimeDiff()
-
-  rentFinished: ->
-    @.actualRentTimeLeft() < 0
 
 module.exports = PropertyRecord

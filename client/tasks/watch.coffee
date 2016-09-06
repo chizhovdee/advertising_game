@@ -11,13 +11,13 @@ serverAssetsDir = "../server/public/assets"
 gulp.task('watch', ->
   gulp.watch('../server/app/db/game_data/**/*.coffee', ["game-data-json-browserify"])
 
-  gulp.watch('./**/*.coffee', ["coffee-compile-browserify"])
+  gulp.watch(['./**/*.coffee', '!./tasks/**/*.coffee'], ["coffee-compile-browserify"])
 
   gulp.watch('./views/**/*.eco', ["eco-compile-browserify"])
 
   gulp.watch('./styles/**/*.scss', ["stylesheets"])
 
-  gulp.watch('./config/locales/**/*.yml', ["compile-locales"])
+  gulp.watch('./locales/**/*.yml', ["compile-locales"])
 )
 
 browserifyConcat = ->

@@ -4,3 +4,4 @@ module.exports =
   routes: require('./routes')
   shop: require('./shop')
   trucking: require('./trucking')
+  factories: require('./factories')

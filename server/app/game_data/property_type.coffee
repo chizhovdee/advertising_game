@@ -36,7 +36,6 @@ class PropertyType extends Base
     throw new Error('undefined @upgradePerLevels') unless @upgradePerLevels?
     throw new Error('undefined @baseUpgradeDuration') unless @baseUpgradeDuration?
 
-
   upgradeLevelBy: (propertyLevel)->
     propertyLevel * @upgradePerLevels - (@buildLevel - 1)
 

@@ -5,3 +5,4 @@ module.exports =
   TransportSelectionModal: require('./transport_selection')
   ProlongAdvertisingModal: require('./prolong_advertising')
   BuyFuelModal: require('./buy_fuel')
+  StartFactoryModal: require('./start_factory')

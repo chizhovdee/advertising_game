@@ -1,0 +1,27 @@
+<div class="attributes">
+  <div class="upgrade_duration attribute">
+    <span class="label"><%= I18n.t("factories.factory.upgrade_duration") %></span>
+    <span class="value"><%= @.displayTime(@factoryType.upgradeDuration) %></span>
+  </div>
+
+  <div class="upgrade_level attribute <%= 'unsatisfied' if @player.level < @factoryType.upgradeLevelBy(@factory.level) %>">
+    <span class="label"><%= I18n.t("factories.factory.level_requirement") %></span>
+
+    <span class="value"><%= @factoryType.upgradeLevelBy(@factory.level) %></span>
+  </div>
+
+  <div class="price attribute">
+    <span class="label"><%= I18n.t("common.price") %>:</span>
+    <span class="value">
+      <%=@safe @.renderTemplate('requirements', requirements: @.upgradePriceRequirement(@factoryType, @factory)) %>
+    </span>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="start_upgrade" data-factory-id="<%= @factory.id %>">
+    <%= I18n.t("factories.factory.start_upgrade") %>
+  </button>
+
+  <span class="cancel"><%= I18n.t("common.cancel") %></span>
+</div>

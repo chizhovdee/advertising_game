@@ -1,0 +1,62 @@
+.start_factory.modal {
+  .productions {
+    .production {
+      display: inline-block;
+      vertical-align: top;
+      background-color: rgba(0, 0, 0, 0.1);
+      @include border-radius(5px);
+      padding: 5px;
+      margin: 5px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      width: 165px;
+
+      &.selected {
+        border: 1px solid #FF3333;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      .label {
+        font-weight: bold;
+      }
+
+      .time {
+        .value {
+          position: relative;
+          padding-left: 22px;
+
+          &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -3px;
+            left: 0px;
+            @include images-sprite(icons/time);
+          }
+        }
+      }
+
+      .rewards {
+        margin-top: 10px;
+        
+        .reward {
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+
+      .requirements {
+        margin-top: 10px;
+
+        .requirement {
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+
+  .controls {
+    margin-top: 10px;
+  }
+}

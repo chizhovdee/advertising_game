@@ -5,3 +5,4 @@ module.exports =
   routes: require('./routes')
   shop: require('./shop')
   trucking: require('./trucking')
+  gameApi: require('./game_api')

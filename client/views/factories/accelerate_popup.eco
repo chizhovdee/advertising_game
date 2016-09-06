@@ -1,0 +1,26 @@
+<div class="attributes">
+  <div class="attribute">
+    <span class="label">
+      <% if @factory.isBuilding(): %>
+        <%= I18n.t("factories.factory.accelerate_building") %>
+      <% else if @factory.isUpgrading(): %>
+        <%= I18n.t("factories.factory.accelerate_upgrading") %>
+      <% end %>
+    </span>
+  </div>
+
+  <div class="price attribute">
+    <span class="label"><%= I18n.t("common.price") %>:</span>
+    <span class="value">
+      <%=@safe @.renderTemplate('requirements', requirements: @.acceleratePriceRequirement(@factory)) %>
+    </span>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="start_accelerate" data-factory-id="<%= @factory.id %>">
+    <%= I18n.t("factories.factory.accelerate") %>
+  </button>
+
+  <span class="cancel"><%= I18n.t("common.cancel") %></span>
+</div>

@@ -52,50 +52,67 @@ module.exports =
 
   # trucking
   create_trucking: (data)->
-    @.post('/trucking/create', data)
+    @.post('trucking/create', data)
 
   collect_trucking: (data)->
-    @.put('/trucking/collect', data)
+    @.put('trucking/collect', data)
 
   # properties
   create_property: (data)->
-    @.post('/properties/create', data)
+    @.post('properties/create', data)
 
   accelerate_property: (data)->
-    @.put('/properties/accelerate', data)
+    @.put('properties/accelerate', data)
 
   upgrade_property: (data)->
-    @.put('/properties/upgrade', data)
+    @.put('properties/upgrade', data)
 
   rent_out_property: (data)->
-    @.put('/properties/rent_out', data)
+    @.put('properties/rent_out', data)
 
   property_collect_rent: (data)->
-    @.put('/properties/collect_rent', data)
+    @.put('properties/collect_rent', data)
 
   property_finish_rent: (data)->
-    @.put('/properties/finish_rent', data)
+    @.put('properties/finish_rent', data)
 
-  #------------- advertising ----------------#
+
+  # factories
+  create_factory: (data)->
+    @.post('factories/create', data)
+
+  accelerate_factory: (data)->
+    @.put('factories/accelerate', data)
+
+  upgrade_factory: (data)->
+    @.put('factories/upgrade', data)
+
+  start_factory: (data)->
+    @.put('factories/start', data)
+
+  collect_factory: (data)->
+    @.put('factories/collect', data)
+
+  # advertising
   create_advertising: (data)->
-    @.post('/advertising/create', data)
+    @.post('advertising/create', data)
 
   delete_advertising: (data)->
-    @.delete('/advertising/delete', data)
+    @.delete('advertising/delete', data)
 
   prolong_advertising: (data)->
-    @.put('/advertising/prolong', data)
+    @.put('advertising/prolong', data)
 
   # routes
   open_route: (data)->
-    @.put('/routes/open', data)
+    @.put('routes/open', data)
 
   load_routes: ->
-    @.get('/routes')
+    @.get('routes')
 
   # shop
   buy_transport: (data)->
-    @.post('/shop/buy_transport', data)
+    @.post('shop/buy_transport', data)
 
   buy_fuel: (data)->
-    @.put('/shop/buy_fuel', data)
+    @.put('shop/buy_fuel', data)

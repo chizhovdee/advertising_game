@@ -3,8 +3,8 @@ gameData = require('../game_data')
 
 TransportGroup = gameData.TransportGroup
 TransportModel = gameData.TransportModel
-AdvertisingType = gameData.AdvertisingType
 PropertyType = gameData.PropertyType
+FactoryType = gameData.FactoryType
 
 module.exports =
   transportModelPictureUrl: (transportModel, format = 'large')->
@@ -83,3 +83,20 @@ module.exports =
     title = "title='#{propertyType.name()}'"
 
     "<img src='#{ @.propertyPictureUrl(propertyType, format) }' #{title} />"
+
+  factoryPictureUrl: (factoryType, format = 'large')->
+    unless factoryType.constructor?.name == 'FactoryType'
+      factoryType = FactoryType.find(factoryType)
+
+    unless format in ['large', 'medium', 'icon']
+      throw new Error('format for factory picture url is not correct')
+
+    assets.assetsPath("images/factory_types/#{ format }/#{ factoryType.key }.jpg")
+
+  factoryPicture: (factoryType, format = 'large')->
+    unless factoryType.constructor?.name == 'FactoryType'
+      factoryType = FactoryType.find(factoryType)
+
+    title = "title='#{factoryType.name()}'"
+
+    "<img src='#{ @.factoryPictureUrl(factoryType, format) }' #{title} />"

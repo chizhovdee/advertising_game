@@ -2,27 +2,29 @@
 # нужно добавить атрибут здесь и вписать в массив Player.stateFields на бэкенде
 
 ctx = require('../context')
-gameData = require('../game_data')
 
 # state records
 PropertyRecord = require('./property_record')
-AdvertisingRecord = require('./advertising_record')
+FactoryRecord = require('./factory_record')
 
 # game data
+gameData = require('../game_data')
 AdvertisingType = gameData.AdvertisingType
-Transport = gameData.Transport
+
 
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
-    'trucking', 'truckingUpdatedAt', 'routes', 'routesUpdatedAt',
-    'advertising', 'advertisingUpdatedAt', 'properties', 'propertiesUpdatedAt',
-    'transport', 'transportUpdatedAt'
+    'trucking', 'truckingUpdatedAt', 'advertising', 'advertisingUpdatedAt',
+    'routes', 'routesUpdatedAt', 'transport', 'transportUpdatedAt',
+    'properties', 'propertiesUpdatedAt', 'factories', 'factoriesUpdatedAt',
+    'materials', 'materialsUpdateAt'
 
   @include require('./modules/model_changes')
 
   # records list from states
   _propertyRecords: null
   _advertisingRecords: null
+  _factoryRecords: null
 
   create: ->
     for attribute, value of @.attributes()
@@ -36,6 +38,7 @@ class PlayerState extends Spine.Model
     # reset
     @_propertyRecords = null
     @_advertisingRecords = null
+    @_factoryRecords = null
 
     super
 
@@ -76,6 +79,16 @@ class PlayerState extends Spine.Model
 
   findPropertyRecord: (id)->
     _.find(@.propertyRecords(), id: id)
+
+  # factories
+  factoryRecords: ->
+    @_factoryRecords ?= (
+      for id, data of @factories
+        new FactoryRecord(data)
+    )
+
+  findFactoryRecord: (id)->
+    _.find(@.factoryRecords(), id: id)
 
   # transport
   transportCount: ->

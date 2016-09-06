@@ -21,7 +21,7 @@
     }
 
     .plus {
-      color: $game_color_green;
+      color: #458746;
     }
 
     .minus {
@@ -55,6 +55,24 @@
     &.fuel {
       .value .icon {
         @include images-sprite-background(icons/fuel);
+      }
+    }
+
+    &.coal {
+      .value .icon {
+        @include images-sprite-background(icons/coal);
+      }
+    }
+
+    &.wood {
+      .value .icon {
+        @include images-sprite-background(icons/wood);
+      }
+    }
+
+    &.iron_ore {
+      .value .icon {
+        @include images-sprite-background(icons/iron_ore);
       }
     }
 

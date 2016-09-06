@@ -35,5 +35,23 @@
         @include images-sprite-background(icons/fuel);
       }
     }
+
+    &.coal {
+      &:before {
+        @include images-sprite-background(icons/coal);
+      }
+    }
+
+    &.wood {
+      &:before {
+        @include images-sprite-background(icons/wood);
+      }
+    }
+
+    &.iron_ore {
+      &:before {
+        @include images-sprite-background(icons/iron_ore);
+      }
+    }
   }
 }

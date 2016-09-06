@@ -14,12 +14,8 @@ class BaseState
     throw new Error("stateName is undefined") unless @stateName?
     throw new Error("defaultState is undefined") unless @defaultState?
 
-    state = (
-      if @player[@stateName]
-        _.cloneDeep(@player[@stateName])
-      else
-        _.defaultsDeep({}, @defaultState)
-    )
+    state = _.cloneDeep(@player[@stateName] || {})
+    _.defaultsDeep(state, @defaultState) # если появятся новые свойства, они будут включены сюда по умолчанию
 
     Object.defineProperty(@, 'state',
       value: state
@@ -50,6 +46,20 @@ class BaseState
 
   findRecord: (id)->
     @state[id]
+
+  addRecord: (newId, newRecord)->
+    @state[newId] = newRecord
+
+    @.update()
+  
+    @.addOperation('add', newId, @.recordToJSON(newRecord))
+
+  updateRecord: (id)->
+    @state[id].updatedAt = Date.now()
+
+    @.update()
+
+    @.addOperation('update', id, @.recordToJSON(@state[id]))
 
   deleteRecord: (id)->
     delete @state[id]

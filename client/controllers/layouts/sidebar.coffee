@@ -2,6 +2,7 @@ BaseController = require("../base_controller")
 request = require("../../lib/request")
 pages = require('../pages')
 modals = require('../modals')
+ctx = require('../../context')
 
 class SidebarLayout extends BaseController
   elements:
@@ -10,6 +11,8 @@ class SidebarLayout extends BaseController
     '.level': 'levelEl'
 
   show: ->
+    @playerState = ctx.get('playerState')
+
     super
 
     @.render()
@@ -21,9 +24,11 @@ class SidebarLayout extends BaseController
     super
 
     @player.bind("update", @.onPlayerUpdate)
+    @playerState.bind("update", @.onPlayerStateUpdate)
 
     @el.on("click", ".menu.home", -> pages.HomePage.show())
     @el.on('click', '.menu.properties', -> pages.PropertiesPage.show())
+    @el.on('click', '.menu.factories', -> pages.FactoriesPage.show())
     @el.on("click", ".menu.transport", -> pages.TransportPage.show())
     @el.on("click", ".menu.shop", -> pages.ShopPage.show())
     @el.on("click", ".menu.advertising", -> pages.AdvertisingPage.show())
@@ -31,9 +36,7 @@ class SidebarLayout extends BaseController
     @el.on('click', '.experience', @.onExprerienceClick)
 
   onPlayerUpdate: (player)=>
-    # обновляем каждый фрагмент отдельно если нужно
-
-    console.log 'Player changes', changes = player.changes()
+    changes = player.changes()
 
     @vipMoneyEl.find('.value').text(@player.vip_money) if changes.vip_money
 
@@ -43,6 +46,13 @@ class SidebarLayout extends BaseController
       @experienceEl.find(".percentage").css(width: "#{ @player.level_progress_percentage }%")
 
     @levelEl.find('.value').text(@player.level) if changes.level
+
+  onPlayerStateUpdate: (playerState)=>
+    changes = playerState.changes()
+
+    @el.find(".materials").replaceWith(
+      @.renderTemplate('sidebar_materials')
+    ) if changes.materials?
 
   onExprerienceClick: =>
     @player.experience_to_next_level

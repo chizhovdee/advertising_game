@@ -14,5 +14,7 @@ module.exports =
       )
     )
     .catch(
-      (err)-> throw error
+      (err)->
+        console.error error.stack
+        throw error
     )

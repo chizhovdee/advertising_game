@@ -4,3 +4,5 @@ module.exports =
   PropertiesState: require('./properties')
   RoutesState: require('./routes')
   TransportState: require('./transport')
+  FactoriesState: require('./factories')
+  MaterialsState: require('./materials')

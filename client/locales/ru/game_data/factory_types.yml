@@ -1,0 +1,9 @@
+ru:
+  game_data:
+    factory_types:
+      coal_factory:
+        name: "Добыча угля"
+        description: "Производит уголь"
+      wood_factory:
+        name: "Добыча древесины"
+        description: "Производит древесину"

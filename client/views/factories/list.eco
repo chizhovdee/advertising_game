@@ -1,0 +1,7 @@
+<div class="page">
+  <% for type in @paginatedList: %>
+    <%=@safe @.renderTemplate('factories/factory', type: type, factory: _.find(@playerState.factoryRecords(), (p)-> p.factoryTypeId == type.id)) %>
+  <% end %>
+</div>
+
+<%=@safe @.renderTemplate('page_switches') %>

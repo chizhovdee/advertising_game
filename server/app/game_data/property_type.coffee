@@ -4,8 +4,6 @@ Base = require("./base")
 class PropertyType extends Base
   @configure(publicForClient: true)
 
-  @rentOutDuration: _(1).days()
-
   basicPrice: null # базовая цена за строительство и за улучшение
   buildLevel: null # уровень требуемый для строительства
   buildDuration: null # время строительства
@@ -13,7 +11,6 @@ class PropertyType extends Base
   freeCapacity: null # свободная вместительность
   upgradePerLevels: null # через сколько уровней игрока будет разрешено улучшать на один уровень, начиная с buildLevel
   upgradeDuration: null # время улучшения
-  rentOutAvailable: null # можно ли сдать в аренду
 
   constructor: ->
     super
@@ -25,7 +22,6 @@ class PropertyType extends Base
     @freeCapacity = null
     @upgradePerLevels = null
     @baseUpgradeDuration = null
-    @rentOutAvailable = false
 
   validationForDefine: ->
     throw new Error('undefined @basicPrice') unless @basicPrice?
@@ -60,8 +56,6 @@ class PropertyType extends Base
       freeCapacity: @freeCapacity
       upgradePerLevels: @upgradePerLevels
       baseUpgradeDuration: @baseUpgradeDuration
-      rentOutAvailable: @rentOutAvailable
-      reward: @reward
       ,
       super
     )

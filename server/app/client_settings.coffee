@@ -19,6 +19,3 @@ module.exports =
     statusFactor: AdvertisingType.statusFactor
     statusLevels: AdvertisingType.statusLevels
     maxDuration: AdvertisingType.maxDuration
-
-  propertyType:
-    rentOutDuration: PropertyType.rentOutDuration

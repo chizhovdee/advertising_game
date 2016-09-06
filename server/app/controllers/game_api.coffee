@@ -1,6 +1,7 @@
 _ = require('lodash')
 executors = require('../executors')
 factories = executors.factories
+properties = executors.properties
 
 module.exports =
   update: (req, res)->
@@ -34,6 +35,24 @@ module.exports =
             when 'collect'
               result = factories.collectFactory(req.currentPlayer,
                 _.toInteger(req.body.factory_id)
+              )
+
+        when 'properties'
+          switch action
+            when 'create'
+              result = properties.createProperty(
+                req.currentPlayer
+                _.toInteger(req.body.property_type_id)
+              )
+            when 'accelerate'
+              result = properties.accelerateProperty(
+                req.currentPlayer
+                _.toInteger(req.body.property_id)
+              )
+            when 'upgrade'
+              result = properties.upgradeProperty(
+                req.currentPlayer
+                _.toInteger(req.body.property_id)
               )
 
       res.addEventWithResult([controller, action], result)

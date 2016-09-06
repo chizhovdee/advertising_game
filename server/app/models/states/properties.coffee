@@ -48,24 +48,6 @@ class PropertiesState extends BaseState
 
     @.addOperation('update', id, @.recordToJSON(@state[id]))
 
-  rentOut: (id, duration)->
-    @state[id].rentFinishdAt = Date.now() + duration
-    # after
-    @state[id].updatedAt = Date.now()
-
-    @.update()
-
-    @.addOperation('update', id, @.recordToJSON(@state[id]))
-
-  finishRent: (id)->
-    delete @state[id].rentFinishdAt
-    # after
-    @state[id].updatedAt = Date.now()
-
-    @.update()
-
-    @.addOperation('update', id, @.recordToJSON(@state[id]))
-
   buildingTimeLeftFor: (property)->
     property.builtAt - Date.now()
 
@@ -78,16 +60,6 @@ class PropertiesState extends BaseState
   propertyIsUpgrading: (property)->
     property.upgradeAt? && property.upgradeAt > Date.now()
 
-  rentTimeLeftFor: (property)->
-    property.rentFinishdAt - Date.now()
-
-  propertyIsRented: (property)->
-    # достаточно наличие поля
-    property.rentFinishdAt?
-
-  propertyRentFinished: (property)->
-    Date.now() >= property.rentFinishdAt
-
   recordToJSON: (record)->
     record = super(record)
 
@@ -96,9 +68,6 @@ class PropertiesState extends BaseState
 
     else if @.propertyIsUpgrading(record)
       record.upgradingTimeLeft = @.upgradingTimeLeftFor(record)
-
-    else if @.propertyIsRented(record)
-      record.rentTimeLeft = @.rentTimeLeftFor(record)
 
     record
 

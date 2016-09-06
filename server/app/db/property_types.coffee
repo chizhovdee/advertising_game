@@ -19,10 +19,6 @@ PropertyType.define('garage', (obj)->
   obj.freeCapacity = 2
   obj.upgradePerLevels = 5
   obj.baseUpgradeDuration = _(1).minutes()
-  obj.rentOutAvailable = true
-
-  obj.addReward 'collectRent', (r)->
-    r.basicMoney 100
 )
 
 PropertyType.define('warehouse', (obj)->
@@ -33,9 +29,5 @@ PropertyType.define('warehouse', (obj)->
   obj.freeCapacity = 2
   obj.upgradePerLevels = 5
   obj.baseUpgradeDuration = _(1).minutes()
-  obj.rentOutAvailable = true
-
-  obj.addReward 'collectRent', (r)->
-    r.basicMoney 500
 )
 

@@ -29,10 +29,10 @@ module.exports =
     ) if transportModel.level > player.level
 
     propertyType = PropertyType.find('garage')
-    property = player.propertiesState.findRecordByPropertyTypeId(propertyType.id)
+    property = player.propertiesState().findRecordByPropertyTypeId(propertyType.id)
 
     # check capacity
-    if player.transportState.recordsCount() >= propertyType.fullCapacityBy(property)
+    if player.transportState().recordsCount() >= propertyType.fullCapacityBy(property)
       return new Result(
         error_code: Result.errors.noFreePlaces
         data: dataResult
@@ -51,7 +51,7 @@ module.exports =
 
     reward = new Reward(player)
 
-    player.transportState.addTransport(transportModel.id)
+    player.transportState().addTransport(transportModel.id)
 
     requirement.apply(reward)
 
@@ -80,7 +80,7 @@ module.exports =
 
     reward = new Reward(player)
     requirement.apply(reward)
-    reward.addFuel(amount)
+    reward.giveFuel(amount)
 
     new Result(
       data:

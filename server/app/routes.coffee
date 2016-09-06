@@ -25,8 +25,8 @@ exports.setup = (app)->
     apiRoutes.put('/routes/open', controllers.routes.open)
 
     # shop
-    apiRoutes.post('/shop/buy_transport', controllers.shop.buyTransport)
-    apiRoutes.put('/shop/buy_fuel', controllers.shop.buyFuel)
+    apiRoutes.post('/shop/buy_transport', controllers.gameApi.update)
+    apiRoutes.put('/shop/buy_fuel', controllers.gameApi.update)
 
     # trucking
     apiRoutes.post('/trucking/create', controllers.trucking.create)

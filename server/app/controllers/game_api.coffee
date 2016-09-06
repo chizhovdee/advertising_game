@@ -2,6 +2,7 @@ _ = require('lodash')
 executors = require('../executors')
 factories = executors.factories
 properties = executors.properties
+shop = executors.shop
 
 module.exports =
   update: (req, res)->
@@ -53,6 +54,19 @@ module.exports =
               result = properties.upgradeProperty(
                 req.currentPlayer
                 _.toInteger(req.body.property_id)
+              )
+
+        when 'shop'
+          switch action
+            when 'buy_transport'
+              result = shop.buyTransport(
+                req.currentPlayer
+                req.body.transport_model_id
+              )
+            when 'buy_fuel'
+              result = shop.buyFuel(
+                req.currentPlayer
+                _.toInteger(req.body.amount)
               )
 
       res.addEventWithResult([controller, action], result)

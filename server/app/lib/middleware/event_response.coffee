@@ -12,6 +12,9 @@ class EventResponse
       create: 'property_created'
       accelerate: 'property_accelerated'
       upgrade: 'property_upgraded'
+    shop:
+      buy_transport: 'transport_purchased'
+      buy_fuel: 'fuel_purchased'
 
   events: null
 

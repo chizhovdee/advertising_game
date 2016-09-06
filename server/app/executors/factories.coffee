@@ -204,3 +204,9 @@ module.exports =
       error_code: Result.errors.factoryInProduction
       data: dataResult
     ) if player.factoriesState().factoryInProduction(factory)
+
+    return new Result(
+      error_code: Result.errors.factoryNeedCollect
+      data: dataResult
+    ) if player.factoriesState().canCollectFactory(factory)
+

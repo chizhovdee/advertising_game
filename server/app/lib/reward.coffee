@@ -143,7 +143,7 @@ class Reward
 
     @player.materialsState().take(type, value)
 
-    @.material(type, value)
+    @.material(type, -value)
 
   reputation: (value)->
     @.push('reputation', value)

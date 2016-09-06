@@ -21,3 +21,5 @@
   <div class="menu advertising"><%= I18n.t("main_menu.advertising") %></div>
   <div class="menu rating"><%= I18n.t("main_menu.rating") %></div>
 </div>
+
+<%=@safe @.renderTemplate('sidebar_materials') %>

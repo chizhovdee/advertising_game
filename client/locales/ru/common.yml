@@ -22,6 +22,8 @@ ru:
       requirements_not_satisfied: "Требования не удовлетворены!"
       server_error: "Упс! Что-то пошло не так."
       data_not_found: "Данные не найдены!"
+      acceleration_not_available: "Ускорение не доступно"
+
       property_is_built: "Здание построено"
       property_is_building: "Здание находится в строительстве"
       property_is_upgrading: "Здание улучшается"
@@ -29,11 +31,14 @@ ru:
       property_is_rented: "Здание находится в аренде"
       property_is_not_rented: "Здание не в аренде"
       property_rent_not_finished: "Аренда еще не завершена"
+
       factory_in_production: "Запущено производство"
       factory_is_upgrading: "Производство построено"
       factory_is_building: "Производство находится в строительстве"
       factory_is_built: "Производство улучшается"
       factory_can_not_collect: "Нельзя собрать награду с производства"
+      factory_need_collect: "Соберите прибыль с производства"
+
       no_free_places: "Нет свободного места"
       not_correct_data: "Не корректные данные"
       advertising_no_places: "Ваш коммандный центр загружен. Пожалуйста, улучшите ваш командный центр"

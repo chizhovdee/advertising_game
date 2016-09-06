@@ -27,6 +27,7 @@ class Result
     factoryIsUpgrading: "factory_is_upgrading"
     factoryInProduction: "factory_in_production"
     factoryCanNotCollect: "factory_can_not_collect"
+    factoryNeedCollect: "factory_need_collect"
 
   errorCode: null
   data: null

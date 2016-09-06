@@ -6,6 +6,7 @@ ctx = require('../context')
 # state records
 PropertyRecord = require('./property_record')
 FactoryRecord = require('./factory_record')
+AdvertisingRecord = require('./advertising_record')
 
 # game data
 gameData = require('../game_data')

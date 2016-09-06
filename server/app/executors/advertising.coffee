@@ -30,10 +30,10 @@ module.exports =
 
 
     propertyType = PropertyType.find('command_center')
-    property = player.propertiesState.findRecordByPropertyTypeId(propertyType.id)
+    property = player.propertiesState().findRecordByPropertyTypeId(propertyType.id)
 
     # check capacity
-    if player.advertisingState.recordsCount() >= propertyType.fullCapacityBy(property)
+    if player.advertisingState().recordsCount() >= propertyType.fullCapacityBy(property)
       return new Result(
         error_code: if property? then Result.errors.advertisingNoPlaces else Result.errors.advertisingNoPlacesBuild
       )
@@ -49,7 +49,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.advertisingState.create(type.id, status, _(period).days())
+    player.advertisingState().create(type.id, status, _(period).days())
     requirement.apply(reward)
 
     new Result(
@@ -60,14 +60,14 @@ module.exports =
   deleteAdvertising: (player, advertisingId)->
     return new Result(
       error_code: Result.errors.dataNotFound
-    ) unless player.advertisingState.findRecord(advertisingId)?
+    ) unless player.advertisingState().findRecord(advertisingId)?
 
-    player.advertisingState.deleteRecord(advertisingId)
+    player.advertisingState().deleteRecord(advertisingId)
 
     new Result()
 
   prolongAdvertising: (player, advertisingId, period)->
-    advertising = player.advertisingState.findRecord(advertisingId)
+    advertising = player.advertisingState().findRecord(advertisingId)
 
     return new Result(
       error_code: Result.errors.dataNotFound
@@ -78,7 +78,7 @@ module.exports =
     period = _.first(AdvertisingType.periods) if period < _.first(AdvertisingType.periods)
     period = _.last(AdvertisingType.periods) if period > _.last(AdvertisingType.periods)
 
-    resultDuration = player.advertisingState.expireTimeLeftFor(advertising.id) + _(period).days()
+    resultDuration = player.advertisingState().expireTimeLeftFor(advertising.id) + _(period).days()
 
     return new Result(
       error_code: Result.errors.advertisingReachedMaxDuration
@@ -95,7 +95,7 @@ module.exports =
       )
 
     reward = new Reward(player)
-    player.advertisingState.prolong(advertising.id, _(period).days())
+    player.advertisingState().prolong(advertising.id, _(period).days())
     requirement.apply(reward)
 
     new Result(

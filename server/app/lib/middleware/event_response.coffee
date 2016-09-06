@@ -15,6 +15,10 @@ class EventResponse
     shop:
       buy_transport: 'transport_purchased'
       buy_fuel: 'fuel_purchased'
+    advertising:
+      create: 'advertising_created'
+      delete: 'advertising_deleted'
+      prolong: 'advertising_prolonged'
 
   events: null
 

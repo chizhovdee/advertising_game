@@ -17,9 +17,9 @@ exports.setup = (app)->
     apiRoutes.put('/properties/upgrade', controllers.gameApi.update)
 
     # advertising
-    apiRoutes.post('/advertising/create', controllers.advertising.create)
-    apiRoutes.delete('/advertising/delete', controllers.advertising.delete)
-    apiRoutes.put('/advertising/prolong', controllers.advertising.prolong)
+    apiRoutes.post('/advertising/create', controllers.gameApi.update)
+    apiRoutes.delete('/advertising/delete', controllers.gameApi.update)
+    apiRoutes.put('/advertising/prolong', controllers.gameApi.update)
 
     # routes
     apiRoutes.put('/routes/open', controllers.routes.open)

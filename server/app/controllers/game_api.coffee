@@ -3,6 +3,7 @@ executors = require('../executors')
 factories = executors.factories
 properties = executors.properties
 shop = executors.shop
+advertising = executors.advertising
 
 module.exports =
   update: (req, res)->
@@ -67,6 +68,25 @@ module.exports =
               result = shop.buyFuel(
                 req.currentPlayer
                 _.toInteger(req.body.amount)
+              )
+
+        when 'advertising'
+          switch action
+            when 'create'
+              result = advertising.createAdvertising(
+                req.currentPlayer
+                _.parseRequestParams(req.body).data
+              )
+            when 'delete'
+              result = advertising.deleteAdvertising(
+                req.currentPlayer
+                _.toInteger(req.body.advertising_id)
+              )
+            when 'prolong'
+              result = advertising.prolongAdvertising(
+                req.currentPlayer
+                _.toInteger(req.body.advertising_id)
+                _.toInteger(req.body.period)
               )
 
       res.addEventWithResult([controller, action], result)

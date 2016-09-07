@@ -45,10 +45,10 @@ class Base
     @keysStore[obj.key] = index - 1
     @count += 1
 
-    if obj.validationForDefine?
-      obj.validationForDefine()
+    if obj.validateOnDefine?
+      obj.validateOnDefine()
     else
-      console.warn("Warning: validationForDefine is undefined for #{ obj.constructor.name } by key #{ obj.key }")
+      console.warn("Warning: validateOnDefine is undefined for #{ obj.constructor.name } by key #{ obj.key }")
 
     obj[cb]?() for cb in @afterDefineCallbacks
 

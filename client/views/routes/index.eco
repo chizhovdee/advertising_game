@@ -1,3 +1,13 @@
+<h1><%= I18n.t('routes.index.title') %></h1>
+
+<div class="groups">
+  <% for groupKey in @groupKeys: %>
+  <div
+    class="group <%= groupKey %> <%= 'current' if @currentGroupKey == groupKey %>"
+    data-group-key="<%= groupKey %>"></div>
+  <% end %>
+</div>
+
 <div class="list">
   <%=@safe @.renderTemplate('routes/list') %>
 </div>

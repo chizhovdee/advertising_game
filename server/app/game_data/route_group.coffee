@@ -4,8 +4,12 @@ Base = require("./base")
 class RouteGroup extends Base
   @configure(publicForClient: true)
 
+  level: null
+
   constructor: ->
     super
+
+    @level = null
 
     Object.defineProperties(@,
       _routeTypes: {
@@ -21,11 +25,12 @@ class RouteGroup extends Base
   addRouteType: (routeType)->
     _.addUniq(@_routeTypes, routeType)
 
-  validationForDefine: ->
+  validateOnDefine: ->
+    throw new Error('undefined level') unless @level?
 
   toJSON: ->
     _.assign(
-      requirement: @requirement
+      level: @level
       ,
       super
     )

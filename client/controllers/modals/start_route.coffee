@@ -2,13 +2,13 @@ Modal = require("../modal")
 request = require('../../lib').request
 TransportSelectionModal = require('./transport_selection')
 ctx = require('../../context')
-Route = require('../../game_data').Route
-Transport = require('../../game_data').Transport
+RouteType = require('../../game_data').RouteType
+TransportModel = require('../../game_data').TransportModel
 
 class StartRouteModal extends Modal
   className: 'start_route modal'
 
-  show: (@routeId, @stateRouteId)->
+  show: (@routeId)->
     @playerState = ctx.get('playerState')
 
     super
@@ -43,7 +43,7 @@ class StartRouteModal extends Modal
     @el.off('click', '.confirm_popup .run_route:not(.disabled)', @.onRunRouteClick)
 
   defineData: ->
-    console.log @route = Route.find(@routeId)
+    console.log @route = RouteType.find(@routeId)
 
     @transportIds = []
     @totalCarrying = 0

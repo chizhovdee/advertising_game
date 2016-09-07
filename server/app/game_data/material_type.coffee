@@ -11,7 +11,7 @@ class MaterialType extends Base
 
     @level = 1
 
-  validationForDefine: ->
+  validateOnDefine: ->
     throw new Error('undefined @level') unless @level?
 
   toJSON: ->

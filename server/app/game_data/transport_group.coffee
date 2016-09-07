@@ -25,9 +25,8 @@ class TransportGroup extends Base
   addTransportModel: (transport)->
     _.addUniq(@_transportModels, transport)
 
-  validationForDefine: ->
+  validateOnDefine: ->
     throw new Error('undefined level') unless @level?
-
 
   toJSON: ->
     _.assign(

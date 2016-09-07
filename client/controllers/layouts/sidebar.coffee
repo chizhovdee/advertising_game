@@ -32,6 +32,7 @@ class SidebarLayout extends BaseController
     @el.on("click", ".menu.transport", -> pages.TransportPage.show())
     @el.on("click", ".menu.shop", -> pages.ShopPage.show())
     @el.on("click", ".menu.advertising", -> pages.AdvertisingPage.show())
+    @el.on("click", ".menu.routes", -> pages.RoutesPage.show())
 
     @el.on('click', '.experience', @.onExprerienceClick)
 

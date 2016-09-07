@@ -7,7 +7,8 @@ class RouteType extends Base
   routeGroupKey: null
   materialKey: null
   distance: null
-  weight: null # вес
+  weight: null
+  level: null
 
   @configure(publicForClient: true)
 
@@ -20,6 +21,7 @@ class RouteType extends Base
     @materialKey = null
     @distance = null
     @weight = null
+    @level = null
 
   setRouteGroup: ->
     Object.defineProperty(@, 'routeGroup'
@@ -30,7 +32,7 @@ class RouteType extends Base
 
     @routeGroup.addRouteType(@)
 
-  validationForDefine: ->
+  validateOnDefine: ->
     throw new Error('undefined goodKey') unless @materialKey?
     throw new Error('undefined distance') unless @distance?
     throw new Error('undefined weight') unless @weight?
@@ -39,7 +41,7 @@ class RouteType extends Base
     _.assign(
       routeGroupKey: @routeGroupKey
       reward: @reward
-      requirement: @requirement
+      level: @level
       materialKey: @materialKey
       distance: @distance
       weight: @weight

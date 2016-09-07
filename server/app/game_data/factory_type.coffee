@@ -24,7 +24,7 @@ class FactoryType extends Base
     @upgradePerLevels = null
     @baseUpgradeDuration = null
 
-  validationForDefine: ->
+  validateOnDefine: ->
     throw new Error('undefined @basicPrice') unless @basicPrice?
     throw new Error('undefined @buildLevel') unless @buildLevel?
     throw new Error('undefined @buildDuration') unless @buildDuration?

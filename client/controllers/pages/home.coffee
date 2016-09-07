@@ -1,6 +1,4 @@
 Page = require("../page")
-AdvertisingPage = require('./advertising')
-RoutesPage = require('./routes')
 TruckingPage = require('./trucking')
 
 class HomePage extends Page
@@ -9,7 +7,7 @@ class HomePage extends Page
   elements:
     '.tab_content': 'tabContentEl'
 
-  tabs: ['trucking', 'routes']
+  tabs: ['trucking']
 
   hide: ->
     @innerPage?.hide()
@@ -57,10 +55,6 @@ class HomePage extends Page
     switch @currentTab
       when 'trucking'
         @innerPage = new TruckingPage()
-      when 'routes'
-        @innerPage = new RoutesPage()
-      when 'contracts'
-        @innerPage = null
 
     @innerPage?.show(@el.find('.tab_content'))
 

@@ -8,5 +8,6 @@ module.exports =
   AdvertisingPage: require('./advertising')
   FactoriesPage: require('./factories')
   AdvertisingPage: require('./advertising')
+  RoutesPage: require('./routes')
 
 

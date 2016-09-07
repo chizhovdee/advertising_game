@@ -1,13 +1,5 @@
 RouteGroup = require('../game_data').RouteGroup
 
-RouteGroup.define('route_group_1', (obj)->
-  obj.addRequirement('open', (r)->
-    r.reputation 1
-  )
-)
+RouteGroup.define('coal_route_group', (obj)-> obj.level = 1)
 
-RouteGroup.define('route_group_2', (obj)->
-  obj.addRequirement('open', (r)->
-    r.reputation 100
-  )
-)
+RouteGroup.define('wood_route_group', (obj)-> obj.level = 5)

@@ -1,26 +1,30 @@
-<div class="route" id="route_<%= @route.id %>">
-  <div class="picture"><%=@safe @.transportTypePicture(@route.route.transportTypeKey) %></div>
-
+<div class="route <%= 'locked' if @player.level < @route.level %>" id="route_<%= @route.id %>">
   <div class="info">
-    <div class="name"><%= I18n.t("routes.route.good", name: @route.route.goodName()) %></div>
+    <div class="freight">
+      <span class="label"><%= I18n.t("routes.route.freight") %></span>
+      <span class="value <%= @route.materialKey %>"></span>
+    </div>
 
-    <div class="distance"><%= I18n.t("routes.route.distance", value: @route.route.distance) %></div>
+    <div class="distance"><%= I18n.t("routes.route.distance", value: @route.distance) %></div>
 
-    <div class="weight"><%= I18n.t("routes.route.weight", value: @route.route.weight) %></div>
+    <div class="weight"><%= I18n.t("routes.route.weight", value: @route.weight) %></div>
 
-    <%= @.renderRewards @route.route.reward.collect, (content)-> %>
+    <%= @.renderRewards @route.reward.collect, (content)-> %>
       <h3><%= I18n.t("common.rewards") %></h3>
 
       <%= content %>
     <% end %>
   </div>
 
-  <div class="timer hint--bottom hint--no-animate" data-hint='Hui'>
-    <span class="value"></span>
-  </div>
-
-  <button class="start" data-state-route-id="<%= @route.id %>">
-    <%= I18n.t("routes.route.start") %>
-  </button>
-
+  <% if @player.level < @route.level: %>
+    <div class="level">
+      <%= I18n.t("routes.route.locked_level", level: @route.level) %>
+    </div>
+  <% else: %>
+    <div class="controls">
+      <button class="start" data-route-id="<%= @route.id %>">
+        <%= I18n.t("routes.route.start") %>
+      </button>
+    </div>
+  <% end %>
 </div>

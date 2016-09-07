@@ -1,8 +1,6 @@
 <h2><%= I18n.t('routes.start.title') %></h2>
 
 <div class="info">
-  <div class="name"><%= I18n.t("routes.route.good", name: @route.goodName()) %></div>
-
   <div class="distance"><%= I18n.t("routes.route.distance", value: @route.distance) %></div>
 
   <div class="weight"><%= I18n.t("routes.route.weight", value: @route.weight) %></div>
@@ -26,7 +24,7 @@
   <% for tId in @transportIds: %>
     <div class="transport">
       <span class="delete" data-transport-id="<%= tId %>"></span>
-      <%=@safe @.transportPicture(@playerState.transport[tId].typeId) %>
+      <%=@safe @.transportModelPicture(@playerState.transport[tId].typeId) %>
     </div>
   <% end %>
 

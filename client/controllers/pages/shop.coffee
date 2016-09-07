@@ -28,8 +28,7 @@ class ShopPage extends Page
     @html(@.renderTemplate("shop/index"))
 
   renderList: ->
-    listEl = @el.find('.list')
-    listEl.html(@.renderTemplate("shop/list"))
+    @el.find('.list').html(@.renderTemplate("shop/list"))
 
   renderTransportModel: (transportModel)->
     @el.find("#transport_model_#{ transportModel.id }").replaceWith(

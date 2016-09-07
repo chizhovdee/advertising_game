@@ -1,7 +1,7 @@
 _ = require("lodash")
 Base = require("./base")
 
-class TransportGroup extends Base
+class RouteGroup extends Base
   @configure(publicForClient: true)
 
   level: null
@@ -12,18 +12,18 @@ class TransportGroup extends Base
     @level = null
 
     Object.defineProperties(@,
-      _transportModels: {
+      _routeTypes: {
         value: []
         writable: false
       }
-      transportModels: {
+      routeTypes: {
         enumerable: true
-        get: -> @_transportModels
+        get: -> @_routeTypes
       }
     )
 
-  addTransportModel: (transport)->
-    _.addUniq(@_transportModels, transport)
+  addRouteType: (routeType)->
+    _.addUniq(@_routeTypes, routeType)
 
   validateOnDefine: ->
     throw new Error('undefined level') unless @level?
@@ -35,4 +35,4 @@ class TransportGroup extends Base
       super
     )
 
-module.exports = TransportGroup
+module.exports = RouteGroup

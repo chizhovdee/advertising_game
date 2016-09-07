@@ -1,76 +1,61 @@
-InnerPage = require("../inner_page")
+Page = require("../page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
 VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
-Route = require('../../game_data').Route
+RouteGroup = require('../../game_data').RouteGroup
+RouteType = require('../../game_data').RouteType
 
-class RoutesPage extends InnerPage
-  className: "routes inner_page"
+class RoutesPage extends Page
+  className: "routes page"
 
-  PER_PAGE = 3
+  PER_PAGE = 6
 
-  show: ->
-    @playerState = ctx.get('playerState')
-
+  show: (options = {})->
     super
 
-    @timers = {}
+    @groupKeys = _.map(RouteGroup.all(), (t)-> t.key)
+
+    @currentGroupKey = options.transportGroupKey || 'coal_route_group'
 
     @.defineData()
 
     @.render()
 
-  hide: ->
-    for id, timer of @timers
-      timer.stop()
-
-    super
-
   render: ->
     @html(@.renderTemplate("routes/index"))
-
-    @.setupTimers()
 
   renderList: ->
     @el.find('.list').html(@.renderTemplate("routes/list"))
 
-    @.setupTimers()
-
-  setupTimers: ->
-    timeDiff = Date.now() - @playerState.routesUpdatedAt
-
-    for resource in @paginatedList
-      if resource.expireTimeLeft > 0
-        @timers[resource.id] ?= new VisualTimer()
-        @timers[resource.id].setElement($("#route_#{ resource.id } .timer .value"))
-        @timers[resource.id].start(resource.expireTimeLeft - timeDiff)
-
   bindEventListeners: ->
     super
 
-    @el.on('click', 'button.start', @.onStartClick)
+    @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
+    @el.on('click', '.switches .switch', @.onSwitchPageClick)
+    @el.on('click', '.groups .group:not(.current)', @.onGroupClick)
+    @el.on('click', '.start', @.onStartClick)
 
   unbindEventListeners: ->
     super
 
-    @el.off('click', 'button.start', @.onStartClick)
+    @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
+    @el.off('click', '.switches .switch', @.onSwitchPageClick)
+    @el.off('click', '.groups .group:not(.current)', @.onGroupClick)
+    @el.off('click', '.start', @.onStartClick)
 
   defineData: ->
-    console.log @list = _.sortBy((
-      for id, resource of @playerState.routes
-        _.assignIn({
-          id: id
-          route: Route.find(resource.routeId)
-        }, resource)
-    ), (ad)-> ad.createdAt)
+    @routeGroup = RouteGroup.find(@currentGroupKey)
+
+    @list = RouteType.select((t)=> t.routeGroupKey == @currentGroupKey)
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
 
     @listPagination.setSwitches(@list)
 
+   # events
   onListPaginateClick: (e)=>
     @paginatedList = @listPagination.paginate(@list,
       back: $(e.currentTarget).data('type') == 'back'
@@ -85,10 +70,19 @@ class RoutesPage extends InnerPage
 
     @.renderList()
 
-  onStartClick: (e)=>
-    stateRouteId = $(e.currentTarget).data('state-route-id')
-    @playerState.routes[stateRouteId].routeId
+  onGroupClick: (e)=>
+    groupEl = $(e.currentTarget)
 
-    modals.StartRouteModal.show(@playerState.routes[stateRouteId].routeId, stateRouteId)
+    @el.find('.groups .group').removeClass('current')
+    groupEl.addClass('current')
+
+    @currentGroupKey = groupEl.data('group-key')
+
+    @.defineData()
+
+    @.renderList()
+
+  onStartClick: (e)=>
+    modals.StartRouteModal.show($(e.currentTarget).data('route-id'))
 
 module.exports = RoutesPage

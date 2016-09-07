@@ -39,7 +39,7 @@ class TransportModel extends Base
 
     @transportGroup.addTransportModel(@)
 
-  validationForDefine: ->
+  validateOnDefine: ->
     throw new Error('undefined typeKey') unless @transportGroupKey?
     throw new Error('undefined level') unless @level?
     throw new Error('undefined consumption') unless @consumption?

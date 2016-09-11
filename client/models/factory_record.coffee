@@ -4,6 +4,9 @@ class FactoryRecord extends BaseRecord
   isBuilding: ->
     @buildingTimeLeft? && @.actualBuildingTimeLeft() >= 0
 
+  isBuilt: ->
+    not @.isBuilding()
+
   actualBuildingTimeLeft: ->
     @buildingTimeLeft - @.loadedTimeDiff()
 

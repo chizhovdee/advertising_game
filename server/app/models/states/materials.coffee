@@ -3,41 +3,50 @@ BaseState = require('./base')
 MaterialType = require('../../game_data').MaterialType
 
 class MaterialsState extends BaseState
-  defaultState: null
+  defaultState: {
+    factories: {}
+  }
+
   stateName: "materials"
 
-  constructor: ->
-    @defaultState = {}
-    @defaultState[type.key] = 0 for type in MaterialType.all()
-    
-    super
+  getFor: (resource, materialTypeKey)  ->
+    @state[resource.type][resource.id]?[materialTypeKey] || 0
 
-  get: (materialTypeKey)->
-    @.check(materialTypeKey)
+  give: (resource, materialTypeKey, value)->
+    @.check(resource, materialTypeKey)
 
-    @state[materialTypeKey]
-
-  give: (materialTypeKey, value)->
-    @.check(materialTypeKey)
-
-    @state[materialTypeKey] += value
+    @state[resource.type][resource.id][materialTypeKey] += value
 
     @.update()
 
-    @.addOperation('update', materialTypeKey, @state[materialTypeKey])
+    @.addOperation(
+      'update'
+      _.assignIn(resource, materialTypeKey: materialTypeKey)
+      @state[resource.type][resource.id][materialTypeKey]
+    )
 
-  take: (materialTypeKey, value)->
-    @.check(materialTypeKey)
+  take: (resource, materialTypeKey, value)->
+    @.check(resource, materialTypeKey)
 
-    @state[materialTypeKey] -= value
-    @state[materialTypeKey] = 0 if @state[materialTypeKey] < 0
+    @state[resource.type][resource.id][materialTypeKey] -= value
+
+    if @state[resource.type][resource.id][materialTypeKey] < 0
+      @state[resource.type][resource.id][materialTypeKey] = 0
 
     @.update()
 
-    @.addOperation('update', materialTypeKey, @state[materialTypeKey])
+    @.addOperation(
+      'update'
+      _.assignIn(resource, materialTypeKey: materialTypeKey)
+      @state[resource.type][resource.id][materialTypeKey]
+    )
 
-  check: (materialTypeKey)->
-    throw new Error("undefined material type key #{ materialTypeKey }") unless @state[materialTypeKey]?
+  check: (resource, materialTypeKey)->
+    throw new Error('resource is undefined') unless resource?
+
+    @state[resource.type][resource.id] ?= {}
+
+    @state[resource.type][resource.id][materialTypeKey] ?= 0
 
   toJSON: ->
     @state

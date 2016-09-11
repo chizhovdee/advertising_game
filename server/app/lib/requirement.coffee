@@ -49,11 +49,13 @@ class Requirement
     else
       @values[key] = value
 
-  isSatisfiedFor: (player, multiplier = 1)->
+  isSatisfiedFor: (player, resource, multiplier = 1)->
     for key, value of @values
       if key == 'materials'
+        throw new Error('resource is undefined') unless resource?
+
         for type, amount of value
-          return false if amount * multiplier > player.materialsState().get(type)
+          return false if amount * multiplier > player.materialsState().getFor(resource, type)
       else
         return false if value * multiplier > player[key]
 
@@ -79,15 +81,17 @@ class Requirement
           for type, amount of value
             reward.takeMaterial(type, amount * multiplier)
 
-  unSatisfiedFor: (player, multiplier = 1)->
+  unSatisfiedFor: (player, resource, multiplier = 1)->
     result = {}
 
     for key, value of @values
       if key == 'materials'
+        throw new Error('resource is undefined') unless resource?
+
         for type, amount of value
           amount *= multiplier
 
-          continue if amount <= player.materialsState().get(type)
+          continue if amount <= player.materialsState().getFor(resource, type)
 
           result.materials ?= {}
           result.materials[type] = [amount, false]

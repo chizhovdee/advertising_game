@@ -2,7 +2,8 @@ Base = require("./base")
 
 class FactoryType extends Base
   @configure 'FactoryType', 'key', 'basicPrice', 'buildLevel', 'buildDuration',
-    'upgradePerLevels', 'baseUpgradeDuration', 'reward', 'requirement', 'productions'
+    'upgradePerLevels', 'baseUpgradeDuration', 'reward', 'requirement',
+    'productionDurations', 'producedMaterials', 'consumableMaterials'
 
   name: ->
     I18n.t("game_data.factory_types.#{@key}.name")
@@ -15,5 +16,11 @@ class FactoryType extends Base
 
   upgradePriceBy: (factoryLevel)->
     (factoryLevel + 1) * @basicPrice
+
+  materialLimitBy: (materialKey, level)->
+    for key, limit of _.assignIn({}, @producedMaterials, @consumableMaterials)
+      if materialKey == key
+        return limit * level
+
 
 module.exports = FactoryType

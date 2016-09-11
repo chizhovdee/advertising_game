@@ -63,3 +63,9 @@ module.exports =
           <span class="time-icon"></span>
           <span class="value"></span>
         </div>"""
+
+  renderMaterial: (materialKey)->
+    """<span class="material #{ materialKey } hint--bottom hint--no-animate"
+             data-hint='#{ I18n.t("common.reward_keys.#{ materialKey }") }'
+             data-material="#{ materialKey }">
+       </span>"""

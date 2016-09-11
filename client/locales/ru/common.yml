@@ -1,5 +1,6 @@
 ru:
   common:
+    level: "Уровень"
     price: "Цена"
     requires: "Требуется"
     rewards: "Награда"
@@ -58,6 +59,7 @@ ru:
       fuel: "Топливо"
       coal: "Уголь"
       wood: "Древесина"
+      iron_ore: "Руда"
 
     timer:
       days:

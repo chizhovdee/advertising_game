@@ -51,9 +51,7 @@ class SidebarLayout extends BaseController
   onPlayerStateUpdate: (playerState)=>
     changes = playerState.changes()
 
-    @el.find(".materials").replaceWith(
-      @.renderTemplate('sidebar_materials')
-    ) if changes.materials?
+    # TODO
 
   onExprerienceClick: =>
     @player.experience_to_next_level

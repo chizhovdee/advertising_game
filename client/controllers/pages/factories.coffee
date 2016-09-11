@@ -84,6 +84,7 @@ class FactoriesPage extends Page
     @el.on('click', '.factory .info-icon', @.onInfoClick)
     @el.on('click', '.factory .start:not(.disabled)', @.onStartClick)
     @el.on('click', '.factory .collect:not(.disabled)', @.onCollectClick)
+    @el.on('click', '.materials:not(.disabled) .material', @.onMaterialClick)
 
   unbindEventListeners: ->
     super
@@ -107,6 +108,7 @@ class FactoriesPage extends Page
     @el.off('click', '.factory .info-icon', @.onInfoClick)
     @el.off('click', '.factory .start:not(.disabled)', @.onStartClick)
     @el.off('click', '.factory .collect:not(.disabled)', @.onCollectClick)
+    @el.off('click', '.materials:not(.disabled) .material', @.onMaterialClick)
 
   defineData: ->
     @list = FactoryType.all()
@@ -246,6 +248,24 @@ class FactoriesPage extends Page
 
   onFactoryCollected: (response)=>
     @.handleResponse(response)
+
+  onMaterialClick: (e)=>
+    materialEl = $(e.currentTarget)
+
+    factory = @playerState.findFactoryRecord(materialEl.parents('.materials').data('factory-id'))
+    materialKey = materialEl.data('material')
+    type = FactoryType.find(factory.factoryTypeId)
+    current = @playerState.getMaterialFor({type: 'factories', id: factory.id}, materialKey)
+    max = type.materialLimitBy(materialKey, factory.level)
+
+    @.displayPopup(materialEl
+      """<div class='materials_info'>
+         #{ I18n.t('factories.factory.materials_info', current: current, max: max) }
+         </div>"""
+      position: 'left bottom'
+      autoHideDelay: _(5).seconds()
+      autoHide: true
+    )
 
   handleResponse: (response)->
     @.displayResult(

@@ -131,12 +131,14 @@ module.exports =
     factory = player.factoriesState().findRecord(factoryId)
 
     return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless factory?
+
+    return new Result(
       error_code: Result.errors.notCorrectData
     ) unless productionNumber in FactoryType.productionNumbers
 
-    return new Result(
-      error_code: Result.errors.dataNotFound
-    ) unless factory?
+    resource = player.factoriesState().resourceFor(factory.id)
 
     type = FactoryType.find(factory.factoryTypeId)
 
@@ -147,21 +149,25 @@ module.exports =
 
     requirement = type.requirement?.getOn("startProduction#{productionNumber}")
 
-    if requirement? && !requirement.isSatisfiedFor(player, factory.level)
-      dataResult.requirement = requirement.unSatisfiedFor(player, factory.level)
+    if requirement? && !requirement.isSatisfiedFor(player, resource, factory.level)
+      dataResult.requirement = requirement.unSatisfiedFor(player, resource, factory.level)
 
       return new Result(
         error_code: Result.errors.requirementsNotSatisfied
         data: dataResult
       )
 
-    reward = new Reward(player)
+    reward = new Reward(player, resource)
 
-    player.factoriesState().startFactory(factory.id, productionNumber, type.productions[productionNumber])
+    player.factoriesState().startFactory(
+      factory.id, productionNumber, type.productionDurations[productionNumber]
+    )
 
     requirement?.apply(reward, factory.level)
 
     dataResult.reward = reward
+
+    #player.materialsState().give({type: 'factories', id: 2475225}, 'coal', 10)
 
     new Result(data: dataResult)
 
@@ -172,6 +178,8 @@ module.exports =
       error_code: Result.errors.dataNotFound
     ) unless factory?
 
+    resource = player.factoriesState().resourceFor(factory.id)
+
     type = FactoryType.find(factory.factoryTypeId)
 
     dataResult = {factory_type_id: type.id}
@@ -181,7 +189,7 @@ module.exports =
       data: dataResult
     ) unless player.factoriesState().canCollectFactory(factory)
 
-    reward = new Reward(player)
+    reward = new Reward(player, resource)
     type.reward.applyOn("collectProduction#{ factory.productionNumber }", reward, factory.level)
     player.factoriesState().collectFactory(factory.id)
 

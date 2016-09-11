@@ -1,31 +1,60 @@
 <div class="factory" id="factory_type_<%= @type.id %>">
   <span class="info-icon" data-type-id="<%= @type.id %>"></span>
 
-  <div class="name">
-    <%= @type.name() %>
-  </div>
-
   <div class="picture"><%=@safe @.factoryPicture(@type) %></div>
 
   <div class="info">
+    <div class="name"><%= @type.name() %></div>
+
+    <div class="attributes">
+      <% if @factory?.isBuilt(): %>
+        <div class="attribute level">
+          <div class="att_name"><%= I18n.t("common.level") %>:</div>
+          <div class="value"><%= @factory.level %></div>
+        </div>
+      <% end %>
+
+      <div class="attribute production">
+        <div class="att_name"><%= I18n.t("factories.factory.production") %>:</div>
+        <div class="value materials <%= 'disabled' if not @factory?.isBuilt() %>"
+             data-factory-id="<%= @factory?.id %>">
+          <% for material, max of @type.producedMaterials: %>
+            <%=@safe @.renderMaterial(material) %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="attribute production">
+        <div class="att_name"><%= I18n.t("factories.factory.consumption") %>:</div>
+        <div class="value materials <%= 'disabled' if not @factory?.isBuilt() %>"
+             data-factory-id="<%= @factory?.id %>">
+          <% for material, max of @type.consumableMaterials: %>
+            <%=@safe @.renderMaterial(material) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <% if @factory?: %>
       <% if @factory.isBuilding(): %>
-        <div class="warning_label"><%= I18n.t("factories.factory.under_construction") %></div>
+        <div class="status">
+          <div class="status_info"><%= I18n.t("factories.factory.under_construction") %></div>
 
-        <%=@safe @.renderTimer(I18n.t("factories.factory.building_timer")) %>
-
+          <%=@safe @.renderTimer(I18n.t("factories.factory.building_timer")) %>
+        </div>
       <% else if @factory.isUpgrading(): %>
-        <div class="warning_label"><%= I18n.t("factories.factory.upgrading") %></div>
+        <div class="status">
+          <div class="status_info"><%= I18n.t("factories.factory.upgrading") %></div>
 
-        <%=@safe @.renderTimer(I18n.t("factories.factory.upgrading_timer")) %>
-
+          <%=@safe @.renderTimer(I18n.t("factories.factory.upgrading_timer")) %>
+        </div>
       <% else: %>
-        <div class="level"><%=@safe I18n.t("factories.factory.level", level: @factory.level) %></div>
-
         <% if @factory.inProduction(): %>
-          <div class="warning_label"><%= I18n.t("factories.factory.in_production") %></div>
+          <div class="status">
+            <div class="status_info"><%= I18n.t("factories.factory.in_production") %></div>
 
-          <%=@safe @.renderTimer(I18n.t("factories.factory.production_timer")) %>
+            <%=@safe @.renderTimer(I18n.t("factories.factory.production_timer")) %>
+          </div>
         <% end %>
       <% end %>
     <% end %>
@@ -52,6 +81,10 @@
           <%= I18n.t("factories.factory.upgrade") %>
         </button>
       <% end %>
+
+      <button class="ship" data-factory-id="<%= @factory.id %>">
+        <%= I18n.t("factories.factory.ship") %>
+      </button>
 
     <% else: %>
       <button class="build" data-type-id="<%= @type.id %>">

@@ -54,16 +54,26 @@ class PlayerState extends Spine.Model
     for key, data of operations
       state = _.cloneDeep(@[key])
 
-      for [type, id, resource] in data
+      for [type, idOrResource, value] in data
         @lastChangingOperations[key] ?= {}
         @lastChangingOperations[key][type] ?= []
-        @lastChangingOperations[key][type].push(id)
+        @lastChangingOperations[key][type].push(idOrResource)
 
-        switch type
-          when 'add', 'update'
-            state[id] = resource
-          when 'delete'
-            delete state[id]
+        if key == 'materials'
+          resource = idOrResource
+
+          state[resource.type][resource.id] ?= {}
+          state[resource.type][resource.id][resource.materialTypeKey] ?= 0
+          state[resource.type][resource.id][resource.materialTypeKey] = value
+
+        else
+          id = idOrResource
+
+          switch type
+            when 'add', 'update'
+              state[id] = value
+            when 'delete'
+              delete state[id]
 
       @[key] = state
 
@@ -109,6 +119,11 @@ class PlayerState extends Spine.Model
 
   findAdvertisingRecord: (id)->
     _.find(@.advertisingRecords(), id: id)
+
+  getMaterialFor: (resource, materialKey)->
+    throw new Error('resource is undefined') unless resource?
+
+    @materials[resource.type][resource.id]?[materialKey] || 0
 
 module.exports = PlayerState
 

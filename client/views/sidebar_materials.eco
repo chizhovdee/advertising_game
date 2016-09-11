@@ -1,5 +1,0 @@
-<div class="materials">
-    <% for key, value of @playerState.materials: %>
-        <div class="material <%= key %>"><%= value %></div>
-    <% end %>
-</div>

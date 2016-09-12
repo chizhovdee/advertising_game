@@ -1,6 +1,6 @@
 Modal = require("../modal")
-Route = require('../../game_data').Route
-Transport = require('../../game_data').Transport
+RouteType = require('../../game_data').RouteType
+TransportModel = require('../../game_data').TransportModel
 request = require('../../lib').request
 ctx = require('../../context')
 Pagination = require("../../lib").Pagination
@@ -53,19 +53,19 @@ class TransportSelectionModal extends Modal
     @el.off('click', '.own .select', @.onOwnSelect)
 
   defineData: ->
-    @route ?= Route.find(@routeId)
+    @route ?= RouteType.find(@routeId)
 
     switch @currentTab
       when 'own'
         @list = []
 
         for id, resource of @playerState.transport
-          type = Transport.find(resource.typeId)
+          type = TransportModel.find(resource.transportModelId)
 
-          continue unless type.typeKey == @route.transportTypeKey
+          continue unless type.transportModelId == @route.transportModelId
           good = @route.goodKey || @route.goodTypeKey
 
-          continue if good not in type.goodKeys && good not in type.goodTypeKeys
+          #continue if good not in type.goodKeys && good not in type.goodTypeKeys
 
           @list.push(_.assignIn({
             id: _.toInteger(id)

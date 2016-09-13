@@ -10,10 +10,15 @@
       @include border-radius(5px);
       margin-bottom: 15px;
 
-      .info-icon {
+      .icons{
         position: absolute;
         top: 5px;
         right: 5px;
+
+        .icon {
+          margin-left: 5px;
+          cursor: pointer;
+        }
       }
 
       .picture, .info {
@@ -32,6 +37,11 @@
       .info {
         margin: 5px 0 0 5px;
 
+        .button {
+          @extend %flat-button;
+          margin-left: 5px;
+        }
+
         .attribute {
           .att_name, .value {
             display: inline-block;
@@ -47,7 +57,7 @@
         .name {
           font-weight: bold;
           font-size: 15px;
-          color: $game_color_yellow;
+          color: #003e6d;
           margin-bottom: 5px;
         }
 

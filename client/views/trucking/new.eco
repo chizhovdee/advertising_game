@@ -1,0 +1,8 @@
+<h2><%= I18n.t("trucking.new.title")%></h2>
+
+<div class="sending_place section">
+    <div class="name"><%= I18n.t("trucking.new.sending_place")%></div>
+    <div class="value">
+        <%=@safe @.senderPlacePicture() %>
+    </div>
+</div>

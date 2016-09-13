@@ -2,6 +2,8 @@
   .material {
     display: inline-block;
     vertical-align: middle;
+    margin: 0 2px;
+
     @include images-sprite-dimensions(icons/coal);
 
     &.coal {

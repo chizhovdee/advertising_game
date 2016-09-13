@@ -7,6 +7,18 @@ class FactoryRecord extends BaseRecord
   isBuilt: ->
     not @.isBuilding()
 
+  canStart: ->
+    if @.canCollectProduction() || @.isUpgrading() || @.isBuilding() || @.inProduction()
+      false
+    else
+      true
+
+  canUpgrade: ->
+    if @.isUpgrading() || @.isBuilding() || @.inProduction()
+      false
+    else
+      true
+
   actualBuildingTimeLeft: ->
     @buildingTimeLeft - @.loadedTimeDiff()
 

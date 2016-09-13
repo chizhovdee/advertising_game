@@ -5,3 +5,6 @@ ru:
       routes: "Маршруты"
       timer: "Осталось: "
       collect: "Собрать"
+    new:
+      title: "Отправка груза"
+      sending_place: "Место отправления"

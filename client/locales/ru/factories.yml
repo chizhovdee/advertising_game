@@ -21,7 +21,7 @@ ru:
       start: "Запустить"
       in_production: "Идет производство"
       production_timer: "Время до завершения производства"
-      collect: "Собрать прибыль"
+      collect: "Собрать"
       production: "Производит"
       consumption: "Потребляет"
       ship: "Отгрузить"

@@ -50,6 +50,11 @@ h4 {
   @include images-sprite(icons/time);
 }
 
+.trucking-icon {
+  display: inline-block;
+  @include images-sprite(icons/auto);
+}
+
 .timer {
   .time-icon, .value {
     display: inline-block;

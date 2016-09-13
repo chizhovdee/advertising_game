@@ -1,3 +1,5 @@
+$button_health: 27px;
+
 %button {
   border: none;
   display: inline-block;
@@ -25,16 +27,20 @@
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 0.5px;
-  line-height: 23px;
-  color: #ffedae;
-  height: images-sprite-height('ui/button');
+  line-height: $button_health;
+  background-color: #006bb9;
+  color: #fff;
+  height: $button_health;
+  @include border-radius(5px);
+  //color: #ffedae;
+  //height: images-sprite-height('ui/button');
+  //
+  //@include images-sprite-background('ui/button');
 
-  @include images-sprite-background('ui/button');
-
-  background: {
-    repeat: no-repeat;
-    clip: content-box;
-  }
+  //background: {
+  //  repeat: no-repeat;
+  //  clip: content-box;
+  //}
 
   &:before, &:after {
     display: block;
@@ -42,9 +48,11 @@
     top: 0;
     content: '';
     width: 10px;
-    height: images-sprite-height('ui/button');
-
-    @include images-sprite-background('ui/button');
+    height: $button_health;
+    //height: images-sprite-height('ui/button');
+    //
+    //@include images-sprite-background('ui/button');
+    //@include border-radius(10px);
   }
 
   &:before {
@@ -53,13 +61,17 @@
 
   &:after {
     right: 0;
-    background-position: images-sprite-position('ui/button', - images-sprite-width('ui/button') + 10px);
+   // background-position: images-sprite-position('ui/button', - images-sprite-width('ui/button') + 10px);
   }
 }
 
 .page, .modal {
   button, a.button {
     @extend %common-button;
+
+    &.cyan {
+      background-color: #0086b3;
+    }
   }
 }
 
@@ -71,6 +83,7 @@
   color: #FFFF00;
   text-decoration: none;
   text-align: center;
+  letter-spacing: 0.5px;
 
   &:hover {
     background-color: rgba(0, 0, 0, 1);

@@ -85,6 +85,8 @@ class FactoriesPage extends Page
     @el.on('click', '.factory .start:not(.disabled)', @.onStartClick)
     @el.on('click', '.factory .collect:not(.disabled)', @.onCollectClick)
     @el.on('click', '.materials:not(.disabled) .material', @.onMaterialClick)
+    @el.on('click', '.trucking-icon', @.onTruckingClick)
+    @el.on('click', '.ship', @.onShipClick)
 
   unbindEventListeners: ->
     super
@@ -109,6 +111,8 @@ class FactoriesPage extends Page
     @el.off('click', '.factory .start:not(.disabled)', @.onStartClick)
     @el.off('click', '.factory .collect:not(.disabled)', @.onCollectClick)
     @el.off('click', '.materials:not(.disabled) .material', @.onMaterialClick)
+    @el.off('click', '.trucking', @.onTruckingClick)
+    @el.off('click', '.ship', @.onShipClick)
 
   defineData: ->
     @list = FactoryType.all()
@@ -266,6 +270,12 @@ class FactoriesPage extends Page
       autoHideDelay: _(5).seconds()
       autoHide: true
     )
+
+  onTruckingClick: (e)->
+    console.log $(e.currentTarget).data('factory-id')
+
+  onShipClick: (e)->
+    modals.NewTruckingModal.show(type: 'factories', id: $(e.currentTarget).data('factory-id'))
 
   handleResponse: (response)->
     @.displayResult(

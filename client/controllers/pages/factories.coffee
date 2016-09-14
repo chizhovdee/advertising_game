@@ -86,7 +86,7 @@ class FactoriesPage extends Page
     @el.on('click', '.factory .collect:not(.disabled)', @.onCollectClick)
     @el.on('click', '.materials:not(.disabled) .material', @.onMaterialClick)
     @el.on('click', '.trucking-icon', @.onTruckingClick)
-    @el.on('click', '.ship', @.onShipClick)
+    @el.on('click', 'button.ship', @.onShipClick)
 
   unbindEventListeners: ->
     super
@@ -113,6 +113,7 @@ class FactoriesPage extends Page
     @el.off('click', '.materials:not(.disabled) .material', @.onMaterialClick)
     @el.off('click', '.trucking', @.onTruckingClick)
     @el.off('click', '.ship', @.onShipClick)
+    @el.off('click', 'button.ship', @.onShipClick)
 
   defineData: ->
     @list = FactoryType.all()
@@ -264,6 +265,7 @@ class FactoriesPage extends Page
 
     @.displayPopup(materialEl
       @.renderTemplate('factories/material_popup',
+        factory: factory
         materialKey: materialKey
         currentCount: current
         maxCount: max
@@ -276,8 +278,13 @@ class FactoriesPage extends Page
   onTruckingClick: (e)->
     console.log $(e.currentTarget).data('factory-id')
 
-  onShipClick: (e)->
-    modals.NewTruckingModal.show(type: 'factories', id: $(e.currentTarget).data('factory-id'))
+  onShipClick: (e)=>
+    el = $(e.currentTarget)
+
+    modals.NewTruckingModal.show(
+      @playerState.getResourceFor(@playerState.findFactoryRecord(el.data('factory-id')))
+      el.data('material')
+    )
 
   handleResponse: (response)->
     @.displayResult(

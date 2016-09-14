@@ -1,6 +1,7 @@
 Modal = require("../modal")
 request = require('../../lib').request
 TransportSelectionModal = require('./transport_selection')
+DestinationSelectionModal = require('./destination_selection')
 ctx = require('../../context')
 gameData = require('../../game_data')
 TransportModel = gameData.TransportModel
@@ -9,7 +10,7 @@ FactoryType = gameData.FactoryType
 class NewTruckingModal extends Modal
   className: 'new_trucking modal'
 
-  show: (@resource)->
+  show: (@resource, @materialKey)->
     @playerState = ctx.get('playerState')
 
     super
@@ -31,6 +32,7 @@ class NewTruckingModal extends Modal
 #    @el.on('click', '.transport_list .add', @.onAddTransportClick)
 #    @el.on('click', '.transport .delete', @.onTransportDeleteClick)
 #    @el.on('click', '.send:not(.disabled)', @.onSendClick)
+    @el.on('click', '.section .add', @.onAddClick)
 
   unbindEventListeners: ->
     super
@@ -41,12 +43,19 @@ class NewTruckingModal extends Modal
 #    @el.off('click', '.transport .delete', @.onTransportDeleteClick)
 #    @el.off('click', '.send:not(.disabled)', @.onSendClick)
 
+    @el.off('click', '.section .add', @.onAddClick)
+
   defineData: ->
+    @destination = null
+
     switch @resource.type
       when 'factories'
         factory = @playerState.findFactoryRecord(@resource.id)
 
         @senderPlace = FactoryType.find(factory.factoryTypeId)
+
+        @currentCount = @playerState.getMaterialFor(@resource, @materialKey)
+        @maxCount = @senderPlace.materialLimitBy(@materialKey, factory.level)
 
 
 # events
@@ -106,6 +115,13 @@ class NewTruckingModal extends Modal
 #      state_route_id: @stateRouteId
 #      transport_ids: @transportIds.join(',')
 #    )
+
+  onAddClick: (e)=>
+    el = $(e.currentTarget)
+
+    switch el.data('type')
+      when 'destination'
+        DestinationSelectionModal.show(@, @senderPlace, @materialKey)
 
   # utils
   senderPlacePicture: ->

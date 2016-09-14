@@ -10,6 +10,10 @@
   </div>
 
   <div class="controls">
-    
+    <button class="ship" data-factory-id="<%= @factory.id %>" data-material="<%= @materialKey %>">
+      <%= I18n.t("factories.factory.ship") %>
+    </button>
+
+    <span class="cancel"><%= I18n.t("common.cancel") %></span>
   </div>
 </div>

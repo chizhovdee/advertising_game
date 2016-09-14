@@ -22,5 +22,7 @@ class FactoryType extends Base
       if materialKey == key
         return limit * level
 
+  isContainMaterial: (materialKey)->
+    @consumableMaterials[materialKey]? || @producedMaterials[materialKey]?
 
 module.exports = FactoryType

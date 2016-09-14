@@ -8,3 +8,5 @@ ru:
     new:
       title: "Отправка груза"
       sending_place: "Место отправления"
+      destination: "Место назначения"
+      select_destination: "Выберите место назначения"

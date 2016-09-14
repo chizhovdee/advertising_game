@@ -125,5 +125,10 @@ class PlayerState extends Spine.Model
 
     @materials[resource.type][resource.id]?[materialKey] || 0
 
+  getResourceFor: (record)->
+    switch record.constructor.name
+      when 'FactoryRecord'
+        {type: 'factories', id: record.id}
+
 module.exports = PlayerState
 

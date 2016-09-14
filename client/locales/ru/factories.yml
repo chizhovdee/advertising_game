@@ -25,7 +25,6 @@ ru:
       production: "Производит"
       consumption: "Потребляет"
       ship: "Отгрузить"
-      materials_info: "<strong>На складе</strong>: %{current}/%{max}"
     start:
       title: "Запуск производства"
       run: "Произвести"

@@ -1,0 +1,15 @@
+<div class="material_info">
+  <h3><%= I18n.t("common.reward_keys.#{ @materialKey }") %></h3>
+
+  <div class="materials_info">
+    <strong><%= I18n.t('common.in_warehouse') %></strong>:
+
+    <span class="<%= 'red' if @currentCount >= @maxCount || @currentCount <= 0 %>">
+      <%= "#{ @currentCount } / #{ @maxCount }" %>
+    </span>
+  </div>
+
+  <div class="controls">
+    
+  </div>
+</div>

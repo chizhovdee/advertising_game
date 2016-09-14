@@ -26,20 +26,20 @@ class NewTruckingModal extends Modal
   bindEventListeners: ->
     super
 
-    request.bind('trucking_created', @.onTruckingCreated)
+    #request.bind('trucking_created', @.onTruckingCreated)
 
-    @el.on('click', '.transport_list .add', @.onAddTransportClick)
-    @el.on('click', '.transport .delete', @.onTransportDeleteClick)
-    @el.on('click', '.send:not(.disabled)', @.onSendClick)
+#    @el.on('click', '.transport_list .add', @.onAddTransportClick)
+#    @el.on('click', '.transport .delete', @.onTransportDeleteClick)
+#    @el.on('click', '.send:not(.disabled)', @.onSendClick)
 
   unbindEventListeners: ->
     super
 
-    request.unbind('trucking_created', @.onTruckingCreated)
+    #request.unbind('trucking_created', @.onTruckingCreated)
 
-    @el.off('click', '.transport_list .add', @.onAddTransportClick)
-    @el.off('click', '.transport .delete', @.onTransportDeleteClick)
-    @el.off('click', '.send:not(.disabled)', @.onSendClick)
+#    @el.off('click', '.transport_list .add', @.onAddTransportClick)
+#    @el.off('click', '.transport .delete', @.onTransportDeleteClick)
+#    @el.off('click', '.send:not(.disabled)', @.onSendClick)
 
   defineData: ->
     switch @resource.type

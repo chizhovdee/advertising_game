@@ -17,12 +17,6 @@
         <div class="attribute level">
           <div class="att_name"><%= I18n.t("common.level") %>:</div>
           <div class="value"><%= @factory.level %></div>
-
-          <% if @factory?.canUpgrade(): %>
-            <span class="upgrade button" data-factory-id="<%= @factory.id %>">
-              <%= I18n.t("factories.factory.upgrade") %>
-            </span>
-          <% end %>
         </div>
       <% end %>
 
@@ -34,17 +28,6 @@
             <%=@safe @.renderMaterial(material) %>
           <% end %>
         </div>
-
-        <% if @factory.canCollectProduction(): %>
-          <span class="collect button" data-factory-id="<%= @factory.id %>">
-            <%= I18n.t("factories.factory.collect") %>
-          </span>
-
-        <% else if @factory?.canStart(): %>
-          <span class="start button" data-factory-id="<%= @factory.id %>">
-            <%= I18n.t("factories.factory.start") %>
-          </span>
-        <% end %>
       </div>
 
       <div class="attribute production">
@@ -97,9 +80,22 @@
 
   <div class="controls">
     <% if @factory?: %>
-      <button class="ship" data-factory-id="<%= @factory.id %>">
-        <%= I18n.t("factories.factory.ship") %>
-      </button>
+      <% if @factory?.canUpgrade(): %>
+        <button class="upgrade" data-factory-id="<%= @factory.id %>">
+          <%= I18n.t("factories.factory.upgrade") %>
+        </button>
+      <% end %>
+
+      <% if @factory?.canCollectProduction(): %>
+        <button class="collect" data-factory-id="<%= @factory.id %>">
+          <%= I18n.t("factories.factory.collect") %>
+        </button>
+
+      <% else if @factory?.canStart(): %>
+        <button class="start" data-factory-id="<%= @factory.id %>">
+          <%= I18n.t("factories.factory.start") %>
+        </button>
+      <% end %>
 
     <% else: %>
       <button class="build" data-type-id="<%= @type.id %>">

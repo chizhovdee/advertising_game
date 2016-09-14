@@ -14,7 +14,7 @@ class FactoryRecord extends BaseRecord
       true
 
   canUpgrade: ->
-    if @.isUpgrading() || @.isBuilding() || @.inProduction()
+    if @.isUpgrading() || @.isBuilding() || @.inProduction() || @.canCollectProduction()
       false
     else
       true

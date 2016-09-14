@@ -263,9 +263,11 @@ class FactoriesPage extends Page
     max = type.materialLimitBy(materialKey, factory.level)
 
     @.displayPopup(materialEl
-      """<div class='materials_info'>
-         #{ I18n.t('factories.factory.materials_info', current: current, max: max) }
-         </div>"""
+      @.renderTemplate('factories/material_popup',
+        materialKey: materialKey
+        currentCount: current
+        maxCount: max
+      )
       position: 'left bottom'
       autoHideDelay: _(5).seconds()
       autoHide: true

@@ -3,7 +3,7 @@ Base = require("./base")
 class FactoryType extends Base
   @configure 'FactoryType', 'key', 'basicPrice', 'buildLevel', 'buildDuration',
     'upgradePerLevels', 'baseUpgradeDuration', 'reward', 'requirement',
-    'productionDurations', 'producedMaterials', 'consumableMaterials'
+    'productionDurations', 'producedMaterials', 'consumableMaterials', 'position'
 
   name: ->
     I18n.t("game_data.factory_types.#{@key}.name")

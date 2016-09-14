@@ -14,6 +14,7 @@ class FactoryType extends Base
   productionDurations: null # хранится различное время производства
   producedMaterials: null # какой материал производится
   consumableMaterials: null # какой материал потребляется
+  position: null
 
   constructor: ->
     super
@@ -26,6 +27,7 @@ class FactoryType extends Base
     @baseUpgradeDuration = null
     @producedMaterials = null
     @consumableMaterials = {}
+    @position = null
 
   validateOnDefine: ->
     throw new Error('undefined @basicPrice') unless @basicPrice?
@@ -34,6 +36,7 @@ class FactoryType extends Base
     throw new Error('undefined @upgradePerLevels') unless @upgradePerLevels?
     throw new Error('undefined @baseUpgradeDuration') unless @baseUpgradeDuration?
     throw new Error('undefined @producedMaterials') unless @producedMaterials?
+    throw new Error('undefined @position') unless @position?
 
   upgradeLevelBy: (factoryLevel)->
     factoryLevel * @upgradePerLevels - (@buildLevel - 1)
@@ -62,6 +65,7 @@ class FactoryType extends Base
       productionDurations: @productionDurations
       producedMaterials: @producedMaterials
       consumableMaterials: @consumableMaterials
+      position: @position
       ,
       super
     )

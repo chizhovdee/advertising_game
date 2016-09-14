@@ -8,6 +8,7 @@ FactoryType.define('coal_factory', (obj)->
   obj.upgradePerLevels = 5
   obj.baseUpgradeDuration = _(1).minutes()
   obj.producedMaterials = {coal: 100}
+  obj.position = {x: 100, y: 100}
 
   for production in FactoryType.productionNumbers
     switch production
@@ -57,6 +58,7 @@ FactoryType.define('wood_factory', (obj)->
   obj.baseUpgradeDuration = _(1).minutes()
   obj.producedMaterials = {wood: 100}
   obj.consumableMaterials = {coal: 100}
+  obj.position = {x: 150, y: 100}
 
   for production in FactoryType.productionNumbers
     switch production
@@ -124,6 +126,7 @@ FactoryType.define('iron_ore_factory', (obj)->
   obj.baseUpgradeDuration = _(1).minutes()
   obj.producedMaterials = {iron_ore: 100}
   obj.consumableMaterials = {coal: 100, wood: 100}
+  obj.position = {x: 50, y: 200}
 
   for production in FactoryType.productionNumbers
     switch production

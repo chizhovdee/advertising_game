@@ -6,3 +6,4 @@ module.exports =
   VisualTimer: require('./visual_timer')
   Pagination: require('./pagination')
   balance: require('./balance')
+  geometry: require('./geometry')

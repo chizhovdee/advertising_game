@@ -1,1 +1,24 @@
-3434
+<h2><%= I18n.t('trucking.destination_selection.title') %></h2>
+
+<div class="material">
+    <div class="name"><%= I18n.t("common.cargo")%>:</div>
+    <div class="value materials">
+        <%=@safe @.renderMaterial(@materialKey) %>
+
+        <span class="in_warehouse"><%= @currentCount %></span>
+    </div>
+</div>
+
+<div class="list">
+    <div class="page">
+        <% for destination in @paginatedList: %>
+          <%=@safe @.renderTemplate('destination_selection/destination', destination: destination) %>
+        <% end %>
+    </div>
+
+    <%=@safe @.renderTemplate('page_switches') %>
+</div>
+
+<div class="controls">
+    <button class="select disabled"><%= I18n.t('trucking.destination_selection.select') %></button>
+</div>

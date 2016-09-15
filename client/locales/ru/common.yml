@@ -82,3 +82,5 @@ ru:
     spending: "Затраты"
     in_warehouse: "На складе"
     cargo: "Груз"
+    distance_to_town: "Расстояние до города: %{distance} км"
+    km: "%{value} км"

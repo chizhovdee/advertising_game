@@ -15,8 +15,6 @@ displays = require('./utils').displays
 render = require('./utils').render
 gameData = require('./game_data')
 
-geometry = require('./lib').geometry
-
 # сначала грузиться ассеты с помощью прелоадера
 # затем запускается главная сцен
 
@@ -85,8 +83,6 @@ class App
     preloader.removeAll() # вычищаем прелоадер, освобождаем память
 
     @.show()
-
-    console.log geometry.pDistance({x: 150, y: 150}, {x: 0, y: 0})
 
   show: ->
     new layouts.HeaderLayout(el: $("#application .header")).show()

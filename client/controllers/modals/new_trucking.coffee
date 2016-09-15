@@ -121,7 +121,11 @@ class NewTruckingModal extends Modal
 
     switch el.data('type')
       when 'destination'
-        DestinationSelectionModal.show(@, @senderPlace, @materialKey)
+        DestinationSelectionModal.show(@,
+          senderPlace: @senderPlace
+          materialKey: @materialKey
+          resource: @resource
+        )
 
   # utils
   senderPlacePicture: ->

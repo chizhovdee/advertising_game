@@ -49,7 +49,7 @@ module.exports =
   # @param {cc.Point} v2
   # @return {Number}
   pDistance: (v1, v2)->
-    @.pLength(@.pSub(v1, v2))
+    Math.round(@.pLength(@.pSub(v1, v2)))
 
   # Converts a vector to radians.
   # @param {cc.Point} v
@@ -62,3 +62,6 @@ module.exports =
   # @return {Number}
   radiansToDegrees: (radians)->
     radians * 180 / Math.PI
+
+  pDistanceToTown: (v)->
+    @.pDistance({x: 0, y: 0}, v)

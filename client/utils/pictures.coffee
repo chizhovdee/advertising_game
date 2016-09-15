@@ -100,3 +100,8 @@ module.exports =
     title = "title='#{factoryType.name()}'"
 
     "<img src='#{ @.factoryPictureUrl(factoryType, format) }' #{title} />"
+
+  destinationPicture: (object)->
+    switch object.constructor.name
+      when 'FactoryType'
+        @.factoryPicture(object)

@@ -5,9 +5,9 @@ request = require('../../lib/request')
 VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
 balance = require('../../lib').balance
+geometry = require('../../lib').geometry
 
 gameData = require('../../game_data')
-
 FactoryType = gameData.FactoryType
 
 class FactoriesPage extends Page
@@ -19,6 +19,8 @@ class FactoriesPage extends Page
     @playerState = ctx.get('playerState')
 
     super
+
+    @geometry = geometry
 
     @timers = {}
 
@@ -232,8 +234,8 @@ class FactoriesPage extends Page
     factoryType = _.find(@list, (t)-> t.id == button.data('type-id'))
 
     @.displayPopup(button
-      "<div class='description'>#{factoryType.description()}</div>"
-      position: 'left bottom'
+      @.renderTemplate('factories/info_popup', factoryType: factoryType)
+      position: 'left top'
       autoHideDelay: _(10).seconds()
       autoHide: true
     )

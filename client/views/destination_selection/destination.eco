@@ -1,6 +1,6 @@
 <% [destination, currentCount, maxCount] =  @destination %>
 
-<div class="destination" data-destination-id="<%= destination.id %>">
+<div class="destination" data-resource="<%= JSON.stringify(destination.toResource()) %>">
     <div class="picture"><%=@safe @.destinationPicture(destination) %></div>
 
     <div class="info">

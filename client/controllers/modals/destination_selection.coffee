@@ -18,6 +18,9 @@ class DestinationSelectionModal extends Modal
 
     super
 
+    @currentType = null
+    @currentId = null
+
     @senderPlace = @data.senderPlace
     @materialKey = @data.materialKey
     @resource = @data.resource
@@ -47,23 +50,23 @@ class DestinationSelectionModal extends Modal
   defineData: ->
     @currentCount = @playerState.getMaterialFor(@resource, @materialKey)
 
-    @factoryTypes = []
+    @factories = []
 
     for factory in @playerState.factoryRecords()
       continue if factory.factoryTypeId == @senderPlace.id
 
       type = FactoryType.find(factory.factoryTypeId)
 
-      continue until type.isContainMaterial(@materialKey)
+      continue unless type.isContainMaterial(@materialKey)
 
       maxCount = type.materialLimitBy(@materialKey, factory.level)
       currentCount = @playerState.getMaterialFor(@playerState.getResourceFor(factory), @materialKey)
 
       continue if currentCount >= maxCount
 
-      @factoryTypes.push([type, currentCount, maxCount])
+      @factories.push([type, currentCount, maxCount])
 
-    @factoryTypes
+    @factories
 
     # pagination
     @list = @factoryTypes
@@ -79,6 +82,9 @@ class DestinationSelectionModal extends Modal
 
     el.addClass('selected')
 
+    @selectedResource =
+
+    @el.find('button.select').addClass('disabled')
 
 
 module.exports = DestinationSelectionModal

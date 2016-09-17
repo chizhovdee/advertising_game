@@ -19,8 +19,9 @@ class FactoryType extends Base
 
   materialLimitBy: (materialKey, level)->
     for key, limit of _.assignIn({}, @producedMaterials, @consumableMaterials)
-      if materialKey == key
-        return limit * level
+      return limit * level if materialKey == key
+
+    0
 
   isContainMaterial: (materialKey)->
     @consumableMaterials[materialKey]? || @producedMaterials[materialKey]?

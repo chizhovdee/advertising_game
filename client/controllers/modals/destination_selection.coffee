@@ -5,8 +5,7 @@ request = require('../../lib').request
 ctx = require('../../context')
 Pagination = require("../../lib").Pagination
 geometry = require('../../lib').geometry
-gameData = require('../../game_data')
-FactoryType = gameData.FactoryType
+FactoryType = require('../../game_data').FactoryType
 
 class DestinationSelectionModal extends Modal
   className: 'destination_selection modal'
@@ -18,12 +17,11 @@ class DestinationSelectionModal extends Modal
 
     super
 
-    @currentType = null
-    @currentId = null
+    @selectedResource = null
 
-    @senderPlace = @data.senderPlace
     @materialKey = @data.materialKey
     @resource = @data.resource
+    @senderType = @data.senderType
 
     @geometry = geometry
 
@@ -40,36 +38,38 @@ class DestinationSelectionModal extends Modal
     super
 
     @el.on('click', '.destination:not(.selected)', @.onDestinationClick)
-
+    @el.on('click', '.select:not(.disabled)', @.onSelectClick)
 
   unbindEventListeners: ->
     super
 
     @el.off('click', '.destination:not(.selected)', @.onDestinationClick)
+    @el.off('click', '.select:not(.disabled)', @.onSelectClick)
 
   defineData: ->
+    @list = []
+
     @currentCount = @playerState.getMaterialFor(@resource, @materialKey)
 
-    @factories = []
+    factories = []
 
     for factory in @playerState.factoryRecords()
-      continue if factory.factoryTypeId == @senderPlace.id
+      continue if @resource.type == 'factories' && factory.id == @resource.id
 
-      type = FactoryType.find(factory.factoryTypeId)
+      type = factory.type()
 
       continue unless type.isContainMaterial(@materialKey)
 
       maxCount = type.materialLimitBy(@materialKey, factory.level)
-      currentCount = @playerState.getMaterialFor(@playerState.getResourceFor(factory), @materialKey)
+      factoryResource = @playerState.getResourceFor(factory)
+      currentCount = @playerState.getMaterialFor(factoryResource, @materialKey)
 
       continue if currentCount >= maxCount
 
-      @factories.push([type, currentCount, maxCount])
-
-    @factories
+      factories.push([type, factoryResource, currentCount, maxCount])
 
     # pagination
-    @list = @factoryTypes
+    @list = @list.concat(factories)
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
 
@@ -82,9 +82,15 @@ class DestinationSelectionModal extends Modal
 
     el.addClass('selected')
 
-    @selectedResource =
+    @selectedResource = el.data('resource')
 
-    @el.find('button.select').addClass('disabled')
+    @el.find('button.select').removeClass('disabled')
 
+  onSelectClick: (e)=>
+    $(e.currentTarget).addClass('disabled')
+
+    @context.applyDestination(@selectedResource)
+
+    @.close()
 
 module.exports = DestinationSelectionModal

@@ -1,7 +1,7 @@
-<% [destination, currentCount, maxCount] =  @destination %>
+<% [destination, resource, currentCount, maxCount] =  @destination %>
 
-<div class="destination" data-resource="<%= JSON.stringify(destination.toResource()) %>">
-    <div class="picture"><%=@safe @.destinationPicture(destination) %></div>
+<div class="destination" data-resource="<%= JSON.stringify(resource) %>">
+    <div class="picture"><%=@safe @.objectPicture(destination) %></div>
 
     <div class="info">
         <div class="name"><%= destination.name() %></div>
@@ -13,6 +13,6 @@
     </div>
 
     <div class="distance">
-        <%= I18n.t("common.km", value: @geometry.pDistance(@senderPlace.position, destination.position)) %>
+        <%= I18n.t("common.km", value: @geometry.pDistance(@senderType.position, destination.position)) %>
     </div>
 </div>

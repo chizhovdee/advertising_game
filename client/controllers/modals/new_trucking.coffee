@@ -50,12 +50,10 @@ class NewTruckingModal extends Modal
 
     switch @resource.type
       when 'factories'
-        factory = @playerState.findFactoryRecord(@resource.id)
-
-        @senderPlace = FactoryType.find(factory.factoryTypeId)
+        @sender = @playerState.findFactoryRecord(@resource.id)
 
         @currentCount = @playerState.getMaterialFor(@resource, @materialKey)
-        @maxCount = @senderPlace.materialLimitBy(@materialKey, factory.level)
+        @maxCount = @sender.type().materialLimitBy(@materialKey, @sender.level)
 
 
 # events
@@ -116,21 +114,21 @@ class NewTruckingModal extends Modal
 #      transport_ids: @transportIds.join(',')
 #    )
 
+  applyDestination: (resource)->
+    switch resource.type
+      when 'factories'
+        @playerState.findRecord
+
   onAddClick: (e)=>
     el = $(e.currentTarget)
 
     switch el.data('type')
       when 'destination'
         DestinationSelectionModal.show(@,
-          senderPlace: @senderPlace
           materialKey: @materialKey
           resource: @resource
+          senderType: @senderType
         )
 
-  # utils
-  senderPlacePicture: ->
-    switch @resource.type
-      when 'factories'
-        @.factoryPicture(@senderPlace)
 
 module.exports = NewTruckingModal

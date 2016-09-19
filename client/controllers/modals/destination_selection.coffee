@@ -21,7 +21,7 @@ class DestinationSelectionModal extends Modal
 
     @materialKey = @data.materialKey
     @resource = @data.resource
-    @senderType = @data.senderType
+    @sendingPlace = @data.sendingPlace
 
     @geometry = geometry
 
@@ -64,9 +64,7 @@ class DestinationSelectionModal extends Modal
       factoryResource = @playerState.getResourceFor(factory)
       currentCount = @playerState.getMaterialFor(factoryResource, @materialKey)
 
-      continue if currentCount >= maxCount
-
-      factories.push([type, factoryResource, currentCount, maxCount])
+      factories.push([factory, factoryResource, currentCount, maxCount])
 
     # pagination
     @list = @list.concat(factories)

@@ -81,6 +81,11 @@ class PlayerState extends Spine.Model
 
     @.save() unless _.isEmpty(operations)
 
+  findRecordByResource: (resource)->
+    switch resource.type
+      when 'factories'
+        @.findFactoryRecord(resource.id)
+
   # properties
   propertyRecords: ->
     @_propertyRecords ?= (

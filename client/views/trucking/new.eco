@@ -11,17 +11,23 @@
 
 <div class="sending_place section">
     <div class="name"><%= I18n.t("trucking.new.sending_place") %>:</div>
-    <div class="value hint--right hint--no-animate" data-hint="<%= @senderType.name() %>">
-        <%=@safe @.objectPicture(@sender.type()) %>
+    <div class="value hint--right hint--no-animate" data-hint="<%= @sendingPlace.type().name() %>">
+        <%=@safe @.objectPicture(@sendingPlace.type()) %>
     </div>
 </div>
 
 <div class="destination section">
     <div class="name"><%= I18n.t("trucking.new.destination")%>:</div>
     <div class="value">
-        <div class="add hint--right hint--no-animate"
-             data-hint="<%= I18n.t('trucking.new.select_destination') %>"
-             data-type="destination">
-        </div>
+        <% if @destination?: %>
+            <span class="delete" data-type="destination"></span>
+
+            <%=@safe @.objectPicture(@destination.type()) %>
+        <% else: %>
+            <div class="add hint--right hint--no-animate"
+                 data-hint="<%= I18n.t('trucking.new.select_destination') %>"
+                 data-type="destination">
+            </div>
+        <% end %>
     </div>
 </div>

@@ -14,10 +14,12 @@
 
     .value {
       margin-left: 5px;
+      position: relative;
 
       .add {
         @include images-sprite(ui/add_50x50);
         cursor: pointer;
+        border: 1px solid transparent;
       }
 
       .delete {
@@ -30,7 +32,7 @@
     }
   }
 
-  .sending_place {
+  .sending_place, .destination {
     .value {
       img {
         width: 50px;

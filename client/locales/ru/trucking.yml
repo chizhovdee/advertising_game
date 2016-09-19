@@ -10,6 +10,8 @@ ru:
       sending_place: "Место отправления"
       destination: "Место назначения"
       select_destination: "Выберите место назначения"
+      transport: "Транспорт"
+      select_transport: "Выберите/добавьте транспорт"
     destination_selection:
       title: "Выбор места назначения"
       select: "Выбрать"

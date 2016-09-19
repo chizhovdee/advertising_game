@@ -20,14 +20,33 @@
     <div class="name"><%= I18n.t("trucking.new.destination")%>:</div>
     <div class="value">
         <% if @destination?: %>
-            <span class="delete" data-type="destination"></span>
+            <div class="picture hint--right hint--no-animate" data-hint="<%= @destination.type().name() %>">
+                <span class="delete" data-type="destination"></span>
 
-            <%=@safe @.objectPicture(@destination.type()) %>
+                <%=@safe @.objectPicture(@destination.type()) %>
+            </div>
         <% else: %>
             <div class="add hint--right hint--no-animate"
                  data-hint="<%= I18n.t('trucking.new.select_destination') %>"
                  data-type="destination">
             </div>
         <% end %>
+    </div>
+</div>
+
+<div class="transport section">
+    <div class="name"><%= I18n.t("trucking.new.transport")%>:</div>
+    <div class="value">
+        <% for transport in @transportList: %>
+            <div class="picture">
+                <span class="delete" data-transport-id="<%= tId %>"></span>
+                <%=@safe @.transportModelPicture(transport.model()) %>
+            </div>
+        <% end %>
+
+        <div class="add hint--right hint--no-animate"
+             data-hint="<%= I18n.t('trucking.new.select_transport') %>"
+             data-type="transport">
+        </div>
     </div>
 </div>

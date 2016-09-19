@@ -38,6 +38,7 @@ class NewTruckingModal extends Modal
 
   defineData: ->
     @destination = null
+    @transportList = []
 
     switch @resource.type
       when 'factories'
@@ -61,6 +62,12 @@ class NewTruckingModal extends Modal
           materialKey: @materialKey
           resource: @resource
           sendingPlace: @sendingPlace
+        )
+      else
+        TransportSelectionModal.show(@,
+          materialKey: @materialKey
+          resource: @resource
+          transportList: @transportList
         )
 
   onDeleteClick: (e)=>

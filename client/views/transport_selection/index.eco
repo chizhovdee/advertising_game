@@ -1,16 +1,19 @@
 <h2><%= I18n.t('transport.selection.title') %></h2>
 
-<div class="info">
-  <div class="name"><%= I18n.t("routes.route.good", name: @route.goodName()) %></div>
+<div class="material">
+  <div class="name"><%= I18n.t("common.cargo")%>:</div>
+  <div class="value materials">
+    <%=@safe @.renderMaterial(@materialKey) %>
 
-  <div class="weight"><%= I18n.t("routes.route.weight", value: @route.weight) %></div>
+    <span class="in_warehouse"><%= @currentCount %></span>
+  </div>
 </div>
 
 <div class="tabs">
   <% for type in @tabTypes: %>
-  <div class="tab <%= type %> <%= 'current' if @currentTab == type %>" data-type="<%= type %>">
-    <%= I18n.t("transport.selection.tabs.#{ type }") %>
-  </div>
+    <div class="tab <%= type %> <%= 'current' if @currentTab == type %>" data-type="<%= type %>">
+      <%= I18n.t("transport.selection.tabs.#{ type }") %>
+    </div>
   <% end %>
 </div>
 

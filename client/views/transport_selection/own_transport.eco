@@ -1,8 +1,8 @@
 <div class="transport" id="transport_<%= @transport.id %>">
-  <div class="picture"><%=@safe @.transportPicture(@transport.type) %></div>
+  <div class="picture"><%=@safe @.transportModelPicture(@transport.model().type) %></div>
 
   <div class="info">
-    <div class="name"><%= @transport.type.name() %></div>
+    <div class="name"><%= @transport.model().name() %></div>
 
     <div class="attributes">
       <div class="attribute serviceability">
@@ -22,7 +22,7 @@
   </div>
 
   <div class="controls">
-    <% if @transport.id in @selectedTransportIds: %>
+    <% if @transport in @selectedTransportList: %>
       <span class="selected"><%= I18n.t('transport.selection.selected') %></span>
     <% else: %>
       <button class="select" data-transport-id="<%= @transport.id %>">

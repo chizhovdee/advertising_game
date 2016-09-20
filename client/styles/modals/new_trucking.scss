@@ -1,6 +1,13 @@
 .new_trucking.modal {
+  #slider {
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+    margin-left: 20px;
+  }
+
   .section {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 
     .name, .value {
       display: inline-block;
@@ -19,7 +26,8 @@
       .add {
         @include images-sprite(ui/add_50x50);
         cursor: pointer;
-        border: 1px solid transparent;
+        display: inline-block;
+        vertical-align: middle;
       }
 
       .delete {
@@ -29,11 +37,20 @@
         @include images-sprite(ui/close_icon);
         cursor: pointer;
       }
+
+      .picture {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        margin-right: 10px;
+      }
     }
   }
 
-  .sending_place, .destination {
+  .sending_place, .destination, .transport {
     .value {
+      height: 55px;
+
       img {
         width: 50px;
         height: 50px;
@@ -41,5 +58,22 @@
         border: 1px solid #cccccc;
       }
     }
+  }
+
+  .ship {
+    .value {
+      .material {
+        margin-left: 15px;
+      }
+    }
+
+    .current_cargo {
+      width: 50px;
+      text-align: center;
+    }
+  }
+
+  .controls {
+    margin-top: 40px;
   }
 }

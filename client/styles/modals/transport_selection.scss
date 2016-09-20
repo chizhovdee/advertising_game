@@ -1,71 +1,81 @@
 .transport_selection.modal {
-  .tabs {
-    @extend %tabs;
-  }
+  width: 700px;
 
-  .tab_content {
-    .list {
-      margin-top: 10px;
+  .material {
+    .name, .value {
+      display: inline-block;
+      vertical-align: middle;
     }
 
-    .own {
-      @include pagination;
+    .name {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
 
-      .transport {
-        position: relative;
-        @include border-radius(5px);
-        background-color: rgba(0, 0, 0, 0.1);
-        border: 1px solid #000;
-        margin-bottom: 10px;
-        height: 120px;
+  .list {
+    margin-top: 10px;
+    @include pagination;
 
-        .picture, .info {
-          display: inline-block;
-          vertical-align: top;
+    .transport:nth-child(odd) {
+      margin-right: 10px;
+    }
+
+    .transport {
+      position: relative;
+      @include border-radius(5px);
+      background-color: rgba(0, 0, 0, 0.1);
+      border: 1px solid #000;
+      margin-bottom: 10px;
+      height: 120px;
+      width: 330px;
+      display: inline-block;
+      vertical-align: top;
+
+      .picture, .info {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .picture {
+        img {
+          width: 120px;
+          height: 120px;
+          @include border-radius(5px);
+        }
+      }
+
+      .info {
+        margin: 5px 0 0 5px;
+
+        .name {
+          @extend %resource-name;
         }
 
-        .picture {
-          img {
-            width: 120px;
-            height: 120px;
-            @include border-radius(5px);
-          }
-        }
-
-        .info {
-          margin: 5px 0 0 5px;
-
-          .name {
-            font-weight: bold;
-            font-size: 15px;
-            color: $game_color_yellow;
-            margin-bottom: 5px;
+        .attribute {
+          .att_name, .value {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 17px;
           }
 
-          .attribute {
-            .att_name, .value {
-              display: inline-block;
-              vertical-align: middle;
-              line-height: 17px;
-            }
-
-            .att_name {
-              font-weight: bold;
-            }
-          }
-        }
-
-        .controls {
-          position: absolute;
-          bottom: 5px;
-          right: 5px;
-
-          .selected {
-            color: $game_color_red;
+          .att_name {
             font-weight: bold;
           }
         }
       }
+
+      .controls {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+
+        .selected {
+          color: $game_color_red;
+          font-weight: bold;
+        }
+      }
     }
   }
+
 }

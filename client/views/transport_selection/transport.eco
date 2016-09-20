@@ -1,20 +1,23 @@
 <div class="transport" id="transport_<%= @transport.id %>">
-  <div class="picture"><%=@safe @.transportModelPicture(@transport.model().type) %></div>
+  <div class="picture"><%=@safe @.transportModelPicture(@transport.model()) %></div>
 
   <div class="info">
     <div class="name"><%= @transport.model().name() %></div>
 
     <div class="attributes">
-      <div class="attribute serviceability">
-        <div class="att_name"><%= I18n.t("transport.attributes.serviceability") %></div>
-        <div class="value"><%= @transport.serviceability %>%</div>
-      </div>
-
       <% for attr in @transportAttributes: %>
         <div class="attribute <%= attr %>">
           <div class="att_name"><%= I18n.t("transport.attributes.#{attr}") %></div>
-          <div class="value">
-            <%= @transport.type[attr] %>
+          <div class="value <%= 'materials' if attr == 'carrying' %>">
+            <% if attr == 'carrying': %>
+              <%=@safe @.renderMaterial(@materialKey) %>
+            <% end %>
+
+            <% if attr == 'serviceability': %>
+              <%= @transport[attr] %>%
+            <% else: %>
+              <%= @transport.model()[attr] %>
+            <% end %>
           </div>
         </div>
       <% end %>

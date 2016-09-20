@@ -7,6 +7,7 @@ ctx = require('../context')
 PropertyRecord = require('./property_record')
 FactoryRecord = require('./factory_record')
 AdvertisingRecord = require('./advertising_record')
+TransportRecord = require('./transport_record')
 
 # game data
 gameData = require('../game_data')
@@ -37,9 +38,11 @@ class PlayerState extends Spine.Model
     @.setOldAttributes(@constructor.irecords[@id].attributes())
 
     # reset
+    # TODO смотреть по changes
     @_propertyRecords = null
     @_advertisingRecords = null
     @_factoryRecords = null
+    @_transportRecords = null
 
     super
 
@@ -106,10 +109,6 @@ class PlayerState extends Spine.Model
   findFactoryRecord: (id)->
     _.find(@.factoryRecords(), id: id)
 
-  # transport
-  transportCount: ->
-    _.size(@transport)
-
   # advertising
   advertisingCount: ->
     _.size(@advertising)
@@ -125,15 +124,31 @@ class PlayerState extends Spine.Model
   findAdvertisingRecord: (id)->
     _.find(@.advertisingRecords(), id: id)
 
+  # transport
+  transportCount: ->
+    _.size(@transport)
+
+  transportRecords: ->
+    @_transportRecords ?= (
+      for id, data of @transport
+        new TransportRecord(data)
+    )
+
+  findTransportRecord: (id)->
+    _.find(@.transportRecords(), id: id)
+
+  # materials
   getMaterialFor: (resource, materialKey)->
     throw new Error('resource is undefined') unless resource?
 
     @materials[resource.type][resource.id]?[materialKey] || 0
 
+  # common
   getResourceFor: (record)->
     switch record.constructor.name
       when 'FactoryRecord'
         {type: 'factories', id: record.id}
+
 
 module.exports = PlayerState
 

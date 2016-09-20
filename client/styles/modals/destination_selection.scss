@@ -55,10 +55,7 @@
         padding: 5px;
 
         .name {
-          font-weight: bold;
-          font-size: 15px;
-          color: #003e6d;
-          margin-bottom: 10px;
+          @extend %resource-name;
         }
       }
 

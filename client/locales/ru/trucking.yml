@@ -12,6 +12,10 @@ ru:
       select_destination: "Выберите место назначения"
       transport: "Транспорт"
       select_transport: "Выберите/добавьте транспорт"
+      ship: "Загрузить"
+      carrying: "Максимальная грузоподьъемность"
+      acceptance: "Маскимальный прием груза (до)"
+      send: "Отправить"
     destination_selection:
       title: "Выбор места назначения"
       select: "Выбрать"

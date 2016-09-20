@@ -7,4 +7,7 @@ class TransportModel extends Base
   name: ->
     I18n.t("game_data.transport_model.#{ @key }")
 
+  isContainMaterial: (materialKey)->
+    materialKey in @materials
+
 module.exports = TransportModel

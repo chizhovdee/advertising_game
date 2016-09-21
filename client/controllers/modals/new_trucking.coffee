@@ -24,6 +24,9 @@ class NewTruckingModal extends Modal
       @.renderTemplate('trucking/new')
     )
 
+    @.createSlider()
+
+  createSlider: ->
     @sliderEl = document.getElementById('slider')
 
     noUiSlider.create(@sliderEl,
@@ -38,23 +41,33 @@ class NewTruckingModal extends Modal
 
     @sliderEl.noUiSlider.on('update', @.onSliderUpdate)
 
+    @.checkEnabledSlider()
+
+  checkEnabledSlider: ->
     if @carrying <= 0 || @acceptance <= 0 || @currentCount <= 0
       @sliderEl.setAttribute('disabled', true)
       @el.find('.section.ship .current_cargo').attr('disabled', true)
+    else
+      @sliderEl.removeAttribute('disabled')
+      @el.find('.section.ship .current_cargo').attr('disabled', false)
 
   bindEventListeners: ->
     super
 
-    @el.on('click', '.section .add', @.onAddClick)
-    @el.on('click', '.section .delete', @.onDeleteClick)
-    @el.on('change', '.section.ship .current_cargo', @.onCurrentCargoChange)
+    @el.on('click', '.section:not(.disabled) .add', @.onAddClick)
+    @el.on('click', '.section:not(.disabled) .delete', @.onDeleteClick)
+    @el.on('change', '.section.ship:not(.disabled) .current_cargo', @.onCurrentCargoChange)
+    @el.on('click', 'button.send:not(.disabled)', @.onSendClick)
+    @el.on('click', 'button.start_sending:not(.disabled)', @.onStartSendingClick)
 
   unbindEventListeners: ->
     super
 
-    @el.off('click', '.section .add', @.onAddClick)
-    @el.off('click', '.section .delete', @.onDeleteClick)
-    @el.off('change', '.section.ship .current_cargo', @.onCurrentCargoChange)
+    @el.off('click', '.section:not(.disabled) .add', @.onAddClick)
+    @el.off('click', '.section:not(.disabled) .delete', @.onDeleteClick)
+    @el.off('change', '.section.ship:not(.disabled) .current_cargo', @.onCurrentCargoChange)
+    @el.off('click', 'button.send:not(.disabled)', @.onSendClick)
+    @el.off('click', 'button.start_sending:not(.disabled)', @.onStartSendingClick)
 
   defineData: ->
     @destination = null
@@ -143,6 +156,41 @@ class NewTruckingModal extends Modal
 
   onCurrentCargoChange: (e)=>
     @sliderEl.noUiSlider.set($(e.currentTarget).val())
+
+  onSendClick: (e)=>
+    e.stopPropagation()
+
+    @.displayConfirm($(e.currentTarget),
+      button:
+        className: 'start_sending'
+      position: 'right bottom'
+    )
+
+  onStartSendingClick: (e)=>
+    $(e.currentTarget).addClass('disabled')
+
+    @.controlsEnable(false)
+
+    @destination
+    @transportList
+    @sendingPlace
+    @currentCargo
+    @materialKey
+
+
+  controlsEnable: (bool)->
+    if bool
+      @el.find('button.send').removeClass('disabled')
+      @el.find('.section').removeClass('disabled')
+
+      @.checkEnabledSlider()
+
+    else
+      @el.find('button.send').addClass('disabled')
+      @el.find('.section').addClass('disabled')
+      @sliderEl.setAttribute('disabled', true)
+      @el.find('.section.ship .current_cargo').attr('disabled', true)
+
 
 
 module.exports = NewTruckingModal

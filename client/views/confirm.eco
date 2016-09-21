@@ -7,7 +7,7 @@
       <% end %>
     <% end %>
 >
-  <button class="<%= @button.className %>" data-type="yes">
+  <button class="<%= @button.className %> cyan" data-type="yes">
     <%= @button.text || I18n.t('common.buttons.yes') %>
   </button>
 

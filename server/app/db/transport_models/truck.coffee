@@ -31,7 +31,7 @@ TransportModel.define('van_hask', (obj)->
   obj.level = 2
   obj.consumption = 8
   obj.reliability = 79
-  obj.carrying = 0.5
+  obj.carrying = 600
   obj.travelSpeed = 80
   obj.isPrimary = true
   obj.basicPrice = 200

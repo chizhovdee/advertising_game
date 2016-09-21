@@ -8,11 +8,10 @@ class TruckingState extends BaseState
   find: (id)->
     @state[id]
 
-  create: (route, stateTransportIds, duration)->
+  create: (stateTransportIds, duration)->
     newId = @.generateId()
     newRecord = {
       id: newId
-      routeId: route.id
       transportIds: stateTransportIds
       completeAt: Date.now() + duration
       createdAt: Date.now()
@@ -26,16 +25,6 @@ class TruckingState extends BaseState
     @.update()
 
     newId # return new trucking id
-
-  getTruckingAttributesBy: (route, transportList)->
-    fuel = 0
-    duration = 0 # TODO при поезде каждый транспорт должен уменьшать скорость на определенный процент
-
-    for transport in transportList
-      fuel += Math.ceil((transport.consumption / 100) * route.distance)
-      duration = Math.ceil((_(1).hours() / transport.travelSpeed) * route.distance)
-
-    {fuel: fuel, duration: duration}
 
   recordToJSON: (record)->
     record = super(record)

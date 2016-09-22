@@ -29,7 +29,7 @@ exports.setup = (app)->
     apiRoutes.put('/shop/buy_fuel', controllers.gameApi.update)
 
     # trucking
-    apiRoutes.post('/trucking/create', controllers.trucking.create)
+    apiRoutes.post('/trucking/create', controllers.gameApi.update)
     apiRoutes.put('/trucking/collect', controllers.trucking.collect)
 
     # factories

@@ -5,26 +5,17 @@ class TruckingState extends BaseState
   defaultState: {}
   stateName: "trucking"
 
-  find: (id)->
-    @state[id]
-
-  create: (stateTransportIds, duration)->
+  createTrucking: (transportId, duration)->
     newId = @.generateId()
     newRecord = {
       id: newId
-      transportIds: stateTransportIds
+      transportId: transportId
       completeAt: Date.now() + duration
       createdAt: Date.now()
       updatedAt: Date.now()
     }
 
-    @state[newId] = newRecord
-
-    @.addOperation('add', newId, @.recordToJSON(newRecord))
-
-    @.update()
-
-    newId # return new trucking id
+    @.addRecord(newId, newRecord)
 
   recordToJSON: (record)->
     record = super(record)

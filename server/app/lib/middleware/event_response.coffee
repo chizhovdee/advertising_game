@@ -19,6 +19,8 @@ class EventResponse
       create: 'advertising_created'
       delete: 'advertising_deleted'
       prolong: 'advertising_prolonged'
+    trucking:
+      create: 'trucking_created'
 
   events: null
 

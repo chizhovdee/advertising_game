@@ -18,7 +18,6 @@ class TransportSelectionModal extends Modal
 
     @materialKey = @data.materialKey
     @resource = @data.resource
-    @selectedTransportList = @data.transportList
 
     @.defineData()
 

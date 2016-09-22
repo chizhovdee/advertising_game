@@ -1,37 +1,14 @@
 <h2><%= I18n.t("trucking.new.title")%></h2>
 
-<div class="material section">
-    <div class="name"><%= I18n.t("common.in_warehouse")%>:</div>
-    <div class="value materials">
-        <%=@safe @.renderMaterial(@materialKey) %>
-
-        <span class="in_warehouse"><%= @currentCount %></span>
-    </div>
-</div>
-
-<div class="carrying section">
-    <div class="name"><%= I18n.t("trucking.new.carrying")%>:</div>
-    <div class="value materials">
-        <%=@safe @.renderMaterial(@materialKey) %>
-
-        <%= @carrying %>
-    </div>
-</div>
-
-<div class="acceptance section">
-    <div class="name"><%= I18n.t("trucking.new.acceptance")%>:</div>
-    <div class="value materials">
-        <%=@safe @.renderMaterial(@materialKey) %>
-
-        <%= @acceptance %>
-    </div>
-</div>
-
 <div class="sending_place section">
     <div class="name"><%= I18n.t("trucking.new.sending_place") %>:</div>
     <div class="value hint--bottom hint--no-animate" data-hint="<%= @sendingPlace.type().name() %>">
         <%=@safe @.objectPicture(@sendingPlace.type()) %>
     </div>
+
+    <span class="materials">
+        (<%= I18n.t("common.in_warehouse")%>: <%=@safe @.renderMaterial(@materialKey) %> <%= @currentCount %>)
+    </span>
 </div>
 
 <div class="destination section">
@@ -50,23 +27,36 @@
             </div>
         <% end %>
     </div>
+
+    <% if @destination?: %>
+        <span class="materials">
+            (<%= I18n.t("trucking.new.acceptance")%>: <%=@safe @.renderMaterial(@materialKey) %> <%= @acceptance %>)
+        </span>
+    <% end %>
 </div>
 
 <div class="transport section">
     <div class="name"><%= I18n.t("trucking.new.transport")%>:</div>
     <div class="value">
-        <% for transport in @transportList: %>
-            <div class="picture hint--bottom hint--no-animate" data-hint="<%= transport.model().name() %>">
-                <span class="delete" data-transport-id="<%= transport.id %>"></span>
-                <%=@safe @.transportModelPicture(transport.model()) %>
+        <% if @transport?: %>
+            <div class="picture hint--bottom hint--no-animate" data-hint="<%= @transport.model().name() %>">
+                <span class="delete" data-type="transport"></span>
+                <%=@safe @.transportModelPicture(@transport.model()) %>
+            </div>
+
+        <% else: %>
+            <div class="add hint--bottom hint--no-animate"
+                 data-hint="<%= I18n.t('trucking.new.select_transport') %>"
+                 data-type="transport">
             </div>
         <% end %>
-
-        <div class="add hint--bottom hint--no-animate"
-             data-hint="<%= I18n.t('trucking.new.select_transport') %>"
-             data-type="transport">
-        </div>
     </div>
+
+    <% if @transport?: %>
+        <span class="materials">
+            (<%= I18n.t("trucking.new.carrying")%>: <%=@safe @.renderMaterial(@materialKey) %> <%= @carrying %>)
+        </span>
+    <% end %>
 </div>
 
 <div class="section ship">

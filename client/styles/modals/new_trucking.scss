@@ -9,7 +9,7 @@
   .section {
     margin-bottom: 15px;
 
-    .name, .value {
+    .name, .value, .materials {
       display: inline-block;
       vertical-align: middle;
     }
@@ -42,7 +42,6 @@
         display: inline-block;
         vertical-align: middle;
         position: relative;
-        margin-right: 10px;
       }
     }
   }

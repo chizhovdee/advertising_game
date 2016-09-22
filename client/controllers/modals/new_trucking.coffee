@@ -71,7 +71,7 @@ class NewTruckingModal extends Modal
 
   defineData: ->
     @destination = null
-    @transportList = []
+    @transport = null
     @carrying = 0
     @acceptance = 0
     @currentCargo = 0
@@ -89,7 +89,7 @@ class NewTruckingModal extends Modal
     @.render()
 
   applyTransport: (transportId)->
-    @transportList.push @playerState.findTransportRecord(transportId)
+    @transport = @playerState.findTransportRecord(transportId)
 
     @.calculate()
 
@@ -103,8 +103,8 @@ class NewTruckingModal extends Modal
     else
       @acceptance = 0
 
-    if @transportList.length > 0
-      @carrying = _.sumBy(@transportList, (t)-> t.model().carrying)
+    if @transport?
+      @carrying = @transport.model().carrying
     else
       @carrying = 0
 
@@ -126,7 +126,6 @@ class NewTruckingModal extends Modal
         TransportSelectionModal.show(@,
           materialKey: @materialKey
           resource: @resource
-          transportList: @transportList
         )
 
   onDeleteClick: (e)=>
@@ -136,7 +135,7 @@ class NewTruckingModal extends Modal
       @destination = null
 
     else
-      @transportList = _.reject(@transportList, (t)=> t.id == el.data('transport-id'))
+      @transport = null
 
     @.calculate()
 
@@ -172,11 +171,20 @@ class NewTruckingModal extends Modal
     @.controlsEnable(false)
 
     @destination
-    @transportList
+    @transport
     @sendingPlace
     @currentCargo
     @materialKey
 
+    resource =
+
+    request.send('create_trucking',
+      destination: @playerState.getResourceFor(@destination)
+      transport_id: @transport.id
+      sending_place: @playerState.getResourceFor(@sendingPlace)
+      resource: @materialKey
+      amount: @currentCargo
+    )
 
   controlsEnable: (bool)->
     if bool

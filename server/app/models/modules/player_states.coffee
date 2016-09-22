@@ -9,6 +9,13 @@ module.exports =
   _factoriesState: null
   _materialsState: null
 
+  stateByType: (type)->
+    switch type
+      when 'factories'
+        @.factoriesState()
+      when 'properties'
+        @.propertiesState()
+
   truckingState: ->
     return @_truckingState if @_truckingState?
 

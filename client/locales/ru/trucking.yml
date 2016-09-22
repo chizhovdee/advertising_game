@@ -16,6 +16,7 @@ ru:
       carrying: "Грузоподьъемность"
       acceptance: "Прием груза (до)"
       send: "Отправить"
+      travel_time: "Время следования"
     destination_selection:
       title: "Выбор места назначения"
       select: "Выбрать"

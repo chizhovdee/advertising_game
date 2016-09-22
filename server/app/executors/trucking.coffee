@@ -1,3 +1,4 @@
+_ = require('lodash')
 lib = require('../lib')
 Result = lib.Result
 Reward = lib.Reward
@@ -20,9 +21,10 @@ module.exports =
     destinationType = @.findGameDataTypeFor(destination, data.destination.type)
 
     sendingPlace = player.stateByType(data.sending_place.type).findRecord(data.sending_place.id)
-    sendingPlaceType = 1
+    sendingPlaceType = @.findGameDataTypeFor(sendingPlace, data.sending_place.type)
 
-    duration = Math.ceil(geometry transportModel.travelSpeed)
+    distance = geometry.pDistance(sendingPlaceType.position, destinationType.position)
+    travelTime = _(Math.ceil(distance / transportModel.travelSpeed * 60)).minutes()
 
     player.truckingState().createTrucking(
       transportId: data.transport_id
@@ -32,7 +34,8 @@ module.exports =
       destinationId: data.destination.id
       resource: data.resource
       amount: data.amount
-      duration: duration
+      ,
+      travelTime
     )
 
     new Result()

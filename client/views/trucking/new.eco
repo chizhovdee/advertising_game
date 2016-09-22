@@ -59,6 +59,11 @@
     <% end %>
 </div>
 
+<div class="section">
+    <div class="name"><%= I18n.t("trucking.new.travel_time") %>:</div>
+    <div class="value"><%= @.displayTime(@travelTime, empty_time: true) %></div>
+</div>
+
 <div class="section ship">
     <div class="name"><%= I18n.t("trucking.new.ship") %>:</div>
     <div class="value materials">

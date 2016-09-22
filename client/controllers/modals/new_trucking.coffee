@@ -1,5 +1,6 @@
 Modal = require("../modal")
 request = require('../../lib').request
+geometry = require('../../lib').geometry
 TransportSelectionModal = require('./transport_selection')
 DestinationSelectionModal = require('./destination_selection')
 ctx = require('../../context')
@@ -54,6 +55,8 @@ class NewTruckingModal extends Modal
   bindEventListeners: ->
     super
 
+    request.bind('trucking_created', @.onTruckingCreated)
+
     @el.on('click', '.section:not(.disabled) .add', @.onAddClick)
     @el.on('click', '.section:not(.disabled) .delete', @.onDeleteClick)
     @el.on('change', '.section.ship:not(.disabled) .current_cargo', @.onCurrentCargoChange)
@@ -62,6 +65,8 @@ class NewTruckingModal extends Modal
 
   unbindEventListeners: ->
     super
+
+    request.unbind('trucking_created', @.onTruckingCreated)
 
     @el.off('click', '.section:not(.disabled) .add', @.onAddClick)
     @el.off('click', '.section:not(.disabled) .delete', @.onDeleteClick)
@@ -75,6 +80,7 @@ class NewTruckingModal extends Modal
     @carrying = 0
     @acceptance = 0
     @currentCargo = 0
+    @travelTime = 0
 
     switch @resource.type
       when 'factories'
@@ -111,6 +117,13 @@ class NewTruckingModal extends Modal
     @maxCargo = _.min([@carrying, @acceptance, @currentCount])
 
     @currentCargo = 0
+
+    if @destination? && @transport?
+      distance = geometry.pDistance(@sendingPlace.type().position, @destination.type().position)
+
+      @travelTime = _(Math.ceil(distance / @transport.model().travelSpeed * 60)).minutes()
+    else
+      @travelTime = 0
 
   onAddClick: (e)=>
     el = $(e.currentTarget)
@@ -170,14 +183,6 @@ class NewTruckingModal extends Modal
 
     @.controlsEnable(false)
 
-    @destination
-    @transport
-    @sendingPlace
-    @currentCargo
-    @materialKey
-
-    resource =
-
     request.send('create_trucking',
       destination: @playerState.getResourceFor(@destination)
       transport_id: @transport.id
@@ -199,6 +204,9 @@ class NewTruckingModal extends Modal
       @sliderEl.setAttribute('disabled', true)
       @el.find('.section.ship .current_cargo').attr('disabled', true)
 
+  onTruckingCreated: (response)=>
+    console.log response
 
+    @.close()
 
 module.exports = NewTruckingModal

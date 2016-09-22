@@ -41,13 +41,13 @@ class TruckingPage extends InnerPage
     @.setupTimers()
 
   setupTimers: ->
-    for resource in @paginatedList
-      timeDiff = Date.now() - resource.loadedAt
-
-      if resource.completeIn? && resource.completeIn > 0
-        @timers[resource.id] ?= new VisualTimer()
-        @timers[resource.id].setElement($("#trucking_#{ resource.id } .timer .value"))
-        @timers[resource.id].start(resource.completeIn - timeDiff)
+#    for resource in @paginatedList
+#      timeDiff = Date.now() - resource.loadedAt
+#
+#      if resource.completeIn? && resource.completeIn > 0
+#        @timers[resource.id] ?= new VisualTimer()
+#        @timers[resource.id].setElement($("#trucking_#{ resource.id } .timer .value"))
+#        @timers[resource.id].start(resource.completeIn - timeDiff)
 
   bindEventListeners: ->
     super
@@ -70,20 +70,22 @@ class TruckingPage extends InnerPage
     @el.off('click', '.collect:not(.disabled)', @.onCollectClick)
 
   defineData: ->
-    @list = _.sortBy((
-      for id, resource of @playerState.trucking
-        transportList = []
+#    @list = _.sortBy((
+#      for id, resource of @playerState.trucking
+#        transportList = []
+#
+#        for tId in resource.transportIds
+#          tState = @playerState.transport[tId]
+#          transportList.push(Transport.find(tState.typeId))
+#
+#        _.assignIn({
+#          id: id
+#          route: Route.find(resource.routeId)
+#          transportList: transportList
+#        }, resource)
+#    ), (r)-> r.completeIn)
 
-        for tId in resource.transportIds
-          tState = @playerState.transport[tId]
-          transportList.push(Transport.find(tState.typeId))
-
-        _.assignIn({
-          id: id
-          route: Route.find(resource.routeId)
-          transportList: transportList
-        }, resource)
-    ), (r)-> r.completeIn)
+    @list = []
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)

@@ -1,33 +1,24 @@
-<div class="trucking_item" id="trucking_<%= @trucking.id %>">
+<div class="trucking_item <%= 'completed' if @trucking.isCompleted() %>" id="trucking_<%= @trucking.id %>">
   <div class="picture">
-    <%=@safe @.transportTypePicture(@trucking.route.transportTypeKey) %>
+    <%=@safe @.objectPicture(@trucking.destination().type()) %>
   </div>
 
-  <div class="info">
-    <div class="good"><%= I18n.t("routes.route.good", name: @trucking.route.goodName()) %></div>
+  <div class="materials">
+    <%=@safe @.renderMaterial(@trucking.resource) %>
 
-    <div class="distance"><%= I18n.t("routes.route.distance", value: @trucking.route.distance) %></div>
-
-    <div class="weight"><%= I18n.t("routes.route.weight", value: @trucking.route.weight) %></div>
-
-    <div class="transport_list">
-      <% for transport in @trucking.transportList: %>
-        <div class="transport"><%=@safe @.transportPicture(transport) %></div>
-      <% end %>
-    </div>
+    <%= @trucking.amount %>
   </div>
 
-  <% if @trucking.completeIn > 0: %>
-    <div class="timer">
-      <%= I18n.t("trucking.index.timer") %>
-      <span class="value"></span>
-    </div>
-  <% end %>
+  <%=@safe @.renderTimer("Время до завершения", empty_time: true) %>
 
   <div class="controls">
-    <% if @trucking.completeIn < 0: %>
+    <% if @trucking.isCompleted(): %>
       <button class="collect" data-trucking-id="<%= @trucking.id %>">
         <%= I18n.t("trucking.index.collect") %>
+      </button>
+    <% else: %>
+      <button class="accelerate" data-trucking-id="<%= @trucking.id %>">
+        <%= I18n.t("trucking.index.accelerate") %>
       </button>
     <% end %>
   </div>

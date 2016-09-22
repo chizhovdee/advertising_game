@@ -1,17 +1,15 @@
-InnerPage = require("../inner_page")
+Page = require("../page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
 ctx = require('../../context')
 
-Transport = require('../../game_data').Transport
-Route = require('../../game_data').Route
 VisualTimer = require('../../lib').VisualTimer
 
-class TruckingPage extends InnerPage
-  className: "trucking inner_page"
+class TruckingPage extends Page
+  className: "trucking page"
 
-  PER_PAGE = 3
+  PER_PAGE = 10
 
   show: ->
     @playerState = ctx.get('playerState')
@@ -36,18 +34,16 @@ class TruckingPage extends InnerPage
     @.setupTimers()
 
   renderList: ->
-    @el.find('.list').html(@.renderTemplate("routes/list"))
+    @el.find('.list').html(@.renderTemplate("trucking/list"))
 
     @.setupTimers()
 
   setupTimers: ->
-#    for resource in @paginatedList
-#      timeDiff = Date.now() - resource.loadedAt
-#
-#      if resource.completeIn? && resource.completeIn > 0
-#        @timers[resource.id] ?= new VisualTimer()
-#        @timers[resource.id].setElement($("#trucking_#{ resource.id } .timer .value"))
-#        @timers[resource.id].start(resource.completeIn - timeDiff)
+    for trucking in @paginatedList
+      unless trucking.isCompleted()
+        @timers[trucking.id] ?= new VisualTimer(null, => @.renderList())
+        @timers[trucking.id].setElement($("#trucking_#{ trucking.id } .timer .value"))
+        @timers[trucking.id].start(trucking.actualCompleteIn())
 
   bindEventListeners: ->
     super
@@ -70,22 +66,7 @@ class TruckingPage extends InnerPage
     @el.off('click', '.collect:not(.disabled)', @.onCollectClick)
 
   defineData: ->
-#    @list = _.sortBy((
-#      for id, resource of @playerState.trucking
-#        transportList = []
-#
-#        for tId in resource.transportIds
-#          tState = @playerState.transport[tId]
-#          transportList.push(Transport.find(tState.typeId))
-#
-#        _.assignIn({
-#          id: id
-#          route: Route.find(resource.routeId)
-#          transportList: transportList
-#        }, resource)
-#    ), (r)-> r.completeIn)
-
-    @list = []
+    console.log @list = _.sortBy(@playerState.truckingRecords(), (t)-> t.completeIn)
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
@@ -116,10 +97,7 @@ class TruckingPage extends InnerPage
   onTruckingCollected: (response)=>
     console.log response
 
-    @.displayResult(null,
-      type: 'success'
-      reward: response.data.reward
-    )
+    @.displayResult(null, response)
 
 
 module.exports = TruckingPage

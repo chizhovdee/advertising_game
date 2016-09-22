@@ -8,6 +8,7 @@ PropertyRecord = require('./property_record')
 FactoryRecord = require('./factory_record')
 AdvertisingRecord = require('./advertising_record')
 TransportRecord = require('./transport_record')
+TruckingRecord = require('./trucking_record')
 
 # game data
 gameData = require('../game_data')
@@ -27,6 +28,8 @@ class PlayerState extends Spine.Model
   _propertyRecords: null
   _advertisingRecords: null
   _factoryRecords: null
+  _transportRecords: null
+  _truckingRecords: null
 
   create: ->
     for attribute, value of @.attributes()
@@ -43,6 +46,7 @@ class PlayerState extends Spine.Model
     @_advertisingRecords = null
     @_factoryRecords = null
     @_transportRecords = null
+    @_truckingRecords = null
 
     super
 
@@ -88,6 +92,8 @@ class PlayerState extends Spine.Model
     switch resource.type
       when 'factories'
         @.findFactoryRecord(resource.id)
+      when 'properties'
+        @.findPropertyRecord(resource.id)
 
   # properties
   propertyRecords: ->
@@ -136,6 +142,19 @@ class PlayerState extends Spine.Model
 
   findTransportRecord: (id)->
     _.find(@.transportRecords(), id: id)
+
+  # trucking
+  truckingCount: ->
+    _.size(@trucking)
+
+  truckingRecords: ->
+    @_truckingRecords ?= (
+      for id, data of @trucking
+        new TruckingRecord(data)
+    )
+
+  findTruckingRecord: (id)->
+    _.find(@.truckingRecords(), id: id)
 
   # materials
   getMaterialFor: (resource, materialKey)->

@@ -30,6 +30,8 @@ class BaseState
     )
 
   resourceFor: (id)->
+    throw new Error('id is not number') unless _.isNumber(id)
+
     {type: @stateName, id: id}
 
   addOperation: (type, id, data)->

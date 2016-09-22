@@ -21,6 +21,7 @@ class EventResponse
       prolong: 'advertising_prolonged'
     trucking:
       create: 'trucking_created'
+      collect: 'trucking_collected'
 
   events: null
 

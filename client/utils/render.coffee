@@ -61,7 +61,9 @@ module.exports =
     """<div class="timer #{ className } #{ hint }" #{ dataHint }>
           #{ label }
           <span class="time-icon"></span>
-          <span class="value"></span>
+          <span class="value">
+          #{if options.empty_time then '00:00' else ''}
+          </span>
         </div>"""
 
   renderMaterial: (materialKey)->

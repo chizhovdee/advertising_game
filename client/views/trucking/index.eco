@@ -1,3 +1,5 @@
+<h1><%= I18n.t('trucking.index.title') %></h1>
+
 <div class="list">
   <%=@safe @.renderTemplate('trucking/list') %>
 </div>

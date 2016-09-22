@@ -23,10 +23,16 @@ class TruckingState extends BaseState
 
     @.addRecord(newId, newRecord)
 
+  truckingCompleteIn: (trucking)->
+    trucking.completeAt - Date.now()
+
+  truckingIsCompleted: (trucking)->
+    trucking.completeAt <= Date.now()
+
   recordToJSON: (record)->
     record = super(record)
 
-    record.completeIn = record.completeAt - Date.now()
+    record.completeIn = @.truckingCompleteIn(record)
 
     record
 

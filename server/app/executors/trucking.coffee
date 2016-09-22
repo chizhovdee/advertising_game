@@ -41,18 +41,16 @@ module.exports =
     new Result()
 
   collectTrucking: (player, truckingId)->
-    trucking = player.truckingState.find(truckingId)
+    trucking = player.truckingState().findRecord(truckingId)
 
-    # TODO return error unless trucking?
+    destinationState = player.stateByType(trucking.destinationType)
 
-    route = Route.find(trucking.routeId)
+    destination = destinationState.findRecord(trucking.destinationId)
 
-    reward = new Reward(player)
-    route.reward.applyOn('collect', reward)
+    reward = new Reward(player, destinationState.resourceFor(destination.id))
+    reward.giveMaterial(trucking.resource, trucking.amount)
 
-    player.truckingState.delete(truckingId)
-
-    # TODO remove trucking id from transport
+    player.truckingState().deleteRecord(trucking.id)
 
     new Result(
       data:

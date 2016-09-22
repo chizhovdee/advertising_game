@@ -97,6 +97,11 @@ module.exports =
                 req.currentPlayer
                 _.parseRequestParams(req.body, parse_values: true)
               )
+            when 'collect'
+              result = trucking.collectTrucking(
+                req.currentPlayer
+                _.toInteger(req.body.trucking_id)
+              )
 
       res.addEventWithResult([controller, action], result)
 

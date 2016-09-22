@@ -1,7 +1,6 @@
 # экспорт всех страниц
 
 module.exports =
-  HomePage: require("./home")
   PropertiesPage: require('./properties')
   TransportPage: require('./transport')
   ShopPage: require('./shop')
@@ -9,5 +8,6 @@ module.exports =
   FactoriesPage: require('./factories')
   AdvertisingPage: require('./advertising')
   RoutesPage: require('./routes')
+  TruckingPage: require('./trucking')
 
 

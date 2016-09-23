@@ -48,6 +48,8 @@ class TruckingPage extends Page
   bindEventListeners: ->
     super
 
+    @playerState.bind('update', @.onStateUpdated)
+
     request.bind('trucking_collected', @.onTruckingCollected)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
@@ -57,6 +59,8 @@ class TruckingPage extends Page
 
   unbindEventListeners: ->
     super
+
+    @playerState.unbind('update', @.onStateUpdated)
 
     request.unbind('trucking_collected', @.onTruckingCollected)
 
@@ -98,6 +102,15 @@ class TruckingPage extends Page
     console.log response
 
     @.displayResult(null, response)
+
+  onStateUpdated: =>
+    console.log changes = @playerState.changes()
+
+    return unless changes.trucking?
+
+    @.defineData()
+    
+    @.renderList()
 
 
 module.exports = TruckingPage

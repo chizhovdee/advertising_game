@@ -99,8 +99,6 @@ class TruckingPage extends Page
     request.send('collect_trucking', trucking_id: button.data('trucking-id'))
 
   onTruckingCollected: (response)=>
-    console.log response
-
     @.displayResult(null, response)
 
   onStateUpdated: =>
@@ -109,7 +107,7 @@ class TruckingPage extends Page
     return unless changes.trucking?
 
     @.defineData()
-    
+
     @.renderList()
 
 

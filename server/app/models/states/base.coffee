@@ -30,7 +30,7 @@ class BaseState
     )
 
   resourceFor: (id)->
-    throw new Error('id is not number') unless _.isNumber(id)
+    throw new Error('record not found for resource') unless @state[id]?
 
     {type: @stateName, id: id}
 

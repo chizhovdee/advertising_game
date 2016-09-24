@@ -14,17 +14,38 @@ module.exports =
   createTrucking: (player, data)->
     console.log 'DATA', data
 
+    dataResult = {}
+
     transport = player.transportState().findRecord(data.transport_id)
     transportModel = TransportModel.find(transport.transportModelId)
 
     destination = player.stateByType(data.destination.type).findRecord(data.destination.id)
     destinationType = @.findGameDataTypeFor(destination, data.destination.type)
 
-    sendingPlace = player.stateByType(data.sending_place.type).findRecord(data.sending_place.id)
+    sendingPlaceState = player.stateByType(data.sending_place.type)
+    sendingPlace = sendingPlaceState.findRecord(data.sending_place.id)
+    sendingPlaceStateResource = sendingPlaceState.resourceFor(sendingPlace.id)
     sendingPlaceType = @.findGameDataTypeFor(sendingPlace, data.sending_place.type)
 
     distance = geometry.pDistance(sendingPlaceType.position, destinationType.position)
     travelTime = _(Math.ceil(distance / transportModel.travelSpeed * 60)).minutes()
+
+    requirement = new Requirement()
+    requirement.material(data.resource, data.amount)
+
+    if requirement? && !requirement.isSatisfiedFor(player, sendingPlaceStateResource)
+      dataResult.requirement = requirement.unSatisfiedFor(player, sendingPlaceStateResource)
+
+      return new Result(
+        error_code: Result.errors.requirementsNotSatisfied
+        data: dataResult
+      )
+
+    reward = new Reward(player, sendingPlaceStateResource)
+
+    requirement?.apply(reward)
+
+    dataResult.reward = reward
 
     player.truckingState().createTrucking(
       transportId: data.transport_id
@@ -38,7 +59,7 @@ module.exports =
       travelTime
     )
 
-    new Result()
+    new Result(data: dataResult)
 
   collectTrucking: (player, truckingId)->
     trucking = player.truckingState().findRecord(truckingId)
@@ -63,5 +84,3 @@ module.exports =
         FactoryType.find(record.factoryTypeId)
       when 'properties'
         PropertyType.find(record.propertyTypeId)
-
-

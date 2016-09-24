@@ -167,8 +167,6 @@ module.exports =
 
     dataResult.reward = reward
 
-    #player.materialsState().give({type: 'factories', id: 2475225}, 'coal', 10)
-
     new Result(data: dataResult)
 
   collectFactory: (player, factoryId)->

@@ -205,8 +205,16 @@ class NewTruckingModal extends Modal
       @el.find('.section.ship .current_cargo').attr('disabled', true)
 
   onTruckingCreated: (response)=>
-    console.log response
+    if response.is_error
+      @.render()
 
-    @.close()
+      @.displayResult(
+        @el.find('button.send')
+        response
+        position: "right bottom"
+      )
+
+    else
+      @.close()
 
 module.exports = NewTruckingModal

@@ -74,6 +74,7 @@ class FactoriesPage extends Page
     request.bind('factory_upgraded', @.onFactoryUpgraded)
     request.bind('factory_started', @.onFactoryStarted)
     request.bind('factory_collected', @.onFactoryCollected)
+    request.bind('trucking_created', @.onTruckingCreated)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
@@ -100,6 +101,7 @@ class FactoriesPage extends Page
     request.unbind('factory_upgraded', @.onFactoryUpgraded)
     request.unbind('factory_started', @.onFactoryStarted)
     request.unbind('factory_collected', @.onFactoryCollected)
+    request.unbind('trucking_created', @.onTruckingCreated)
 
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -289,13 +291,14 @@ class FactoriesPage extends Page
     )
 
   handleResponse: (response)->
-    @.displayResult(
-      $("#factory_type_#{ response.data.factory_type_id } .result_anchor") if response.data?.factory_type_id?
-      response
-      position: "top center"
-    )
+    @.displayResult(null, response)
 
     if response.is_error
       $("#factory_type_#{ response.data?.factory_type_id } .controls button").removeClass('disabled')
+
+  onTruckingCreated: (response)=>
+    return if response.is_error
+
+    @.displayResult(null, response)
 
 module.exports = FactoriesPage

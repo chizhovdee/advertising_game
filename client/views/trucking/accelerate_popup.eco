@@ -1,0 +1,16 @@
+<div class="attributes">
+    <div class="price attribute">
+        <span class="label"><%= I18n.t("common.price") %>:</span>
+        <span class="value">
+          <%=@safe @.renderTemplate('requirements', requirements: @.acceleratePriceRequirement(@trucking)) %>
+        </span>
+    </div>
+</div>
+
+<div class="popup_controls">
+    <button class="start_accelerate cyan" data-trucking-id="<%= @trucking.id %>">
+        <%= I18n.t("trucking.index.accelerate") %>
+    </button>
+
+    <span class="cancel"><%= I18n.t("common.cancel") %></span>
+</div>

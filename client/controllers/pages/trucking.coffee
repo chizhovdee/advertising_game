@@ -3,6 +3,7 @@ Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
 ctx = require('../../context')
+balance = require('../../lib').balance
 
 VisualTimer = require('../../lib').VisualTimer
 
@@ -56,6 +57,8 @@ class TruckingPage extends Page
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
 
     @el.on('click', '.collect:not(.disabled)', @.onCollectClick)
+    @el.on('click', '.accelerate:not(.disabled)', @.onAccelerateClick)
+    @el.on('click', '.start_accelerate:not(.disabled)', @.onStartAccelerateClick)
 
   unbindEventListeners: ->
     super
@@ -68,9 +71,11 @@ class TruckingPage extends Page
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
 
     @el.off('click', '.collect:not(.disabled)', @.onCollectClick)
+    @el.off('click', '.accelerate:not(.disabled)', @.onAccelerateClick)
+    @el.off('click', '.start_accelerate:not(.disabled)', @.onStartAccelerateClick)
 
   defineData: ->
-    console.log @list = _.sortBy(@playerState.truckingRecords(), (t)-> t.completeIn)
+    @list = _.sortBy(@playerState.truckingRecords(), (t)-> t.completeIn)
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
@@ -101,6 +106,23 @@ class TruckingPage extends Page
   onTruckingCollected: (response)=>
     @.displayResult(null, response)
 
+  onAccelerateClick: (e)=>
+    button = $(e.currentTarget)
+    trucking = @playerState.findTruckingRecord(button.data('trucking-id'))
+
+    @.displayPopup(button
+      @.renderTemplate("trucking/accelerate_popup", trucking: trucking)
+      position: 'left bottom'
+    )
+
+  onStartAccelerateClick: (e)=>
+    button = $(e.currentTarget)
+    button.addClass('disabled')
+
+    $("#trucking_#{ button.data('trucking-id') } button.accelerate").addClass('disabled')
+
+    request.send("accelerate_trucking", trucking_id: button.data('trucking-id'))
+
   onStateUpdated: =>
     console.log changes = @playerState.changes()
 
@@ -109,6 +131,11 @@ class TruckingPage extends Page
     @.defineData()
 
     @.renderList()
+
+  acceleratePriceRequirement: (trucking)->
+    price = balance.acceleratePrice(trucking.actualCompleteIn())
+
+    {vip_money: [@.formatNumber(price), @player.vip_money >= price]}
 
 
 module.exports = TruckingPage

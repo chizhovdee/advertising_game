@@ -23,6 +23,11 @@ class TruckingState extends BaseState
 
     @.addRecord(newId, newRecord)
 
+  accelerateTrucking: (id)->
+    @state[id].completeAt = Date.now()
+
+    @.updateRecord(id)
+
   truckingCompleteIn: (trucking)->
     trucking.completeAt - Date.now()
 

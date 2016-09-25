@@ -22,6 +22,7 @@ class EventResponse
     trucking:
       create: 'trucking_created'
       collect: 'trucking_collected'
+      accelerate: 'trucking_accelerated'
 
   events: null
 

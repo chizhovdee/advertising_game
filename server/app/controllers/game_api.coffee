@@ -102,6 +102,11 @@ module.exports =
                 req.currentPlayer
                 _.toInteger(req.body.trucking_id)
               )
+            when 'accelerate'
+              result = trucking.accelerateTrucking(
+                req.currentPlayer
+                _.toInteger(req.body.trucking_id)
+              )
 
       res.addEventWithResult([controller, action], result)
 

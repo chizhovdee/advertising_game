@@ -280,7 +280,7 @@ class FactoriesPage extends Page
     )
 
   onTruckingClick: (e)->
-    console.log $(e.currentTarget).data('factory-id')
+    console.log 'Trucking list dialog', $(e.currentTarget).data('factory-id')
 
   onShipClick: (e)=>
     el = $(e.currentTarget)

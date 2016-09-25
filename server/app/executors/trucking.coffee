@@ -4,6 +4,7 @@ Result = lib.Result
 Reward = lib.Reward
 Requirement = lib.Requirement
 geometry = lib.geometry
+balance = lib.balance
 
 gameData = require('../game_data')
 TransportModel = gameData.TransportModel
@@ -64,6 +65,10 @@ module.exports =
   collectTrucking: (player, truckingId)->
     trucking = player.truckingState().findRecord(truckingId)
 
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless trucking?
+
     destinationState = player.stateByType(trucking.destinationType)
 
     destination = destinationState.findRecord(trucking.destinationId)
@@ -77,6 +82,38 @@ module.exports =
       data:
         reward: reward
     )
+
+  accelerateTrucking: (player, truckingId)->
+    trucking = player.truckingState().findRecord(truckingId)
+
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless trucking?
+
+    requirement = new Requirement()
+
+    if not player.truckingState().truckingIsCompleted(trucking)
+      requirement.vipMoney(balance.acceleratePrice(player.truckingState().truckingCompleteIn(trucking)))
+
+    else
+      return new Result(
+        error_code: Result.errors.accelerationNotAvailable
+      )
+
+    unless requirement.isSatisfiedFor(player)
+      requirement = requirement.unSatisfiedFor(player)
+
+      return new Result(
+        error_code: Result.errors.requirementsNotSatisfied
+        data: {requirement: requirement}
+      )
+
+    reward = new Reward(player)
+    player.truckingState().accelerateTrucking(trucking.id)
+
+    requirement.apply(reward)
+
+    new Result(data: {reward: reward})
 
   findGameDataTypeFor: (record, type)->
     switch type

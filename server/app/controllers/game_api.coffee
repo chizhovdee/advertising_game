@@ -4,6 +4,7 @@ factories = executors.factories
 properties = executors.properties
 shop = executors.shop
 advertising = executors.advertising
+trucking = executors.trucking
 
 module.exports =
   update: (req, res)->
@@ -87,6 +88,24 @@ module.exports =
                 req.currentPlayer
                 _.toInteger(req.body.advertising_id)
                 _.toInteger(req.body.period)
+              )
+
+        when 'trucking'
+          switch action
+            when 'create'
+              result = trucking.createTrucking(
+                req.currentPlayer
+                _.parseRequestParams(req.body, parse_values: true)
+              )
+            when 'collect'
+              result = trucking.collectTrucking(
+                req.currentPlayer
+                _.toInteger(req.body.trucking_id)
+              )
+            when 'accelerate'
+              result = trucking.accelerateTrucking(
+                req.currentPlayer
+                _.toInteger(req.body.trucking_id)
               )
 
       res.addEventWithResult([controller, action], result)

@@ -3,3 +3,4 @@ module.exports =
   Reward: require('./reward')
   Requirement: require('./requirement')
   balance: require('./balance')
+  geometry: require('./geometry')

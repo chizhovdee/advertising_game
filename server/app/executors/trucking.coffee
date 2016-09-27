@@ -1,77 +1,123 @@
+_ = require('lodash')
 lib = require('../lib')
 Result = lib.Result
 Reward = lib.Reward
 Requirement = lib.Requirement
+geometry = lib.geometry
+balance = lib.balance
 
-Transport = require('../game_data').Transport
-Route = require('../game_data').Route
-
+gameData = require('../game_data')
+TransportModel = gameData.TransportModel
+FactoryType = gameData.FactoryType
+PropertyType = gameData.PropertyType
 
 module.exports =
-  createTrucking: (player, stateRouteId, transportIds, routeId = null)->
-    console.log 'stateRouteId', stateRouteId
-    console.log 'transportIds', transportIds
+  createTrucking: (player, data)->
+    console.log 'DATA', data
 
-    if routeId
-      route = Route.find(routeId)
-    else
-      routeState = player.routesState.find(stateRouteId)
-      route = Route.find(routeState.routeId)
+    dataResult = {}
 
-      # TODO check routeState expired
+    transport = player.transportState().findRecord(data.transport_id)
+    transportModel = TransportModel.find(transport.transportModelId)
 
-    transportList = []
-    for tId in transportIds
-      tState = player.transportState.find(tId)
+    destination = player.stateByType(data.destination.type).findRecord(data.destination.id)
+    destinationType = @.findGameDataTypeFor(destination, data.destination.type)
 
-      # TODO check tState.truckingId
-      # TODO check tState.damage
-      transportList.push(Transport.find(tState.typeId))
+    sendingPlaceState = player.stateByType(data.sending_place.type)
+    sendingPlace = sendingPlaceState.findRecord(data.sending_place.id)
+    sendingPlaceStateResource = sendingPlaceState.resourceFor(sendingPlace.id)
+    sendingPlaceType = @.findGameDataTypeFor(sendingPlace, data.sending_place.type)
 
-    attributes = player.truckingState.getTruckingAttributesBy(route, transportList)
+    distance = geometry.pDistance(sendingPlaceType.position, destinationType.position)
+    travelTime = _(Math.ceil(distance / transportModel.travelSpeed * 60)).minutes()
 
     requirement = new Requirement()
-    requirement.fuel(attributes.fuel)
+    requirement.material(data.resource, data.amount)
 
-    unless requirement.isSatisfiedFor(player)
+    if requirement? && !requirement.isSatisfiedFor(player, sendingPlaceStateResource)
+      dataResult.requirement = requirement.unSatisfiedFor(player, sendingPlaceStateResource)
+
       return new Result(
-        error_code: 'requirements_not_satisfied'
-        data:
-          requirement: requirement.unSatisfiedFor(player)
+        error_code: Result.errors.requirementsNotSatisfied
+        data: dataResult
       )
 
-    # создание новой грузоперевозки
-    truckingId = player.truckingState.create(route, transportIds, attributes.duration)
+    reward = new Reward(player, sendingPlaceStateResource)
 
-    # установка каждому транспорту id грузоперевозки
-    player.transportState.setTruckingFor(transportIds, truckingId)
+    requirement?.apply(reward)
 
-    # удаление маршрута
-    player.routesState.delete(stateRouteId) if stateRouteId?
+    dataResult.reward = reward
 
-    reward = new Reward(player)
-    requirement.apply(reward)
-
-    new Result(
-      data:
-        reward: reward
+    player.truckingState().createTrucking(
+      transportId: data.transport_id
+      sendingPlaceType: data.sending_place.type
+      sendingPlaceId: data.sending_place.id
+      destinationType: data.destination.type
+      destinationId: data.destination.id
+      resource: data.resource
+      amount: data.amount
+      ,
+      travelTime
     )
+
+    new Result(data: dataResult)
 
   collectTrucking: (player, truckingId)->
-    trucking = player.truckingState.find(truckingId)
+    trucking = player.truckingState().findRecord(truckingId)
 
-    # TODO return error unless trucking?
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless trucking?
 
-    route = Route.find(trucking.routeId)
+    destinationState = player.stateByType(trucking.destinationType)
 
-    reward = new Reward(player)
-    route.reward.applyOn('collect', reward)
+    destination = destinationState.findRecord(trucking.destinationId)
 
-    player.truckingState.delete(truckingId)
+    reward = new Reward(player, destinationState.resourceFor(destination.id))
+    reward.giveMaterial(trucking.resource, trucking.amount)
 
-    # TODO remove trucking id from transport
+    player.truckingState().deleteRecord(trucking.id)
 
     new Result(
       data:
         reward: reward
     )
+
+  accelerateTrucking: (player, truckingId)->
+    trucking = player.truckingState().findRecord(truckingId)
+
+    return new Result(
+      error_code: Result.errors.dataNotFound
+    ) unless trucking?
+
+    requirement = new Requirement()
+
+    if not player.truckingState().truckingIsCompleted(trucking)
+      requirement.vipMoney(balance.acceleratePrice(player.truckingState().truckingCompleteIn(trucking)))
+
+    else
+      return new Result(
+        error_code: Result.errors.accelerationNotAvailable
+      )
+
+    unless requirement.isSatisfiedFor(player)
+      requirement = requirement.unSatisfiedFor(player)
+
+      return new Result(
+        error_code: Result.errors.requirementsNotSatisfied
+        data: {requirement: requirement}
+      )
+
+    reward = new Reward(player)
+    player.truckingState().accelerateTrucking(trucking.id)
+
+    requirement.apply(reward)
+
+    new Result(data: {reward: reward})
+
+  findGameDataTypeFor: (record, type)->
+    switch type
+      when 'factories'
+        FactoryType.find(record.factoryTypeId)
+      when 'properties'
+        PropertyType.find(record.propertyTypeId)

@@ -2,8 +2,19 @@
   .info {
     margin-bottom: 10px;
 
-    .name, .distance, .weight, .total_capacity {
+    .freight, .distance, .total_carrying {
       margin-bottom: 5px;
+    }
+
+    .freight {
+      .label {
+        font-weight: bold;
+      }
+
+      .label, .value {
+        display: inline-block;
+        vertical-align: middle;
+      }
     }
   }
 

@@ -19,6 +19,10 @@ class EventResponse
       create: 'advertising_created'
       delete: 'advertising_deleted'
       prolong: 'advertising_prolonged'
+    trucking:
+      create: 'trucking_created'
+      collect: 'trucking_collected'
+      accelerate: 'trucking_accelerated'
 
   events: null
 

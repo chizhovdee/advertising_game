@@ -26,7 +26,7 @@ class SidebarLayout extends BaseController
     @player.bind("update", @.onPlayerUpdate)
     @playerState.bind("update", @.onPlayerStateUpdate)
 
-    @el.on("click", ".menu.home", -> pages.HomePage.show())
+    @el.on("click", ".menu.trucking", -> pages.TruckingPage.show())
     @el.on('click', '.menu.properties', -> pages.PropertiesPage.show())
     @el.on('click', '.menu.factories', -> pages.FactoriesPage.show())
     @el.on("click", ".menu.transport", -> pages.TransportPage.show())
@@ -51,9 +51,7 @@ class SidebarLayout extends BaseController
   onPlayerStateUpdate: (playerState)=>
     changes = playerState.changes()
 
-    @el.find(".materials").replaceWith(
-      @.renderTemplate('sidebar_materials')
-    ) if changes.materials?
+    # TODO
 
   onExprerienceClick: =>
     @player.experience_to_next_level

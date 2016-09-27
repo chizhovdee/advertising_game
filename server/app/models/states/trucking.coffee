@@ -5,42 +5,39 @@ class TruckingState extends BaseState
   defaultState: {}
   stateName: "trucking"
 
-  find: (id)->
-    @state[id]
-
-  create: (route, stateTransportIds, duration)->
+  createTrucking: (data, duration)->
     newId = @.generateId()
     newRecord = {
       id: newId
-      routeId: route.id
-      transportIds: stateTransportIds
+      transportId: data.transportId
+      sendingPlaceType: data.sendingPlaceType
+      sendingPlaceId: data.sendingPlaceId
+      destinationType: data.destinationType
+      destinationId: data.destinationId
+      resource: data.resource
+      amount: data.amount
       completeAt: Date.now() + duration
       createdAt: Date.now()
       updatedAt: Date.now()
     }
 
-    @state[newId] = newRecord
+    @.addRecord(newId, newRecord)
 
-    @.addOperation('add', newId, @.recordToJSON(newRecord))
+  accelerateTrucking: (id)->
+    @state[id].completeAt = Date.now()
 
-    @.update()
+    @.updateRecord(id)
 
-    newId # return new trucking id
+  truckingCompleteIn: (trucking)->
+    trucking.completeAt - Date.now()
 
-  getTruckingAttributesBy: (route, transportList)->
-    fuel = 0
-    duration = 0 # TODO при поезде каждый транспорт должен уменьшать скорость на определенный процент
-
-    for transport in transportList
-      fuel += Math.ceil((transport.consumption / 100) * route.distance)
-      duration = Math.ceil((_(1).hours() / transport.travelSpeed) * route.distance)
-
-    {fuel: fuel, duration: duration}
+  truckingIsCompleted: (trucking)->
+    trucking.completeAt <= Date.now()
 
   recordToJSON: (record)->
     record = super(record)
 
-    record.completeIn = record.completeAt - Date.now()
+    record.completeIn = @.truckingCompleteIn(record)
 
     record
 

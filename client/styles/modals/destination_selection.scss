@@ -1,0 +1,75 @@
+.destination_selection.modal {
+  .material {
+    .name, .value {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .name {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+
+  .list {
+    @include pagination;
+    margin-top: 20px;
+
+    .destination:nth-child(odd) {
+      margin-right: 20px;
+    }
+
+    .destination {
+      position: relative;
+      @include border-radius(10px);
+      background-color: rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      display: inline-block;
+      vertical-align: top;
+      width: 265px;
+      cursor: pointer;
+
+      &.selected {
+        box-shadow: 0px 0px 10px #204450;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      .picture, .info {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .picture {
+        img {
+          width: 60px;
+          height: 60px;
+          @include border-radius(10px);
+        }
+      }
+
+      .info {
+        padding: 5px;
+
+        .name {
+          @extend %resource-name;
+        }
+      }
+
+      .distance {
+        position: absolute;
+        top: 26px;
+        right: 10px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .controls {
+    margin-top: 20px;
+  }
+}

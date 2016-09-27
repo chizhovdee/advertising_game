@@ -9,7 +9,7 @@ TransportGroup = require('../../game_data').TransportGroup
 
 class ShopPage extends Page
   className: "shop page"
-  transportAttributes: ['consumption', 'reliability', 'carrying', 'travelSpeed', 'good']
+  transportAttributes: ['reliability', 'carrying', 'travelSpeed', 'materials']
 
   PER_PAGE = 3
 
@@ -45,7 +45,6 @@ class ShopPage extends Page
     @el.on('click', '.groups .group:not(.current)', @.onGroupClick)
     @el.on('click', '.item .buy:not(.disabled)', @.onBuyClick)
     @el.on('click', '.confirm_popup .start_purchase:not(.disabled)', @.onStartPurchase)
-    @el.on('click', '.item.transport .more_goods', @.onMoreGoodsClick)
 
   unbindEventListeners: ->
     super
@@ -57,8 +56,6 @@ class ShopPage extends Page
     @el.off('click', '.groups .group:not(.current)', @.onGroupClick)
     @el.off('click', '.item .buy:not(.disabled)', @.onBuyClick)
     @el.off('click', '.confirm_popup .start_purchase:not(.disabled)', @.onStartPurchase)
-    @el.off('click', '.item.transport .more_goods', @.onMoreGoodsClick)
-
 
   defineData: ->
     @transportGroup = TransportGroup.find(@currentGroupKey)
@@ -131,16 +128,5 @@ class ShopPage extends Page
 
   basicPriceRequirement: (transportModel)->
     {basic_money: [transportModel.basicPrice, @player.basic_money >= transportModel.basicPrice]}
-
-  onMoreGoodsClick: (e)=>
-    button = $(e.currentTarget)
-    transportModel = TransportModel.find(button.data('transport-model-id'))
-
-    @.displayPopup(button
-      @.renderTemplate("transport/goods_popup", transportModel: transportModel)
-      position: 'top center'
-      autoHideDelay: _(10).seconds()
-      autoHide: true
-    )
 
 module.exports = ShopPage

@@ -11,7 +11,7 @@ class Reward
   values: null
   player: null
 
-  constructor: (@player = null)->
+  constructor: (@player, @resource)->
     @values = {}
     @triggers = {}
 
@@ -94,9 +94,11 @@ class Reward
 
   # give
   giveMaterial: (type, value)->
+    throw new Error('resource is undefined') unless @resource?
+
     return if value < 0
 
-    @player.materialsState().give(type, value)
+    @player.materialsState().give(@resource, type, value)
 
     @.material(type, value)
 
@@ -135,13 +137,15 @@ class Reward
     @.simpleAttribute('fuel', -value)
 
   takeMaterial: (type, value)->
+    throw new Error('resource is undefined for take material in reward') unless @resource?
+
     return if value < 0
 
-    source = @player.materialsState().get(type)
+    source = @player.materialsState().getFor(@resource, type)
 
     value = source if value > source
 
-    @player.materialsState().take(type, value)
+    @player.materialsState().take(@resource, type, value)
 
     @.material(type, -value)
 

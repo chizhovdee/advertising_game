@@ -11,18 +11,23 @@ class FactoryType extends Base
   buildDuration: null # время строительства
   upgradePerLevels: null # через сколько уровней игрока будет разрешено улучшать на один уровень, начиная с buildLevel
   upgradeDuration: null # время улучшения
-  productions: null # хранится различное время производства
+  productionDurations: null # хранится различное время производства
+  producedMaterials: null # какой материал производится
+  consumableMaterials: null # какой материал потребляется
+  position: null
 
   constructor: ->
     super
 
-    @productions = {}
-
+    @productionDurations = {}
     @basicPrice = null
     @buildLevel = null
     @buildDuration = null
     @upgradePerLevels = null
     @baseUpgradeDuration = null
+    @producedMaterials = null
+    @consumableMaterials = {}
+    @position = null
 
   validateOnDefine: ->
     throw new Error('undefined @basicPrice') unless @basicPrice?
@@ -30,6 +35,8 @@ class FactoryType extends Base
     throw new Error('undefined @buildDuration') unless @buildDuration?
     throw new Error('undefined @upgradePerLevels') unless @upgradePerLevels?
     throw new Error('undefined @baseUpgradeDuration') unless @baseUpgradeDuration?
+    throw new Error('undefined @producedMaterials') unless @producedMaterials?
+    throw new Error('undefined @position') unless @position?
 
   upgradeLevelBy: (factoryLevel)->
     factoryLevel * @upgradePerLevels - (@buildLevel - 1)
@@ -55,7 +62,10 @@ class FactoryType extends Base
       baseUpgradeDuration: @baseUpgradeDuration
       reward: @reward
       requirement: @requirement
-      productions: @productions
+      productionDurations: @productionDurations
+      producedMaterials: @producedMaterials
+      consumableMaterials: @consumableMaterials
+      position: @position
       ,
       super
     )

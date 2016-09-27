@@ -28,7 +28,13 @@ module.exports =
     result
 
   displayTime: (value, options = {})->
-    return '' unless value > 0
+    unless value > 0
+      return (
+        if options.empty_time
+          '00:00'
+        else
+          ''
+      )
 
     value = value / 1000
 

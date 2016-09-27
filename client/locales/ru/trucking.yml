@@ -2,6 +2,20 @@ ru:
   trucking:
     index:
       title: "Грузоперевозки"
-      routes: "Маршруты"
-      timer: "Осталось: "
-      collect: "Собрать"
+      collect: "Разгрузить"
+      accelerate: "Ускорить"
+    new:
+      title: "Отправка груза"
+      sending_place: "Место отправления"
+      destination: "Место назначения"
+      select_destination: "Выберите место назначения"
+      transport: "Транспорт"
+      select_transport: "Выберите/добавьте транспорт"
+      ship: "Загрузить"
+      carrying: "Грузоподьъемность"
+      acceptance: "Прием груза (до)"
+      send: "Отправить"
+      travel_time: "Время следования"
+    destination_selection:
+      title: "Выбор места назначения"
+      select: "Выбрать"

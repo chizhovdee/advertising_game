@@ -107,43 +107,6 @@
       }
     }
   }
-
-  .materials {
-    position: absolute;
-    top: 400px;
-    left: 0px;
-
-    .material {
-      display: inline-block;
-      vertical-align: top;
-      width: 30px;
-      text-align: center;
-
-      &:before {
-        content: "";
-        display: block;
-        margin: auto;
-      }
-
-      &.coal {
-        &:before {
-          @include images-sprite(icons/coal);
-        }
-      }
-
-      &.wood {
-        &:before {
-          @include images-sprite(icons/wood);
-        }
-      }
-
-      &.iron_ore {
-        &:before {
-          @include images-sprite(icons/iron_ore);
-        }
-      }
-    }
-  }
 }
 
 #experience_to_next_level {

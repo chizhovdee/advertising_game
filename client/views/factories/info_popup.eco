@@ -1,0 +1,6 @@
+<div class="info_popup">
+    <div class='description'><%= @factoryType.description() %></div>
+    <div class="distance">
+        <%= I18n.t("common.distance_to_town", distance: @geometry.pDistanceToTown(@factoryType.position) ) %>
+    </div>
+</div>

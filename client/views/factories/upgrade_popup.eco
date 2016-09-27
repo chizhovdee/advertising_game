@@ -19,7 +19,7 @@
 </div>
 
 <div class="controls">
-  <button class="start_upgrade" data-factory-id="<%= @factory.id %>">
+  <button class="start_upgrade cyan" data-factory-id="<%= @factory.id %>">
     <%= I18n.t("factories.factory.start_upgrade") %>
   </button>
 

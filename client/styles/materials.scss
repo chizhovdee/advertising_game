@@ -1,0 +1,21 @@
+.materials {
+  .material {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
+
+    @include images-sprite-dimensions(icons/coal);
+
+    &.coal {
+      @include images-sprite-background(icons/coal);
+    }
+
+    &.wood {
+      @include images-sprite-background(icons/wood);
+    }
+
+    &.iron_ore {
+      @include images-sprite-background(icons/iron_ore);
+    }
+  }
+}

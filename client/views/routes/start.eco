@@ -1,9 +1,12 @@
 <h2><%= I18n.t('routes.start.title') %></h2>
 
 <div class="info">
-  <div class="distance"><%= I18n.t("routes.route.distance", value: @route.distance) %></div>
+  <div class="freight">
+    <span class="label"><%= I18n.t("routes.route.freight") %></span>
+    <span class="value <%= @route.materialKey %>"><%= @route.weight %></span>
+  </div>
 
-  <div class="weight"><%= I18n.t("routes.route.weight", value: @route.weight) %></div>
+  <div class="distance"><%= I18n.t("routes.route.distance", value: @route.distance) %></div>
 
   <div class="total_carrying">
     <%= I18n.t('routes.start.total_carrying') %>

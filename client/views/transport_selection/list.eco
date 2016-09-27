@@ -1,0 +1,7 @@
+<div class="page">
+    <% for transport in @paginatedList: %>
+      <%=@safe @.renderTemplate('transport_selection/transport', transport: transport) %>
+    <% end %>
+</div>
+
+<%=@safe @.renderTemplate('page_switches') %>

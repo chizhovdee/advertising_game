@@ -2,60 +2,92 @@
   .list {
     @include pagination;
     margin-top: 20px;
-    text-align: center;
 
     .factory {
       position: relative;
-      display: inline-block;
-      vertical-align: top;
-      width: 240px;
-      height: 240px;
+      height: 155px;
       background-color: rgba(0, 0, 0, 0.1);
       @include border-radius(5px);
-      margin-bottom: 10px;
+      margin-bottom: 15px;
 
-      &:nth-child(odd) {
-        margin-right: 5px;
-      }
-
-      .info-icon {
+      .icons{
         position: absolute;
-        top: 30px;
+        top: 5px;
         right: 5px;
-      }
 
-      .notifyjs-container {
-        .description {
-          width: 200px;
+        .icon {
+          margin-left: 5px;
+          cursor: pointer;
         }
       }
 
-      .name {
-        text-align: center;
-        background-color: #0086b3;
-        color: #ffffff;
-        font-size: 17px;
-        font-weight: bold;
-        line-height: 25px;
-        @include border-top-radius(5px);
+      .info_popup {
+        white-space: nowrap;
+      }
+
+      .picture, .info {
+        display: inline-block;
+        vertical-align: top;
       }
 
       .picture {
         img {
-          width: 240px;
-          height: 120px;
+          width: 155px;
+          height: 155px;
+          @include border-radius(5px);
         }
       }
 
       .info {
-        padding-top: 5px;
+        margin: 5px 0 0 5px;
 
-        .warning_label {
-          color: $game_color_red;
+        .button {
+          @extend %flat-button;
+          margin-left: 5px;
         }
 
-        .timer {
-          margin-top: 5px;
+        .attribute {
+          .att_name, .value {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 23px;
+          }
+
+          .att_name {
+            font-weight: bold;
+          }
+        }
+
+        .name {
+          font-weight: bold;
+          font-size: 15px;
+          color: #003e6d;
+          margin-bottom: 5px;
+        }
+
+        .status {
+          .status_info, .timer {
+            display: inline-block;
+            vertical-align: middle;
+          }
+
+          .status_info {
+            color: $game_color_red;
+          }
+        }
+
+        .materials {
+          &.disabled .material {
+            cursor: default;
+          }
+
+          .material {
+            cursor: pointer;
+          }
+        }
+
+        .materials_info {
+          white-space: nowrap;
         }
       }
 
@@ -72,7 +104,7 @@
       }
 
       .result_anchor {
-        top: 200px;
+        top: 20px;
       }
     }
   }

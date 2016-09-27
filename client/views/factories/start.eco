@@ -1,7 +1,7 @@
 <h2><%= I18n.t('factories.start.title') %></h2>
 
 <div class="productions">
-  <% for number, duration of @factoryType.productions: %>
+  <% for number, duration of @factoryType.productionDurations: %>
     <div class="production" data-production-number="<%= number %>">
       <div class="time">
         <span class="label"><%= I18n.t('common.time') %>:</span>
@@ -14,7 +14,7 @@
         <div><%= content %></div>
       <% end %>
 
-      <%= @.renderRequirements @factoryType.getRequirement("startProduction#{ number }", @player, @playerState, @factory.level), (content)-> %>
+      <%= @.renderRequirements @.getRequirement("startProduction#{ number }", @factoryType, @factory), (content)-> %>
         <span class="label"><%= I18n.t('common.spending') %></span>
 
         <div><%= content %></div>

@@ -7,3 +7,6 @@ ru:
       wood_factory:
         name: "Добыча древесины"
         description: "Производит древесину"
+      iron_ore_factory:
+        name: "Добыча руды"
+        description: "Производит руду"

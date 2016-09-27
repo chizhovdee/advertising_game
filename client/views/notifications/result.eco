@@ -11,13 +11,13 @@
 <% end %>
 
 <%= @.renderRewards @reward, (content)-> %>
-  <h3><%= I18n.t("common.you_received") %></h3>
+  <h3><%= I18n.t("common.income") %></h3>
 
   <%= content %>
 <% end %>
 
 <%= @.renderSpendings @reward, (content)-> %>
-  <h3><%= I18n.t("common.you_spent") %></h3>
+  <h3><%= I18n.t("common.spending") %></h3>
 
   <%= content %>
 <% end %>

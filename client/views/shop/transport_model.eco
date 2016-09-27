@@ -14,9 +14,11 @@
         <% for attr in @transportAttributes: %>
           <div class="attribute <%= attr %>">
             <div class="att_name"><%= I18n.t("transport.attributes.#{attr}") %></div>
-            <div class="value">
-              <% if attr == 'good': %>
-                <%=@safe @.transportModelGoodNames(@transportModel) %>
+            <div class="value <%= attr %>">
+              <% if attr == 'materials': %>
+                <% for material in @transportModel.materials: %>
+                  <%=@safe @.renderMaterial(material) %>
+                <% end %>
 
               <% else: %>
                 <%= @transportModel[attr] %>

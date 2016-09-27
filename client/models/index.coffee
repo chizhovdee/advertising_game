@@ -4,3 +4,5 @@ module.exports =
   PropertyRecord: require('./property_record')
   FactoryRecord: require('./factory_record')
   AdvertisingRecord: require('./advertising_record')
+  TransportRecord: require('./transport_record')
+  TruckingRecord: require('./trucking_record')

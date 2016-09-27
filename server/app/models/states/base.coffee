@@ -29,6 +29,11 @@ class BaseState
       enumerable: true
     )
 
+  resourceFor: (id)->
+    throw new Error('record not found for resource') unless @state[id]?
+
+    {type: @stateName, id: id}
+
   addOperation: (type, id, data)->
     throw new Error('unknown operation: type' + type) unless type in BaseState.operationTypes
 

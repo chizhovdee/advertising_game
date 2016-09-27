@@ -7,7 +7,7 @@ PlayerState = require("./models").PlayerState
 preloader = require("./lib/preloader")
 signatureKeeper = require('./lib/signature_keeper')
 layouts = require("./controllers/layouts")
-HomePage = require('./controllers/pages').HomePage
+TruckingPage = require('./controllers/pages').TruckingPage
 modals = require('./controllers/modals')
 ctx = require('./context')
 Timer = require('./lib').Timer
@@ -88,7 +88,7 @@ class App
     new layouts.HeaderLayout(el: $("#application .header")).show()
     new layouts.SidebarLayout(el: $("#sidebar")).show()
 
-    HomePage.show()
+    TruckingPage.show()
 
     @.checkPlayerStateStatus()
 

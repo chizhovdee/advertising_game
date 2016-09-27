@@ -1,0 +1,20 @@
+<% [destination, resource, currentCount, maxCount] =  @destination %>
+
+<div class="destination" data-resource="<%= JSON.stringify(resource) %>">
+    <div class="picture"><%=@safe @.objectPicture(destination.type()) %></div>
+
+    <div class="info">
+        <div class="name"><%= destination.type().name() %></div>
+
+        <div class="materials">
+            <%=@safe @.renderMaterial(@materialKey) %>
+            <span class="in_warehouse <%= 'red' if currentCount >= maxCount %>">
+                <%= "#{currentCount} / #{maxCount}" %>
+            </span>
+        </div>
+    </div>
+
+    <div class="distance">
+        <%= I18n.t("common.km", value: @geometry.pDistance(@sendingPlace.type().position, destination.type().position)) %>
+    </div>
+</div>

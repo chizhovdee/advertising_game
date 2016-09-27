@@ -1,0 +1,80 @@
+<h2><%= I18n.t("trucking.new.title")%></h2>
+
+<div class="sending_place section">
+    <div class="name"><%= I18n.t("trucking.new.sending_place") %>:</div>
+    <div class="value hint--bottom hint--no-animate" data-hint="<%= @sendingPlace.type().name() %>">
+        <%=@safe @.objectPicture(@sendingPlace.type()) %>
+    </div>
+
+    <span class="materials">
+        (<%= I18n.t("common.in_warehouse")%>: <%=@safe @.renderMaterial(@materialKey) %> <%= @currentCount %>)
+    </span>
+</div>
+
+<div class="destination section">
+    <div class="name"><%= I18n.t("trucking.new.destination")%>:</div>
+    <div class="value">
+        <% if @destination?: %>
+            <div class="picture hint--bottom hint--no-animate" data-hint="<%= @destination.type().name() %>">
+                <span class="delete" data-type="destination"></span>
+
+                <%=@safe @.objectPicture(@destination.type()) %>
+            </div>
+        <% else: %>
+            <div class="add hint--bottom hint--no-animate"
+                 data-hint="<%= I18n.t('trucking.new.select_destination') %>"
+                 data-type="destination">
+            </div>
+        <% end %>
+    </div>
+
+    <% if @destination?: %>
+        <span class="materials">
+            (<%= I18n.t("trucking.new.acceptance")%>: <%=@safe @.renderMaterial(@materialKey) %> <%= @acceptance %>)
+        </span>
+    <% end %>
+</div>
+
+<div class="transport section">
+    <div class="name"><%= I18n.t("trucking.new.transport")%>:</div>
+    <div class="value">
+        <% if @transport?: %>
+            <div class="picture hint--bottom hint--no-animate" data-hint="<%= @transport.model().name() %>">
+                <span class="delete" data-type="transport"></span>
+                <%=@safe @.transportModelPicture(@transport.model()) %>
+            </div>
+
+        <% else: %>
+            <div class="add hint--bottom hint--no-animate"
+                 data-hint="<%= I18n.t('trucking.new.select_transport') %>"
+                 data-type="transport">
+            </div>
+        <% end %>
+    </div>
+
+    <% if @transport?: %>
+        <span class="materials">
+            (<%= I18n.t("trucking.new.carrying")%>: <%=@safe @.renderMaterial(@materialKey) %> <%= @carrying %>)
+        </span>
+    <% end %>
+</div>
+
+<div class="section">
+    <div class="name"><%= I18n.t("trucking.new.travel_time") %>:</div>
+    <div class="value"><%= @.displayTime(@travelTime, empty_time: true) %></div>
+</div>
+
+<div class="section ship">
+    <div class="name"><%= I18n.t("trucking.new.ship") %>:</div>
+    <div class="value materials">
+        <div id="slider"></div>
+
+        <%=@safe @.renderMaterial(@materialKey) %>
+
+        <input type="text" class="current_cargo" value="<%= @currentCargo %>" />
+    </div>
+</div>
+
+<div class="controls">
+    <button class="send disabled"><%= I18n.t("trucking.new.send") %></button>
+</div>

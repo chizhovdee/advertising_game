@@ -1,17 +1,16 @@
-InnerPage = require("../inner_page")
+Page = require("../page")
 Pagination = require("../../lib").Pagination
 modals = require('../modals')
 request = require('../../lib/request')
 ctx = require('../../context')
+balance = require('../../lib').balance
 
-Transport = require('../../game_data').Transport
-Route = require('../../game_data').Route
 VisualTimer = require('../../lib').VisualTimer
 
-class TruckingPage extends InnerPage
-  className: "trucking inner_page"
+class TruckingPage extends Page
+  className: "trucking page"
 
-  PER_PAGE = 3
+  PER_PAGE = 10
 
   show: ->
     @playerState = ctx.get('playerState')
@@ -36,21 +35,21 @@ class TruckingPage extends InnerPage
     @.setupTimers()
 
   renderList: ->
-    @el.find('.list').html(@.renderTemplate("routes/list"))
+    @el.find('.list').html(@.renderTemplate("trucking/list"))
 
     @.setupTimers()
 
   setupTimers: ->
-    for resource in @paginatedList
-      timeDiff = Date.now() - resource.loadedAt
-
-      if resource.completeIn? && resource.completeIn > 0
-        @timers[resource.id] ?= new VisualTimer()
-        @timers[resource.id].setElement($("#trucking_#{ resource.id } .timer .value"))
-        @timers[resource.id].start(resource.completeIn - timeDiff)
+    for trucking in @paginatedList
+      unless trucking.isCompleted()
+        @timers[trucking.id] ?= new VisualTimer(null, => @.renderList())
+        @timers[trucking.id].setElement($("#trucking_#{ trucking.id } .timer .value"))
+        @timers[trucking.id].start(trucking.actualCompleteIn())
 
   bindEventListeners: ->
     super
+
+    @playerState.bind('update', @.onStateUpdated)
 
     request.bind('trucking_collected', @.onTruckingCollected)
 
@@ -58,9 +57,13 @@ class TruckingPage extends InnerPage
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
 
     @el.on('click', '.collect:not(.disabled)', @.onCollectClick)
+    @el.on('click', '.accelerate:not(.disabled)', @.onAccelerateClick)
+    @el.on('click', '.start_accelerate:not(.disabled)', @.onStartAccelerateClick)
 
   unbindEventListeners: ->
     super
+
+    @playerState.unbind('update', @.onStateUpdated)
 
     request.unbind('trucking_collected', @.onTruckingCollected)
 
@@ -68,22 +71,11 @@ class TruckingPage extends InnerPage
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
 
     @el.off('click', '.collect:not(.disabled)', @.onCollectClick)
+    @el.off('click', '.accelerate:not(.disabled)', @.onAccelerateClick)
+    @el.off('click', '.start_accelerate:not(.disabled)', @.onStartAccelerateClick)
 
   defineData: ->
-    @list = _.sortBy((
-      for id, resource of @playerState.trucking
-        transportList = []
-
-        for tId in resource.transportIds
-          tState = @playerState.transport[tId]
-          transportList.push(Transport.find(tState.typeId))
-
-        _.assignIn({
-          id: id
-          route: Route.find(resource.routeId)
-          transportList: transportList
-        }, resource)
-    ), (r)-> r.completeIn)
+    @list = _.sortBy(@playerState.truckingRecords(), (t)-> t.completeIn)
 
     @listPagination = new Pagination(PER_PAGE)
     @paginatedList = @listPagination.paginate(@list, initialize: true)
@@ -112,12 +104,38 @@ class TruckingPage extends InnerPage
     request.send('collect_trucking', trucking_id: button.data('trucking-id'))
 
   onTruckingCollected: (response)=>
-    console.log response
+    @.displayResult(null, response)
 
-    @.displayResult(null,
-      type: 'success'
-      reward: response.data.reward
+  onAccelerateClick: (e)=>
+    button = $(e.currentTarget)
+    trucking = @playerState.findTruckingRecord(button.data('trucking-id'))
+
+    @.displayPopup(button
+      @.renderTemplate("trucking/accelerate_popup", trucking: trucking)
+      position: 'left bottom'
     )
+
+  onStartAccelerateClick: (e)=>
+    button = $(e.currentTarget)
+    button.addClass('disabled')
+
+    $("#trucking_#{ button.data('trucking-id') } button.accelerate").addClass('disabled')
+
+    request.send("accelerate_trucking", trucking_id: button.data('trucking-id'))
+
+  onStateUpdated: =>
+    console.log changes = @playerState.changes()
+
+    return unless changes.trucking?
+
+    @.defineData()
+
+    @.renderList()
+
+  acceleratePriceRequirement: (trucking)->
+    price = balance.acceleratePrice(trucking.actualCompleteIn())
+
+    {vip_money: [@.formatNumber(price), @player.vip_money >= price]}
 
 
 module.exports = TruckingPage

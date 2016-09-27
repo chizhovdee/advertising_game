@@ -40,3 +40,4 @@
 
 ### Клиент
 - [SpineJs](http://spinejs.com/)
+- [noUiSlider](http://refreshless.com/nouislider/)

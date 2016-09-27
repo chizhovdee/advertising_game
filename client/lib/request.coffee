@@ -57,6 +57,9 @@ module.exports =
   collect_trucking: (data)->
     @.put('trucking/collect', data)
 
+  accelerate_trucking: (data)->
+    @.put('trucking/accelerate', data)
+
   # properties
   create_property: (data)->
     @.post('properties/create', data)

@@ -6,3 +6,5 @@ module.exports =
   ProlongAdvertisingModal: require('./prolong_advertising')
   BuyFuelModal: require('./buy_fuel')
   StartFactoryModal: require('./start_factory')
+  NewTruckingModal: require('./new_trucking')
+  DestinationSelectionModal: require('./destination_selection')

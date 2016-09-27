@@ -69,4 +69,13 @@ class StartFactoryModal extends Modal
     else
       @.close()
 
+  getRequirement: (trigger, type, factory)->
+    type.getRequirement(
+      trigger,
+      @player,
+      @playerState,
+      {type: 'factories', id: factory.id},
+      factory.level
+    )
+
 module.exports = StartFactoryModal

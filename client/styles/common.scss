@@ -50,6 +50,11 @@ h4 {
   @include images-sprite(icons/time);
 }
 
+.trucking-icon {
+  display: inline-block;
+  @include images-sprite(icons/auto);
+}
+
 .timer {
   .time-icon, .value {
     display: inline-block;
@@ -61,4 +66,8 @@ h4 {
   position: absolute;
   top: 50%;
   left: 50%;
+}
+
+.red {
+  color: $game_color_red;
 }

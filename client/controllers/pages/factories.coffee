@@ -5,9 +5,9 @@ request = require('../../lib/request')
 VisualTimer = require("../../lib").VisualTimer
 ctx = require('../../context')
 balance = require('../../lib').balance
+geometry = require('../../lib').geometry
 
 gameData = require('../../game_data')
-
 FactoryType = gameData.FactoryType
 
 class FactoriesPage extends Page
@@ -19,6 +19,8 @@ class FactoriesPage extends Page
     @playerState = ctx.get('playerState')
 
     super
+
+    @geometry = geometry
 
     @timers = {}
 
@@ -72,6 +74,7 @@ class FactoriesPage extends Page
     request.bind('factory_upgraded', @.onFactoryUpgraded)
     request.bind('factory_started', @.onFactoryStarted)
     request.bind('factory_collected', @.onFactoryCollected)
+    request.bind('trucking_created', @.onTruckingCreated)
 
     @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.on('click', '.switches .switch', @.onSwitchPageClick)
@@ -84,6 +87,9 @@ class FactoriesPage extends Page
     @el.on('click', '.factory .info-icon', @.onInfoClick)
     @el.on('click', '.factory .start:not(.disabled)', @.onStartClick)
     @el.on('click', '.factory .collect:not(.disabled)', @.onCollectClick)
+    @el.on('click', '.materials:not(.disabled) .material', @.onMaterialClick)
+    @el.on('click', '.trucking-icon', @.onTruckingClick)
+    @el.on('click', 'button.ship', @.onShipClick)
 
   unbindEventListeners: ->
     super
@@ -95,6 +101,7 @@ class FactoriesPage extends Page
     request.unbind('factory_upgraded', @.onFactoryUpgraded)
     request.unbind('factory_started', @.onFactoryStarted)
     request.unbind('factory_collected', @.onFactoryCollected)
+    request.unbind('trucking_created', @.onTruckingCreated)
 
     @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
     @el.off('click', '.switches .switch', @.onSwitchPageClick)
@@ -107,6 +114,10 @@ class FactoriesPage extends Page
     @el.off('click', '.factory .info-icon', @.onInfoClick)
     @el.off('click', '.factory .start:not(.disabled)', @.onStartClick)
     @el.off('click', '.factory .collect:not(.disabled)', @.onCollectClick)
+    @el.off('click', '.materials:not(.disabled) .material', @.onMaterialClick)
+    @el.off('click', '.trucking', @.onTruckingClick)
+    @el.off('click', '.ship', @.onShipClick)
+    @el.off('click', 'button.ship', @.onShipClick)
 
   defineData: ->
     @list = FactoryType.all()
@@ -225,8 +236,8 @@ class FactoriesPage extends Page
     factoryType = _.find(@list, (t)-> t.id == button.data('type-id'))
 
     @.displayPopup(button
-      "<div class='description'>#{factoryType.description()}</div>"
-      position: 'left bottom'
+      @.renderTemplate('factories/info_popup', factoryType: factoryType)
+      position: 'left top'
       autoHideDelay: _(10).seconds()
       autoHide: true
     )
@@ -247,14 +258,47 @@ class FactoriesPage extends Page
   onFactoryCollected: (response)=>
     @.handleResponse(response)
 
-  handleResponse: (response)->
-    @.displayResult(
-      $("#factory_type_#{ response.data.factory_type_id } .result_anchor") if response.data?.factory_type_id?
-      response
-      position: "top center"
+  onMaterialClick: (e)=>
+    materialEl = $(e.currentTarget)
+
+    factory = @playerState.findFactoryRecord(materialEl.parents('.materials').data('factory-id'))
+    materialKey = materialEl.data('material')
+    type = FactoryType.find(factory.factoryTypeId)
+    current = @playerState.getMaterialFor({type: 'factories', id: factory.id}, materialKey)
+    max = type.materialLimitBy(materialKey, factory.level)
+
+    @.displayPopup(materialEl
+      @.renderTemplate('factories/material_popup',
+        factory: factory
+        materialKey: materialKey
+        currentCount: current
+        maxCount: max
+      )
+      position: 'left bottom'
+      autoHideDelay: _(5).seconds()
+      autoHide: true
     )
+
+  onTruckingClick: (e)->
+    console.log 'Trucking list dialog', $(e.currentTarget).data('factory-id')
+
+  onShipClick: (e)=>
+    el = $(e.currentTarget)
+
+    modals.NewTruckingModal.show(
+      @playerState.getResourceFor(@playerState.findFactoryRecord(el.data('factory-id')))
+      el.data('material')
+    )
+
+  handleResponse: (response)->
+    @.displayResult(null, response)
 
     if response.is_error
       $("#factory_type_#{ response.data?.factory_type_id } .controls button").removeClass('disabled')
+
+  onTruckingCreated: (response)=>
+    return if response.is_error
+
+    @.displayResult(null, response)
 
 module.exports = FactoriesPage

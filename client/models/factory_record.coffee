@@ -1,8 +1,27 @@
 BaseRecord = require('./base_record')
+FactoryType = require('../game_data').FactoryType
 
 class FactoryRecord extends BaseRecord
+  type: ->
+    @_type ?= FactoryType.find(@factoryTypeId)
+
   isBuilding: ->
     @buildingTimeLeft? && @.actualBuildingTimeLeft() >= 0
+
+  isBuilt: ->
+    not @.isBuilding()
+
+  canStart: ->
+    if @.canCollectProduction() || @.isUpgrading() || @.isBuilding() || @.inProduction()
+      false
+    else
+      true
+
+  canUpgrade: ->
+    if @.isUpgrading() || @.isBuilding() || @.inProduction() || @.canCollectProduction()
+      false
+    else
+      true
 
   actualBuildingTimeLeft: ->
     @buildingTimeLeft - @.loadedTimeDiff()

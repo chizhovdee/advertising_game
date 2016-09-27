@@ -59,17 +59,20 @@ class Base extends Spine.Model
 
     reward
 
-  getRequirement: (trigger, player, playerState, multiplier = 1)->
+  getRequirement: (trigger, player, playerState, resource, multiplier = 1)->
     return unless @requirement?[trigger]?
 
     requirement = {}
 
     for key, value of @requirement[trigger]
-      if _.isPlainObject(value) # materials...
+      if key == 'materials'
+        throw new Error('undefined resource') unless resource?
+
         for type, amount of value
+          source = playerState.getMaterialFor(resource, type)
 
           requirement[key] ?= {}
-          requirement[key][type] = [amount * multiplier, playerState[key][type] >= amount * multiplier]
+          requirement[key][type] = [amount * multiplier, source >= amount * multiplier]
       else
         requirement[key] = [value * multiplier, player[key] >= value * multiplier]
 

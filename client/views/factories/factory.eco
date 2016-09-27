@@ -1,31 +1,78 @@
 <div class="factory" id="factory_type_<%= @type.id %>">
-  <span class="info-icon" data-type-id="<%= @type.id %>"></span>
+  <div class="icons">
+    <% if @factory?.isBuilt(): %>
+      <span class="trucking-icon icon" data-factory-id="<%= @factory.id %>"></span>
+    <% else %>
 
-  <div class="name">
-    <%= @type.name() %>
+    <span class="info-icon icon" data-type-id="<%= @type.id %>"></span>
   </div>
 
   <div class="picture"><%=@safe @.factoryPicture(@type) %></div>
 
   <div class="info">
+    <div class="name"><%= @type.name() %></div>
+
+    <div class="attributes">
+      <% if @factory?.isBuilt(): %>
+        <div class="attribute level">
+          <div class="att_name"><%= I18n.t("common.level") %>:</div>
+          <div class="value"><%= @factory.level %></div>
+        </div>
+      <% end %>
+
+      <div class="attribute production">
+        <div class="att_name"><%= I18n.t("factories.factory.production") %>:</div>
+        <div class="value materials <%= 'disabled' if not @factory?.isBuilt() %>"
+             data-factory-id="<%= @factory?.id %>">
+          <% for material, max of @type.producedMaterials: %>
+            <%=@safe @.renderMaterial(material) %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="attribute production">
+        <div class="att_name"><%= I18n.t("factories.factory.consumption") %>:</div>
+        <div class="value materials <%= 'disabled' if not @factory?.isBuilt() %>"
+             data-factory-id="<%= @factory?.id %>">
+          <% for material, max of @type.consumableMaterials: %>
+            <%=@safe @.renderMaterial(material) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <% if @factory?: %>
       <% if @factory.isBuilding(): %>
-        <div class="warning_label"><%= I18n.t("factories.factory.under_construction") %></div>
+        <div class="status">
+          <div class="status_info"><%= I18n.t("factories.factory.under_construction") %></div>
 
-        <%=@safe @.renderTimer(I18n.t("factories.factory.building_timer")) %>
+          <%=@safe @.renderTimer(I18n.t("factories.factory.building_timer")) %>
 
+          <span class="accelerate button" data-factory-id="<%= @factory.id %>">
+            <%= I18n.t("factories.factory.accelerate") %>
+          </span>
+        </div>
       <% else if @factory.isUpgrading(): %>
-        <div class="warning_label"><%= I18n.t("factories.factory.upgrading") %></div>
+        <div class="status">
+          <div class="status_info"><%= I18n.t("factories.factory.upgrading") %></div>
 
-        <%=@safe @.renderTimer(I18n.t("factories.factory.upgrading_timer")) %>
+          <%=@safe @.renderTimer(I18n.t("factories.factory.upgrading_timer")) %>
 
+          <span class="accelerate button" data-factory-id="<%= @factory.id %>">
+            <%= I18n.t("factories.factory.accelerate") %>
+          </span>
+        </div>
       <% else: %>
-        <div class="level"><%=@safe I18n.t("factories.factory.level", level: @factory.level) %></div>
-
         <% if @factory.inProduction(): %>
-          <div class="warning_label"><%= I18n.t("factories.factory.in_production") %></div>
+          <div class="status">
+            <div class="status_info"><%= I18n.t("factories.factory.in_production") %></div>
 
-          <%=@safe @.renderTimer(I18n.t("factories.factory.production_timer")) %>
+            <%=@safe @.renderTimer(I18n.t("factories.factory.production_timer")) %>
+
+            <span class="accelerate button" data-factory-id="<%= @factory.id %>">
+              <%= I18n.t("factories.factory.accelerate") %>
+            </span>
+          </div>
         <% end %>
       <% end %>
     <% end %>
@@ -33,23 +80,20 @@
 
   <div class="controls">
     <% if @factory?: %>
-      <% if @factory.canCollectProduction(): %>
+      <% if @factory?.canUpgrade(): %>
+        <button class="upgrade" data-factory-id="<%= @factory.id %>">
+          <%= I18n.t("factories.factory.upgrade") %>
+        </button>
+      <% end %>
+
+      <% if @factory?.canCollectProduction(): %>
         <button class="collect" data-factory-id="<%= @factory.id %>">
           <%= I18n.t("factories.factory.collect") %>
         </button>
 
-      <% else if @factory.isUpgrading() || @factory.isBuilding() || @factory.inProduction(): %>
-        <button class="accelerate" data-factory-id="<%= @factory.id %>">
-          <%= I18n.t("factories.factory.accelerate") %>
-        </button>
-
-      <% else: %>
+      <% else if @factory?.canStart(): %>
         <button class="start" data-factory-id="<%= @factory.id %>">
           <%= I18n.t("factories.factory.start") %>
-        </button>
-
-        <button class="upgrade" data-factory-id="<%= @factory.id %>">
-          <%= I18n.t("factories.factory.upgrade") %>
         </button>
       <% end %>
 

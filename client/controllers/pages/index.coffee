@@ -9,5 +9,6 @@ module.exports =
   AdvertisingPage: require('./advertising')
   RoutesPage: require('./routes')
   TruckingPage: require('./trucking')
+  TownPage: require('./town')
 
 

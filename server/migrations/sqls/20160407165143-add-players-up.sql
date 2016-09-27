@@ -10,12 +10,11 @@ create TABLE players (
 
   fuel integer not null,
 
-  staff jsonb,
+  town_level integer not null,
 
   trucking jsonb,
   advertising jsonb,
   properties jsonb,
-  routes jsonb,
   transport jsonb,
   factories jsonb,
   materials jsonb,

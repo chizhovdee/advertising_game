@@ -1,7 +1,8 @@
 ru:
   main_menu:
+    town: "Город"
     trucking: "Грузоперевозки"
-    properties: "Управление"
+    properties: "Компания"
     factories: "Производство"
     transport: "Траспорт"
     rating: "Рейтинг"

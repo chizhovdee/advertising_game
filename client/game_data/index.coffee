@@ -7,3 +7,4 @@ module.exports =
   MaterialType: require('./material_type')
   FactoryType: require('./factory_type')
   AdvertisingType: require('./advertising_type')
+  TownLevel: require('./town_level')

@@ -1,0 +1,13 @@
+<h1><%= I18n.t('town.index.title', level: @player.town_level) %></h1>
+
+<div class="controls">
+    <button class="trucking"><%= I18n.t('town.buttons.trucking') %></button>
+</div>
+
+<div class="trading">
+    <h3><%= I18n.t('town.index.trading') %></h3>
+
+    <div class="materials">
+
+    </div>
+</div>

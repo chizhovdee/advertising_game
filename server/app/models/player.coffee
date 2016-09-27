@@ -8,6 +8,8 @@ class Player extends Base
   DEFAULT_DB_ATTRIBUTES = {
     # account attributes
     level: 1
+    town_level: 1
+
     social_id: null
     session_key: null
     session_secret_key: null
@@ -70,6 +72,7 @@ class Player extends Base
     experience_to_next_level: @.experienceToNextLevel()
     level_progress_percentage: @.levelProgressPercentage()
     locale: @locale
+    town_level: @town_level
 
 
 module.exports = Player

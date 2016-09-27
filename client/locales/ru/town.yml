@@ -1,0 +1,7 @@
+ru:
+  town:
+    index:
+      title: "Город (уровень %{level})"
+      trading: "Торговля"
+    buttons:
+      trucking: "Грузоперевозки"

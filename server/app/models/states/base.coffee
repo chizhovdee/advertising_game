@@ -82,4 +82,12 @@ class BaseState
   recordsCount: ->
     _.size(@state)
 
+  toJSON: ->
+    state = {}
+
+    for id, record of @state
+      state[id] = @.recordToJSON(record)
+
+    state
+
 module.exports = BaseState

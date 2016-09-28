@@ -30,12 +30,5 @@ class TransportState extends BaseState
 
     @.update()
 
-  toJSON: ->
-    state = {}
-
-    for id, record of @state
-      state[id] = @.recordToJSON(record)
-
-    state
 
 module.exports = TransportState

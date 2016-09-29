@@ -6,4 +6,7 @@ class MaterialType extends Base
   name: ->
     I18n.t("game_data.material_types.#{ @key }")
 
+  lockedBy: (townLevel)->
+    @townLevel > townLevel
+
 module.exports = MaterialType

@@ -4,6 +4,33 @@
   }
 
   .trading {
+    .materials {
+      margin-top: 10px;
 
+      .material {
+        &.locked {
+          opacity: 0.5;
+        }
+      }
+
+      .material_popup {
+        white-space: nowrap;
+
+        .locked_material {
+          color: $game_color_red;
+
+          .text, &:before {
+            display: inline-block;
+            vertical-align: middle;
+          }
+
+          &:before {
+            content: '';
+
+            @include images-sprite(icons/lock);
+          }
+        }
+      }
+    }
   }
 }

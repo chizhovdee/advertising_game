@@ -25,6 +25,8 @@ module.exports =
     bonusDuration: TownLevel.bonusDuration
     bonusBasicMoney: TownLevel.bonusBasicMoney
     bonusFactor: TownLevel.bonusFactor
+    basicMaterialLimit: TownLevel.basicMaterialLimit
+    materialLimitFactor: TownLevel.materialLimitFactor
 
 
 

@@ -26,7 +26,8 @@ class Player extends Base
   }
 
   @stateFields: [
-    'trucking', 'advertising', 'properties', 'routes', 'transport', 'factories', 'materials'
+    'trucking', 'advertising', 'properties', 'routes',
+    'transport', 'factories', 'materials', 'townMaterials'
   ]
 
   @default: ->
@@ -60,6 +61,7 @@ class Player extends Base
     trucking: @.truckingState().toJSON()
     factories: @.factoriesState().toJSON()
     materials: @.materialsState().toJSON()
+    townMaterials: @.townMaterialsState().toJSON()
 
   toJSON: ->
     id: @id
@@ -73,6 +75,5 @@ class Player extends Base
     level_progress_percentage: @.levelProgressPercentage()
     locale: @locale
     town_level: @town_level
-
 
 module.exports = Player

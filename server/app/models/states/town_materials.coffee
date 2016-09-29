@@ -2,16 +2,17 @@ _ = require('lodash')
 BaseState = require('./base')
 MaterialType = require('../../game_data').MaterialType
 
-class TownsState extends BaseState
+class TownMaterialsState extends BaseState
   defaultState: {}
 
-  stateName: "town"
+  stateName: "town_materials"
 
   addMaterial: (materialTypeKey, value)->
-    @.checkMaterials()
-
     if @state[materialTypeKey]?
-      @state[materialTypeKey].value += value
+      if @.leftTimeToLimitForRecord(@state[materialTypeKey]) > 0
+        @state[materialTypeKey].value += value
+      else
+        @state[materialTypeKey].value = value
 
       @.updateRecord(materialTypeKey)
 
@@ -22,6 +23,8 @@ class TownsState extends BaseState
       }
 
       @.addRecord(materialTypeKey, newRecord)
+
+    @.checkMaterials()
 
   checkMaterials: ->
     beginningOfDay =  _(new Date()).beginningOfDay()
@@ -48,4 +51,4 @@ class TownsState extends BaseState
     record
 
 
-module.exports = TownsState
+module.exports = TownMaterialsState

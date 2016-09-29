@@ -5,3 +5,6 @@ ru:
       trading: "Торговля"
     buttons:
       trucking: "Грузоперевозки"
+    locked_material: "Заблокирован до %{level} уровня города"
+    selling_price: "Цена продажи:"
+    daily_limit: "Суточный лимит:"

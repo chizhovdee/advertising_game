@@ -8,6 +8,9 @@ class TownLevel extends Base
   @bonusDuration: _(24).hours()
   @bonusFactor: 0.2 # коэффициент для подсчета бонуса за каждый уровень
 
+  @basicMaterialLimit: 100 # начальный лимит материала доставляемого в город в сутки
+  @materialLimitFactor: 0.5 # коэффициент для подсчета лимита за каждый уровень
+
   number: null # level
   materials: null # материалы для улучшения
 

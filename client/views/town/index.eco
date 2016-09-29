@@ -5,9 +5,16 @@
 </div>
 
 <div class="trading">
-    <h3><%= I18n.t('town.index.trading') %></h3>
+    <h3>
+        <%= I18n.t('town.index.trading') %>
+        <span class="info-icon icon"></span>
+    </h3>
 
     <div class="materials">
+        <% for materialType in @materialTypes: %>
+          <% cssClass = if materialType.lockedBy(@player.town_level) then 'locked' else '' %>
 
+          <%=@safe @.renderMaterial(materialType.key, cssClass: cssClass) %>
+        <% end %>
     </div>
 </div>

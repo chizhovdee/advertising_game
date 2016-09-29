@@ -20,7 +20,7 @@ class PlayerState extends Spine.Model
     'trucking', 'truckingUpdatedAt', 'advertising', 'advertisingUpdatedAt',
     'routes', 'routesUpdatedAt', 'transport', 'transportUpdatedAt',
     'properties', 'propertiesUpdatedAt', 'factories', 'factoriesUpdatedAt',
-    'materials', 'materialsUpdateAt'
+    'materials', 'materialsUpdateAt', 'townMaterials', 'townMaterialsUpdatedAt'
 
   @include require('./modules/model_changes')
 

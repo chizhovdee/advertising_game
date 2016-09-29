@@ -12,7 +12,7 @@ create TABLE players (
 
   town_level integer not null,
 
-  town jsonb,
+  town_materials jsonb,
   trucking jsonb,
   advertising jsonb,
   properties jsonb,

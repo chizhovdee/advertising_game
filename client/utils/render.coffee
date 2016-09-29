@@ -66,8 +66,13 @@ module.exports =
           </span>
         </div>"""
 
-  renderMaterial: (materialKey)->
-    """<span class="material #{ materialKey } hint--bottom hint--no-animate"
+  renderMaterial: (materialKey, options = {})->
+    cssClass = options.cssClass || ""
+
+    """<span class="material #{ materialKey } hint--bottom hint--no-animate #{ cssClass }"
              data-hint='#{ I18n.t("common.reward_keys.#{ materialKey }") }'
              data-material="#{ materialKey }">
        </span>"""
+
+  renderPrice: (data)->
+    @.renderTemplate('price', data)

@@ -4,8 +4,15 @@
   }
 
   .trading {
+    .trading_info {
+      .timer, .text {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
     .materials {
-      margin-top: 10px;
+      margin-top: 15px;
 
       .material {
         &.locked {

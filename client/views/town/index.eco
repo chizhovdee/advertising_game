@@ -10,6 +10,16 @@
         <span class="info-icon icon"></span>
     </h3>
 
+    <div class="trading_info tips">
+        <% if @.isMaterialDeliveredToday(): %>
+          <div class="text"><%= I18n.t('town.daily_limit_reset') %></div>
+
+          <%=@safe @.renderTimer() %>
+        <% else: %>
+          <%= I18n.t('town.material_not_delivered') %>
+        <% end %>
+    </div>
+
     <div class="materials">
         <% for materialType in @materialTypes: %>
           <% cssClass = if materialType.lockedBy(@player.town_level) then 'locked' else '' %>

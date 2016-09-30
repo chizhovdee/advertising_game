@@ -6,3 +6,4 @@ module.exports =
   AdvertisingRecord: require('./advertising_record')
   TransportRecord: require('./transport_record')
   TruckingRecord: require('./trucking_record')
+  TownMaterialRecord: require('./town_material_record')

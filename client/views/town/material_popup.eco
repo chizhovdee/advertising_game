@@ -17,7 +17,9 @@
         <div class="attributes">
             <div class="attribute price">
                 <span class="label"><%= I18n.t("town.daily_limit") %></span>
-                <span class="value">0 / <%= @settings.townLevel.basicMaterialLimit %></span>
+                <span class="value">
+                  <%= @townMaterial?.actualValue() || 0 %> / <%= @materialType.limitBy(@player.town_level) %>
+                </span>
             </div>
         </div>
     <% end %>

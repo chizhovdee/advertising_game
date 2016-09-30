@@ -9,6 +9,7 @@ FactoryRecord = require('./factory_record')
 AdvertisingRecord = require('./advertising_record')
 TransportRecord = require('./transport_record')
 TruckingRecord = require('./trucking_record')
+TownMaterialRecord = require('./town_material_record')
 
 # game data
 gameData = require('../game_data')
@@ -30,6 +31,7 @@ class PlayerState extends Spine.Model
   _factoryRecords: null
   _transportRecords: null
   _truckingRecords: null
+  _townMaterialRecords: null
 
   create: ->
     for attribute, value of @.attributes()
@@ -47,6 +49,7 @@ class PlayerState extends Spine.Model
     @_factoryRecords = null
     @_transportRecords = null
     @_truckingRecords = null
+    @_townMaterialRecords = null
 
     super
 
@@ -155,6 +158,20 @@ class PlayerState extends Spine.Model
 
   findTruckingRecord: (id)->
     _.find(@.truckingRecords(), id: id)
+
+  # town materials
+  townMaterialRecords: ->
+    @_townMaterialRecords ?= (
+      result = {}
+
+      for materialTypeKey, data of @trucking
+        result[materialTypeKey] = new TownMaterialRecord(data)
+
+      result
+    )
+
+  findTownMaterialRecord: (materialTypeKey)->
+    @.townMaterialRecords()[materialTypeKey]
 
   # materials
   getMaterialFor: (resource, materialKey)->

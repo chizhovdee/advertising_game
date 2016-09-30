@@ -1,4 +1,5 @@
 Base = require("./base")
+ctx = require("../context")
 
 class MaterialType extends Base
   @configure 'MaterialType', 'key', 'townLevel'
@@ -8,5 +9,28 @@ class MaterialType extends Base
 
   lockedBy: (townLevel)->
     @townLevel > townLevel
+
+  limitBy: (townLevel)->
+    if @townLevel > townLevel
+      0
+
+    else
+      settings = ctx.get('settings')
+
+      settings.townLevel.basicMaterialLimit +
+      settings.townLevel.basicMaterialLimit * (townLevel - @townLevel) *
+      settings.townLevel.materialLimitFactor
+
+  sellingPriceBy: (townLevel)->
+    if @townLevel > townLevel
+      0
+
+    else
+      settings = ctx.get('settings')
+
+      settings.townLevel.basicMaterialLimit +
+      settings.townLevel.basicMaterialLimit * (townLevel - @townLevel) *
+      settings.townLevel.materialLimitFactor
+
 
 module.exports = MaterialType

@@ -1,12 +1,12 @@
-<h1><%= I18n.t('town.index.title', level: @player.town_level) %></h1>
+<h1><%= I18n.t('town.title', level: @player.town_level) %></h1>
 
 <div class="controls">
-    <button class="trucking"><%= I18n.t('town.buttons.trucking') %></button>
+    <button class="trucking"><%= I18n.t('town.trucking') %></button>
 </div>
 
 <div class="trading">
     <h3>
-        <%= I18n.t('town.index.trading') %>
+        <%= I18n.t('town.trading') %>
         <span class="info-icon icon"></span>
     </h3>
 
@@ -15,6 +15,7 @@
           <div class="text"><%= I18n.t('town.daily_limit_reset') %></div>
 
           <%=@safe @.renderTimer() %>
+
         <% else: %>
           <%= I18n.t('town.material_not_delivered') %>
         <% end %>
@@ -27,4 +28,32 @@
           <%=@safe @.renderMaterial(materialType.key, cssClass: cssClass) %>
         <% end %>
     </div>
+</div>
+
+<div class="improvement">
+    <h3>
+        <%= I18n.t('town.improvement') %>
+        <span class="info-icon icon"></span>
+    </h3>
+
+    <div class="materials">
+        <% for materialKey, value of @townLevel.materials: %>
+            <div class="material_section">
+                <%=@safe @.renderMaterial(materialKey) %>
+
+                <div class="progress">
+                    <%=@safe @.progressBar(@.progressForMaterial(materialKey)) %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+
+<div class="bonus tips">
+    <%= @.renderRewards @.bonusReward(), (content)-> %>
+      <span class="label"><%= I18n.t('town.bonus') %></span>
+      <%= content %>
+    <% end %>
+
+    <button class="collect"><%= I18n.t('town.collect') %></button>
 </div>

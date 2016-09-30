@@ -5,6 +5,7 @@ properties = executors.properties
 shop = executors.shop
 advertising = executors.advertising
 trucking = executors.trucking
+town = executors.town
 
 module.exports =
   update: (req, res)->
@@ -107,6 +108,11 @@ module.exports =
                 req.currentPlayer
                 _.toInteger(req.body.trucking_id)
               )
+
+        when 'town'
+          switch action
+            when 'collect_bonus'
+              result = town.collectBonus(req.currentPlayer)
 
       res.addEventWithResult([controller, action], result)
 

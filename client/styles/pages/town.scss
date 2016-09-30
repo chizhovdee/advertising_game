@@ -3,6 +3,10 @@
     text-align: right;
   }
 
+  .material_popup {
+    white-space: nowrap;
+  }
+
   .trading {
     .trading_info {
       .timer, .text {
@@ -21,8 +25,6 @@
       }
 
       .material_popup {
-        white-space: nowrap;
-
         .locked_material {
           color: $game_color_red;
 
@@ -38,6 +40,53 @@
           }
         }
       }
+    }
+  }
+
+  .improvement {
+    margin-top: 20px;
+
+    .materials {
+      margin-top: 15px;
+
+      .material_section {
+        .material, .progress {
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .progress {
+          @include progress-bar(50, 8);
+
+          .progress_bar {
+            border: 1px solid #000;
+          }
+        }
+      }
+    }
+  }
+
+  .bonus {
+    margin-top: 20px;
+    position: relative;
+    height: 35px;
+    line-height: 35px;
+
+    .rewards {
+      .label, .reward {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .label {
+        font-weight: bold;
+      }
+    }
+
+    button.collect {
+      position: absolute;
+      right: 10px;
+      top: 10px;
     }
   }
 }

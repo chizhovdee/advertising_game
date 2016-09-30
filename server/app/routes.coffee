@@ -39,3 +39,7 @@ exports.setup = (app)->
     apiRoutes.put('/factories/upgrade', controllers.gameApi.update)
     apiRoutes.put('/factories/start', controllers.gameApi.update)
     apiRoutes.put('/factories/collect', controllers.gameApi.update)
+
+    # town
+    apiRoutes.put('/town/collect_bonus', controllers.gameApi.update)
+

@@ -1,12 +1,14 @@
 ru:
   town:
-    index:
-      title: "Город (уровень %{level})"
-      trading: "Торговля"
-    buttons:
-      trucking: "Грузоперевозки"
+    title: "Город (уровень %{level})"
+    trading: "Торговля"
+    improvement: "Улучшение"
+    trucking: "Грузоперевозки"
     locked_material: "Заблокирован до %{level} уровня города"
     selling_price: "Цена продажи:"
     daily_limit: "Суточный лимит:"
     material_not_delivered: "Вы еще ничего не доставляли сегодня в город."
     daily_limit_reset: "Следующий сброс лимита произойдет:"
+    progress: "Прогресс:"
+    bonus: "Бонус:"
+    collect: "Собрать"

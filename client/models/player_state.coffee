@@ -177,7 +177,10 @@ class PlayerState extends Spine.Model
   getMaterialFor: (resource, materialKey)->
     throw new Error('resource is undefined') unless resource?
 
-    @materials[resource.type][resource.id]?[materialKey] || 0
+    if resource == 'town'
+      @materials.town?[materialKey] || 0
+    else
+      @materials[resource.type][resource.id]?[materialKey] || 0
 
   # common
   getResourceFor: (record)->

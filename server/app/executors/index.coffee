@@ -5,3 +5,4 @@ module.exports =
   shop: require('./shop')
   trucking: require('./trucking')
   factories: require('./factories')
+  town: require('./town')

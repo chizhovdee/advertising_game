@@ -23,6 +23,8 @@ class EventResponse
       create: 'trucking_created'
       collect: 'trucking_collected'
       accelerate: 'trucking_accelerated'
+    town:
+      collect_bonus: 'town_bonus_collected'
 
   events: null
 

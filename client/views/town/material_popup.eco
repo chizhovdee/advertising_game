@@ -10,7 +10,7 @@
         <div class="attributes">
             <div class="attribute price">
                <span class="label"><%= I18n.t("town.selling_price") %></span>
-               <span class="value"><%=@safe @.renderPrice(basicMoney: 100) %></span>
+               <span class="value"><%=@safe @.renderPrice(basicMoney: @materialType.sellBasicPrice) %></span>
             </div>
         </div>
 

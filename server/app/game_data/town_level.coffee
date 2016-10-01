@@ -14,6 +14,9 @@ class TownLevel extends Base
   number: null # level
   materials: null # материалы для улучшения
 
+  @findByNumber: (number)->
+    @.findByAttributes(number: number)
+
   constructor: ->
     super
 

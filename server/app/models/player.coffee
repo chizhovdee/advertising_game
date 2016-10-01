@@ -75,5 +75,7 @@ class Player extends Base
     level_progress_percentage: @.levelProgressPercentage()
     locale: @locale
     town_level: @town_level
+    town_bonus_collected_at: @town_bonus_collected_at?.valueOf()
+
 
 module.exports = Player

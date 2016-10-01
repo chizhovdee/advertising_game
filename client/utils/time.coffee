@@ -1,3 +1,5 @@
+ctx = require('../context')
+
 module.exports =
   formatTime: (value)->
     result = ""
@@ -55,3 +57,6 @@ module.exports =
       result.push I18n.t('common.timer.seconds', count: seconds)
 
     result.join(' ')
+
+  serverTime: ->
+    ctx.get('serverLoadedAt') + (Date.now() - ctx.get('clientLoadedAt'))

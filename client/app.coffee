@@ -24,6 +24,21 @@ class App
   infoPopupDuration: _(5).seconds()
 
   constructor: ->
+    console.log 'player', window.currentPlayerData
+    console.log 'state', window.currentPlayerState
+
+    ctx.set("currentPlayerData", window.currentPlayerData)
+    ctx.set('currentPlayerState', window.currentPlayerState)
+
+    window.currentPlayerData = null
+    window.currentPlayerState = null
+
+    ctx.set('serverLoadedAt', window.serverLoadedAt)
+    ctx.set('clientLoadedAt', window.clientLoadedAt)
+
+    window.serverLoadedAt = null
+    window.clientLoadedAt = null
+
     @timers = []
 
     @.setupEventListeners()
@@ -34,7 +49,7 @@ class App
       key = key.split('.')[0]
 
       if key == 'application' ||
-         (key.match(/locales/) && key != "locales_#{ window.currentPlayerData.locale }")
+         (key.match(/locales/) && key != "locales_#{ ctx.get('currentPlayerData').locale }")
         continue
 
       assets.push {id: key, src: "assets/#{ value }"}
@@ -71,9 +86,8 @@ class App
         gameData[_.upperFirst(_.camelCase(key))].populate(value)
 
     # определены в index.html
-    @player = Player.create(window.currentPlayerData)
-    console.log window.currentPlayerState
-    @playerState = PlayerState.create(window.currentPlayerState)
+    @player = Player.create(ctx.get('currentPlayerData'))
+    @playerState = PlayerState.create(ctx.get('currentPlayerState'))
 
     ctx.set("player", @player)
     ctx.set('playerState', @playerState)

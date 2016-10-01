@@ -38,12 +38,20 @@ class TownPage extends Page
     record = @.firstDeliveredMaterial()
 
     if record?
-      @timers.dailyLimit ?= new VisualTimer(null, => @.renderList())
+      @timers.dailyLimit ?= new VisualTimer(null, => @.render())
       @timers.dailyLimit.setElement($(".trading .timer .value"))
       @timers.dailyLimit.start(record.actualTimeLeftToLimit())
 
+    unless @player.canCollectTownBonus()
+      @timers.bonus ?= new VisualTimer(null, => @.render())
+      @timers.bonus.setElement($(".bonus .timer .value"))
+      @timers.bonus.start(@player.timeLeftToCollectTownBonus())
+
   bindEventListeners: ->
     super
+
+    @player.bind('update', @.onPlayerUpdated)
+    @playerState.bind('update', @.onStateUpdated)
 
     request.bind('town_bonus_collected', @.onBonusCollected)
 
@@ -53,6 +61,9 @@ class TownPage extends Page
 
   unbindEventListeners: ->
     super
+
+    @player.unbind('update', @.onPlayerUpdated)
+    @playerState.unbind('update', @.onStateUpdated)
 
     request.unbind('town_bonus_collected', @.onBonusCollected)
 
@@ -96,7 +107,22 @@ class TownPage extends Page
     request.send('collect_town_bonus')
 
   onBonusCollected: (response)=>
-    console.log response
+    @.displayResult(null, response)
+
+    if response.is_error
+      @el.find('.bonus .collect').removeClass('disabled')
+
+  onPlayerUpdated: (player)=>
+    changes = player.changes()
+
+    if changes.town_bonus_collected_at?
+      @.render()
+
+  onStateUpdated: (playerState)=>
+    changes = playerState.changes()
+
+    if changes.townMaterials?
+      @.render()
 
   firstDeliveredMaterial: ->
     for materialKey, record of @playerState.townMaterialRecords()
@@ -112,5 +138,6 @@ class TownPage extends Page
 
   bonusReward: ->
     {basic_money: @townLevel.bonusBasicMoney()}
+
 
 module.exports = TownPage

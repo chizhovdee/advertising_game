@@ -55,5 +55,11 @@
       <%= content %>
     <% end %>
 
-    <button class="collect"><%= I18n.t('town.collect') %></button>
+    <% if @player.canCollectTownBonus(): %>
+      <button class="collect"><%= I18n.t('town.collect') %></button>
+
+    <% else: %>
+
+      <%=@safe @.renderTimer(I18n.t('town.time_to_bonus')) %>
+    <% end %>
 </div>

@@ -58,6 +58,7 @@ ru:
         other: "Время действия кампании не может превышать более %{count} дней"
       advertising_expired: "Срок действия рекламной кампании истек"
       route_can_not_open: "Маршрут не может быть открыт"
+      town_bonus_not_available: "Бонус не доступен"
     reward_keys:
       reputation: "Репутация"
       experience: "Опыт"

@@ -101,7 +101,21 @@ module.exports =
 
     "<img src='#{ @.factoryPictureUrl(factoryType, format) }' #{title} />"
 
+  townPictureUrl: (format = 'large')->
+    unless format in ['large', 'medium', 'icon']
+      throw new Error('format for town picture url is not correct')
+
+    assets.assetsPath("images/town/#{ format }/town.jpg")
+
+  townPicture: (town, format = 'large')->
+    title = if town.name?() then "title='#{town.name()}'" else ''
+
+    "<img src='#{ @.townPictureUrl(format) }' #{title} />"
+
   objectPicture: (object)->
     switch object.constructor.name
       when 'FactoryType'
         @.factoryPicture(object)
+      else
+        if object.key == 'town'
+          @.townPicture(object)

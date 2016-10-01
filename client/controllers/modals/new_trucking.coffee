@@ -7,6 +7,7 @@ ctx = require('../../context')
 gameData = require('../../game_data')
 TransportModel = gameData.TransportModel
 FactoryType = gameData.FactoryType
+Town = require('../../models').Town
 
 class NewTruckingModal extends Modal
   className: 'new_trucking modal'
@@ -88,7 +89,12 @@ class NewTruckingModal extends Modal
         @currentCount = @playerState.getMaterialFor(@resource, @materialKey)
 
   applyDestination: (resource)->
-    @destination = @playerState.findRecordByResource(resource)
+    @destination = (
+      if resource == 'town'
+        Town
+      else
+        @playerState.findRecordByResource(resource)
+    )
 
     @.calculate()
 
@@ -103,8 +109,15 @@ class NewTruckingModal extends Modal
 
   calculate: ->
     if @destination
-      current = @playerState.getMaterialFor(@playerState.getResourceFor(@destination), @materialKey)
-      max = @destination.type().materialLimitBy(@materialKey, @destination.level)
+      if @destination.key == 'town'
+        materialData = @destination.getMaterialDataForTrucking(@materialKey)
+        current = materialData.currentCount
+        max = materialData.maxCount
+
+      else
+        current = @playerState.getMaterialFor(@playerState.getResourceFor(@destination), @materialKey)
+        max = @destination.type().materialLimitBy(@materialKey, @destination.level)
+
       @acceptance = max - current
     else
       @acceptance = 0

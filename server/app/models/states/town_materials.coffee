@@ -25,7 +25,7 @@ class TownMaterialsState extends BaseState
       @.addRecord(materialTypeKey, newRecord)
 
   destroyExpiredMaterials: ->
-    beginningOfDay =  _(new Date()).beginningOfDay()
+    beginningOfDay =  _.beginningOfDay(new Date())
 
     for type in MaterialType.all()
       continue unless @state[type.key]
@@ -34,12 +34,12 @@ class TownMaterialsState extends BaseState
         @.deleteRecord(type.key)
 
   timeLeftToLimitForRecord: (record)->
-    beginningOfDayByUpdatedAt = _(new Date(record.updatedAt)).beginningOfDay()
+    beginningOfDayByUpdatedAt = _.beginningOfDay(new Date(record.updatedAt))
 
-    if beginningOfDayByUpdatedAt < _(new Date()).beginningOfDay()
+    if beginningOfDayByUpdatedAt < _.beginningOfDay(new Date())
       0
     else
-      (beginningOfDayByUpdatedAt.valuOf() + _(1).days()) - Date.now()
+      (beginningOfDayByUpdatedAt.valueOf() + _.days(1)) - Date.now()
 
   recordToJSON: (record)->
     record = super(record)

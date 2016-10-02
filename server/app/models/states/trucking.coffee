@@ -14,7 +14,7 @@ class TruckingState extends BaseState
       sendingPlaceId: data.sendingPlaceId
       destinationType: data.destinationType
       destinationId: data.destinationId
-      resource: data.resource
+      materialTypeKey: data.materialTypeKey
       amount: data.amount
       completeAt: Date.now() + duration
       createdAt: Date.now()

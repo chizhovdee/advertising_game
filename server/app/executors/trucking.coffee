@@ -10,6 +10,9 @@ gameData = require('../game_data')
 TransportModel = gameData.TransportModel
 FactoryType = gameData.FactoryType
 PropertyType = gameData.PropertyType
+PlaceType = gameData.PlaceType
+TownLevel = gameData.TownLevel
+MaterialType = gameData.MaterialType
 
 module.exports =
   createTrucking: (player, data)->
@@ -32,7 +35,7 @@ module.exports =
     travelTime = _(Math.ceil(distance / transportModel.travelSpeed * 60)).minutes()
 
     requirement = new Requirement()
-    requirement.material(data.resource, data.amount)
+    requirement.material(data.material, data.amount)
 
     if requirement? && !requirement.isSatisfiedFor(player, sendingPlaceStateResource)
       dataResult.requirement = requirement.unSatisfiedFor(player, sendingPlaceStateResource)
@@ -54,7 +57,7 @@ module.exports =
       sendingPlaceId: data.sending_place.id
       destinationType: data.destination.type
       destinationId: data.destination.id
-      resource: data.resource
+      materialTypeKey: data.material
       amount: data.amount
       ,
       travelTime
@@ -74,7 +77,22 @@ module.exports =
     destination = destinationState.findRecord(trucking.destinationId)
 
     reward = new Reward(player, destinationState.resourceFor(destination.id))
-    reward.giveMaterial(trucking.resource, trucking.amount)
+
+    if destination.id == 'town'
+      townLevel = TownLevel.findByNumber(player.town_level)
+
+      unless townLevel.isContainMaterial(trucking.materialTypeKey)
+        materialType = MaterialType.find(trucking.materialTypeKey)
+
+        if materialType.townLevel >= townLevel.number
+          reward.giveBasicMoney(materialType.sellBasicPrice * trucking.amount)
+
+          player.townMaterialsState().addMaterial(trucking.materialTypeKey, trucking.amount)
+
+          player.townMaterialsState().destroyExpiredMaterials()
+
+    if !townLevel || townLevel.isContainMaterial(trucking.materialTypeKey)
+      reward.giveMaterial(trucking.materialTypeKey, trucking.amount)
 
     player.truckingState().deleteRecord(trucking.id)
 
@@ -121,3 +139,6 @@ module.exports =
         FactoryType.find(record.factoryTypeId)
       when 'properties'
         PropertyType.find(record.propertyTypeId)
+      when 'places'
+        PlaceType.find(record.placeTypeKey)
+

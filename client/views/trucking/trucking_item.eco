@@ -4,7 +4,7 @@
   </div>
 
   <div class="materials">
-    <%=@safe @.renderMaterial(@trucking.resource) %>
+    <%=@safe @.renderMaterial(@trucking.materialTypeKey) %>
 
     <%= @trucking.amount %>
   </div>

@@ -24,9 +24,12 @@ class TownLevel extends Base
     @materials = {}
 
   addMaterial: (material, value)->
-    throw new Error("material #{material} is added") if @materials[material]?
+    throw new Error("material #{material} is added") if @.isContainMaterial()
 
     @materials[material] = value
+
+  isContainMaterial: (materialTypeKey)->
+    @materials[materialTypeKey]?
 
   validateOnDefine: ->
     throw new Error('undefined number') unless @number?

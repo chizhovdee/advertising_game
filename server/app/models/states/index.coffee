@@ -7,3 +7,4 @@ module.exports =
   FactoriesState: require('./factories')
   MaterialsState: require('./materials')
   TownMaterialsState: require('./town_materials')
+  PlacesState: require('./places')

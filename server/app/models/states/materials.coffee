@@ -4,6 +4,7 @@ BaseState = require('./base')
 class MaterialsState extends BaseState
   defaultState: {
     factories: {}
+    places: {}
   }
 
   stateName: "materials"

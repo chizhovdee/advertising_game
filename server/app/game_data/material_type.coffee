@@ -5,7 +5,7 @@ class MaterialType extends Base
   @configure publicForClient: true
 
   townLevel: null # ресурс доступный для продажи в городе
-  sellBasicPrice: null
+  sellBasicPrice: null # 1 к 1
 
   constructor: ->
     super

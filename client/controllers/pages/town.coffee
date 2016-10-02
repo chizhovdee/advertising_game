@@ -5,7 +5,6 @@ balance = require('../../lib/balance')
 ctx = require('../../context')
 VisualTimer = require("../../lib").VisualTimer
 MaterialType = require('../../game_data').MaterialType
-TownLevel = require('../../game_data').TownLevel
 
 class TownPage extends Page
   className: "town page"
@@ -16,6 +15,8 @@ class TownPage extends Page
     @timers = {}
 
     @materialTypes = MaterialType.all()
+
+    console.log @playerState.townMaterialRecords()
 
     super
 
@@ -72,15 +73,16 @@ class TownPage extends Page
     @el.off('click', '.bonus .collect:not(.disabled)', @.onBonusCollectClick)
 
   defineData: ->
-    @townLevel = TownLevel.findByNumber(@player.town_level)
-
+    console.log @town = @playerState.findPlaceRecord('town')
+    console.log @townResource = @playerState.getResourceFor(@town)
+    @townLevel = @town.level()
 
   onImprovementMaterialClick: (e)=>
     materialEl = $(e.currentTarget)
 
     @.displayPopup(materialEl
       @.renderTemplate('town/material_progress_popup',
-        current: @playerState.getMaterialFor('town', materialEl.data('material'))
+        current: @playerState.getMaterialFor(@townResource, materialEl.data('material'))
         max: @townLevel.getMaterial(materialEl.data('material'))
       )
       position: 'top center'
@@ -134,7 +136,7 @@ class TownPage extends Page
     false
 
   progressForMaterial: (materialKey)->
-    @playerState.getMaterialFor('town', materialKey) / @townLevel.getMaterial(materialKey) * 100
+    @playerState.getMaterialFor(@townResource, materialKey) / @townLevel.getMaterial(materialKey) * 100
 
   bonusReward: ->
     {basic_money: @townLevel.bonusBasicMoney()}

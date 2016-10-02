@@ -8,5 +8,4 @@ module.exports =
   MaterialType: require('./material_type')
   AdvertisingType: require('./advertising_type')
   TownLevel: require('./town_level')
-
-
+  PlaceType: require('./place_type')

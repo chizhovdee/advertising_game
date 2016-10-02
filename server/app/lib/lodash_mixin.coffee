@@ -6,6 +6,7 @@ exports.register = ->
     minutes: (minutes)-> minutes * 60 * 1000
     hours: (hours)-> hours * 60 * 60 * 1000
     days: (days)-> days * 24 * 60 * 60 * 1000
+
     beginningOfDay: (date)->
       new Date(date.toDateString())
 

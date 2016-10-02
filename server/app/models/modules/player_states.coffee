@@ -9,6 +9,7 @@ module.exports =
   _factoriesState: null
   _materialsState: null
   _townMaterialsState: null
+  _placesState: null
 
   stateByType: (type)->
     switch type
@@ -16,6 +17,8 @@ module.exports =
         @.factoriesState()
       when 'properties'
         @.propertiesState()
+      when 'places'
+        @.placesState()
 
   truckingState: ->
     return @_truckingState if @_truckingState?
@@ -104,3 +107,14 @@ module.exports =
     )
 
     @_townMaterialsState
+
+  placesState: ->
+    return @_placesState if @_placesState?
+
+    Object.defineProperty(@, '_placesState'
+      writable: false
+      enumerable: true
+      value: new states.PlacesState(@)
+    )
+
+    @_placesState

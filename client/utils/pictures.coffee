@@ -5,6 +5,7 @@ TransportGroup = gameData.TransportGroup
 TransportModel = gameData.TransportModel
 PropertyType = gameData.PropertyType
 FactoryType = gameData.FactoryType
+PlaceType = gameData.PlaceType
 
 module.exports =
   transportModelPictureUrl: (transportModel, format = 'large')->
@@ -101,21 +102,26 @@ module.exports =
 
     "<img src='#{ @.factoryPictureUrl(factoryType, format) }' #{title} />"
 
-  townPictureUrl: (format = 'large')->
+  placePictureUrl: (placeType, format = 'large')->
+    unless placeType.constructor?.name == 'PlaceType'
+      placeType = PlaceType.find(placeType)
+
     unless format in ['large', 'medium', 'icon']
-      throw new Error('format for town picture url is not correct')
+      throw new Error('format for place picture url is not correct')
 
-    assets.assetsPath("images/town/#{ format }/town.jpg")
+    assets.assetsPath("images/place_types/#{ format }/#{ placeType.key }.jpg")
 
-  townPicture: (town, format = 'large')->
-    title = if town.name?() then "title='#{town.name()}'" else ''
+  placePicture: (placeType, format = 'large')->
+    unless placeType.constructor?.name == 'PlaceType'
+      placeType = PlaceType.find(placeType)
 
-    "<img src='#{ @.townPictureUrl(format) }' #{title} />"
+    title = "title='#{placeType.name()}'"
+
+    "<img src='#{ @.placePictureUrl(placeType, format) }' #{title} />"
 
   objectPicture: (object)->
     switch object.constructor.name
       when 'FactoryType'
         @.factoryPicture(object)
-      else
-        if object.key == 'town'
-          @.townPicture(object)
+      when 'PlaceType'
+        @.placePicture(object)

@@ -1,0 +1,5 @@
+ru:
+  game_data:
+    place_types:
+      town:
+        name: "Город"

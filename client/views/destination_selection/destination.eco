@@ -1,6 +1,6 @@
 <% [destination, resource, currentCount, maxCount] =  @destination %>
 
-<div class="destination" data-resource="<%= if resource == 'town' then resource else JSON.stringify(resource) %>">
+<div class="destination" data-resource="<%= JSON.stringify(resource) %>">
     <div class="picture"><%=@safe @.objectPicture(destination.type()) %></div>
 
     <div class="info">

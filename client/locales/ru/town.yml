@@ -1,6 +1,5 @@
 ru:
   town:
-    name: "Город"
     title: "Город (уровень %{level})"
     trading: "Торговля"
     improvement: "Улучшение"

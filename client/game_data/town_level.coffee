@@ -11,7 +11,7 @@ class TownLevel extends Base
     @.detect((l)-> l.number == number)
 
   isContainMaterial: (materialKey)->
-    materialKey in @materials
+    @materials[materialKey]?
 
   bonusBasicMoney: ->
     settings = ctx.get('settings')

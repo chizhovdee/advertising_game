@@ -89,12 +89,7 @@ class NewTruckingModal extends Modal
         @currentCount = @playerState.getMaterialFor(@resource, @materialKey)
 
   applyDestination: (resource)->
-    @destination = (
-      if resource == 'town'
-        Town
-      else
-        @playerState.findRecordByResource(resource)
-    )
+    @destination = @playerState.findRecordByResource(resource)
 
     @.calculate()
 
@@ -109,7 +104,7 @@ class NewTruckingModal extends Modal
 
   calculate: ->
     if @destination
-      if @destination.key == 'town'
+      if @destination.id == 'town'
         materialData = @destination.getMaterialDataForTrucking(@materialKey)
         current = materialData.currentCount
         max = materialData.maxCount
@@ -200,7 +195,7 @@ class NewTruckingModal extends Modal
       destination: @playerState.getResourceFor(@destination)
       transport_id: @transport.id
       sending_place: @playerState.getResourceFor(@sendingPlace)
-      resource: @materialKey
+      material: @materialKey
       amount: @currentCargo
     )
 

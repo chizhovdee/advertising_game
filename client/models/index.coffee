@@ -7,4 +7,4 @@ module.exports =
   TransportRecord: require('./transport_record')
   TruckingRecord: require('./trucking_record')
   TownMaterialRecord: require('./town_material_record')
-  Town: require('./town')
+  town: require('./town')

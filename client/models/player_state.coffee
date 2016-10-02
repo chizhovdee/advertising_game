@@ -15,6 +15,8 @@ TownMaterialRecord = require('./town_material_record')
 gameData = require('../game_data')
 AdvertisingType = gameData.AdvertisingType
 
+town = require('./town')
+
 
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
@@ -97,6 +99,8 @@ class PlayerState extends Spine.Model
         @.findFactoryRecord(resource.id)
       when 'properties'
         @.findPropertyRecord(resource.id)
+      when 'places'
+        @.findPlaceRecord(resource.id)
 
   # properties
   propertyRecords: ->
@@ -164,7 +168,7 @@ class PlayerState extends Spine.Model
     @_townMaterialRecords ?= (
       result = {}
 
-      for materialTypeKey, data of @trucking
+      for materialTypeKey, data of @townMaterials
         result[materialTypeKey] = new TownMaterialRecord(data)
 
       result
@@ -173,20 +177,25 @@ class PlayerState extends Spine.Model
   findTownMaterialRecord: (materialTypeKey)->
     @.townMaterialRecords()[materialTypeKey]
 
+  # places
+  findPlaceRecord: (id)->
+    switch id
+      when 'town'
+        town
+
   # materials
   getMaterialFor: (resource, materialKey)->
     throw new Error('resource is undefined') unless resource?
 
-    if resource == 'town'
-      @materials.town?[materialKey] || 0
-    else
-      @materials[resource.type][resource.id]?[materialKey] || 0
+    @materials[resource.type][resource.id]?[materialKey] || 0
 
   # common
   getResourceFor: (record)->
     switch record.constructor.name
       when 'FactoryRecord'
         {type: 'factories', id: record.id}
+      when 'PlaceRecord'
+        {type: 'places', id: record.id}
 
 
 module.exports = PlayerState

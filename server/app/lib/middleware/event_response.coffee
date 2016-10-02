@@ -25,6 +25,8 @@ class EventResponse
       accelerate: 'trucking_accelerated'
     town:
       collect_bonus: 'town_bonus_collected'
+      upgrade: 'town_upgraded'
+      accelerate: 'town_accelerated'
 
   events: null
 

@@ -113,6 +113,10 @@ module.exports =
           switch action
             when 'collect_bonus'
               result = town.collectBonus(req.currentPlayer)
+            when 'upgrade'
+              1
+            when 'accelerate'
+              1
 
       res.addEventWithResult([controller, action], result)
 

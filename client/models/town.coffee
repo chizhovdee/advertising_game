@@ -15,6 +15,18 @@ _.assignIn town, {
   level: ->
     TownLevel.findByNumber(@.levelNumber())
 
+  canUpgrade: ->
+    level = @.level()
+
+    return false if _.isEmpty(level.materials)
+
+    resource = ctx.get('playerState').getResourceFor(@)
+
+    for materialKey, maxCount of level.materials
+      return false if maxCount > ctx.get('playerState').getMaterialFor(resource, materialKey)
+
+    true
+
   getMaterialDataForTrucking: (materialKey)->
     playerState = ctx.get('playerState')
     level = @.level()

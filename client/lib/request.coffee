@@ -123,3 +123,9 @@ module.exports =
   # town
   collect_town_bonus: ->
     @.put('town/collect_bonus')
+
+  upgrade_town: ->
+    @.put('town/upgrade')
+
+  accelerate_town: ->
+    @.put('town/accelerate')

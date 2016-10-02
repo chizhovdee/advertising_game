@@ -47,6 +47,8 @@
             </div>
         <% end %>
     </div>
+
+    <button class="upgrade <%= 'disabled' unless @town.canUpgrade() %>"><%= I18n.t('town.upgrade') %></button>
 </div>
 
 <div class="bonus tips">

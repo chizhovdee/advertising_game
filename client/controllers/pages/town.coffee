@@ -16,8 +16,6 @@ class TownPage extends Page
 
     @materialTypes = MaterialType.all()
 
-    console.log @playerState.townMaterialRecords()
-
     super
 
     @.defineData()
@@ -55,10 +53,14 @@ class TownPage extends Page
     @playerState.bind('update', @.onStateUpdated)
 
     request.bind('town_bonus_collected', @.onBonusCollected)
+    request.bind('town_upgraded', @.onUpgraded)
+    request.bind('town_accelerated', @.onAccelerated)
 
     @el.on('click', '.trading .material', @.onTradingMaterialClick)
     @el.on('click', '.improvement .material', @.onImprovementMaterialClick)
     @el.on('click', '.bonus .collect:not(.disabled)', @.onBonusCollectClick)
+    @el.on('click', '.upgrade:not(.disabled)', @.onUpgradeClick)
+    @el.on('click', '.start_upgrade:not(.disabled)', @.onStartUpgradeClick)
 
   unbindEventListeners: ->
     super
@@ -67,10 +69,14 @@ class TownPage extends Page
     @playerState.unbind('update', @.onStateUpdated)
 
     request.unbind('town_bonus_collected', @.onBonusCollected)
+    request.unbind('town_upgraded', @.onUpgraded)
+    request.unbind('town_accelerated', @.onAccelerated)
 
     @el.off('click', '.trading .material', @.onTradingMaterialClick)
     @el.off('click', '.improvement .material', @.onImprovementMaterialClick)
     @el.off('click', '.bonus .collect:not(.disabled)', @.onBonusCollectClick)
+    @el.off('click', '.upgrade:not(.disabled)', @.onUpgradeClick)
+    @el.off('click', '.start_upgrade:not(.disabled)', @.onStartUpgradeClick)
 
   defineData: ->
     console.log @town = @playerState.findPlaceRecord('town')
@@ -125,6 +131,32 @@ class TownPage extends Page
 
     if changes.townMaterials?
       @.render()
+
+  onUpgradeClick: (e)=>
+    @.displayConfirm($(e.currentTarget),
+      button:
+        className: 'start_upgrade'
+      position: 'right bottom'
+    )
+
+  onStartUpgradeClick: (e)=>
+    $(e.currentTarget).addClass('disabled')
+
+    @el.find('.improvement .upgrade').addClass('disabled')
+
+    request.send('upgrade_town')
+
+  onUpgraded: (response)=>
+    @.displayResult(null, response)
+
+    if response.is_error
+      @el.find('.improvement .upgrade').removeClass('disabled')
+
+  onAccelerated: (response)=>
+    @.displayResult(null, response)
+
+    if response.is_error
+      @el.find('.improvement .accelerate').removeClass('disabled')
 
   firstDeliveredMaterial: ->
     for materialKey, record of @playerState.townMaterialRecords()

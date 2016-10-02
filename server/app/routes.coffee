@@ -42,4 +42,6 @@ exports.setup = (app)->
 
     # town
     apiRoutes.put('/town/collect_bonus', controllers.gameApi.update)
+    apiRoutes.put('/town/upgrade', controllers.gameApi.update)
+    apiRoutes.put('/town/accelerate', controllers.gameApi.update)
 

@@ -30,6 +30,9 @@ class Result
     factoryNeedCollect: "factory_need_collect"
 
     townBonusNotAvailable: 'town_bonus_not_available'
+    townIsUpgrading: 'town_is_upgrading'
+    townCanNotUpgrade: 'town_can_not_upgrade'
+    townTruckingIsActive: 'town_trucking_is_active'
 
   errorCode: null
   data: null

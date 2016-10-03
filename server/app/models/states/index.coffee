@@ -8,3 +8,4 @@ module.exports =
   MaterialsState: require('./materials')
   TownMaterialsState: require('./town_materials')
   PlacesState: require('./places')
+  TownState: require('./town')

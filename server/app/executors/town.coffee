@@ -2,31 +2,45 @@ _ = require('lodash')
 lib = require('../lib')
 Result = lib.Result
 Reward = lib.Reward
-TownLevel = require('../game_data').TownLevel
 
 module.exports =
   collectBonus: (player)->
     return new Result(
       error_code: Result.errors.townBonusNotAvailable
-    ) unless @.canCollectBonus(player)
+    ) unless player.townState().canCollectBonus()
 
     reward = new Reward(player)
 
-    reward.giveBasicMoney(@.bonusBasicMoney(player.town_level))
+    reward.giveBasicMoney(player.townState().bonusBasicMoney())
 
-    player.town_bonus_collected_at = new Date()
+    player.townState().collectBonus()
 
     new Result(data: {reward: reward})
 
-  # эти методы определены здесь, потому что, они больше нигде не нужны и чтобы не увеличивать размер game_data объектов
-  bonusBasicMoney: (townLevel)->
-    TownLevel.bonusBasicMoney +
-    TownLevel.bonusBasicMoney * (townLevel - 1) *
-    TownLevel.bonusFactor
+  upgradeTown: (player)->
+    return new Result(
+      error_code: Result.errors.townIsUpgrading
+    ) if player.townState().isUpgrading()
 
-  canCollectBonus: (player)->
-    if player.town_bonus_collected_at?
-      (player.town_bonus_collected_at.valueOf() + TownLevel.bonusDuration) - Date.now() <= 0
+    return new Result(
+      error_code: Result.errors.townCanNotUpgrade
+    ) unless player.townState().canUpgrade()
 
-    else
-      true
+    townResource = player.placesState().resourceFor('town')
+
+    return new Result(
+      error_code: Result.errors.townTruckingIsActive
+    ) if player.truckingState().countByDestination(townResource) > 0
+
+    reward = new Reward(player, townResource)
+
+    for materialTypeKey, value of player.townState().level().materials
+      reward.takeMaterial(materialTypeKey, value)
+
+    player.townState().upgradeTown()
+    player.townMaterialsState().destroyAllRecords() # reset all town materials
+
+    new Result(data: {reward: reward})
+
+  accelerateTown: (player)->
+

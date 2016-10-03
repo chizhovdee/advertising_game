@@ -12,6 +12,7 @@ create TABLE players (
 
   town_level integer not null,
   town_bonus_collected_at timestamp,
+  town_upgrade_at timestamp,
 
   town_materials jsonb,
   trucking jsonb,

@@ -59,6 +59,9 @@ ru:
       advertising_expired: "Срок действия рекламной кампании истек"
       route_can_not_open: "Маршрут не может быть открыт"
       town_bonus_not_available: "Бонус не доступен"
+      town_is_upgrading: "Город улучшается"
+      town_can_not_upgrade: "Нельзья улучшить город"
+      town_trucking_is_active: "Сначала завершите все грузоперевозки в город"
     reward_keys:
       reputation: "Репутация"
       experience: "Опыт"

@@ -76,6 +76,7 @@ class Player extends Base
     locale: @locale
     town_level: @town_level
     town_bonus_collected_at: @town_bonus_collected_at?.valueOf()
+    town_upgrade_at: @town_upgrade_at?.valueOf()
 
 
 module.exports = Player

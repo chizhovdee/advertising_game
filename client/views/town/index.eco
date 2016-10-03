@@ -4,64 +4,20 @@
     <button class="trucking"><%= I18n.t('town.trucking') %></button>
 </div>
 
-<div class="trading">
-    <h3>
-        <%= I18n.t('town.trading') %>
-        <span class="info-icon icon"></span>
-    </h3>
+<% if @town.isUpgrading(): %>
+    <div class="upgrading">
+        <span class="status_info"><%= I18n.t('town.upgrading_label') %></span>
 
-    <div class="trading_info tips">
-        <% if @.isMaterialDeliveredToday(): %>
-          <div class="text"><%= I18n.t('town.daily_limit_reset') %></div>
-
-          <%=@safe @.renderTimer() %>
-
-        <% else: %>
-          <%= I18n.t('town.material_not_delivered') %>
-        <% end %>
+        <%=@safe @.renderTimer(I18n.t('town.upgrading_time')) %>
     </div>
 
-    <div class="materials">
-        <% for materialType in @materialTypes: %>
-          <% cssClass = if materialType.lockedBy(@player.town_level) then 'locked' else '' %>
+    <div class="text tips"><%= I18n.t('town.upgrading_info') %></div>
 
-          <%=@safe @.renderMaterial(materialType.key, cssClass: cssClass) %>
-        <% end %>
-    </div>
-</div>
+<% else: %>
 
-<div class="improvement">
-    <h3>
-        <%= I18n.t('town.improvement') %>
-        <span class="info-icon icon"></span>
-    </h3>
+    <%=@safe @.renderTemplate('town/trading') %>
 
-    <div class="materials">
-        <% for materialKey, value of @townLevel.materials: %>
-            <div class="material_section">
-                <%=@safe @.renderMaterial(materialKey) %>
+    <%=@safe @.renderTemplate('town/improvement') %>
 
-                <div class="progress">
-                    <%=@safe @.progressBar(@.progressForMaterial(materialKey)) %>
-                </div>
-            </div>
-        <% end %>
-    </div>
-
-    <button class="upgrade <%= 'disabled' unless @town.canUpgrade() %>"><%= I18n.t('town.upgrade') %></button>
-</div>
-
-<div class="bonus tips">
-    <%= @.renderRewards @.bonusReward(), (content)-> %>
-      <span class="label"><%= I18n.t('town.bonus') %></span>
-      <%= content %>
-    <% end %>
-
-    <% if @player.canCollectTownBonus(): %>
-      <button class="collect"><%= I18n.t('town.collect') %></button>
-
-    <% else: %>
-
-      <%=@safe @.renderTimer(I18n.t('town.time_to_bonus')) %>
-    <% end %>
-</div>
+    <%=@safe @.renderTemplate('town/bonus') %>
+<% end %>

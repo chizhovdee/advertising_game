@@ -6,6 +6,7 @@ class PlacesState extends BaseState
   defaultState: {
     town: {
       id: 'town'
+      key: 'town'
       placeTypeKey: 'town'
     }
   }

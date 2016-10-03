@@ -78,7 +78,7 @@ module.exports =
 
     reward = new Reward(player, destinationState.resourceFor(destination.id))
 
-    if destination.id == 'town'
+    if destination.key == 'town'
       townLevel = TownLevel.findByNumber(player.town_level)
 
       unless townLevel.isContainMaterial(trucking.materialTypeKey)

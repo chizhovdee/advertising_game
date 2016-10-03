@@ -49,6 +49,14 @@ class BaseState
   update: ->
     @player[@stateName] = @state
 
+  selectRecords: (callback)->
+    result = []
+
+    for id, record of @state
+      result.push record if callback(record)
+
+    result
+
   findRecord: (id)->
     @state[id]
 
@@ -70,6 +78,14 @@ class BaseState
     delete @state[id]
 
     @.addOperation('delete', id)
+
+    @.update()
+
+  destroyAllRecords: ->
+    for id, record of @state
+      delete @state[id]
+
+      @.addOperation('delete', id)
 
     @.update()
 

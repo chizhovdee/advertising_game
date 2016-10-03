@@ -1,0 +1,20 @@
+<div class="improvement">
+    <h3>
+        <%= I18n.t('town.improvement') %>
+        <span class="info-icon icon"></span>
+    </h3>
+
+    <div class="materials">
+        <% for materialKey, value of @townLevel.materials: %>
+        <div class="material_section">
+            <%=@safe @.renderMaterial(materialKey) %>
+
+            <div class="progress">
+                <%=@safe @.progressBar(@.progressForMaterial(materialKey)) %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+
+    <button class="upgrade <%= 'disabled' unless @town.canUpgrade() %>"><%= I18n.t('town.upgrade') %></button>
+</div>

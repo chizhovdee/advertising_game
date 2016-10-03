@@ -114,9 +114,9 @@ module.exports =
             when 'collect_bonus'
               result = town.collectBonus(req.currentPlayer)
             when 'upgrade'
-              1
+              result = town.upgradeTown(req.currentPlayer)
             when 'accelerate'
-              1
+              result = town.accelerateTown(req.currentPlayer)
 
       res.addEventWithResult([controller, action], result)
 

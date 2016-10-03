@@ -10,6 +10,7 @@ module.exports =
   _materialsState: null
   _townMaterialsState: null
   _placesState: null
+  _townState: null
 
   stateByType: (type)->
     switch type
@@ -118,3 +119,14 @@ module.exports =
     )
 
     @_placesState
+
+  townState: ->
+    return @_townState if @_townState?
+
+    Object.defineProperty(@, '_townState'
+      writable: false
+      enumerable: true
+      value: new states.TownState(@)
+    )
+
+    @_townState

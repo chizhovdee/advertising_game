@@ -5,6 +5,14 @@ class TruckingState extends BaseState
   defaultState: {}
   stateName: "trucking"
 
+  selectByDestination: (resource)->
+    @.selectRecords((r)->
+      r.destinationId == resource.id && r.destinationType == resource.type
+    )
+
+  countByDestination: (resource)->
+    @.selectByDestination(resource).length
+
   createTrucking: (data, duration)->
     newId = @.generateId()
     newRecord = {

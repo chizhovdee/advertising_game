@@ -1,4 +1,6 @@
 ctx = require('../context')
+time = require('../utils').time
+
 gameData = require('../game_data')
 MaterialType = gameData.MaterialType
 TownLevel = gameData.TownLevel
@@ -46,6 +48,25 @@ _.assignIn town, {
       {currentCount: currentCount, maxCount: maxCount}
     else
       null
+
+  timeLeftToCollectBonus: ->
+    player = ctx.get('player')
+
+    if player.town_bonus_collected_at?
+      (
+        player.town_bonus_collected_at + ctx.get('settings').townLevel.bonusDuration
+      ) - time.serverTime()
+    else
+      0
+
+  canCollectBonus: ->
+    @.timeLeftToCollectBonus() <= 0
+
+  isUpgrading: ->
+    @.timeLeftToUpgrading() > 0
+
+  timeLeftToUpgrading: ->
+    ctx.get('player').town_upgrade_at - time.serverTime()
 }
 
 module.exports = town

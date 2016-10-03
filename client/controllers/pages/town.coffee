@@ -41,10 +41,15 @@ class TownPage extends Page
       @timers.dailyLimit.setElement($(".trading .timer .value"))
       @timers.dailyLimit.start(record.actualTimeLeftToLimit())
 
-    unless @player.canCollectTownBonus()
+    unless @town.canCollectBonus()
       @timers.bonus ?= new VisualTimer(null, => @.render())
       @timers.bonus.setElement($(".bonus .timer .value"))
-      @timers.bonus.start(@player.timeLeftToCollectTownBonus())
+      @timers.bonus.start(@town.timeLeftToCollectBonus())
+
+    if @town.isUpgrading()
+      @timers.improvement ?= new VisualTimer(null, => @.render())
+      @timers.improvement.setElement($(".upgrading .timer .value"))
+      @timers.improvement.start(@town.timeLeftToUpgrading())
 
   bindEventListeners: ->
     super
@@ -123,13 +128,15 @@ class TownPage extends Page
   onPlayerUpdated: (player)=>
     changes = player.changes()
 
-    if changes.town_bonus_collected_at?
+    if changes.town_level? ||
+       changes.town_upgrade_at? ||
+       changes.town_bonus_collected_at?
       @.render()
 
   onStateUpdated: (playerState)=>
     changes = playerState.changes()
 
-    if changes.townMaterials?
+    if changes.townMaterials? || changes.materials?
       @.render()
 
   onUpgradeClick: (e)=>

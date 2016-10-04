@@ -62,6 +62,7 @@ ru:
       town_is_upgrading: "Город улучшается"
       town_can_not_upgrade: "Нельзья улучшить город"
       town_trucking_is_active: "Сначала завершите все грузоперевозки в город"
+      town_trucking_not_available: "Грузоперевозки в город не возможны"
     reward_keys:
       reputation: "Репутация"
       experience: "Опыт"

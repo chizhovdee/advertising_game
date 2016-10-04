@@ -16,8 +16,6 @@ MaterialType = gameData.MaterialType
 
 module.exports =
   createTrucking: (player, data)->
-    console.log 'DATA', data
-
     dataResult = {}
 
     transport = player.transportState().findRecord(data.transport_id)
@@ -25,6 +23,10 @@ module.exports =
 
     destination = player.stateByType(data.destination.type).findRecord(data.destination.id)
     destinationType = @.findGameDataTypeFor(destination, data.destination.type)
+
+    return new Result(
+      error_code: Result.errors.townTruckingNotAvailable
+    ) if destinationType.key == 'town' && player.townState().isUpgrading()
 
     sendingPlaceState = player.stateByType(data.sending_place.type)
     sendingPlace = sendingPlaceState.findRecord(data.sending_place.id)

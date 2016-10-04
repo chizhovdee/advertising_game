@@ -9,6 +9,8 @@
         <span class="status_info"><%= I18n.t('town.upgrading_label') %></span>
 
         <%=@safe @.renderTimer(I18n.t('town.upgrading_time')) %>
+
+        <span class="accelerate"><%= I18n.t('town.accelerate') %></span>
     </div>
 
     <div class="text tips"><%= I18n.t('town.upgrading_info') %></div>

@@ -9,6 +9,11 @@
     .status_info {
       color: $game_color_red;
     }
+
+    .accelerate {
+      @extend %flat-button;
+      margin-left: 10px;
+    }
   }
 
   .material_popup {

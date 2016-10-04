@@ -1,0 +1,22 @@
+<div class="attributes">
+  <div class="attribute">
+    <span class="label">
+      <%= I18n.t("town.accelerate_upgrading") %>
+    </span>
+  </div>
+
+  <div class="price attribute">
+    <span class="label"><%= I18n.t("common.price") %>:</span>
+    <span class="value">
+      <%=@safe @.renderTemplate('requirements', requirements: @.acceleratePriceRequirement()) %>
+    </span>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="start_accelerate cyan">
+    <%= I18n.t("town.accelerate") %>
+  </button>
+
+  <span class="cancel"><%= I18n.t("common.cancel") %></span>
+</div>

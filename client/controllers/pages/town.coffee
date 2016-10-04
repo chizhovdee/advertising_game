@@ -66,6 +66,8 @@ class TownPage extends Page
     @el.on('click', '.bonus .collect:not(.disabled)', @.onBonusCollectClick)
     @el.on('click', '.upgrade:not(.disabled)', @.onUpgradeClick)
     @el.on('click', '.start_upgrade:not(.disabled)', @.onStartUpgradeClick)
+    @el.on('click', '.accelerate:not(.disabled)', @.onAccelerateClick)
+    @el.on('click', '.start_accelerate:not(.disabled)', @.onStartAccelerateClick)
 
   unbindEventListeners: ->
     super
@@ -82,6 +84,8 @@ class TownPage extends Page
     @el.off('click', '.bonus .collect:not(.disabled)', @.onBonusCollectClick)
     @el.off('click', '.upgrade:not(.disabled)', @.onUpgradeClick)
     @el.off('click', '.start_upgrade:not(.disabled)', @.onStartUpgradeClick)
+    @el.off('click', '.accelerate:not(.disabled)', @.onAccelerateClick)
+    @el.off('click', '.start_accelerate:not(.disabled)', @.onStartAccelerateClick)
 
   defineData: ->
     console.log @town = @playerState.findPlaceRecord('town')
@@ -153,6 +157,20 @@ class TownPage extends Page
 
     request.send('upgrade_town')
 
+  onAccelerateClick: (e)=>
+    @.displayPopup($(e.currentTarget)
+      @.renderTemplate("town/accelerate_popup", town: @town)
+      position: 'left bottom'
+    )
+
+
+  onStartAccelerateClick: (e)=>
+    $(e.currentTarget).addClass('disabled')
+
+    @el.find('.upgrading .accelerate').addClass('disabled')
+
+    request.send('accelerate_town')
+
   onUpgraded: (response)=>
     @.displayResult(null, response)
 
@@ -163,7 +181,7 @@ class TownPage extends Page
     @.displayResult(null, response)
 
     if response.is_error
-      @el.find('.improvement .accelerate').removeClass('disabled')
+      @el.find('.upgrading .accelerate').removeClass('disabled')
 
   firstDeliveredMaterial: ->
     for materialKey, record of @playerState.townMaterialRecords()
@@ -180,5 +198,9 @@ class TownPage extends Page
   bonusReward: ->
     {basic_money: @townLevel.bonusBasicMoney()}
 
+  acceleratePriceRequirement: ->
+    price = balance.acceleratePrice(@town.timeLeftToUpgrading())
+
+    {vip_money: [@.formatNumber(price), @player.vip_money >= price]}
 
 module.exports = TownPage

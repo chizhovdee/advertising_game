@@ -18,6 +18,7 @@ class TownState extends BaseState
   upgradeTown: ->
     @player.town_level += 1
     @player.town_upgrade_at = new Date(Date.now() + @upgradingDuration)
+    @player.town_bonus_collected_at = null # reset bonus
 
     @_level = null
 
@@ -26,6 +27,9 @@ class TownState extends BaseState
 
   isUpgrading: ->
     @player.town_upgrade_at > new Date()
+
+  timeLeftToUpgrading: ->
+    @player.town_upgrade_at.valueOf() - Date.now()
 
   canUpgrade: ->
     return false if _.isEmpty(@.level().materials)

@@ -4,22 +4,24 @@ Base = require("./base")
 class MaterialType extends Base
   @configure publicForClient: true
 
-  level: null
+  townLevel: null # ресурс доступный для продажи в городе
+  sellBasicPrice: null # 1 к 1
 
   constructor: ->
     super
 
-    @level = 1
+    @townLevel = 1
 
   validateOnDefine: ->
-    throw new Error('undefined @level') unless @level?
+    throw new Error('undefined @townLevel') unless @townLevel?
+    throw new Error('undefined @sellBasicPrice') unless @sellBasicPrice?
 
   toJSON: ->
     _.assign(
-      level: @level
+      townLevel: @townLevel
+      sellBasicPrice: @sellBasicPrice
       ,
       super
     )
-
 
 module.exports = MaterialType

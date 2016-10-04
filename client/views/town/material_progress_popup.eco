@@ -1,0 +1,8 @@
+<div class="material_popup">
+    <div class="attributes">
+        <div class="attribute price">
+            <span class="label"><%= I18n.t("town.progress") %></span>
+            <span class="value"><%= @current %> / <%= @max %></span>
+        </div>
+    </div>
+</div>

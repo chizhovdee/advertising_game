@@ -1,0 +1,112 @@
+.page.town {
+  > .controls {
+    text-align: right;
+  }
+
+  .upgrading {
+    margin-top: 15px;
+
+    .status_info {
+      color: $game_color_red;
+    }
+
+    .accelerate {
+      @extend %flat-button;
+      margin-left: 10px;
+    }
+  }
+
+  .material_popup {
+    white-space: nowrap;
+  }
+
+  .trading {
+    .trading_info {
+      .timer, .text {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    .materials {
+      margin-top: 15px;
+
+      .material {
+        &.locked {
+          opacity: 0.5;
+        }
+      }
+
+      .material_popup {
+        .locked_material {
+          color: $game_color_red;
+
+          .text, &:before {
+            display: inline-block;
+            vertical-align: middle;
+          }
+
+          &:before {
+            content: '';
+
+            @include images-sprite(icons/lock);
+          }
+        }
+      }
+    }
+  }
+
+  .improvement {
+    margin-top: 20px;
+
+    .materials {
+      margin-top: 15px;
+      margin-bottom: 20px;
+
+      .material_section {
+        .material, .progress {
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .progress {
+          @include progress-bar(50, 8);
+
+          .progress_bar {
+            border: 1px solid #000;
+          }
+        }
+      }
+    }
+  }
+
+  .bonus {
+    margin-top: 20px;
+    position: relative;
+    height: 35px;
+    line-height: 35px;
+
+    .rewards {
+      .label, .reward {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .label {
+        font-weight: bold;
+      }
+    }
+
+    button.collect {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+
+    .timer {
+      position: absolute;
+      right: 10px;
+      top: 6px;
+    }
+  }
+}

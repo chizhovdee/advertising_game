@@ -11,6 +11,8 @@
       window.offlineSignedParams = '<%= offlineSignedParams %>';
       window.assetsManifest = JSON.parse('<%- JSON.stringify(assetsManifest) %>');
       window.assetsRevision = JSON.parse('<%- JSON.stringify(assetsRevision) %>');
+      window.serverLoadedAt = parseInt('<%= Date.now() %>', 10);
+      window.clientLoadedAt = Date.now();
     </script>
   </head>
 

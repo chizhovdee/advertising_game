@@ -49,6 +49,14 @@ class BaseState
   update: ->
     @player[@stateName] = @state
 
+  selectRecords: (callback)->
+    result = []
+
+    for id, record of @state
+      result.push record if callback(record)
+
+    result
+
   findRecord: (id)->
     @state[id]
 
@@ -73,6 +81,14 @@ class BaseState
 
     @.update()
 
+  destroyAllRecords: ->
+    for id, record of @state
+      delete @state[id]
+
+      @.addOperation('delete', id)
+
+    @.update()
+
   recordToJSON: (record)->
     record = _.clone(record)
     record.loadedAt = Date.now()
@@ -81,5 +97,13 @@ class BaseState
 
   recordsCount: ->
     _.size(@state)
+
+  toJSON: ->
+    state = {}
+
+    for id, record of @state
+      state[id] = @.recordToJSON(record)
+
+    state
 
 module.exports = BaseState

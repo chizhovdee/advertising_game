@@ -123,8 +123,8 @@ class TruckingPage extends Page
 
     request.send("accelerate_trucking", trucking_id: button.data('trucking-id'))
 
-  onStateUpdated: =>
-    console.log changes = @playerState.changes()
+  onStateUpdated: (playerState)=>
+    console.log changes = playerState.changes()
 
     return unless changes.trucking?
 

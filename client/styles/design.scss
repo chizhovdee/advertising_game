@@ -35,6 +35,10 @@ $app_height: 640px;
       height: #{$height}px;
       @include border-radius(10px);
       @include linear-gradient(to top, #b87a00, #f9ff57);
+
+      &.completed {
+        @include linear-gradient(to top, #00b85b, #9cff00);
+      }
     }
   }
 }

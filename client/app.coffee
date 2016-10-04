@@ -7,7 +7,7 @@ PlayerState = require("./models").PlayerState
 preloader = require("./lib/preloader")
 signatureKeeper = require('./lib/signature_keeper')
 layouts = require("./controllers/layouts")
-TruckingPage = require('./controllers/pages').TruckingPage
+TownPage = require('./controllers/pages').TownPage
 modals = require('./controllers/modals')
 ctx = require('./context')
 Timer = require('./lib').Timer
@@ -24,6 +24,21 @@ class App
   infoPopupDuration: _(5).seconds()
 
   constructor: ->
+    console.log 'player', window.currentPlayerData
+    console.log 'state', window.currentPlayerState
+
+    ctx.set("currentPlayerData", window.currentPlayerData)
+    ctx.set('currentPlayerState', window.currentPlayerState)
+
+    window.currentPlayerData = null
+    window.currentPlayerState = null
+
+    ctx.set('serverLoadedAt', window.serverLoadedAt)
+    ctx.set('clientLoadedAt', window.clientLoadedAt)
+
+    window.serverLoadedAt = null
+    window.clientLoadedAt = null
+
     @timers = []
 
     @.setupEventListeners()
@@ -34,7 +49,7 @@ class App
       key = key.split('.')[0]
 
       if key == 'application' ||
-         (key.match(/locales/) && key != "locales_#{ window.currentPlayerData.locale }")
+         (key.match(/locales/) && key != "locales_#{ ctx.get('currentPlayerData').locale }")
         continue
 
       assets.push {id: key, src: "assets/#{ value }"}
@@ -71,9 +86,8 @@ class App
         gameData[_.upperFirst(_.camelCase(key))].populate(value)
 
     # определены в index.html
-    @player = Player.create(window.currentPlayerData)
-    console.log window.currentPlayerState
-    @playerState = PlayerState.create(window.currentPlayerState)
+    @player = Player.create(ctx.get('currentPlayerData'))
+    @playerState = PlayerState.create(ctx.get('currentPlayerState'))
 
     ctx.set("player", @player)
     ctx.set('playerState', @playerState)
@@ -88,7 +102,7 @@ class App
     new layouts.HeaderLayout(el: $("#application .header")).show()
     new layouts.SidebarLayout(el: $("#sidebar")).show()
 
-    TruckingPage.show()
+    TownPage.show()
 
     @.checkPlayerStateStatus()
 

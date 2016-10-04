@@ -119,3 +119,13 @@ module.exports =
 
   buy_fuel: (data)->
     @.put('shop/buy_fuel', data)
+
+  # town
+  collect_town_bonus: ->
+    @.put('town/collect_bonus')
+
+  upgrade_town: ->
+    @.put('town/upgrade')
+
+  accelerate_town: ->
+    @.put('town/accelerate')

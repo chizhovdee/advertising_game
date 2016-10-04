@@ -5,7 +5,10 @@ request = require('../../lib').request
 ctx = require('../../context')
 Pagination = require("../../lib").Pagination
 geometry = require('../../lib').geometry
-FactoryType = require('../../game_data').FactoryType
+gameData = require('../../game_data')
+FactoryType = gameData.FactoryType
+MaterialType = gameData.MaterialType
+TownLevel = gameData.TownLevel
 
 class DestinationSelectionModal extends Modal
   className: 'destination_selection modal'
@@ -51,6 +54,13 @@ class DestinationSelectionModal extends Modal
 
     @currentCount = @playerState.getMaterialFor(@resource, @materialKey)
 
+    # town
+    town = @playerState.findPlaceRecord('town')
+
+    if materialData = town.getMaterialDataForTrucking(@materialKey)
+      @list.push([town, @playerState.getResourceFor(town), materialData.currentCount, materialData.maxCount])
+
+    # factories
     factories = []
 
     for factory in @playerState.factoryRecords()

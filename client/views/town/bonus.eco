@@ -1,0 +1,14 @@
+<div class="bonus tips">
+    <%= @.renderRewards @.bonusReward(), (content)-> %>
+      <span class="label"><%= I18n.t('town.bonus') %></span>
+      <%= content %>
+    <% end %>
+
+    <% if @town.canCollectBonus(): %>
+      <button class="collect"><%= I18n.t('town.collect') %></button>
+
+    <% else: %>
+
+      <%=@safe @.renderTimer(I18n.t('town.time_to_bonus')) %>
+    <% end %>
+</div>

@@ -7,6 +7,9 @@ exports.register = ->
     hours: (hours)-> hours * 60 * 60 * 1000
     days: (days)-> days * 24 * 60 * 60 * 1000
 
+    beginningOfDay: (date)->
+      new Date(date.toDateString())
+
     addUniq: (arr, value)->
       arr.push(value) unless value in arr
 

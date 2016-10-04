@@ -12,6 +12,12 @@
                 <%= "#{currentCount} / #{maxCount}" %>
             </span>
         </div>
+
+        <% if destination.id == 'town' && destination.isUpgrading(): %>
+          <div class="status red">
+              <%= I18n.t('trucking.destination_selection.town_is_upgrading') %>
+          </div>
+        <% end %>
     </div>
 
     <div class="distance">

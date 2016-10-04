@@ -29,6 +29,12 @@ class Result
     factoryCanNotCollect: "factory_can_not_collect"
     factoryNeedCollect: "factory_need_collect"
 
+    townBonusNotAvailable: 'town_bonus_not_available'
+    townIsUpgrading: 'town_is_upgrading'
+    townCanNotUpgrade: 'town_can_not_upgrade'
+    townTruckingIsActive: 'town_trucking_is_active'
+    townTruckingNotAvailable: 'town_trucking_not_available'
+
   errorCode: null
   data: null
   reload: false

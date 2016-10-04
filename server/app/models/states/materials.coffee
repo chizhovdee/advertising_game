@@ -1,10 +1,10 @@
 _ = require('lodash')
 BaseState = require('./base')
-MaterialType = require('../../game_data').MaterialType
 
 class MaterialsState extends BaseState
   defaultState: {
     factories: {}
+    places: {}
   }
 
   stateName: "materials"
@@ -21,7 +21,7 @@ class MaterialsState extends BaseState
 
     @.addOperation(
       'update'
-      _.assignIn(resource, materialTypeKey: materialTypeKey)
+      _.assignIn({}, resource, materialTypeKey: materialTypeKey)
       @state[resource.type][resource.id][materialTypeKey]
     )
 
@@ -37,7 +37,7 @@ class MaterialsState extends BaseState
 
     @.addOperation(
       'update'
-      _.assignIn(resource, materialTypeKey: materialTypeKey)
+      _.assignIn({}, resource, materialTypeKey: materialTypeKey)
       @state[resource.type][resource.id][materialTypeKey]
     )
 

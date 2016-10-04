@@ -1,0 +1,15 @@
+<% if @basicMoney?: %>
+  <% key = 'basic_money' %>
+  <% value = @basicMoney %>
+<% else if @vipMoney: %>
+    <% key = 'vip_money' %>
+    <% value = @vipMoney %>
+<% end %>
+
+<div class="reward <%= key %>">
+    <div class="value hint--bottom hint--no-animate"
+         data-hint='<%= I18n.t("common.reward_keys.#{key}") %>'>
+        <span class="icon"></span>
+        <%= value %>
+    </div>
+</div>

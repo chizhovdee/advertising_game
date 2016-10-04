@@ -1,4 +1,5 @@
 # используется для структурирования одтельных записей в стейте
+time = require('../utils').time
 
 class BaseRecord
   constructor: (attributes)->
@@ -6,6 +7,6 @@ class BaseRecord
       @[attribute] = value
 
   loadedTimeDiff: ->
-    Date.now() - @loadedAt
+    time.serverTime() - @loadedAt
 
 module.exports = BaseRecord

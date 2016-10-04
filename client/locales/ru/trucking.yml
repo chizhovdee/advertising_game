@@ -19,3 +19,4 @@ ru:
     destination_selection:
       title: "Выбор места назначения"
       select: "Выбрать"
+      town_is_upgrading: "Город сейчас улучшается"

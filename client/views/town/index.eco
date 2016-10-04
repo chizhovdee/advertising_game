@@ -1,0 +1,25 @@
+<h1><%= I18n.t('town.title', level: @player.town_level) %></h1>
+
+<div class="controls">
+    <button class="trucking"><%= I18n.t('town.trucking') %></button>
+</div>
+
+<% if @town.isUpgrading(): %>
+    <div class="upgrading">
+        <span class="status_info"><%= I18n.t('town.upgrading_label') %></span>
+
+        <%=@safe @.renderTimer(I18n.t('town.upgrading_time')) %>
+
+        <span class="accelerate"><%= I18n.t('town.accelerate') %></span>
+    </div>
+
+    <div class="text tips"><%= I18n.t('town.upgrading_info') %></div>
+
+<% else: %>
+
+    <%=@safe @.renderTemplate('town/trading') %>
+
+    <%=@safe @.renderTemplate('town/improvement') %>
+
+    <%=@safe @.renderTemplate('town/bonus') %>
+<% end %>

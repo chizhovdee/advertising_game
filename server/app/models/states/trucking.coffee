@@ -5,6 +5,14 @@ class TruckingState extends BaseState
   defaultState: {}
   stateName: "trucking"
 
+  selectByDestination: (resource)->
+    @.selectRecords((r)->
+      r.destinationId == resource.id && r.destinationType == resource.type
+    )
+
+  countByDestination: (resource)->
+    @.selectByDestination(resource).length
+
   createTrucking: (data, duration)->
     newId = @.generateId()
     newRecord = {
@@ -14,7 +22,7 @@ class TruckingState extends BaseState
       sendingPlaceId: data.sendingPlaceId
       destinationType: data.destinationType
       destinationId: data.destinationId
-      resource: data.resource
+      materialTypeKey: data.materialTypeKey
       amount: data.amount
       completeAt: Date.now() + duration
       createdAt: Date.now()
@@ -41,12 +49,5 @@ class TruckingState extends BaseState
 
     record
 
-  toJSON: ->
-    state = {}
-
-    for id, record of @state
-      state[id] = @.recordToJSON(record)
-
-    state
 
 module.exports = TruckingState

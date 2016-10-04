@@ -71,12 +71,5 @@ class PropertiesState extends BaseState
 
     record
 
-  toJSON: ->
-    state = {}
-
-    for id, record of @state
-      state[id] = @.recordToJSON(record)
-
-    state
 
 module.exports = PropertiesState

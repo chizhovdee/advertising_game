@@ -1,0 +1,26 @@
+<div class="material_popup">
+    <% if @materialType.lockedBy(@player.town_level): %>
+      <div class="locked_material">
+          <span class="text">
+              <%= I18n.t("town.locked_material", level: @materialType.townLevel) %>
+          </span>
+      </div>
+
+    <% else: %>
+        <div class="attributes">
+            <div class="attribute price">
+               <span class="label"><%= I18n.t("town.selling_price") %></span>
+               <span class="value"><%=@safe @.renderPrice(basicMoney: @materialType.sellBasicPrice) %></span>
+            </div>
+        </div>
+
+        <div class="attributes">
+            <div class="attribute price">
+                <span class="label"><%= I18n.t("town.daily_limit") %></span>
+                <span class="value">
+                  <%= @townMaterial?.actualValue() || 0 %> / <%= @materialType.limitBy(@player.town_level) %>
+                </span>
+            </div>
+        </div>
+    <% end %>
+</div>

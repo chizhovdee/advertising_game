@@ -5,6 +5,7 @@ balance = require('./lib').balance
 Player = models.Player
 AdvertisingType = gameData.AdvertisingType
 PropertyType = gameData.PropertyType
+TownLevel = gameData.TownLevel
 
 module.exports =
   player:
@@ -19,3 +20,13 @@ module.exports =
     statusFactor: AdvertisingType.statusFactor
     statusLevels: AdvertisingType.statusLevels
     maxDuration: AdvertisingType.maxDuration
+
+  townLevel:
+    bonusDuration: TownLevel.bonusDuration
+    bonusBasicMoney: TownLevel.bonusBasicMoney
+    bonusFactor: TownLevel.bonusFactor
+    basicMaterialLimit: TownLevel.basicMaterialLimit
+    materialLimitFactor: TownLevel.materialLimitFactor
+
+
+

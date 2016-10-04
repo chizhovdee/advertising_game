@@ -6,7 +6,7 @@ module.exports =
     """
     #{labelStr}
     <div class="progress_bar">
-        <div class="percentage" style="width: #{ value }%"></div>
+        <div class="percentage #{ 'completed' if value >= 100 }" style="width: #{ value }%"></div>
     </div>"""
 
   rawFormatNumber: (number, spacer = '&thinsp;')->

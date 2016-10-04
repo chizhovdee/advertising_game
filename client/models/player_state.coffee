@@ -9,10 +9,13 @@ FactoryRecord = require('./factory_record')
 AdvertisingRecord = require('./advertising_record')
 TransportRecord = require('./transport_record')
 TruckingRecord = require('./trucking_record')
+TownMaterialRecord = require('./town_material_record')
 
 # game data
 gameData = require('../game_data')
 AdvertisingType = gameData.AdvertisingType
+
+town = require('./town')
 
 
 class PlayerState extends Spine.Model
@@ -20,7 +23,7 @@ class PlayerState extends Spine.Model
     'trucking', 'truckingUpdatedAt', 'advertising', 'advertisingUpdatedAt',
     'routes', 'routesUpdatedAt', 'transport', 'transportUpdatedAt',
     'properties', 'propertiesUpdatedAt', 'factories', 'factoriesUpdatedAt',
-    'materials', 'materialsUpdateAt'
+    'materials', 'materialsUpdateAt', 'townMaterials', 'townMaterialsUpdatedAt'
 
   @include require('./modules/model_changes')
 
@@ -30,6 +33,7 @@ class PlayerState extends Spine.Model
   _factoryRecords: null
   _transportRecords: null
   _truckingRecords: null
+  _townMaterialRecords: null
 
   create: ->
     for attribute, value of @.attributes()
@@ -47,6 +51,7 @@ class PlayerState extends Spine.Model
     @_factoryRecords = null
     @_transportRecords = null
     @_truckingRecords = null
+    @_townMaterialRecords = null
 
     super
 
@@ -94,6 +99,8 @@ class PlayerState extends Spine.Model
         @.findFactoryRecord(resource.id)
       when 'properties'
         @.findPropertyRecord(resource.id)
+      when 'places'
+        @.findPlaceRecord(resource.id)
 
   # properties
   propertyRecords: ->
@@ -156,6 +163,26 @@ class PlayerState extends Spine.Model
   findTruckingRecord: (id)->
     _.find(@.truckingRecords(), id: id)
 
+  # town materials
+  townMaterialRecords: ->
+    @_townMaterialRecords ?= (
+      result = {}
+
+      for materialTypeKey, data of @townMaterials
+        result[materialTypeKey] = new TownMaterialRecord(data)
+
+      result
+    )
+
+  findTownMaterialRecord: (materialTypeKey)->
+    @.townMaterialRecords()[materialTypeKey]
+
+  # places
+  findPlaceRecord: (id)->
+    switch id
+      when 'town'
+        town
+
   # materials
   getMaterialFor: (resource, materialKey)->
     throw new Error('resource is undefined') unless resource?
@@ -167,6 +194,8 @@ class PlayerState extends Spine.Model
     switch record.constructor.name
       when 'FactoryRecord'
         {type: 'factories', id: record.id}
+      when 'PlaceRecord'
+        {type: 'places', id: record.id}
 
 
 module.exports = PlayerState

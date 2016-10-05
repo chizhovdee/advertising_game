@@ -4,7 +4,6 @@ module.exports =
   _truckingState: null
   _advertisingState: null
   _propertiesState: null
-  _routesState: null
   _transportState: null
   _factoriesState: null
   _materialsState: null
@@ -64,17 +63,6 @@ module.exports =
     )
 
     @_factoriesState
-
-  routesState: ->
-    return @_routesState if @_routesState?
-
-    Object.defineProperty(@, '_routesState'
-      writable: false
-      enumerable: true
-      value: new states.RoutesState(@)
-    )
-
-    @_routesState
 
   transportState: ->
     return @_transportState if @_transportState?

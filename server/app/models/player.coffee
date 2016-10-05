@@ -26,8 +26,8 @@ class Player extends Base
   }
 
   @stateFields: [
-    'trucking', 'advertising', 'properties', 'routes',
-    'transport', 'factories', 'materials', 'townMaterials'
+    'trucking', 'advertising', 'properties', 'townMaterials'
+    'transport', 'factories', 'materials'
   ]
 
   @default: ->
@@ -56,7 +56,6 @@ class Player extends Base
   statesToJson: ->
     advertising: @.advertisingState().toJSON()
     properties: @.propertiesState().toJSON()
-    routes: @.routesState().toJSON()
     transport: @.transportState().toJSON()
     trucking: @.truckingState().toJSON()
     factories: @.factoriesState().toJSON()

@@ -21,9 +21,6 @@ exports.setup = (app)->
     apiRoutes.delete('/advertising/delete', controllers.gameApi.update)
     apiRoutes.put('/advertising/prolong', controllers.gameApi.update)
 
-    # routes
-    apiRoutes.put('/routes/open', controllers.routes.open)
-
     # shop
     apiRoutes.post('/shop/buy_transport', controllers.gameApi.update)
     apiRoutes.put('/shop/buy_fuel', controllers.gameApi.update)

@@ -17,11 +17,10 @@ AdvertisingType = gameData.AdvertisingType
 
 town = require('./town')
 
-
 class PlayerState extends Spine.Model
   @configure "PlayerState", "oldAttributes",
     'trucking', 'truckingUpdatedAt', 'advertising', 'advertisingUpdatedAt',
-    'routes', 'routesUpdatedAt', 'transport', 'transportUpdatedAt',
+    'transport', 'transportUpdatedAt',
     'properties', 'propertiesUpdatedAt', 'factories', 'factoriesUpdatedAt',
     'materials', 'materialsUpdateAt', 'townMaterials', 'townMaterialsUpdatedAt'
 

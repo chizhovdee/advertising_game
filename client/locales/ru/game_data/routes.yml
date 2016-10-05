@@ -1,7 +1,0 @@
-ru:
-  game_data:
-    route_types:
-      auto: "Автомобильные"
-      railway: "Железнодорожные"
-      sea: "Морские"
-      air: "Воздушные"

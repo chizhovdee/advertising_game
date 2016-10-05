@@ -1,6 +1,4 @@
 module.exports =
-  RouteType: require('./route_type')
-  RouteGroup: require('./route_group')
   TransportGroup: require('./transport_group')
   TransportModel: require('./transport_model')
   PropertyType: require('./property_type')

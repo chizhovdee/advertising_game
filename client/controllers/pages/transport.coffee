@@ -4,22 +4,14 @@ modals = require('../modals')
 request = require('../../lib/request')
 ctx = require('../../context')
 
-TransportModel = require('../../game_data').TransportModel
-TransportGroup = require('../../game_data').TransportGroup
-
 class TransportPage extends Page
   className: "transport page"
-
-  PER_PAGE = 3
+  tabs: ['in_garage', 'in_shop', 'in_route']
 
   show: ->
-    @playerState = ctx.get('playerState')
-
     super
 
-    @groupKeys = _.map(TransportGroup.all(), (t)-> t.key)
-
-    @currentGroupKey = 'truck'
+    @currentTab = @tabs[0]
 
     @.defineData()
 
@@ -28,68 +20,31 @@ class TransportPage extends Page
   render: ->
     @html(@.renderTemplate("transport/index"))
 
-  renderList: ->
-    @el.find('.list').html(@.renderTemplate("transport/list"))
 
   bindEventListeners: ->
     super
 
-    @el.on('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
-    @el.on('click', '.switches .switch', @.onSwitchPageClick)
-
-    @el.on('click', '.groups .group:not(.current)', @.onGroupClick)
+    @el.on('click', '.tabs .tab:not(.current)', @.onTabClick)
 
   unbindEventListeners: ->
     super
 
-    @el.off('click', '.list .paginate:not(.disabled)', @.onListPaginateClick)
-    @el.off('click', '.switches .switch', @.onSwitchPageClick)
-
-    @el.off('click', '.groups .group:not(.current)', @.onGroupClick)
+    @el.off('click', '.tabs .tab:not(.current)', @.onTabClick)
 
   defineData: ->
-    @list = []
+    switch @currentTab
+      when 'in_garage'
+        1
 
-    for id, record of @playerState.transport
-      transportModel = TransportModel.find(record.transportModelId)
+  onTabClick: (e)=>
+    tabEl = $(e.currentTarget)
 
-      continue unless transportModel.transportGroupKey == @currentGroupKey
+    @el.find('.tabs .tab').removeClass('current')
 
-      @list.push(_.assignIn({
-        model: transportModel
-      }, record))
+    tabEl.addClass('current')
 
-    @listPagination = new Pagination(PER_PAGE)
-    @paginatedList = @listPagination.paginate(@list, initialize: true)
-
-    @listPagination.setSwitches(@list)
-
-  # events
-  onListPaginateClick: (e)=>
-    @paginatedList = @listPagination.paginate(@list,
-      back: $(e.currentTarget).data('type') == 'back'
-    )
-
-    @.renderList()
-
-  onSwitchPageClick: (e)=>
-    @paginatedList = @listPagination.paginate(@list,
-      start_count: ($(e.currentTarget).data('page') - 1) * @listPagination.per_page
-    )
-
-    @.renderList()
-
-  onGroupClick: (e)=>
-    groupEl = $(e.currentTarget)
-
-    @el.find('.groups .group').removeClass('current')
-    groupEl.addClass('current')
-
-    @currentGroupKey = groupEl.data('group-key')
+    @currentTab = tabEl.data('tab')
 
     @.defineData()
-
-    @.renderList()
-
 
 module.exports = TransportPage

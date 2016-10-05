@@ -1,13 +1,11 @@
-<h1><%= I18n.t('transport.index.title') %></h1>
+<h1><%= I18n.t('transport.title') %></h1>
 
-<div class="groups">
-  <% for groupKey in @groupKeys: %>
-  <div
-      class="group <%= groupKey %> <%= 'current' if @currentGroupKey == groupKey %>"
-      data-group-key="<%= groupKey %>"></div>
+<div class="tabs">
+  <% for tab in @tabs: %>
+    <div class="tab <%= tab %> <%= 'current' if tab == @currentTab %>" data-tab="<%= tab %>">
+      <%= I18n.t("transport.tabs.#{ tab }") %>
+    </div>
   <% end %>
 </div>
 
-<div class="list">
-  <%=@safe @.renderTemplate('transport/list') %>
-</div>
+<div class="tab_content"></div>

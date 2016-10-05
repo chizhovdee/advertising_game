@@ -19,7 +19,7 @@ class Player extends Base
 
     # game attributes
     basic_money: 5000
-    vip_money: 10
+    vip_money: 1000
     experience: 0
   }
 

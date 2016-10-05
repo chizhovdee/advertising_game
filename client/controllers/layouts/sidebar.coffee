@@ -9,6 +9,7 @@ class SidebarLayout extends BaseController
     '.vip_money': 'vipMoneyEl'
     '.experience': 'experienceEl'
     '.level': 'levelEl'
+    '.basic_money': 'basicMoneyEl'
 
   show: ->
     @playerState = ctx.get('playerState')
@@ -47,6 +48,8 @@ class SidebarLayout extends BaseController
       @experienceEl.find(".percentage").css(width: "#{ @player.level_progress_percentage }%")
 
     @levelEl.find('.value').text(@player.level) if changes.level
+
+    @basicMoneyEl.find('.value').text(@player.basic_money) if changes.basic_money?
 
   onPlayerStateUpdate: (playerState)=>
     changes = playerState.changes()

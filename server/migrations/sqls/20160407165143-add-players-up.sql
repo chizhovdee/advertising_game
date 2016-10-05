@@ -6,9 +6,6 @@ create TABLE players (
   experience integer not null,
   basic_money integer not null,
   vip_money integer not null,
-  reputation integer not null,
-
-  fuel integer not null,
 
   town_level integer not null,
   town_bonus_collected_at timestamp,

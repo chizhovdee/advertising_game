@@ -26,17 +26,11 @@ class Requirement
   getValue: (key)->
     @values[key]
 
-  reputation: (value)->
-    @.push('reputation', value)
-
   basicMoney: (value)->
     @.push('basic_money', value)
 
   vipMoney: (value)->
     @.push('vip_money', value)
-
-  fuel: (value)->
-    @.push('fuel', value)
 
   material: (type, value)->
     @values.materials ?= {}
@@ -73,9 +67,6 @@ class Requirement
 
         when 'vip_money'
           reward.takeVipMoney(value * multiplier)
-
-        when 'fuel'
-          reward.takeFuel(value * multiplier)
 
         when 'materials'
           for type, amount of value

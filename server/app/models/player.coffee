@@ -21,8 +21,6 @@ class Player extends Base
     basic_money: 5000
     vip_money: 10
     experience: 0
-    reputation: 0
-    fuel: 100
   }
 
   @stateFields: [
@@ -68,8 +66,6 @@ class Player extends Base
     experience: @experience
     basic_money: @basic_money
     vip_money: @vip_money
-    reputation: @reputation
-    fuel: @fuel
     experience_to_next_level: @.experienceToNextLevel()
     level_progress_percentage: @.levelProgressPercentage()
     locale: @locale

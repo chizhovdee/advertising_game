@@ -60,29 +60,3 @@ module.exports =
     new Result(
       data: dataResult
     )
-
-  buyFuel: (player, amount)->
-    # валидация кол-ва топлива
-    amount = Math.floor(amount)
-    amount = 1 if _.isNaN(amount) || amount < 1
-
-    requirement = new Requirement()
-
-    requirement.basicMoney(balance.fuelBasicPrice() * amount)
-
-    # check money
-    unless requirement.isSatisfiedFor(player)
-      return new Result(
-        error_code: Result.errors.requirementsNotSatisfied
-        data:
-          requirement: requirement.unSatisfiedFor(player)
-      )
-
-    reward = new Reward(player)
-    requirement.apply(reward)
-    reward.giveFuel(amount)
-
-    new Result(
-      data:
-        reward: reward
-    )

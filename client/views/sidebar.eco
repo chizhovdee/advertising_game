@@ -12,6 +12,11 @@
   <span class="add"></span>
 </div>
 
+<div class="basic_money">
+  <span class="value"><%= @player.basic_money %></span>
+</div>
+
+
 <div class="main_menu">
   <div class="menu town"><%= I18n.t("main_menu.town") %></div>
   <div class="menu trucking"><%= I18n.t("main_menu.trucking") %></div>

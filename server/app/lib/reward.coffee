@@ -30,16 +30,12 @@ class Reward
   apply: (reward, multiplier = 1)->
     for key, value of @values
       switch key
-        when 'reputation'
-          reward.giveReputation(value * multiplier)
         when 'basic_money'
           reward.giveBasicMoney(value * multiplier)
         when 'vip_money'
           reward.giveVipMoney(value * multiplier)
         when 'experience'
           reward.giveExperience(value * multiplier)
-        when 'fuel'
-          reward.giveFuel(value * multiplier)
         when 'materials'
           for type, amount of value
             reward.giveMaterial(type, amount * multiplier)
@@ -51,13 +47,6 @@ class Reward
   simpleAttribute: (attribute, value)->
     result = (
       switch attribute
-        when 'reputation'
-          oldValue = @player.reputation
-
-          @player.reputation += value
-
-          @player.reputation - oldValue
-
         when 'basic_money'
           if @player.basic_money + value < 0
             value = value - @player.basic_money
@@ -76,14 +65,6 @@ class Reward
 
         when 'experience'
           @player.experience += value
-
-          value
-
-        when 'fuel'
-          if @player['fuel'] + value < 0
-            value = value - @player['fuel']
-
-          @player['fuel'] += value
 
           value
         else
@@ -106,10 +87,6 @@ class Reward
     return if value < 0
     @.simpleAttribute('experience', value)
 
-  giveReputation: (value)->
-    return if value < 0
-    @.simpleAttribute('reputation', value)
-
   giveBasicMoney: (value)->
     return if value < 0
     @.simpleAttribute('basic_money', value)
@@ -117,10 +94,6 @@ class Reward
   giveVipMoney: (value)->
     return if value < 0
     @.simpleAttribute('vip_money', value)
-
-  giveFuel: (value)->
-    return if value < 0
-    @.simpleAttribute('fuel', value)
 
   # take
   takeBasicMoney: (value)->
@@ -130,11 +103,6 @@ class Reward
   takeVipMoney: (value)->
     return if value < 0
     @.simpleAttribute('vip_money', -value)
-
-  takeFuel: (value)->
-    return if value < 0
-
-    @.simpleAttribute('fuel', -value)
 
   takeMaterial: (type, value)->
     throw new Error('resource is undefined for take material in reward') unless @resource?
@@ -149,9 +117,6 @@ class Reward
 
     @.material(type, -value)
 
-  reputation: (value)->
-    @.push('reputation', value)
-
   basicMoney: (value)->
     @.push('basic_money', value)
 
@@ -160,9 +125,6 @@ class Reward
 
   experience: (value)->
     @.push('experience', value)
-
-  fuel: (value)->
-    @.push('fuel', value)
 
   material: (type, value)->
     @values.materials ?= {}

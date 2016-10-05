@@ -99,7 +99,6 @@ class App
     @.show()
 
   show: ->
-    new layouts.HeaderLayout(el: $("#application .header")).show()
     new layouts.SidebarLayout(el: $("#sidebar")).show()
 
     TownPage.show()

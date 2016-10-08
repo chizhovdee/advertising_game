@@ -1,0 +1,12 @@
+<div class="tabs">
+  <% for tab in @tabs: %>
+    <div class="tab <%= tab %> <%= 'current' if tab == @currentTab %>" data-tab="<%= tab %>">
+      <%= I18n.t("transport.tabs.#{ tab }") %>
+    </div>
+  <% end %>
+</div>
+
+<div class="list">
+  <%=@safe @.renderTemplate('transport_list/list') %>
+</div>
+

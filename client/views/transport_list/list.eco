@@ -1,0 +1,12 @@
+<div class="page">
+  <% if @list.length > 0: %>
+    <% for transport in @paginatedList: %>
+      <%=@safe @.renderTemplate('transport_list/transport', transport: transport) %>
+    <% end %>
+
+  <% else: %>
+    <div class="tips"><%= I18n.t('shop.empty_list') %></div>
+  <% end %>
+</div>
+
+<%=@safe @.renderTemplate('page_switches') %>

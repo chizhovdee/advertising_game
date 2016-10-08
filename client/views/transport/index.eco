@@ -1,11 +1,3 @@
 <h1><%= I18n.t('transport.title') %></h1>
 
-<div class="tabs">
-  <% for tab in @tabs: %>
-    <div class="tab <%= tab %> <%= 'current' if tab == @currentTab %>" data-tab="<%= tab %>">
-      <%= I18n.t("transport.tabs.#{ tab }") %>
-    </div>
-  <% end %>
-</div>
-
-<div class="tab_content"></div>
+<div id="transport"></div>

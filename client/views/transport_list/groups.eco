@@ -1,0 +1,7 @@
+<div class="groups">
+  <% for groupKey in @groupKeys: %>
+    <div
+        class="group <%= groupKey %> <%= 'current' if @currentGroupKey == groupKey %>"
+        data-group-key="<%= groupKey %>"></div>
+  <% end %>
+</div>

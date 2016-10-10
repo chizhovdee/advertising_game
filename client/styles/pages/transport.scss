@@ -1,7 +1,0 @@
-$transport_groups: truck, tractor, trailer, semitrailer;
-
-.page.transport {
-  .tabs {
-    @extend %tabs;
-  }
-}

@@ -6,6 +6,8 @@
   <% end %>
 </div>
 
+<%=@safe @.renderTemplate('transport_list/groups') %>
+
 <div class="list">
   <%=@safe @.renderTemplate('transport_list/list') %>
 </div>

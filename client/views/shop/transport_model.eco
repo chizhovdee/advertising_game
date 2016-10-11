@@ -30,7 +30,7 @@
     </div>
 
     <div class="price">
-      <div class="label"><%= I18n.t("transport.item.price") %></div>
+      <div class="label"><%= I18n.t("transport.item.price") %>:</div>
 
       <%=@safe @.renderTemplate('requirements', requirements: @.basicPriceRequirement(@transportModel)) %>
     </div>

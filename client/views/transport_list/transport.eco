@@ -1,1 +1,60 @@
-<div>1111</div>
+<div class="transport_model" id="transport_model_<%= @model.id %>">
+  <div class="picture"><%=@safe @.transportModelPicture(@model) %></div>
+
+  <% if @currentTab == 'in_shop': %>
+    <div class="price">
+      <div class="label"><%= I18n.t("transport.attributes.price") %></div>
+
+      <%=@safe @.renderTemplate('requirements', requirements: @.basicPriceRequirement(@model)) %>
+    </div>
+  <% end %>
+
+  <div class="info">
+    <div class="name"><%= @model.name() %></div>
+
+    <div class="attributes">
+      <% if @currentTab == 'in_shop': %>
+        <div class="attribute reliability">
+          <div class="att_name"><%= I18n.t("transport.attributes.reliability") %>:</div>
+          <div class="value"><%= @model.reliability %>%</div>
+        </div>
+      <% end %>
+
+      <div class="attribute travel_speed">
+        <div class="att_name"><%= I18n.t("transport.attributes.travel_speed") %>:</div>
+        <div class="value"><%= @model.travelSpeed %></div>
+      </div>
+
+      <div class="attribute carrying">
+        <div class="att_name"><%= I18n.t("transport.attributes.carrying") %>:</div>
+        <div class="value"><%= @model.carrying %></div>
+      </div>
+
+      <div class="attribute goods">
+        <div class="att_name"><%= I18n.t("transport.attributes.goods") %>:</div>
+        <div class="value materials">
+          <% for material in @model.materials: %>
+            <%=@safe @.renderMaterial(material) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <% if @currentTab == 'in_garage': %>
+      <button class="sell"><%= I18n.t("transport.buttons.sell") %></button>
+
+      <% if false: %>
+        <button class="select"><%= I18n.t("transport.buttons.select") %></button>
+      <% end %>
+
+    <% else if @currentTab == 'in_shop': %>
+      <button class="buy" data-model-id="<%= @model.id %>">
+        <%= I18n.t("transport.buttons.buy") %>
+      </button>
+    <% else: %>
+
+    <% end %>
+  </div>
+</div>

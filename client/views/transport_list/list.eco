@@ -1,7 +1,7 @@
 <div class="page">
   <% if @list.length > 0: %>
-    <% for transport in @paginatedList: %>
-      <%=@safe @.renderTemplate('transport_list/transport', transport: transport) %>
+    <% for [model, record] in @paginatedList: %>
+      <%=@safe @.renderTemplate('transport_list/transport', model: model, record: record) %>
     <% end %>
 
   <% else: %>

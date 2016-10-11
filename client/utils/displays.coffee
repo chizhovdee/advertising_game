@@ -30,6 +30,7 @@ module.exports =
         showDuration: 300
         hideDuration: 300
         autoHideDelay: _(5).seconds()
+        arrowColor: "#333"
         position: (options.position || 'right top')
       }, options)
     )
@@ -91,6 +92,7 @@ module.exports =
         hideAnimation: 'fadeOut'
         showDuration: 200
         hideDuration: 200
+        arrowColor: "#333"
       }, options)
     )
 

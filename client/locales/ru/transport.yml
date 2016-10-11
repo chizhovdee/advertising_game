@@ -5,3 +5,13 @@ ru:
       in_route: "В маршруте"
       in_garage: "Гараж"
       in_shop: "Магазин"
+    attributes:
+      reliability: "Надежность"
+      carrying: "Грузоподъемность"
+      travel_speed: "Скорость"
+      goods: "Груз"
+      price: "Цена"
+    buttons:
+      sell: "Продать"
+      select: "Выбрать"
+      buy: "Купить"

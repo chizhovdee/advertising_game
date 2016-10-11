@@ -27,6 +27,8 @@ class EventResponse
       collect_bonus: 'town_bonus_collected'
       upgrade: 'town_upgraded'
       accelerate: 'town_accelerated'
+    transport:
+      purchase: 'transport_purchased'
 
   events: null
 

@@ -6,10 +6,10 @@ class TransportModel extends Base
   transportGroupKey: null
   level: null
   reliability: null # надежность - процент на 10 000 км
-  carrying: null # грузоподъемность тонны
+  carrying: null # грузоподъемность
   travelSpeed: null # средняя скорость перемещения
   basicPrice: null
-  isPrimary: false # параметр для обозначения тягача, тепловозов, всего что само приводится в движение
+  isPrimary: false # параметр для обозначения тягача
   materials: null
 
   @configure(publicForClient: true)

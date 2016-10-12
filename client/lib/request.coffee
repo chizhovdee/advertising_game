@@ -106,19 +106,9 @@ module.exports =
   prolong_advertising: (data)->
     @.put('advertising/prolong', data)
 
-  # routes
-  open_route: (data)->
-    @.put('routes/open', data)
-
-  load_routes: ->
-    @.get('routes')
-
-  # shop
-  buy_transport: (data)->
-    @.post('shop/buy_transport', data)
-
-  buy_fuel: (data)->
-    @.put('shop/buy_fuel', data)
+  # transport
+  purchase_transport: (data)->
+    @.put('transport/purchase', data)
 
   # town
   collect_town_bonus: ->

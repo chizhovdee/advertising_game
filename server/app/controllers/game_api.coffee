@@ -2,7 +2,7 @@ _ = require('lodash')
 executors = require('../executors')
 factories = executors.factories
 properties = executors.properties
-shop = executors.shop
+transport = executors.transport
 advertising = executors.advertising
 trucking = executors.trucking
 town = executors.town
@@ -59,17 +59,12 @@ module.exports =
                 _.toInteger(req.body.property_id)
               )
 
-        when 'shop'
+        when 'transport'
           switch action
-            when 'buy_transport'
-              result = shop.buyTransport(
+            when 'purchase'
+              result = transport.purchaseTransport(
                 req.currentPlayer
                 req.body.transport_model_id
-              )
-            when 'buy_fuel'
-              result = shop.buyFuel(
-                req.currentPlayer
-                _.toInteger(req.body.amount)
               )
 
         when 'advertising'

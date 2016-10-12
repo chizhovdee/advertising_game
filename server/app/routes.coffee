@@ -6,7 +6,6 @@ exports.setup = (app)->
   # home index
   app.get("/", controllers.home.index)
 
-#
   # api routes
   do (apiRoutes = express.Router())->
     app.use("/api/:version", apiRoutes)
@@ -21,8 +20,8 @@ exports.setup = (app)->
     apiRoutes.delete('/advertising/delete', controllers.gameApi.update)
     apiRoutes.put('/advertising/prolong', controllers.gameApi.update)
 
-    # shop
-    apiRoutes.post('/shop/buy_transport', controllers.gameApi.update)
+    # transport
+    apiRoutes.put('/transport/purchase', controllers.gameApi.update)
 
     # trucking
     apiRoutes.post('/trucking/create', controllers.gameApi.update)

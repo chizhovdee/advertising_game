@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-right: 1px solid #000;
+  border-right: 1px solid #ccc;
   height: 640px;
   width: 200px;
 
@@ -15,7 +15,7 @@
 
     .progress_bar {
       @include border-radius(0px);
-      border: 1px solid #000;
+      border: 1px solid #ccc;
 
       .percentage {
         @include border-radius(0px);
@@ -32,7 +32,7 @@
     left: 28px;
     width: 50px;
     height: 25px;
-    border: 1px solid #000;
+    border: 1px solid #ccc;
     @include border-radius(15px);
 
     &:after {
@@ -57,7 +57,7 @@
     left: 30px;
     width: 80px;
     height: 20px;
-    border: 1px solid #000;
+    border: 1px solid #ccc;
     @include border-radius(15px);
 
     &:after {
@@ -89,7 +89,7 @@
     left: 30px;
     width: 120px;
     height: 20px;
-    border: 1px solid #000;
+    border: 1px solid #ccc;
     @include border-radius(15px);
 
     &:after {
@@ -116,7 +116,7 @@
     width: 200px;
 
     .menu {
-      border-top: 1px solid #000;
+      border-top: 1px solid #ccc;
       text-align: center;
       line-height: 35px;
       font-size: 14px;
@@ -128,7 +128,7 @@
       }
 
       &:last-child {
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid #ccc;
       }
     }
   }

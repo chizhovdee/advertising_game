@@ -20,6 +20,7 @@ class BaseController extends Spine.Controller
     super
 
     @player = ctx.get('player')
+    @playerState = ctx.get('playerState')
     @settings = ctx.get('settings')
 
   show: ->

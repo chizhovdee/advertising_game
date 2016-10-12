@@ -12,7 +12,7 @@ PropertyType = require('../game_data').PropertyType
 Player = require('../models').Player
 
 module.exports =
-  buyTransport: (player, transportModelId)->
+  purchaseTransport: (player, transportModelId)->
     dataResult = {
       transport_model_id: transportModelId
     }

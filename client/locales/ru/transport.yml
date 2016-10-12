@@ -1,21 +1,17 @@
 ru:
   transport:
-    index:
-      title: "Транспорт"
-    item:
-      price: "Цена: "
+    title: "Транспорт"
+    tabs:
+      in_route: "В маршруте"
+      in_garage: "Гараж"
+      in_shop: "Магазин"
     attributes:
-      reliability: "Надежность:"
-      carrying: "Грузоподъемность:"
-      travelSpeed: "Скорость:"
-      materials: "Груз:"
-      serviceability: "Исправность:"
+      reliability: "Надежность"
+      carrying: "Грузоподъемность"
+      travel_speed: "Скорость"
+      goods: "Груз"
+      price: "Цена"
     buttons:
-      buy: "Купить"
-    selection:
-      title: "Выбор транспорта"
-      tabs:
-        own: "Гараж"
-        in_route: "В маршруте"
-        shop: "Магазин"
+      sell: "Продать"
       select: "Выбрать"
+      buy: "Купить"

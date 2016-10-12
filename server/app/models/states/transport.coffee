@@ -15,20 +15,7 @@ class TransportState extends BaseState
       serviceability: 100 # исправность %
     }
 
-    @state[newId] = newRecord
-
-    @.addOperation('add', newId, @.recordToJSON(newRecord))
-
-    @.update()
-
-  setTruckingFor: (ids, truckingId)->
-    for id in ids
-      @state[id].truckingId = truckingId
-      @state[id].updatedAt = Date.now()
-
-      @.addOperation('update', id, @.recordToJSON(@state[id]))
-
-    @.update()
+    @.addRecord(newId, newRecord)
 
 
 module.exports = TransportState

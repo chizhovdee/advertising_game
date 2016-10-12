@@ -18,16 +18,16 @@
     text-align: center;
     line-height: 28px;
     font-size: 15px;
-    border: 2px solid #ca9943;
+    border: 1px solid #aaa;
     margin: 0px 5px;
     cursor: pointer;
-    @include linear-gradient(to top, #620000, #b80000);
+    @include linear-gradient(to top, #003e6d, #8ac5ff);
     @include border-radius(5px);
     color: #fff;
 
     &.current {
-      box-shadow: 0px 0px 10px #ca9943;
-      color: #FFFF00;
+      box-shadow: 0px 0px 10px #204450;
+      font-weight: bold;
     }
 
     &.locked {

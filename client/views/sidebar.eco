@@ -23,5 +23,4 @@
   <div class="menu factories"><%= I18n.t("main_menu.factories") %></div>
   <div class="menu properties"><%= I18n.t("main_menu.properties") %></div>
   <div class="menu transport"><%= I18n.t("main_menu.transport") %></div>
-  <div class="menu shop"><%= I18n.t("main_menu.shop") %></div>
 </div>
